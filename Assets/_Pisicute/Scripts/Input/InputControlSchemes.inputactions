@@ -1,0 +1,84 @@
+{
+    "name": "InputControlSchemes",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "4d9cbee1-9c45-4b28-be1c-083af69b2263",
+            "actions": [
+                {
+                    "name": "Select Cell",
+                    "type": "Button",
+                    "id": "27725680-59fe-4e20-8e20-4b1cfdafa150",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "5b9f5b9a-aa4b-4634-820e-a4588d41fa9b",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "K&M",
+                    "action": "Select Cell",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Map Editor",
+            "id": "8032e8b4-1a26-4935-a636-7a479d8ff6e9",
+            "actions": [
+                {
+                    "name": "Select Cell",
+                    "type": "Button",
+                    "id": "2436da03-3ece-40c7-a0bb-c8977bc80718",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "48471669-c13c-4019-8571-d9dd053473f6",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "K&M",
+                    "action": "Select Cell",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "K&M",
+            "bindingGroup": "K&M",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Mouse>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Gamepad",
+            "bindingGroup": "Gamepad",
+            "devices": []
+        }
+    ]
+}
