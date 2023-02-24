@@ -45,20 +45,49 @@ public class HexGrid : MonoBehaviour
         cell.transform.localPosition = position;
         cell.Coordinates = new HexCoordinates(x, z);
         cell.Color = DefaultColor;
+        if (x > 0)
+        {
+            cell.SetNeighbor(HexDirection.W, _cells[i - 1]);
+        }
+        if (z > 0)
+        {
+            if (z % 2 == 0)
+            {
+                cell.SetNeighbor(HexDirection.SE, _cells[i - Width]);
+                if (x > 0)
+                {
+                    cell.SetNeighbor(HexDirection.SW, _cells[i - Width - 1]);
+                }
+            }
+            else
+            {
+                cell.SetNeighbor(HexDirection.SW, _cells[i - Width]);
+                if (x < Width - 1)
+                {
+                    cell.SetNeighbor(HexDirection.SE, _cells[i - Width + 1]);
+                }
+            }
+        }
 
+        // UI labels
         TextMeshProUGUI label = Instantiate(CellLabelPrefab);
         label.rectTransform.SetParent(_gridCanvas.transform, false);
         label.rectTransform.anchoredPosition = new Vector2(position.x, position.z);
         label.text = cell.Coordinates.ToStringOnSeparateLines();
+
+        cell.UiRect = label.rectTransform;
     }
 
-    public void ColorCell(Vector3 position, Color color)
+    public HexCell GetCell(Vector3 position)
     {
         position = transform.InverseTransformPoint(position);
         HexCoordinates coordinates = HexCoordinates.FromPosition(position);
         int index = coordinates.X + coordinates.Z * Width + coordinates.Z / 2;
-        HexCell cell = _cells[index];
-        cell.Color = color;
+        return _cells[index];
+    }
+
+    public void Refresh()
+    {
         _hexMesh.Triangulate(_cells);
     }
 }

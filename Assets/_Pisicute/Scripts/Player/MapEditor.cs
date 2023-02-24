@@ -8,6 +8,7 @@ public class MapEditor : MonoBehaviour
     [SerializeField] private HexGrid _hexGrid;
     [SerializeField] private Color[] _colors;
     private Color _activeColor;
+    private int _activeElevation;
 
     // Start is called before the first frame update
     private void Awake()
@@ -31,12 +32,24 @@ public class MapEditor : MonoBehaviour
         Ray inputRay = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
         if (Physics.Raycast(inputRay, out RaycastHit hit))
         {
-            _hexGrid.ColorCell(hit.point, _activeColor);
+            EditCell(_hexGrid.GetCell(hit.point));
         }
+    }
+
+    private void EditCell(HexCell cell)
+    {
+        cell.Color = _activeColor;
+        cell.Elevation = _activeElevation;
+        _hexGrid.Refresh();
     }
 
     public void SelectColor(int index)
     {
         _activeColor = _colors[index];
+    }
+
+    public void SetElevation(float elevation)
+    {
+        _activeElevation = (int)elevation;
     }
 }
