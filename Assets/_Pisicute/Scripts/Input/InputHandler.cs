@@ -13,12 +13,12 @@ public class InputHandler : ScriptableObject, InputControlSchemes.IPlayerActions
 
     public class PlayerInput
     {
-        public UnityEvent SelectCell = new UnityEvent();
+        public UnityEvent OnSelectCell = new UnityEvent();
     }
 
     public class MapEditorInput
     {
-        public UnityEvent SelectCell = new UnityEvent();
+        public bool IsEditing;
     }
 
     public class CameraInput
@@ -45,7 +45,7 @@ public class InputHandler : ScriptableObject, InputControlSchemes.IPlayerActions
     {
         if (context.performed)
         {
-            Player.SelectCell?.Invoke();
+            Player.OnSelectCell?.Invoke();
         }
     }
     #endregion
@@ -55,7 +55,11 @@ public class InputHandler : ScriptableObject, InputControlSchemes.IPlayerActions
     {
         if (context.performed)
         {
-            MapEditor.SelectCell?.Invoke();
+            MapEditor.IsEditing = true;
+        }
+        else
+        {
+            MapEditor.IsEditing = false;
         }
     }
     #endregion

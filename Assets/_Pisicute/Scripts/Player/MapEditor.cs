@@ -12,30 +12,55 @@ public class MapEditor : MonoBehaviour
     private bool _applyColor;
     private bool _applyElevation;
     private int _brushSize;
+    private OptionalToggle _riverMode;
+    private bool _isDrag;
+    private HexDirection _dragDirection;
+    private HexCell _previousCell;
+
+    enum OptionalToggle
+    {
+        Ignore, Yes, No
+    }
 
     // Start is called before the first frame update
     private void Awake()
     {
-        SelectColor(0);
+        SelectColor(-1);
     }
 
-    private void OnEnable()
+    private void Update()
     {
-        _inputHandler.MapEditor.SelectCell.AddListener(HandleInput);
-    }
-
-    private void OnDisable()
-    {
-        _inputHandler.MapEditor.SelectCell.RemoveListener(HandleInput);
+        if (_inputHandler.MapEditor.IsEditing && !EventSystem.current.IsPointerOverGameObject())
+        {
+            HandleInput();
+        }
+        else
+        {
+            _previousCell = null;
+        }
     }
 
     private void HandleInput()
     {
-        if (EventSystem.current.IsPointerOverGameObject()) return;
         Ray inputRay = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+        Debug.DrawRay(inputRay.origin, inputRay.direction * 100, Color.red);
         if (Physics.Raycast(inputRay, out RaycastHit hit))
         {
-            EditCells(_hexGrid.GetCell(hit.point));
+            HexCell currentCell = _hexGrid.GetCell(hit.point);
+            if (_previousCell && _previousCell != currentCell)
+            {
+                ValidateDrag(currentCell);
+            }
+            else
+            {
+                _isDrag = false;
+            }
+            EditCells(currentCell);
+            _previousCell = currentCell;
+        }
+        else
+        {
+            _previousCell = null;
         }
     }
 
@@ -49,6 +74,18 @@ public class MapEditor : MonoBehaviour
         if (_applyElevation)
         {
             cell.Elevation = _activeElevation;
+        }
+        if (_riverMode == OptionalToggle.No)
+        {
+            cell.RemoveRiver();
+        }
+        else if (_isDrag && _riverMode == OptionalToggle.Yes)
+        {
+            HexCell otherCell = cell.GetNeighbor(_dragDirection.Opposite());
+            if (otherCell)
+            {
+                otherCell.SetOutgoingRiver(_dragDirection);
+            }
         }
     }
 
@@ -73,6 +110,20 @@ public class MapEditor : MonoBehaviour
         }
     }
 
+    private void ValidateDrag(HexCell currentCell)
+    {
+        for (_dragDirection = HexDirection.NE; _dragDirection <= HexDirection.NW; _dragDirection++)
+        {
+            if (_previousCell.GetNeighbor(_dragDirection) == currentCell)
+            {
+                _isDrag = true;
+                return;
+            }
+        }
+        _isDrag = false;
+    }
+
+    #region UI
     public void SelectColor(int index)
     {
         _applyColor = index >= 0;
@@ -101,4 +152,10 @@ public class MapEditor : MonoBehaviour
     {
         _hexGrid.ShowUI(visible);
     }
+
+    public void SetRiverMode(int mode)
+    {
+        _riverMode = (OptionalToggle)mode;
+    }
+    #endregion
 }

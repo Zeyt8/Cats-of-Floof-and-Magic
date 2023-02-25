@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
 [System.Serializable]
 public struct HexCoordinates

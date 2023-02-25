@@ -33,6 +33,37 @@ public class HexGrid : MonoBehaviour
         HexMetrics.NoiseSource = _noiseSource;
     }
 
+    public HexCell GetCell(Vector3 position)
+    {
+        position = transform.InverseTransformPoint(position);
+        HexCoordinates coordinates = HexCoordinates.FromPosition(position);
+        print(coordinates);
+        return GetCell(coordinates);
+    }
+
+    public HexCell GetCell(HexCoordinates coordinates)
+    {
+        int z = coordinates.Z;
+        if (z < 0 || z >= _cellCountZ)
+        {
+            return null;
+        }
+        int x = coordinates.X + z / 2;
+        if (x < 0 || x >= _cellCountX)
+        {
+            return null;
+        }
+        return _cells[x + z * _cellCountX];
+    }
+
+    public void ShowUI(bool visible)
+    {
+        foreach (HexGridChunk t in _chunks)
+        {
+            t.ShowUI(visible);
+        }
+    }
+
     private void CreateChunks()
     {
         _chunks = new HexGridChunk[ChunkCountX * ChunckCountZ];
@@ -68,7 +99,7 @@ public class HexGrid : MonoBehaviour
 
         HexCell cell = _cells[i] = Instantiate(_cellPrefab);
         cell.transform.localPosition = position;
-        cell.Coordinates = new HexCoordinates(x, z);
+        cell.Coordinates = HexCoordinates.FromOffsetCoordinates(x, z);
         cell.Color = _defaultColor;
         if (x > 0)
         {
@@ -115,36 +146,5 @@ public class HexGrid : MonoBehaviour
         int localX = x - chunkX * HexMetrics.ChunkSizeX;
         int localZ = z - chunkZ * HexMetrics.ChunkSizeZ;
         chunk.AddCell(localX + localZ * HexMetrics.ChunkSizeX, cell);
-    }
-
-    public HexCell GetCell(Vector3 position)
-    {
-        position = transform.InverseTransformPoint(position);
-        HexCoordinates coordinates = HexCoordinates.FromPosition(position);
-        int index = coordinates.X + coordinates.Z * _cellCountX + coordinates.Z / 2;
-        return _cells[index];
-    }
-
-    public HexCell GetCell(HexCoordinates coordinates)
-    {
-        int z = coordinates.Z;
-        if (z < 0 || z >= _cellCountZ)
-        {
-            return null;
-        }
-        int x = coordinates.X + z / 2;
-        if (x < 0 || x >= _cellCountX)
-        {
-            return null;
-        }
-        return _cells[x + z * _cellCountX];
-    }
-
-    public void ShowUI(bool visible)
-    {
-        foreach (HexGridChunk t in _chunks)
-        {
-            t.ShowUI(visible);
-        }
     }
 }
