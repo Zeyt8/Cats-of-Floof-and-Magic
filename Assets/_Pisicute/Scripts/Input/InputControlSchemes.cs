@@ -78,6 +78,138 @@ public partial class @InputControlSchemes: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Camera"",
+            ""id"": ""02c3857a-274d-4187-bff6-a8685c354336"",
+            ""actions"": [
+                {
+                    ""name"": ""Camera Pan"",
+                    ""type"": ""Value"",
+                    ""id"": ""e1d9ab21-7b34-41bc-b7cb-c42a711b9053"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Camera Orbit"",
+                    ""type"": ""Button"",
+                    ""id"": ""e2b4ed3d-a459-4379-8d72-029851e6c1e8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Zoom"",
+                    ""type"": ""Value"",
+                    ""id"": ""6b918b82-68c3-46e2-9f65-10ccf9351ff0"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Activate Orbit"",
+                    ""type"": ""Button"",
+                    ""id"": ""64fa5c43-e0fa-408a-982d-a9fa06a37c00"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""23ff6fa7-16f0-4763-a258-ed354d8d9b54"",
+                    ""path"": ""<Mouse>/scroll"",
+                    ""interactions"": """",
+                    ""processors"": ""NormalizeVector2"",
+                    ""groups"": ""K&M"",
+                    ""action"": ""Zoom"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9b48e97f-ca62-4cd9-ac05-95b13f0fea49"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""K&M"",
+                    ""action"": ""Camera Orbit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""c150f9de-20f5-425c-9949-a4aaa0618a2b"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": ""NormalizeVector2"",
+                    ""groups"": """",
+                    ""action"": ""Camera Pan"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""e2e77e3f-68b5-4147-ae0a-c7c5916d4775"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""K&M"",
+                    ""action"": ""Camera Pan"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""bebcf89a-7948-4850-a0ba-fddc57834514"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""K&M"",
+                    ""action"": ""Camera Pan"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""8e9b0e55-d58a-41ff-8a9c-a9946484ae8e"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""K&M"",
+                    ""action"": ""Camera Pan"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""791981fe-dbe6-4762-889b-917bbe75b3e3"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""K&M"",
+                    ""action"": ""Camera Pan"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f614ea3d-d4ce-4217-ad48-5eb9446bd646"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""K&M"",
+                    ""action"": ""Activate Orbit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -110,6 +242,12 @@ public partial class @InputControlSchemes: IInputActionCollection2, IDisposable
         // Map Editor
         m_MapEditor = asset.FindActionMap("Map Editor", throwIfNotFound: true);
         m_MapEditor_SelectCell = m_MapEditor.FindAction("Select Cell", throwIfNotFound: true);
+        // Camera
+        m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
+        m_Camera_CameraPan = m_Camera.FindAction("Camera Pan", throwIfNotFound: true);
+        m_Camera_CameraOrbit = m_Camera.FindAction("Camera Orbit", throwIfNotFound: true);
+        m_Camera_Zoom = m_Camera.FindAction("Zoom", throwIfNotFound: true);
+        m_Camera_ActivateOrbit = m_Camera.FindAction("Activate Orbit", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -259,6 +397,76 @@ public partial class @InputControlSchemes: IInputActionCollection2, IDisposable
         }
     }
     public MapEditorActions @MapEditor => new MapEditorActions(this);
+
+    // Camera
+    private readonly InputActionMap m_Camera;
+    private List<ICameraActions> m_CameraActionsCallbackInterfaces = new List<ICameraActions>();
+    private readonly InputAction m_Camera_CameraPan;
+    private readonly InputAction m_Camera_CameraOrbit;
+    private readonly InputAction m_Camera_Zoom;
+    private readonly InputAction m_Camera_ActivateOrbit;
+    public struct CameraActions
+    {
+        private @InputControlSchemes m_Wrapper;
+        public CameraActions(@InputControlSchemes wrapper) { m_Wrapper = wrapper; }
+        public InputAction @CameraPan => m_Wrapper.m_Camera_CameraPan;
+        public InputAction @CameraOrbit => m_Wrapper.m_Camera_CameraOrbit;
+        public InputAction @Zoom => m_Wrapper.m_Camera_Zoom;
+        public InputAction @ActivateOrbit => m_Wrapper.m_Camera_ActivateOrbit;
+        public InputActionMap Get() { return m_Wrapper.m_Camera; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(CameraActions set) { return set.Get(); }
+        public void AddCallbacks(ICameraActions instance)
+        {
+            if (instance == null || m_Wrapper.m_CameraActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_CameraActionsCallbackInterfaces.Add(instance);
+            @CameraPan.started += instance.OnCameraPan;
+            @CameraPan.performed += instance.OnCameraPan;
+            @CameraPan.canceled += instance.OnCameraPan;
+            @CameraOrbit.started += instance.OnCameraOrbit;
+            @CameraOrbit.performed += instance.OnCameraOrbit;
+            @CameraOrbit.canceled += instance.OnCameraOrbit;
+            @Zoom.started += instance.OnZoom;
+            @Zoom.performed += instance.OnZoom;
+            @Zoom.canceled += instance.OnZoom;
+            @ActivateOrbit.started += instance.OnActivateOrbit;
+            @ActivateOrbit.performed += instance.OnActivateOrbit;
+            @ActivateOrbit.canceled += instance.OnActivateOrbit;
+        }
+
+        private void UnregisterCallbacks(ICameraActions instance)
+        {
+            @CameraPan.started -= instance.OnCameraPan;
+            @CameraPan.performed -= instance.OnCameraPan;
+            @CameraPan.canceled -= instance.OnCameraPan;
+            @CameraOrbit.started -= instance.OnCameraOrbit;
+            @CameraOrbit.performed -= instance.OnCameraOrbit;
+            @CameraOrbit.canceled -= instance.OnCameraOrbit;
+            @Zoom.started -= instance.OnZoom;
+            @Zoom.performed -= instance.OnZoom;
+            @Zoom.canceled -= instance.OnZoom;
+            @ActivateOrbit.started -= instance.OnActivateOrbit;
+            @ActivateOrbit.performed -= instance.OnActivateOrbit;
+            @ActivateOrbit.canceled -= instance.OnActivateOrbit;
+        }
+
+        public void RemoveCallbacks(ICameraActions instance)
+        {
+            if (m_Wrapper.m_CameraActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(ICameraActions instance)
+        {
+            foreach (var item in m_Wrapper.m_CameraActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_CameraActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public CameraActions @Camera => new CameraActions(this);
     private int m_KMSchemeIndex = -1;
     public InputControlScheme KMScheme
     {
@@ -284,5 +492,12 @@ public partial class @InputControlSchemes: IInputActionCollection2, IDisposable
     public interface IMapEditorActions
     {
         void OnSelectCell(InputAction.CallbackContext context);
+    }
+    public interface ICameraActions
+    {
+        void OnCameraPan(InputAction.CallbackContext context);
+        void OnCameraOrbit(InputAction.CallbackContext context);
+        void OnZoom(InputAction.CallbackContext context);
+        void OnActivateOrbit(InputAction.CallbackContext context);
     }
 }
