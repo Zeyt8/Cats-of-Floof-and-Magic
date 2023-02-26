@@ -13,6 +13,7 @@ public class MapEditor : MonoBehaviour
     private bool _applyElevation;
     private int _brushSize;
     private OptionalToggle _riverMode;
+    private OptionalToggle _roadMode;
     private bool _isDrag;
     private HexDirection _dragDirection;
     private HexCell _previousCell;
@@ -79,12 +80,23 @@ public class MapEditor : MonoBehaviour
         {
             cell.RemoveRiver();
         }
-        else if (_isDrag && _riverMode == OptionalToggle.Yes)
+        if (_roadMode == OptionalToggle.No)
+        {
+            cell.RemoveRoads();
+        }
+        if (_isDrag)
         {
             HexCell otherCell = cell.GetNeighbor(_dragDirection.Opposite());
             if (otherCell)
             {
-                otherCell.SetOutgoingRiver(_dragDirection);
+                if (_riverMode == OptionalToggle.Yes)
+                {
+                    otherCell.SetOutgoingRiver(_dragDirection);
+                }
+                if (_roadMode == OptionalToggle.Yes)
+                {
+                    otherCell.AddRoad(_dragDirection);
+                }
             }
         }
     }
@@ -156,6 +168,11 @@ public class MapEditor : MonoBehaviour
     public void SetRiverMode(int mode)
     {
         _riverMode = (OptionalToggle)mode;
+    }
+
+    public void SetRoadMode(int mode)
+    {
+        _roadMode = (OptionalToggle)mode;
     }
     #endregion
 }

@@ -37,7 +37,6 @@ public class HexGrid : MonoBehaviour
     {
         position = transform.InverseTransformPoint(position);
         HexCoordinates coordinates = HexCoordinates.FromPosition(position);
-        print(coordinates);
         return GetCell(coordinates);
     }
 
