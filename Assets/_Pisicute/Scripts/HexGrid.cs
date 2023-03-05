@@ -3,8 +3,9 @@ using UnityEngine;
 
 public class HexGrid : MonoBehaviour
 {
-    public int ChunkCountX = 4;
-    public int ChunckCountZ = 3;
+    [SerializeField] private int _chunkCountX = 4;
+    [SerializeField] private int _chunckCountZ = 3;
+    [SerializeField] private int _seed;
     
     [SerializeField] private HexCell _cellPrefab;
     [SerializeField] private HexGridChunk _chunkPrefab;
@@ -20,9 +21,10 @@ public class HexGrid : MonoBehaviour
     private void Awake()
     {
         HexMetrics.NoiseSource = _noiseSource;
+        HexMetrics.InitializeHashGrid(_seed);
 
-        _cellCountX = ChunkCountX * HexMetrics.ChunkSizeX;
-        _cellCountZ = ChunckCountZ * HexMetrics.ChunkSizeZ;
+        _cellCountX = _chunkCountX * HexMetrics.ChunkSizeX;
+        _cellCountZ = _chunckCountZ * HexMetrics.ChunkSizeZ;
 
         CreateChunks();
         CreateCells();
@@ -30,7 +32,11 @@ public class HexGrid : MonoBehaviour
 
     private void OnEnable()
     {
-        HexMetrics.NoiseSource = _noiseSource;
+        if (!HexMetrics.NoiseSource)
+        {
+            HexMetrics.NoiseSource = _noiseSource;
+            HexMetrics.InitializeHashGrid(_seed);
+        }
     }
 
     public HexCell GetCell(Vector3 position)
@@ -65,11 +71,11 @@ public class HexGrid : MonoBehaviour
 
     private void CreateChunks()
     {
-        _chunks = new HexGridChunk[ChunkCountX * ChunckCountZ];
+        _chunks = new HexGridChunk[_chunkCountX * _chunckCountZ];
 
-        for (int z = 0, i = 0; z < ChunckCountZ; z++)
+        for (int z = 0, i = 0; z < _chunckCountZ; z++)
         {
-            for (int x = 0; x < ChunkCountX; x++)
+            for (int x = 0; x < _chunkCountX; x++)
             {
                 HexGridChunk chunk = _chunks[i++] = Instantiate(_chunkPrefab);
                 chunk.transform.SetParent(transform);
@@ -140,7 +146,7 @@ public class HexGrid : MonoBehaviour
     {
         int chunkX = x / HexMetrics.ChunkSizeX;
         int chunkZ = z / HexMetrics.ChunkSizeZ;
-        HexGridChunk chunk = _chunks[chunkX + chunkZ * ChunkCountX];
+        HexGridChunk chunk = _chunks[chunkX + chunkZ * _chunkCountX];
 
         int localX = x - chunkX * HexMetrics.ChunkSizeX;
         int localZ = z - chunkZ * HexMetrics.ChunkSizeZ;
