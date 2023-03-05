@@ -10,11 +10,11 @@ public class MapEditor : MonoBehaviour
     private Color _activeColor;
     private int _activeElevation;
     private int _activeWaterLevel;
-    private int _activeUrbanLevel, _activeFarmLevel, _activePlantLevel;
+    private int _activeUrbanLevel, _activeFarmLevel, _activePlantLevel, _activeSpecialIndex;
     private bool _applyColor;
     private bool _applyElevation;
     private bool _applyWaterLevel;
-    private bool _applyUrbanLevel, _applyFarmLevel, _applyPlantLevel;
+    private bool _applyUrbanLevel, _applyFarmLevel, _applyPlantLevel, _applySpecialIndex;
     private int _brushSize;
     private OptionalToggle _riverMode;
     private OptionalToggle _roadMode;
@@ -96,6 +96,11 @@ public class MapEditor : MonoBehaviour
         if (_applyPlantLevel)
         {
             cell.PlantLevel = _activePlantLevel;
+        }
+
+        if (_applySpecialIndex)
+        {
+            cell.SpecialIndex = _activeSpecialIndex;
         }
         if (_riverMode == OptionalToggle.No)
         {
@@ -243,6 +248,16 @@ public class MapEditor : MonoBehaviour
     public void SetWalledMode(int mode)
     {
         _walledMode = (OptionalToggle)mode;
+    }
+
+    public void SetApplySpecialIndex(bool toggle)
+    {
+        _applySpecialIndex = toggle;
+    }
+
+    public void SetSpecialIndex(float index)
+    {
+        _activeSpecialIndex = (int)index;
     }
     #endregion
 }
