@@ -1,17 +1,16 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using System.IO;
 
 public class MapEditor : MonoBehaviour
 {
     [SerializeField] private InputHandler _inputHandler;
     [SerializeField] private HexGrid _hexGrid;
-    [SerializeField] private Color[] _colors;
-    private Color _activeColor;
+    private int _activeTerrainTypeIndex;
     private int _activeElevation;
     private int _activeWaterLevel;
     private int _activeUrbanLevel, _activeFarmLevel, _activePlantLevel, _activeSpecialIndex;
-    private bool _applyColor;
     private bool _applyElevation;
     private bool _applyWaterLevel;
     private bool _applyUrbanLevel, _applyFarmLevel, _applyPlantLevel, _applySpecialIndex;
@@ -26,12 +25,6 @@ public class MapEditor : MonoBehaviour
     enum OptionalToggle
     {
         Ignore, Yes, No
-    }
-
-    // Start is called before the first frame update
-    private void Awake()
-    {
-        SelectColor(-1);
     }
 
     private void Update()
@@ -73,9 +66,9 @@ public class MapEditor : MonoBehaviour
     private void EditCell(HexCell cell)
     {
         if (!cell) return;
-        if (_applyColor)
+        if (_activeTerrainTypeIndex >= 0)
         {
-            cell.Color = _activeColor;
+            cell.TerrainTypeIndex = _activeTerrainTypeIndex;
         }
         if (_applyElevation)
         {
@@ -165,14 +158,34 @@ public class MapEditor : MonoBehaviour
         _isDrag = false;
     }
 
-    #region UI
-    public void SelectColor(int index)
+    public void Save()
     {
-        _applyColor = index >= 0;
-        if (_applyColor)
+        string path = Path.Combine(Application.persistentDataPath, "test.map");
+        using BinaryWriter writer = new BinaryWriter(File.Open(path, FileMode.Create));
+        writer.Write(0);
+        _hexGrid.Save(writer);
+    }
+
+    public void Load()
+    {
+        string path = Path.Combine(Application.persistentDataPath, "test.map");
+        using BinaryReader reader = new BinaryReader(File.OpenRead(path));
+        int header = reader.ReadInt32();
+        if (header == 0)
         {
-            _activeColor = _colors[index];
+            _hexGrid.Load(reader);
         }
+        else
+        {
+            Debug.LogWarning("Unknown map format " + header);
+        }
+    }
+
+    #region UI
+
+    public void SetTerrainTypeIndex(int index)
+    {
+        _activeTerrainTypeIndex = index;
     }
 
     public void SetElevation(float elevation)
