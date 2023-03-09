@@ -9,10 +9,12 @@ public class HexMesh : MonoBehaviour
     [SerializeField] private bool _useColors;
     [SerializeField] private bool _useUVCoordinates;
     [SerializeField] private bool _useUV2Coordinates;
+    [SerializeField] private bool _useTerrainTypes;
 
     private Mesh _hexMesh;
     private MeshCollider _meshCollider;
     [NonSerialized] private List<Vector3> _vertices = new List<Vector3>();
+    [NonSerialized] private List<Vector3> _terrainTypes = new List<Vector3>();
     [NonSerialized] private List<Color> _colors = new List<Color>();
     [NonSerialized] private List<int> _triangles = new List<int>();
     [NonSerialized] private List<Vector2> _uvs = new List<Vector2>();
@@ -164,6 +166,21 @@ public class HexMesh : MonoBehaviour
         _uvs2.Add(new Vector2(uMax, vMax));
     }
 
+    public void AddTriangleTerrainTypes(Vector3 types)
+    {
+        _terrainTypes.Add(types);
+        _terrainTypes.Add(types);
+        _terrainTypes.Add(types);
+    }
+
+    public void AddQuadTerrainTypes(Vector3 types)
+    {
+        _terrainTypes.Add(types);
+        _terrainTypes.Add(types);
+        _terrainTypes.Add(types);
+        _terrainTypes.Add(types);
+    }
+
     public void Clear()
     {
         _hexMesh.Clear();
@@ -179,6 +196,10 @@ public class HexMesh : MonoBehaviour
         if (_useUV2Coordinates)
         {
             _uvs2 = ListPool<Vector2>.Get();
+        }
+        if (_useTerrainTypes)
+        {
+            _terrainTypes = ListPool<Vector3>.Get();
         }
         _triangles = ListPool<int>.Get();
     }
@@ -201,6 +222,12 @@ public class HexMesh : MonoBehaviour
         {
             _hexMesh.SetUVs(1, _uvs2);
             ListPool<Vector2>.Add(_uvs2);
+        }
+
+        if (_useTerrainTypes)
+        {
+            _hexMesh.SetUVs(2, _terrainTypes);
+            ListPool<Vector3>.Add(_terrainTypes);
         }
         _hexMesh.SetTriangles(_triangles, 0);
         ListPool<int>.Add(_triangles);

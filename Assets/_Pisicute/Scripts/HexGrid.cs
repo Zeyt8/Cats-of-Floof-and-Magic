@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using TMPro;
 using UnityEngine;
@@ -12,7 +14,6 @@ public class HexGrid : MonoBehaviour, ISaveableObject
     [SerializeField] private HexGridChunk _chunkPrefab;
     [SerializeField] private TextMeshProUGUI _cellLabelPrefab;
     [SerializeField] private Texture2D _noiseSource;
-    [SerializeField] private Color[] _colors;
     private int _chunkCountX;
     private int _chunkCountZ;
     private HexCell[] _cells;
@@ -22,7 +23,6 @@ public class HexGrid : MonoBehaviour, ISaveableObject
     {
         HexMetrics.NoiseSource = _noiseSource;
         HexMetrics.InitializeHashGrid(_seed);
-        HexMetrics.Colors = _colors;
 
         CreateMap(_cellCountX, _cellCountZ);
     }
@@ -33,7 +33,6 @@ public class HexGrid : MonoBehaviour, ISaveableObject
         {
             HexMetrics.NoiseSource = _noiseSource;
             HexMetrics.InitializeHashGrid(_seed);
-            HexMetrics.Colors = _colors;
         }
     }
 
@@ -155,7 +154,6 @@ public class HexGrid : MonoBehaviour, ISaveableObject
         // UI labels
         TextMeshProUGUI label = Instantiate(_cellLabelPrefab);
         label.rectTransform.anchoredPosition = new Vector2(position.x, position.z);
-        label.text = cell.Coordinates.ToStringOnSeparateLines();
 
         cell.UiRect = label.rectTransform;
 
@@ -203,6 +201,54 @@ public class HexGrid : MonoBehaviour, ISaveableObject
         for (int i = 0; i < _chunks.Length; i++)
         {
             _chunks[i].Refresh();
+        }
+    }
+
+    public void FindDistancesTo(HexCell cell)
+    {
+        foreach (HexCell t in _cells)
+        {
+            t.Distance = int.MaxValue;
+        }
+        List<HexCell> frontier = new List<HexCell>();
+        cell.Distance = 0;
+        frontier.Add(cell);
+        while (frontier.Count > 0)
+        {
+            HexCell current = frontier[0];
+            frontier.RemoveAt(0);
+            for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++)
+            {
+                HexCell neighbor = current.GetNeighbor(d);
+                if (neighbor == null || neighbor.IsUnderwater) continue;
+                HexEdgeType edgeType = current.GetEdgeType(neighbor);
+                if (edgeType == HexEdgeType.Cliff) continue;
+                int distance = current.Distance;
+                if (current.HasRoadThroughEdge(d))
+                {
+                    distance += 1;
+                }
+                else if (current.Walled != neighbor.Walled)
+                {
+                    continue;
+                }
+                else
+                {
+                    distance += edgeType == HexEdgeType.Flat ? 5 : 10;
+                    distance += neighbor.UrbanLevel + neighbor.FarmLevel + neighbor.PlantLevel;
+                }
+
+                if (neighbor.Distance == int.MaxValue)
+                {
+                    neighbor.Distance = distance;
+                    frontier.Add(neighbor);
+                }
+                else if (distance < neighbor.Distance)
+                {
+                    neighbor.Distance = distance;
+                }
+                frontier.Sort((x, y) => x.Distance.CompareTo(y.Distance));
+            }
         }
     }
 }

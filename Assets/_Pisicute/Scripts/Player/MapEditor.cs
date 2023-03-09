@@ -2,11 +2,13 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using System.IO;
+using UnityEditorInternal;
 
 public class MapEditor : MonoBehaviour
 {
     [SerializeField] private InputHandler _inputHandler;
     [SerializeField] private HexGrid _hexGrid;
+    [SerializeField] private Material _terrainMaterial;
     private int _activeTerrainTypeIndex;
     private int _activeElevation;
     private int _activeWaterLevel;
@@ -21,10 +23,16 @@ public class MapEditor : MonoBehaviour
     private bool _isDrag;
     private HexDirection _dragDirection;
     private HexCell _previousCell;
+    private bool _editMode;
 
     enum OptionalToggle
     {
         Ignore, Yes, No
+    }
+
+    private void Awake()
+    {
+        _terrainMaterial.DisableKeyword("_SHOW_GRID");
     }
 
     private void Update()
@@ -54,7 +62,14 @@ public class MapEditor : MonoBehaviour
             {
                 _isDrag = false;
             }
-            EditCells(currentCell);
+            if (_editMode)
+            {
+                EditCells(currentCell);
+            }
+            else
+            {
+                _hexGrid.FindDistancesTo(currentCell);
+            }
             _previousCell = currentCell;
         }
         else
@@ -90,7 +105,6 @@ public class MapEditor : MonoBehaviour
         {
             cell.PlantLevel = _activePlantLevel;
         }
-
         if (_applySpecialIndex)
         {
             cell.SpecialIndex = _activeSpecialIndex;
@@ -159,7 +173,6 @@ public class MapEditor : MonoBehaviour
     }
 
     #region UI
-
     public void SetTerrainTypeIndex(int index)
     {
         _activeTerrainTypeIndex = index;
@@ -178,11 +191,6 @@ public class MapEditor : MonoBehaviour
     public void SetBrushSize(float size)
     {
         _brushSize = (int)size;
-    }
-
-    public void ShowUI(bool visible)
-    {
-        _hexGrid.ShowUI(visible);
     }
 
     public void SetRiverMode(int mode)
@@ -248,6 +256,24 @@ public class MapEditor : MonoBehaviour
     public void SetSpecialIndex(float index)
     {
         _activeSpecialIndex = (int)index;
+    }
+
+    public void ShowGrid(bool visible)
+    {
+        if (visible)
+        {
+            _terrainMaterial.EnableKeyword("_SHOW_GRID");
+        }
+        else
+        {
+            _terrainMaterial.DisableKeyword("_SHOW_GRID");
+        }
+    }
+
+    public void SetEditMode(bool toggle)
+    {
+        _editMode = toggle;
+        _hexGrid.ShowUI(!toggle);
     }
     #endregion
 }

@@ -2,6 +2,8 @@ using System.Linq;
 using UnityEngine;
 using System.IO;
 using static UnityEngine.Rendering.DebugUI;
+using TMPro;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class HexCell : MonoBehaviour, ISaveableObject
 {
@@ -19,6 +21,7 @@ public class HexCell : MonoBehaviour, ISaveableObject
     private int _plantLevel;
     private bool _walled;
     private int _specialIndex;
+    private int _distance;
 
     public Vector3 Position => transform.localPosition;
     public int Elevation
@@ -43,7 +46,6 @@ public class HexCell : MonoBehaviour, ISaveableObject
             Refresh();
         }
     }
-    public Color Color => HexMetrics.Colors[_terrainTypeIndex];
     public int TerrainTypeIndex
     {
         get => _terrainTypeIndex;
@@ -130,6 +132,15 @@ public class HexCell : MonoBehaviour, ISaveableObject
         }
     }
     public bool IsSpecial => SpecialIndex > 0;
+    public int Distance
+    {
+        get => _distance;
+        set
+        {
+            _distance = value;
+            UpdateDistanceLabel();
+        }
+    }
 
     public HexCell GetNeighbor(HexDirection direction)
     {
@@ -372,5 +383,11 @@ public class HexCell : MonoBehaviour, ISaveableObject
         {
             _roads[i] = (roadFlags & (1 << i)) != 0;
         }
+    }
+
+    private void UpdateDistanceLabel()
+    {
+        TextMeshProUGUI label = UiRect.GetComponent<TextMeshProUGUI>();
+        label.text = _distance == int.MaxValue ? "" : _distance.ToString();
     }
 }
