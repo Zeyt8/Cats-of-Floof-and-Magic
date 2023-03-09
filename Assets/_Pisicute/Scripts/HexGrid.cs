@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class HexGrid : MonoBehaviour, ISaveableObject
 {
-    [SerializeField] private int _chunkCountX = 4;
-    [SerializeField] private int _chunckCountZ = 3;
+    [SerializeField] private int _cellCountX = 4;
+    [SerializeField] private int _cellCountZ = 3;
     [SerializeField] private int _seed;
     
     [SerializeField] private HexCell _cellPrefab;
@@ -13,8 +13,8 @@ public class HexGrid : MonoBehaviour, ISaveableObject
     [SerializeField] private TextMeshProUGUI _cellLabelPrefab;
     [SerializeField] private Texture2D _noiseSource;
     [SerializeField] private Color[] _colors;
-    private int _cellCountX;
-    private int _cellCountZ;
+    private int _chunkCountX;
+    private int _chunkCountZ;
     private HexCell[] _cells;
     private HexGridChunk[] _chunks;
     
@@ -24,11 +24,7 @@ public class HexGrid : MonoBehaviour, ISaveableObject
         HexMetrics.InitializeHashGrid(_seed);
         HexMetrics.Colors = _colors;
 
-        _cellCountX = _chunkCountX * HexMetrics.ChunkSizeX;
-        _cellCountZ = _chunckCountZ * HexMetrics.ChunkSizeZ;
-
-        CreateChunks();
-        CreateCells();
+        CreateMap(_cellCountX, _cellCountZ);
     }
 
     private void OnEnable()
@@ -39,6 +35,31 @@ public class HexGrid : MonoBehaviour, ISaveableObject
             HexMetrics.InitializeHashGrid(_seed);
             HexMetrics.Colors = _colors;
         }
+    }
+
+    public bool CreateMap(int x, int z)
+    {
+        if (x <= 0 || x % HexMetrics.ChunkSizeX != 0 || z <= 0 || z % HexMetrics.ChunkSizeZ != 0)
+        {
+            Debug.LogError("Unsupported map size.");
+            return false;
+        }
+        if (_chunks != null)
+        {
+            foreach (HexGridChunk t in _chunks)
+            {
+                Destroy(t.gameObject);
+            }
+        }
+        _cellCountX = x;
+        _cellCountZ = z;
+        _chunkCountX = _cellCountX / HexMetrics.ChunkSizeX;
+        _chunkCountZ = _cellCountZ / HexMetrics.ChunkSizeZ;
+
+        CreateChunks();
+        CreateCells();
+
+        return true;
     }
 
     public HexCell GetCell(Vector3 position)
@@ -73,9 +94,9 @@ public class HexGrid : MonoBehaviour, ISaveableObject
 
     private void CreateChunks()
     {
-        _chunks = new HexGridChunk[_chunkCountX * _chunckCountZ];
+        _chunks = new HexGridChunk[_chunkCountX * _chunkCountZ];
 
-        for (int z = 0, i = 0; z < _chunckCountZ; z++)
+        for (int z = 0, i = 0; z < _chunkCountZ; z++)
         {
             for (int x = 0; x < _chunkCountX; x++)
             {
@@ -156,14 +177,25 @@ public class HexGrid : MonoBehaviour, ISaveableObject
 
     public void Save(BinaryWriter writer)
     {
+        writer.Write(_cellCountX);
+        writer.Write(_cellCountZ);
         for (int i = 0; i < _cells.Length; i++)
         {
             _cells[i].Save(writer);
         }
     }
 
-    public void Load(BinaryReader reader)
+    public void Load(BinaryReader reader, int header = -1)
     {
+        int x = reader.ReadInt32();
+        int z = reader.ReadInt32();
+        if (x != _cellCountX || z != _cellCountZ)
+        {
+            if (!CreateMap(x, z))
+            {
+                return;
+            }
+        }
         for (int i = 0; i < _cells.Length; i++)
         {
             _cells[i].Load(reader);

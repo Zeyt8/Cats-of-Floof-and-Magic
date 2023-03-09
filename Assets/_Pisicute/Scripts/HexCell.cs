@@ -333,7 +333,7 @@ public class HexCell : MonoBehaviour, ISaveableObject
         writer.Write((byte)roadFlags);
     }
 
-    public void Load(BinaryReader reader)
+    public void Load(BinaryReader reader, int header = -1)
     {
         _terrainTypeIndex = reader.ReadByte();
         _elevation = reader.ReadByte();
