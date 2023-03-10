@@ -70,21 +70,28 @@ public class MapEditor : MonoBehaviour
             }
             else if (Input.GetKey(KeyCode.LeftShift) && _searchToCell != currentCell)
             {
-                if (_searchFromCell)
+                if (_searchFromCell != currentCell)
                 {
-                    _searchFromCell.DisableHighlight();
-                }
-                _searchFromCell = currentCell;
-                _searchFromCell.EnableHighlight(Color.blue);
-                if (_searchToCell)
-                {
-                    _hexGrid.FindPath(_searchFromCell, _searchToCell);
+                    if (_searchFromCell)
+                    {
+                        _searchFromCell.DisableHighlight();
+                    }
+
+                    _searchFromCell = currentCell;
+                    _searchFromCell.EnableHighlight(Color.blue);
+                    if (_searchToCell)
+                    {
+                        _hexGrid.FindPath(_searchFromCell, _searchToCell, 24);
+                    }
                 }
             }
             else if (_searchFromCell && _searchFromCell != currentCell)
             {
-                _searchToCell = currentCell;
-                _hexGrid.FindPath(_searchFromCell, _searchToCell);
+                if (_searchFromCell != currentCell)
+                {
+                    _searchToCell = currentCell;
+                    _hexGrid.FindPath(_searchFromCell, _searchToCell, 24);
+                }
             }
             _previousCell = currentCell;
         }

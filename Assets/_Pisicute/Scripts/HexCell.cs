@@ -13,6 +13,7 @@ public class HexCell : MonoBehaviour, ISaveableObject
     [NonSerialized] public HexCell PathFrom;
     [NonSerialized] public int SearchHeuristic;
     [NonSerialized] public HexCell NextWithSamePriority;
+    [NonSerialized] public int SearchPhase;
 
     [SerializeField] private HexCell[] _neighbors = new HexCell[6];
     [SerializeField] private bool[] _roads;
@@ -24,7 +25,6 @@ public class HexCell : MonoBehaviour, ISaveableObject
     private int _plantLevel;
     private bool _walled;
     private int _specialIndex;
-    private int _distance;
 
     public Vector3 Position => transform.localPosition;
     public int Elevation
@@ -135,15 +135,8 @@ public class HexCell : MonoBehaviour, ISaveableObject
         }
     }
     public bool IsSpecial => SpecialIndex > 0;
-    public int Distance
-    {
-        get => _distance;
-        set
-        {
-            _distance = value;
-            UpdateDistanceLabel();
-        }
-    }
+    public int Distance { get; set; }
+
     public int SearchPriority => Distance + SearchHeuristic;
 
     public HexCell GetNeighbor(HexDirection direction)
@@ -389,12 +382,6 @@ public class HexCell : MonoBehaviour, ISaveableObject
         }
     }
 
-    private void UpdateDistanceLabel()
-    {
-        TextMeshProUGUI label = UiRect.GetComponent<TextMeshProUGUI>();
-        label.text = _distance == int.MaxValue ? "" : _distance.ToString();
-    }
-
     public void DisableHighlight()
     {
         GameObject highlight = UiRect.GetChild(0).gameObject;
@@ -406,5 +393,11 @@ public class HexCell : MonoBehaviour, ISaveableObject
         Image highlight = UiRect.GetChild(0).GetComponent<Image>();
         highlight.color = color;
         highlight.gameObject.SetActive(true);
+    }
+
+    public void SetLabel(string text)
+    {
+        TextMeshProUGUI label = UiRect.GetComponent<TextMeshProUGUI>();
+        label.text = text;
     }
 }
