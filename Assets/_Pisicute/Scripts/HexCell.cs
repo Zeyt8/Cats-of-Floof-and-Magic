@@ -1,15 +1,18 @@
 using System.Linq;
 using UnityEngine;
 using System.IO;
-using static UnityEngine.Rendering.DebugUI;
 using TMPro;
-using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
+using UnityEngine.UI;
+using System;
 
 public class HexCell : MonoBehaviour, ISaveableObject
 {
     public HexCoordinates Coordinates;
     public RectTransform UiRect;
     public HexGridChunk Chunk;
+    [NonSerialized] public HexCell PathFrom;
+    [NonSerialized] public int SearchHeuristic;
+    [NonSerialized] public HexCell NextWithSamePriority;
 
     [SerializeField] private HexCell[] _neighbors = new HexCell[6];
     [SerializeField] private bool[] _roads;
@@ -141,6 +144,7 @@ public class HexCell : MonoBehaviour, ISaveableObject
             UpdateDistanceLabel();
         }
     }
+    public int SearchPriority => Distance + SearchHeuristic;
 
     public HexCell GetNeighbor(HexDirection direction)
     {
@@ -389,5 +393,18 @@ public class HexCell : MonoBehaviour, ISaveableObject
     {
         TextMeshProUGUI label = UiRect.GetComponent<TextMeshProUGUI>();
         label.text = _distance == int.MaxValue ? "" : _distance.ToString();
+    }
+
+    public void DisableHighlight()
+    {
+        GameObject highlight = UiRect.GetChild(0).gameObject;
+        highlight.SetActive(false);
+    }
+
+    public void EnableHighlight(Color color)
+    {
+        Image highlight = UiRect.GetChild(0).GetComponent<Image>();
+        highlight.color = color;
+        highlight.gameObject.SetActive(true);
     }
 }

@@ -23,6 +23,8 @@ public class MapEditor : MonoBehaviour
     private bool _isDrag;
     private HexDirection _dragDirection;
     private HexCell _previousCell;
+    private HexCell _searchFromCell;
+    private HexCell _searchToCell;
     private bool _editMode;
 
     enum OptionalToggle
@@ -66,9 +68,23 @@ public class MapEditor : MonoBehaviour
             {
                 EditCells(currentCell);
             }
-            else
+            else if (Input.GetKey(KeyCode.LeftShift) && _searchToCell != currentCell)
             {
-                _hexGrid.FindDistancesTo(currentCell);
+                if (_searchFromCell)
+                {
+                    _searchFromCell.DisableHighlight();
+                }
+                _searchFromCell = currentCell;
+                _searchFromCell.EnableHighlight(Color.blue);
+                if (_searchToCell)
+                {
+                    _hexGrid.FindPath(_searchFromCell, _searchToCell);
+                }
+            }
+            else if (_searchFromCell && _searchFromCell != currentCell)
+            {
+                _searchToCell = currentCell;
+                _hexGrid.FindPath(_searchFromCell, _searchToCell);
             }
             _previousCell = currentCell;
         }
