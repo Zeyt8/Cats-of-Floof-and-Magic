@@ -14,6 +14,7 @@ public class HexCell : MonoBehaviour, ISaveableObject
     [NonSerialized] public int SearchHeuristic;
     [NonSerialized] public HexCell NextWithSamePriority;
     [NonSerialized] public int SearchPhase;
+    [NonSerialized] public UnitObject Unit;
 
     [SerializeField] private HexCell[] _neighbors = new HexCell[6];
     [SerializeField] private bool[] _roads;
@@ -282,11 +283,20 @@ public class HexCell : MonoBehaviour, ISaveableObject
                 neighbor.Chunk.Refresh();
             }
         }
+
+        if (Unit)
+        {
+            Unit.ValidateLocation();
+        }
     }
 
     private void RefreshSelfOnly()
     {
         Chunk.Refresh();
+        if (Unit)
+        {
+            Unit.ValidateLocation();
+        }
     }
 
     private void RefreshPosition()
@@ -341,7 +351,7 @@ public class HexCell : MonoBehaviour, ISaveableObject
         writer.Write((byte)roadFlags);
     }
 
-    public void Load(BinaryReader reader, int header = -1)
+    public void Load(BinaryReader reader, int header = -1, HexGrid grid = null)
     {
         _terrainTypeIndex = reader.ReadByte();
         _elevation = reader.ReadByte();

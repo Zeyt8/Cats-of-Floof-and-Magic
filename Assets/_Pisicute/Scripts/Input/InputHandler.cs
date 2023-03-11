@@ -19,6 +19,8 @@ public class InputHandler : ScriptableObject, InputControlSchemes.IPlayerActions
     public class MapEditorInput
     {
         public bool IsEditing;
+        public UnityEvent OnCreateUnit = new UnityEvent();
+        public UnityEvent OnDestroyUnit = new UnityEvent();
     }
 
     public class CameraInput
@@ -48,6 +50,7 @@ public class InputHandler : ScriptableObject, InputControlSchemes.IPlayerActions
             Player.OnSelectCell?.Invoke();
         }
     }
+
     #endregion
 
     #region Map Editor Input
@@ -62,6 +65,17 @@ public class InputHandler : ScriptableObject, InputControlSchemes.IPlayerActions
             MapEditor.IsEditing = false;
         }
     }
+
+    public void OnCreateUnit(InputAction.CallbackContext context)
+    {
+        MapEditor.OnCreateUnit?.Invoke();
+    }
+
+    public void OnDestroyUnit(InputAction.CallbackContext context)
+    {
+        MapEditor.OnDestroyUnit?.Invoke();
+    }
+
     #endregion
 
     #region Camera Input

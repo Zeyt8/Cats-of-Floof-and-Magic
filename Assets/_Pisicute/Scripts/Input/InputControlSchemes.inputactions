@@ -41,6 +41,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Create Unit",
+                    "type": "Button",
+                    "id": "c07e9965-d2fc-4068-b219-9734e34c3171",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Destroy Unit",
+                    "type": "Button",
+                    "id": "f944684b-6d51-4c5c-9ae2-6cbd287cf7aa",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -54,6 +72,50 @@
                     "action": "Select Cell",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a34dca6f-6693-4d1e-a169-a5cb4f2a6f72",
+                    "path": "<Keyboard>/u",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "K&M",
+                    "action": "Create Unit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "One Modifier",
+                    "id": "33940791-1647-4aa8-9b03-c0343956b01f",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Destroy Unit",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "cfecfdf7-46ee-40d7-80e9-1702fd198cf5",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "K&M",
+                    "action": "Destroy Unit",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "17de972d-b36f-4394-9f7e-c7f4b2d1ad7a",
+                    "path": "<Keyboard>/u",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "K&M",
+                    "action": "Destroy Unit",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         },

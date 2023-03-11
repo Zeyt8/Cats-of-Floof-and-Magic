@@ -63,6 +63,24 @@ public partial class @InputControlSchemes: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Create Unit"",
+                    ""type"": ""Button"",
+                    ""id"": ""c07e9965-d2fc-4068-b219-9734e34c3171"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Destroy Unit"",
+                    ""type"": ""Button"",
+                    ""id"": ""f944684b-6d51-4c5c-9ae2-6cbd287cf7aa"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -76,6 +94,50 @@ public partial class @InputControlSchemes: IInputActionCollection2, IDisposable
                     ""action"": ""Select Cell"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a34dca6f-6693-4d1e-a169-a5cb4f2a6f72"",
+                    ""path"": ""<Keyboard>/u"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""K&M"",
+                    ""action"": ""Create Unit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""One Modifier"",
+                    ""id"": ""33940791-1647-4aa8-9b03-c0343956b01f"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Destroy Unit"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""cfecfdf7-46ee-40d7-80e9-1702fd198cf5"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""K&M"",
+                    ""action"": ""Destroy Unit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""17de972d-b36f-4394-9f7e-c7f4b2d1ad7a"",
+                    ""path"": ""<Keyboard>/u"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""K&M"",
+                    ""action"": ""Destroy Unit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         },
@@ -242,6 +304,8 @@ public partial class @InputControlSchemes: IInputActionCollection2, IDisposable
         // Map Editor
         m_MapEditor = asset.FindActionMap("Map Editor", throwIfNotFound: true);
         m_MapEditor_SelectCell = m_MapEditor.FindAction("Select Cell", throwIfNotFound: true);
+        m_MapEditor_CreateUnit = m_MapEditor.FindAction("Create Unit", throwIfNotFound: true);
+        m_MapEditor_DestroyUnit = m_MapEditor.FindAction("Destroy Unit", throwIfNotFound: true);
         // Camera
         m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
         m_Camera_CameraPan = m_Camera.FindAction("Camera Pan", throwIfNotFound: true);
@@ -356,11 +420,15 @@ public partial class @InputControlSchemes: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_MapEditor;
     private List<IMapEditorActions> m_MapEditorActionsCallbackInterfaces = new List<IMapEditorActions>();
     private readonly InputAction m_MapEditor_SelectCell;
+    private readonly InputAction m_MapEditor_CreateUnit;
+    private readonly InputAction m_MapEditor_DestroyUnit;
     public struct MapEditorActions
     {
         private @InputControlSchemes m_Wrapper;
         public MapEditorActions(@InputControlSchemes wrapper) { m_Wrapper = wrapper; }
         public InputAction @SelectCell => m_Wrapper.m_MapEditor_SelectCell;
+        public InputAction @CreateUnit => m_Wrapper.m_MapEditor_CreateUnit;
+        public InputAction @DestroyUnit => m_Wrapper.m_MapEditor_DestroyUnit;
         public InputActionMap Get() { return m_Wrapper.m_MapEditor; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -373,6 +441,12 @@ public partial class @InputControlSchemes: IInputActionCollection2, IDisposable
             @SelectCell.started += instance.OnSelectCell;
             @SelectCell.performed += instance.OnSelectCell;
             @SelectCell.canceled += instance.OnSelectCell;
+            @CreateUnit.started += instance.OnCreateUnit;
+            @CreateUnit.performed += instance.OnCreateUnit;
+            @CreateUnit.canceled += instance.OnCreateUnit;
+            @DestroyUnit.started += instance.OnDestroyUnit;
+            @DestroyUnit.performed += instance.OnDestroyUnit;
+            @DestroyUnit.canceled += instance.OnDestroyUnit;
         }
 
         private void UnregisterCallbacks(IMapEditorActions instance)
@@ -380,6 +454,12 @@ public partial class @InputControlSchemes: IInputActionCollection2, IDisposable
             @SelectCell.started -= instance.OnSelectCell;
             @SelectCell.performed -= instance.OnSelectCell;
             @SelectCell.canceled -= instance.OnSelectCell;
+            @CreateUnit.started -= instance.OnCreateUnit;
+            @CreateUnit.performed -= instance.OnCreateUnit;
+            @CreateUnit.canceled -= instance.OnCreateUnit;
+            @DestroyUnit.started -= instance.OnDestroyUnit;
+            @DestroyUnit.performed -= instance.OnDestroyUnit;
+            @DestroyUnit.canceled -= instance.OnDestroyUnit;
         }
 
         public void RemoveCallbacks(IMapEditorActions instance)
@@ -492,6 +572,8 @@ public partial class @InputControlSchemes: IInputActionCollection2, IDisposable
     public interface IMapEditorActions
     {
         void OnSelectCell(InputAction.CallbackContext context);
+        void OnCreateUnit(InputAction.CallbackContext context);
+        void OnDestroyUnit(InputAction.CallbackContext context);
     }
     public interface ICameraActions
     {

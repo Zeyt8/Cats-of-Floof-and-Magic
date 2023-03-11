@@ -1,8 +1,8 @@
+using System.IO;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 [System.Serializable]
-public struct HexCoordinates
+public struct HexCoordinates : ISaveableObject
 {
     public int X => _x;
     public int Z => _z;
@@ -65,5 +65,23 @@ public struct HexCoordinates
     public string ToStringOnSeparateLines()
     {
         return X + "\n" + Y + "\n" + Z;
+    }
+
+    public void Save(BinaryWriter writer)
+    {
+        writer.Write(X);
+        writer.Write(Z);
+    }
+
+    public void Load(BinaryReader reader, int header = -1, HexGrid grid = null)
+    {
+    }
+
+    public static HexCoordinates Load(BinaryReader reader)
+    {
+        HexCoordinates c;
+        c._x = reader.ReadInt32();
+        c._z = reader.ReadInt32();
+        return c;
     }
 }

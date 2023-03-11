@@ -4,5 +4,5 @@ public interface ISaveableObject
 {
     public void Save(BinaryWriter writer);
 
-    public void Load(BinaryReader reader, int header = -1);
+    public void Load(BinaryReader reader, int header = -1, HexGrid grid = null);
 }

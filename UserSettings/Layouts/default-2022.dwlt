@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 1007
   m_ShowMode: 4
-  m_Title: Project
+  m_Title: Hierarchy
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 104
+  controlID: 43
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -215,8 +215,8 @@ MonoBehaviour:
     y: 0
     width: 1110
     height: 597
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 202, y: 221}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 15}
   m_Panes:
   - {fileID: 15}
@@ -239,7 +239,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: ProjectBrowser
+  m_Name: ConsoleWindow
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
@@ -248,17 +248,17 @@ MonoBehaviour:
     y: 597
     width: 1468
     height: 360
-  m_MinSize: {x: 231, y: 271}
-  m_MaxSize: {x: 10001, y: 10021}
-  m_ActualView: {fileID: 21}
+  m_MinSize: {x: 100, y: 100}
+  m_MaxSize: {x: 4000, y: 4000}
+  m_ActualView: {fileID: 22}
   m_Panes:
   - {fileID: 21}
   - {fileID: 22}
   - {fileID: 23}
   - {fileID: 24}
   - {fileID: 25}
-  m_Selected: 0
-  m_LastSelected: 1
+  m_Selected: 1
+  m_LastSelected: 0
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -1428,8 +1428,8 @@ MonoBehaviour:
     m_SaveData: []
   m_ActionMapsTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: d461af1d
-    m_LastClickedID: 498033108
+    m_SelectedIDs: eca59e5f
+    m_LastClickedID: 1604232684
     m_ExpandedIDs: 00000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -1450,9 +1450,9 @@ MonoBehaviour:
     m_SearchString: 
   m_ActionsTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 8e29ee2f
-    m_LastClickedID: 804137358
-    m_ExpandedIDs: c03032b9326330c3b8dd0ed1d30031d92732a5de27b37c11d461af1deca59e5f
+    m_SelectedIDs: 
+    m_LastClickedID: 0
+    m_ExpandedIDs: c03032b9326330c3c81eb0c5b8dd0ed1d30031d92732a5dedbcc2ceb27b37c11d461af1deca59e5fa94b8b67
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1481,7 +1481,7 @@ MonoBehaviour:
         scroll: {x: 0, y: 0}
       - itemId: 82801685
         selectedIndex: 7
-        scroll: {x: 0, y: 0}
+        scroll: {x: 0, y: 80.5}
       - itemId: 575144393
         selectedIndex: -1
         scroll: {x: 0, y: 0}
@@ -1495,6 +1495,15 @@ MonoBehaviour:
         selectedIndex: -1
         scroll: {x: 0, y: 0}
       - itemId: 697721860
+        selectedIndex: -1
+        scroll: {x: 0, y: 0}
+      - itemId: 1081013944
+        selectedIndex: -1
+        scroll: {x: 0, y: 0}
+      - itemId: 656259478
+        selectedIndex: 0
+        scroll: {x: 0, y: 0}
+      - itemId: -1824404937
         selectedIndex: -1
         scroll: {x: 0, y: 0}
     m_ManualPathEditMode: 0
@@ -1520,12 +1529,40 @@ MonoBehaviour:
       \"type\": \"Button\",\n                    \"id\": \"2436da03-3ece-40c7-a0bb-c8977bc80718\",\n                   
       \"expectedControlType\": \"Button\",\n                    \"processors\": \"\",\n                   
       \"interactions\": \"\",\n                    \"initialStateCheck\": false\n               
+      },\n                {\n                    \"name\": \"Create Unit\",\n                   
+      \"type\": \"Button\",\n                    \"id\": \"c07e9965-d2fc-4068-b219-9734e34c3171\",\n                   
+      \"expectedControlType\": \"Button\",\n                    \"processors\": \"\",\n                   
+      \"interactions\": \"\",\n                    \"initialStateCheck\": false\n               
+      },\n                {\n                    \"name\": \"Destroy Unit\",\n                   
+      \"type\": \"Button\",\n                    \"id\": \"f944684b-6d51-4c5c-9ae2-6cbd287cf7aa\",\n                   
+      \"expectedControlType\": \"Button\",\n                    \"processors\": \"\",\n                   
+      \"interactions\": \"\",\n                    \"initialStateCheck\": false\n               
       }\n            ],\n            \"bindings\": [\n                {\n                   
       \"name\": \"\",\n                    \"id\": \"48471669-c13c-4019-8571-d9dd053473f6\",\n                   
       \"path\": \"<Mouse>/leftButton\",\n                    \"interactions\": \"\",\n                   
       \"processors\": \"\",\n                    \"groups\": \"K&M\",\n                   
       \"action\": \"Select Cell\",\n                    \"isComposite\": false,\n                   
-      \"isPartOfComposite\": false\n                }\n            ]\n        },\n       
+      \"isPartOfComposite\": false\n                },\n                {\n                   
+      \"name\": \"\",\n                    \"id\": \"a34dca6f-6693-4d1e-a169-a5cb4f2a6f72\",\n                   
+      \"path\": \"<Keyboard>/u\",\n                    \"interactions\": \"\",\n                   
+      \"processors\": \"\",\n                    \"groups\": \"K&M\",\n                   
+      \"action\": \"Create Unit\",\n                    \"isComposite\": false,\n                   
+      \"isPartOfComposite\": false\n                },\n                {\n                   
+      \"name\": \"One Modifier\",\n                    \"id\": \"33940791-1647-4aa8-9b03-c0343956b01f\",\n                   
+      \"path\": \"OneModifier\",\n                    \"interactions\": \"\",\n                   
+      \"processors\": \"\",\n                    \"groups\": \"\",\n                   
+      \"action\": \"Destroy Unit\",\n                    \"isComposite\": true,\n                   
+      \"isPartOfComposite\": false\n                },\n                {\n                   
+      \"name\": \"modifier\",\n                    \"id\": \"cfecfdf7-46ee-40d7-80e9-1702fd198cf5\",\n                   
+      \"path\": \"<Keyboard>/shift\",\n                    \"interactions\": \"\",\n                   
+      \"processors\": \"\",\n                    \"groups\": \"K&M\",\n                   
+      \"action\": \"Destroy Unit\",\n                    \"isComposite\": false,\n                   
+      \"isPartOfComposite\": true\n                },\n                {\n                   
+      \"name\": \"binding\",\n                    \"id\": \"17de972d-b36f-4394-9f7e-c7f4b2d1ad7a\",\n                   
+      \"path\": \"<Keyboard>/u\",\n                    \"interactions\": \"\",\n                   
+      \"processors\": \"\",\n                    \"groups\": \"K&M\",\n                   
+      \"action\": \"Destroy Unit\",\n                    \"isComposite\": false,\n                   
+      \"isPartOfComposite\": true\n                }\n            ]\n        },\n       
       {\n            \"name\": \"Camera\",\n            \"id\": \"02c3857a-274d-4187-bff6-a8685c354336\",\n           
       \"actions\": [\n                {\n                    \"name\": \"Camera Pan\",\n                   
       \"type\": \"Value\",\n                    \"id\": \"e1d9ab21-7b34-41bc-b7cb-c42a711b9053\",\n                   
@@ -1658,9 +1695,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: a41d0000
+      m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 0cfbffff
+      m_ExpandedIDs: 0cfbffffa6600000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -2027,9 +2064,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 264.13687, y: 294.10736, z: 4.858273}
+    m_Target: {x: 649.06287, y: 300.11984, z: -1.4503489}
     speed: 2
-    m_Value: {x: 264.13687, y: 294.10736, z: 4.858273}
+    m_Value: {x: 649.06287, y: 300.11984, z: -1.4503489}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -2079,9 +2116,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 244.29483
+    m_Target: 346.70834
     speed: 2
-    m_Value: 244.29483
+    m_Value: 346.70834
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -2099,7 +2136,7 @@ MonoBehaviour:
     m_FarClip: 10000
     m_DynamicClip: 1
     m_OcclusionCulling: 0
-  m_LastSceneViewRotation: {x: -0.08717229, y: 0.89959055, z: -0.21045254, w: -0.3726226}
+  m_LastSceneViewRotation: {x: -0.13030043, y: -0.04549544, z: 0.005985238, w: -0.9904134}
   m_LastSceneViewOrtho: 0
   m_ReplacementShader: {fileID: 0}
   m_ReplacementString: 
@@ -2458,22 +2495,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/_Pisicute/Scripts
+    - Assets/_Pisicute/Prefabs
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/_Pisicute/Scripts
+  - Assets/_Pisicute/Prefabs
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\programare\Projects\Jocuri Unity\Pisicute
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 53}
-    m_SelectedIDs: 20660000
-    m_LastClickedID: 26144
+    scrollPos: {x: 0, y: 81}
+    m_SelectedIDs: 46660000
+    m_LastClickedID: 26182
     m_ExpandedIDs: 00000000186600001a6600001c6600001e66000020660000226600002466000026660000286600002a6600002c66000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -2628,7 +2665,7 @@ MonoBehaviour:
     m_SaveData: []
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: 24162
+  m_LastSelectedObjectID: 25104
 --- !u!114 &24
 MonoBehaviour:
   m_ObjectHideFlags: 52
