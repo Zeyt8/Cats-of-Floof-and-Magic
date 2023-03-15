@@ -36,15 +36,6 @@ public class HexGrid : MonoBehaviour, ISaveableObject
         CreateMap(_cellCountX, _cellCountZ);
     }
 
-    private void OnEnable()
-    {
-        if (!HexMetrics.NoiseSource)
-        {
-            HexMetrics.NoiseSource = _noiseSource;
-            HexMetrics.InitializeHashGrid(_seed);
-        }
-    }
-
     public bool CreateMap(int x, int z)
     {
         if (x <= 0 || x % HexMetrics.ChunkSizeX != 0 || z <= 0 || z % HexMetrics.ChunkSizeZ != 0)
@@ -278,7 +269,7 @@ public class HexGrid : MonoBehaviour, ISaveableObject
             {
                 return true;
             }
-            int currentTurn = current.Distance / speed;
+            int currentTurn = (current.Distance - 1) / speed;
             for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++)
             {
                 HexCell neighbor = current.GetNeighbor(d);
@@ -301,7 +292,7 @@ public class HexGrid : MonoBehaviour, ISaveableObject
                 }
 
                 int distance = current.Distance + moveCost;
-                int turn = distance / speed;
+                int turn = (distance - 1) / speed;
                 if (turn > currentTurn)
                 {
                     distance = turn * speed + moveCost;
@@ -334,7 +325,7 @@ public class HexGrid : MonoBehaviour, ISaveableObject
             HexCell current = _currentPathTo;
             while (current != _currentPathFrom)
             {
-                int turn = current.Distance / speed;
+                int turn = (current.Distance - 1) / speed;
                 current.SetLabel(turn.ToString());
                 current.EnableHighlight(Color.white);
                 current = current.PathFrom;
@@ -373,5 +364,21 @@ public class HexGrid : MonoBehaviour, ISaveableObject
             u.Die();
         }
         _units.Clear();
+    }
+
+    public List<HexCell> GetPath()
+    {
+        if (!_currentPathExists)
+        {
+            return null;
+        }
+        List<HexCell> path = ListPool<HexCell>.Get();
+        for (HexCell c = _currentPathTo; c != _currentPathFrom; c = c.PathFrom)
+        {
+            path.Add(c);
+        }
+        path.Add(_currentPathFrom);
+        path.Reverse();
+        return path;
     }
 }
