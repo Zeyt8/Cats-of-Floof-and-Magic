@@ -73,7 +73,7 @@ public struct HexCoordinates : ISaveableObject
         writer.Write(Z);
     }
 
-    public void Load(BinaryReader reader, int header = -1, HexGrid grid = null)
+    public void Load(BinaryReader reader, int header, HexGrid grid = null)
     {
     }
 

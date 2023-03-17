@@ -2,11 +2,11 @@ using System;
 using System.IO;
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using static UnityEngine.UI.CanvasScaler;
 
 public class SaveLoadMenu : MonoBehaviour
 {
+    private const int MapFileVersion = 1;
+
     [SerializeField] private HexGrid _hexGrid;
     [SerializeField] private TextMeshProUGUI _menuLabel;
     [SerializeField] private TextMeshProUGUI _actionButtonLabel;
@@ -75,7 +75,7 @@ public class SaveLoadMenu : MonoBehaviour
     private void Save(string path)
     {
         using BinaryWriter writer = new BinaryWriter(File.Open(path, FileMode.Create));
-        writer.Write(1);
+        writer.Write(MapFileVersion);
         _hexGrid.Save(writer);
     }
 
@@ -88,7 +88,7 @@ public class SaveLoadMenu : MonoBehaviour
         }
         using BinaryReader reader = new BinaryReader(File.OpenRead(path));
         int header = reader.ReadInt32();
-        if (header == 1)
+        if (header == MapFileVersion)
         {
             _hexGrid.Load(reader, header);
         }

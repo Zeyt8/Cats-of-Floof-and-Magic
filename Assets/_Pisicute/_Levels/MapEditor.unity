@@ -1974,8 +1974,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
-  m_LocalRotation: {x: 0.5689985, y: 0.01835666, z: -0.012706159, w: 0.82203543}
-  m_LocalPosition: {x: -2.043613, y: 121.6724, z: -45.73502}
+  m_LocalRotation: {x: 0.53763545, y: 0.0511161, z: -0.032677874, w: 0.840992}
+  m_LocalPosition: {x: -7.11743, y: 127.0686, z: -58.33376}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6937,6 +6937,7 @@ GameObject:
   m_Component:
   - component: {fileID: 967716811}
   - component: {fileID: 967716812}
+  - component: {fileID: 967716813}
   m_Layer: 0
   m_Name: Hex Grid
   m_TagString: Untagged
@@ -6983,6 +6984,18 @@ MonoBehaviour:
   _cellLabelPrefab: {fileID: 5068088112184473218, guid: 27f410c931306e94bb89435839db4c57,
     type: 3}
   _noiseSource: {fileID: 2800000, guid: a9662976c7c7a6b4b9cafa481c5d0688, type: 3}
+--- !u!114 &967716813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 967716810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20023c2e63176b746ade22caf78406e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &968321734
 GameObject:
   m_ObjectHideFlags: 0
@@ -11135,8 +11148,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1521285264}
-  m_LocalRotation: {x: 0.5689985, y: 0.01835666, z: -0.012706159, w: 0.82203543}
-  m_LocalPosition: {x: -2.043613, y: 121.6724, z: -45.73502}
+  m_LocalRotation: {x: 0.53763545, y: 0.0511161, z: -0.032677874, w: 0.840992}
+  m_LocalPosition: {x: -7.11743, y: 127.0686, z: -58.33376}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -14958,7 +14971,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 1
-  m_FollowOffset: {x: -2.043613, y: 121.6724, z: -45.73502}
+  m_FollowOffset: {x: -7.11743, y: 127.0686, z: -58.33376}
   m_XDamping: 0.5
   m_YDamping: 0.5
   m_ZDamping: 0.5

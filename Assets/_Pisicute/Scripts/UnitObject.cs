@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -5,6 +6,9 @@ using UnityEngine;
 
 public class UnitObject : MonoBehaviour, ISaveableObject
 {
+    public int Speed = 24;
+    [NonSerialized] public HexGrid Grid;
+    [SerializeField] private int _visionRange = 3;
     private const float TravelSpeed = 4f;
     private const float RotationSpeed = 180f;
 
@@ -18,10 +22,12 @@ public class UnitObject : MonoBehaviour, ISaveableObject
         {
             if (_location)
             {
+                Grid.DecreaseVisibility(_location, _visionRange);
                 _location.Unit = null;
             }
             _location = value;
             value.Unit = this;
+            Grid.IncreaseVisibility(value, _visionRange);
             transform.localPosition = value.Position;
         }
     }
@@ -37,6 +43,10 @@ public class UnitObject : MonoBehaviour, ISaveableObject
 
     public void Die()
     {
+        if (Location)
+        {
+            Grid.DecreaseVisibility(Location, _visionRange);
+        }
         Location.Unit = null;
         Destroy(gameObject);
     }
@@ -48,18 +58,40 @@ public class UnitObject : MonoBehaviour, ISaveableObject
 
     public bool IsValidDestination(HexCell cell)
     {
-        return !cell.IsUnderwater && !cell.Unit;
+        return cell.IsExplored && !cell.IsUnderwater && !cell.Unit;
     }
 
-    public bool IsValidCrossing(HexCell previous, HexCell next)
+    public bool IsValidCrossing(HexCell fromCell, HexCell toCell)
     {
-        HexEdgeType edgeType = previous.GetEdgeType(next);
-        return edgeType != HexEdgeType.Cliff;
+        HexEdgeType edgeType = fromCell.GetEdgeType(toCell);
+        return edgeType != HexEdgeType.Cliff && fromCell.Walled != toCell.Walled;
+    }
+
+    public int GetMoveCost(HexCell fromCell, HexCell toCell, HexDirection direction)
+    {
+        HexEdgeType edgeType = fromCell.GetEdgeType(toCell);
+        
+        if (!IsValidCrossing(fromCell, toCell)) return -1;
+        
+        int moveCost;
+        if (fromCell.HasRoadThroughEdge(direction))
+        {
+            moveCost = 1;
+        }
+        else
+        {
+            moveCost = edgeType == HexEdgeType.Flat ? 5 : 10;
+            moveCost += toCell.UrbanLevel + toCell.FarmLevel + toCell.PlantLevel;
+        }
+
+        return moveCost;
     }
 
     public void Travel(List<HexCell> path)
     {
-        Location = path[^1];
+        _location.Unit = null;
+        _location = path[^1];
+        _location.Unit = this;
         _pathToTravel = path;
         StartCoroutine(TravelPath());
     }
@@ -67,8 +99,8 @@ public class UnitObject : MonoBehaviour, ISaveableObject
     private IEnumerator TravelPath()
     {
         Vector3 a, b, c = _pathToTravel[0].Position;
-        transform.localPosition = c;
         yield return LookAt(_pathToTravel[1].Position);
+        Grid.DecreaseVisibility(_pathToTravel[0], _visionRange);
 
         float t = Time.deltaTime * TravelSpeed;
         for (int i = 1; i < _pathToTravel.Count; i++)
@@ -76,6 +108,7 @@ public class UnitObject : MonoBehaviour, ISaveableObject
             a = c;
             b = _pathToTravel[i - 1].Position;
             c = (b + _pathToTravel[i].Position) * 0.5f;
+            Grid.IncreaseVisibility(_pathToTravel[i], _visionRange);
             for (; t < 1f; t += Time.deltaTime * TravelSpeed)
             {
                 transform.localPosition = Bezier.GetPoint(a, b, c, t);
@@ -84,12 +117,14 @@ public class UnitObject : MonoBehaviour, ISaveableObject
                 transform.localRotation = Quaternion.LookRotation(d);
                 yield return null;
             }
+            Grid.DecreaseVisibility(_pathToTravel[i], _visionRange);
             t -= 1f;
         }
 
         a = c;
-        b = _pathToTravel[^1].Position;
+        b = _location.Position;
         c = b;
+        Grid.IncreaseVisibility(_location, _visionRange);
         for (; t < 1f; t += Time.deltaTime * TravelSpeed)
         {
             transform.localPosition = Bezier.GetPoint(a, b, c, t);
@@ -133,7 +168,7 @@ public class UnitObject : MonoBehaviour, ISaveableObject
         writer.Write(Orientation);
     }
     
-    public void Load(BinaryReader reader, int header = -1, HexGrid grid = null)
+    public void Load(BinaryReader reader, int header, HexGrid grid = null)
     {
         HexCoordinates coordinates = HexCoordinates.Load(reader);
         float orientation = reader.ReadSingle();

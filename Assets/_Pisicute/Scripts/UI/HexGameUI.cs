@@ -29,6 +29,14 @@ public class HexGameUI : MonoBehaviour
         enabled = !toggle;
         _grid.ShowUI(!toggle);
         _grid.ClearPath();
+        if (toggle)
+        {
+            Shader.EnableKeyword("_HEX_MAP_EDIT_MODE");
+        }
+        else
+        {
+            Shader.DisableKeyword("_HEX_MAP_EDIT_MODE");
+        }
     }
 
     private bool UpdateCurrentCell()
@@ -67,7 +75,7 @@ public class HexGameUI : MonoBehaviour
         if (!UpdateCurrentCell()) return;
         if (_currentCell && _selectedUnit && _selectedUnit.IsValidDestination(_currentCell))
         {
-            _grid.FindPath(_selectedUnit.Location, _currentCell, 24, _selectedUnit.IsValidDestination, _selectedUnit.IsValidCrossing);
+            _grid.FindPath(_selectedUnit.Location, _currentCell, _selectedUnit);
         }
         else
         {
