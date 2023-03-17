@@ -12,11 +12,13 @@ public class HexCell : MonoBehaviour, ISaveableObject
     public HexGridChunk Chunk;
     [NonSerialized] public int Index;
     [NonSerialized] public HexCellShaderData ShaderData;
+    [NonSerialized] public int Distance;
     [NonSerialized] public HexCell PathFrom;
     [NonSerialized] public int SearchHeuristic;
     [NonSerialized] public HexCell NextWithSamePriority;
     [NonSerialized] public int SearchPhase;
     [NonSerialized] public UnitObject Unit;
+    [NonSerialized] public bool IsExplorable;
 
     [SerializeField] private HexCell[] _neighbors = new HexCell[6];
     [SerializeField] private bool[] _roads;
@@ -29,6 +31,7 @@ public class HexCell : MonoBehaviour, ISaveableObject
     private bool _walled;
     private int _specialIndex;
     private int _visibility;
+    private bool _explored;
 
     public Vector3 Position => transform.localPosition;
     public int Elevation
@@ -39,7 +42,6 @@ public class HexCell : MonoBehaviour, ISaveableObject
             if (_elevation == value) return;
             _elevation = value;
             RefreshPosition();
-
             ValidateRivers();
 
             for (int i = 0; i < _roads.Length; i++)
@@ -138,10 +140,10 @@ public class HexCell : MonoBehaviour, ISaveableObject
         }
     }
     public bool IsSpecial => SpecialIndex > 0;
-    public int Distance { get; set; }
     public int SearchPriority => Distance + SearchHeuristic;
-    public bool IsVisible => _visibility > 0;
-    public bool IsExplored { get; private set; }
+    public bool IsVisible => _visibility > 0 && IsExplorable;
+    public bool IsExplored { get => _explored && IsExplorable; private set => _explored = value; }
+    public int ViewElevation => Elevation >= WaterLevel ? Elevation : WaterLevel;
 
     public HexCell GetNeighbor(HexDirection direction)
     {

@@ -144,6 +144,7 @@ public class HexGrid : MonoBehaviour, ISaveableObject
         cell.Coordinates = HexCoordinates.FromOffsetCoordinates(x, z);
         cell.Index = i;
         cell.ShaderData = _cellShaderData;
+        cell.IsExplorable = x > 0 && z > 0 && x < _cellCountX - 1 && z < _cellCountZ - 1;
         if (x > 0)
         {
             cell.SetNeighbor(HexDirection.W, _cells[i - 1]);
@@ -218,6 +219,8 @@ public class HexGrid : MonoBehaviour, ISaveableObject
                 return;
             }
         }
+        bool originalImmediateMode = _cellShaderData.ImmediateMode;
+        _cellShaderData.ImmediateMode = true;
         for (int i = 0; i < _cells.Length; i++)
         {
             _cells[i].Load(reader, header);
@@ -233,6 +236,7 @@ public class HexGrid : MonoBehaviour, ISaveableObject
             UnitObject unitObject = Instantiate(UnitPrefab);
             unitObject.Load(reader, header, grid);
         }
+        _cellShaderData.ImmediateMode = originalImmediateMode;
     }
 
     public void FindPath(HexCell fromCell, HexCell toCell, UnitObject unit)
@@ -381,9 +385,11 @@ public class HexGrid : MonoBehaviour, ISaveableObject
         
         _searchFrontierPhase += 2;
         _searchFrontier.Clear();
+        range += fromCell.ViewElevation;
         fromCell.SearchPhase = _searchFrontierPhase;
         fromCell.Distance = 0;
         _searchFrontier.Enqueue(fromCell);
+        HexCoordinates fromCoordinates = fromCell.Coordinates;
         while (_searchFrontier.Count > 0)
         {
             HexCell current = _searchFrontier.Dequeue();
@@ -392,12 +398,13 @@ public class HexGrid : MonoBehaviour, ISaveableObject
             for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++)
             {
                 HexCell neighbor = current.GetNeighbor(d);
-                if (neighbor == null || neighbor.SearchPhase > _searchFrontierPhase) continue;
+                if (neighbor == null || neighbor.SearchPhase > _searchFrontierPhase || !neighbor.IsExplorable) continue;
                 if (!canSee(current, neighbor)) continue;
                 HexEdgeType edgeType = current.GetEdgeType(neighbor);
 
                 int distance = current.Distance + 1;
-                if (distance > range) continue;
+                if (distance + neighbor.Elevation > range ||
+                    distance > fromCoordinates.DistanceTo(neighbor.Coordinates)) continue;
 
                 if (neighbor.SearchPhase < _searchFrontierPhase)
                 {

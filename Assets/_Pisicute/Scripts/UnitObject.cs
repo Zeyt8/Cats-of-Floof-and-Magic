@@ -8,13 +8,13 @@ public class UnitObject : MonoBehaviour, ISaveableObject
 {
     public int Speed = 24;
     [NonSerialized] public HexGrid Grid;
-    [SerializeField] private int _visionRange = 3;
     private const float TravelSpeed = 4f;
     private const float RotationSpeed = 180f;
 
     private HexCell _location;
     private float _orientation;
     private List<HexCell> _pathToTravel;
+    public int VisionRange => 3;
     public HexCell Location
     {
         get => _location;
@@ -22,12 +22,12 @@ public class UnitObject : MonoBehaviour, ISaveableObject
         {
             if (_location)
             {
-                Grid.DecreaseVisibility(_location, _visionRange);
+                Grid.DecreaseVisibility(_location, VisionRange);
                 _location.Unit = null;
             }
             _location = value;
             value.Unit = this;
-            Grid.IncreaseVisibility(value, _visionRange);
+            Grid.IncreaseVisibility(value, VisionRange);
             transform.localPosition = value.Position;
         }
     }
@@ -45,7 +45,7 @@ public class UnitObject : MonoBehaviour, ISaveableObject
     {
         if (Location)
         {
-            Grid.DecreaseVisibility(Location, _visionRange);
+            Grid.DecreaseVisibility(Location, VisionRange);
         }
         Location.Unit = null;
         Destroy(gameObject);
@@ -64,7 +64,7 @@ public class UnitObject : MonoBehaviour, ISaveableObject
     public bool IsValidCrossing(HexCell fromCell, HexCell toCell)
     {
         HexEdgeType edgeType = fromCell.GetEdgeType(toCell);
-        return edgeType != HexEdgeType.Cliff && fromCell.Walled != toCell.Walled;
+        return edgeType != HexEdgeType.Cliff && fromCell.Walled == toCell.Walled;
     }
 
     public int GetMoveCost(HexCell fromCell, HexCell toCell, HexDirection direction)
@@ -100,7 +100,7 @@ public class UnitObject : MonoBehaviour, ISaveableObject
     {
         Vector3 a, b, c = _pathToTravel[0].Position;
         yield return LookAt(_pathToTravel[1].Position);
-        Grid.DecreaseVisibility(_pathToTravel[0], _visionRange);
+        Grid.DecreaseVisibility(_pathToTravel[0], VisionRange);
 
         float t = Time.deltaTime * TravelSpeed;
         for (int i = 1; i < _pathToTravel.Count; i++)
@@ -108,7 +108,7 @@ public class UnitObject : MonoBehaviour, ISaveableObject
             a = c;
             b = _pathToTravel[i - 1].Position;
             c = (b + _pathToTravel[i].Position) * 0.5f;
-            Grid.IncreaseVisibility(_pathToTravel[i], _visionRange);
+            Grid.IncreaseVisibility(_pathToTravel[i], VisionRange);
             for (; t < 1f; t += Time.deltaTime * TravelSpeed)
             {
                 transform.localPosition = Bezier.GetPoint(a, b, c, t);
@@ -117,14 +117,14 @@ public class UnitObject : MonoBehaviour, ISaveableObject
                 transform.localRotation = Quaternion.LookRotation(d);
                 yield return null;
             }
-            Grid.DecreaseVisibility(_pathToTravel[i], _visionRange);
+            Grid.DecreaseVisibility(_pathToTravel[i], VisionRange);
             t -= 1f;
         }
 
         a = c;
         b = _location.Position;
         c = b;
-        Grid.IncreaseVisibility(_location, _visionRange);
+        Grid.IncreaseVisibility(_location, VisionRange);
         for (; t < 1f; t += Time.deltaTime * TravelSpeed)
         {
             transform.localPosition = Bezier.GetPoint(a, b, c, t);

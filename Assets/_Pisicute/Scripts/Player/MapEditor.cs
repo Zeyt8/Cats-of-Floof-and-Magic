@@ -30,7 +30,8 @@ public class MapEditor : MonoBehaviour
     private void Awake()
     {
         _terrainMaterial.DisableKeyword("_SHOW_GRID");
-        SetEditMode(false);
+        Shader.EnableKeyword("_HEX_MAP_EDIT_MODE");
+        SetEditMode(true);
     }
 
     private void OnEnable()

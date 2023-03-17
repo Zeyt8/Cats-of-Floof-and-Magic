@@ -4,14 +4,14 @@ TEXTURE2D(_HexCellData);
 SAMPLER(sampler_HexCellData);
 float4 _HexCellData_TexelSize;
 
-float4 FilterCellData (float4 data, bool editMode) {
+float4 FilterCellData(float4 data, bool editMode) {
 	if (editMode) {
 		data.xy = 1;
 	}
 	return data;
 }
 
-float4 GetCellData (float3 uv2, int index, bool editMode) {
+float4 GetCellData(float3 uv2, int index, bool editMode) {
 	float2 uv;
 	uv.x = (uv2[index] + 0.5) * _HexCellData_TexelSize.x;
 	float row = floor(uv.x);
@@ -22,7 +22,7 @@ float4 GetCellData (float3 uv2, int index, bool editMode) {
 	return FilterCellData(data, editMode);
 }
 
-float4 GetCellData (float2 cellDataCoordinates, bool editMode) {
+float4 GetCellData(float2 cellDataCoordinates, bool editMode) {
 	float2 uv = cellDataCoordinates + 0.5;
 	uv.x *= _HexCellData_TexelSize.x;
 	uv.y *= _HexCellData_TexelSize.y;
@@ -58,7 +58,7 @@ struct HexGridData {
 
 	// Is highlighed if square distance from cell to highlight center is below threshold.
 	// Works up to brush size 6.
-	bool IsHighlighted () {
+	bool IsHighlighted() {
 		float2 cellToHighlight = abs(_CellHighlighting.xy - cellCenter);
 
 		// Adjust for world X wrapping if needed.
@@ -70,7 +70,7 @@ struct HexGridData {
 	}
 
 	// Smoothstep from 0 to 1 at cell center distance threshold.
-	float Smoothstep01 (float threshold) {
+	float Smoothstep01(float threshold) {
 		return smoothstep(
 			threshold - distanceSmoothing,
 			threshold + distanceSmoothing,
@@ -79,7 +79,7 @@ struct HexGridData {
 	}
 
 	// Smoothstep from 1 to 0 at cell center distance threshold.
-	float Smoothstep10 (float threshold) {
+	float Smoothstep10(float threshold) {
 		return smoothstep(
 			threshold + distanceSmoothing,
 			threshold - distanceSmoothing,
@@ -88,7 +88,7 @@ struct HexGridData {
 	}
 
 	// Smoothstep from 0 to 1 inside cell center distance range.
-	float SmoothstepRange (float innerThreshold, float outerThreshold) {
+	float SmoothstepRange(float innerThreshold, float outerThreshold) {
 		return Smoothstep01(innerThreshold) * Smoothstep10(outerThreshold);
 	}
 };
@@ -97,7 +97,7 @@ struct HexGridData {
 
 // Calculate hexagonal center-edge distance for point relative to center in hex space.
 // 0 at cell center and 1 at edges.
-float HexagonalCenterToEdgeDistance (float2 p) {
+float HexagonalCenterToEdgeDistance(float2 p) {
 	// Reduce problem to one quadrant.
 	p = abs(p);
 	// Calculate distance to angled edge.
@@ -109,14 +109,14 @@ float HexagonalCenterToEdgeDistance (float2 p) {
 }
 
 // Calculate hex-based modulo to find position vector.
-float2 HexModulo (float2 p) {
+float2 HexModulo(float2 p) {
 	return p - HEX_ANGLED_EDGE_VECTOR * floor(p / HEX_ANGLED_EDGE_VECTOR);
 }
 
 // Get hex grid data analytically derived from world-space XZ position.
-HexGridData GetHexGridData (float2 worldPositionXZ) {
+HexGridData GetHexGridData(float2 worldPositionXZ) {
 	float2 p = WoldToHexSpace(worldPositionXZ);
-	
+
 	// Vectors from nearest two cell centers to position.
 	float2 gridOffset = HEX_ANGLED_EDGE_VECTOR * 0.5;
 	float2 a = HexModulo(p) - gridOffset;
