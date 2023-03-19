@@ -5,6 +5,8 @@ using UnityEngine;
 public class NewMapMenu : MonoBehaviour
 {
     [SerializeField] HexGrid _hexGrid;
+    [SerializeField] HexMapGenerator _mapGenerator;
+    private bool _generateMaps = true;
 
     public void CreateSmallMap()
     {
@@ -23,7 +25,19 @@ public class NewMapMenu : MonoBehaviour
 
     private void CreateMap(int x, int z)
     {
-        _hexGrid.CreateMap(x, z);
+        if (_generateMaps)
+        {
+            _mapGenerator.GenerateMap(x, z);
+        }
+        else
+        {
+            _hexGrid.CreateMap(x, z);
+        }
         gameObject.SetActive(false);
+    }
+
+    public void ToggleMapGeneration(bool toggle)
+    {
+        _generateMaps = toggle;
     }
 }

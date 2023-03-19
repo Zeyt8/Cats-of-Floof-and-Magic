@@ -338,7 +338,7 @@ public class HexCell : MonoBehaviour, ISaveableObject
     public void Save(BinaryWriter writer)
     {
         writer.Write((byte)_terrainTypeIndex);
-        writer.Write((byte)_elevation);
+        writer.Write((byte)(_elevation + 127));
         writer.Write((byte)_waterLevel);
         writer.Write((byte)_urbanLevel);
         writer.Write((byte)_farmLevel);

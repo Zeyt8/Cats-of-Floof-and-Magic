@@ -34,8 +34,6 @@ public class HexGrid : MonoBehaviour, ISaveableObject
         HexMetrics.NoiseSource = _noiseSource;
         HexMetrics.InitializeHashGrid(_seed);
         _cellShaderData = GetComponent<HexCellShaderData>();
-
-        CreateMap(_cellCountX, _cellCountZ);
     }
 
     public bool CreateMap(int x, int z)
@@ -104,6 +102,16 @@ public class HexGrid : MonoBehaviour, ISaveableObject
             return GetCell(hit.point);
         }
         return null;
+    }
+
+    public HexCell GetCell(int xOffset, int zOffset)
+    {
+        return _cells[xOffset + zOffset * _cellCountX];
+    }
+
+    public HexCell GetCell(int cellIndex)
+    {
+        return _cells[cellIndex];
     }
 
     private void CreateChunks()
