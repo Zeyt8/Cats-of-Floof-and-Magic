@@ -10,8 +10,8 @@ public class HexGrid : MonoBehaviour, ISaveableObject
     public UnitObject UnitPrefab;
     public bool HasPath => _currentPathExists;
 
-    [SerializeField] private int _cellCountX = 4;
-    [SerializeField] private int _cellCountZ = 3;
+    public int CellCountX = 4;
+    public int CellCountZ = 3;
     [SerializeField] private int _seed;
     
     [SerializeField] private HexCell _cellPrefab;
@@ -53,11 +53,11 @@ public class HexGrid : MonoBehaviour, ISaveableObject
                 Destroy(t.gameObject);
             }
         }
-        _cellCountX = x;
-        _cellCountZ = z;
-        _chunkCountX = _cellCountX / HexMetrics.ChunkSizeX;
-        _chunkCountZ = _cellCountZ / HexMetrics.ChunkSizeZ;
-        _cellShaderData.Initialize(_cellCountX, _cellCountZ);
+        CellCountX = x;
+        CellCountZ = z;
+        _chunkCountX = CellCountX / HexMetrics.ChunkSizeX;
+        _chunkCountZ = CellCountZ / HexMetrics.ChunkSizeZ;
+        _cellShaderData.Initialize(CellCountX, CellCountZ);
 
         CreateChunks();
         CreateCells();
@@ -75,16 +75,16 @@ public class HexGrid : MonoBehaviour, ISaveableObject
     public HexCell GetCell(HexCoordinates coordinates)
     {
         int z = coordinates.Z;
-        if (z < 0 || z >= _cellCountZ)
+        if (z < 0 || z >= CellCountZ)
         {
             return null;
         }
         int x = coordinates.X + z / 2;
-        if (x < 0 || x >= _cellCountX)
+        if (x < 0 || x >= CellCountX)
         {
             return null;
         }
-        return _cells[x + z * _cellCountX];
+        return _cells[x + z * CellCountX];
     }
 
     public void ShowUI(bool visible)
@@ -106,7 +106,7 @@ public class HexGrid : MonoBehaviour, ISaveableObject
 
     public HexCell GetCell(int xOffset, int zOffset)
     {
-        return _cells[xOffset + zOffset * _cellCountX];
+        return _cells[xOffset + zOffset * CellCountX];
     }
 
     public HexCell GetCell(int cellIndex)
@@ -130,10 +130,10 @@ public class HexGrid : MonoBehaviour, ISaveableObject
 
     private void CreateCells()
     {
-        _cells = new HexCell[_cellCountX * _cellCountZ];
-        for (int z = 0, i = 0; z < _cellCountZ; z++)
+        _cells = new HexCell[CellCountX * CellCountZ];
+        for (int z = 0, i = 0; z < CellCountZ; z++)
         {
-            for (int x = 0; x < _cellCountX; x++)
+            for (int x = 0; x < CellCountX; x++)
             {
                 CreateCell(x, z, i++);
             }
@@ -152,7 +152,7 @@ public class HexGrid : MonoBehaviour, ISaveableObject
         cell.Coordinates = HexCoordinates.FromOffsetCoordinates(x, z);
         cell.Index = i;
         cell.ShaderData = _cellShaderData;
-        cell.IsExplorable = x > 0 && z > 0 && x < _cellCountX - 1 && z < _cellCountZ - 1;
+        cell.IsExplorable = x > 0 && z > 0 && x < CellCountX - 1 && z < CellCountZ - 1;
         if (x > 0)
         {
             cell.SetNeighbor(HexDirection.W, _cells[i - 1]);
@@ -161,18 +161,18 @@ public class HexGrid : MonoBehaviour, ISaveableObject
         {
             if (z % 2 == 0)
             {
-                cell.SetNeighbor(HexDirection.SE, _cells[i - _cellCountX]);
+                cell.SetNeighbor(HexDirection.SE, _cells[i - CellCountX]);
                 if (x > 0)
                 {
-                    cell.SetNeighbor(HexDirection.SW, _cells[i - _cellCountX - 1]);
+                    cell.SetNeighbor(HexDirection.SW, _cells[i - CellCountX - 1]);
                 }
             }
             else
             {
-                cell.SetNeighbor(HexDirection.SW, _cells[i - _cellCountX]);
-                if (x < _cellCountX - 1)
+                cell.SetNeighbor(HexDirection.SW, _cells[i - CellCountX]);
+                if (x < CellCountX - 1)
                 {
-                    cell.SetNeighbor(HexDirection.SE, _cells[i - _cellCountX + 1]);
+                    cell.SetNeighbor(HexDirection.SE, _cells[i - CellCountX + 1]);
                 }
             }
         }
@@ -200,8 +200,8 @@ public class HexGrid : MonoBehaviour, ISaveableObject
 
     public void Save(BinaryWriter writer)
     {
-        writer.Write(_cellCountX);
-        writer.Write(_cellCountZ);
+        writer.Write(CellCountX);
+        writer.Write(CellCountZ);
         for (int i = 0; i < _cells.Length; i++)
         {
             _cells[i].Save(writer);
@@ -220,7 +220,7 @@ public class HexGrid : MonoBehaviour, ISaveableObject
         ClearUnits();
         int x = reader.ReadInt32();
         int z = reader.ReadInt32();
-        if (x != _cellCountX || z != _cellCountZ)
+        if (x != CellCountX || z != CellCountZ)
         {
             if (!CreateMap(x, z))
             {
