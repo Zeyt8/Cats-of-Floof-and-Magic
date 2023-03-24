@@ -7149,8 +7149,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnitPrefab: {fileID: 4840009015928866894, guid: 9e25c1c4f9117fc4da87c8e9b07d3273,
     type: 3}
-  _cellCountX: 4
-  _cellCountZ: 3
+  CellCountX: 4
+  CellCountZ: 3
   _seed: 1234
   _cellPrefab: {fileID: 7219900728345646861, guid: f26c55414219ba54e9c64392fa3703c2,
     type: 3}
@@ -9152,6 +9152,16 @@ MonoBehaviour:
   _elevationMaximum: 8
   _mapBorderX: 5
   _mapBorderZ: 6
+  _regionBorder: 5
+  _regionCount: 1
+  _erosionPercentage: 50
+  _precipitationFactor: 0.25
+  _evaporationFactor: 0.5
+  _runoffFactor: 0.25
+  _seepageFactor: 0.125
+  _windDirection: 5
+  _windStrength: 0
+  _startingMoisture: 0.1
   _grid: {fileID: 967716812}
 --- !u!1 &1249370099
 GameObject:
