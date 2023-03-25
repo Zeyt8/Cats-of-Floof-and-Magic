@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 
 public class MapEditor : MonoBehaviour
 {
+    static int cellHighlightingId = Shader.PropertyToID("_CellHighlighting");
+    
     [SerializeField] private InputHandler _inputHandler;
     [SerializeField] private HexGrid _hexGrid;
     [SerializeField] private Material _terrainMaterial;
@@ -48,14 +50,22 @@ public class MapEditor : MonoBehaviour
 
     private void Update()
     {
-        if (_inputHandler.MapEditor.IsEditing && !EventSystem.current.IsPointerOverGameObject())
+        if (!EventSystem.current.IsPointerOverGameObject())
         {
-            HandleInput();
+            if (_inputHandler.MapEditor.IsEditing)
+            {
+                HandleInput();
+            }
+            else
+            {
+                UpdateCellHighlightData(GetCellUnderCursor());
+            }
         }
         else
         {
-            _previousCell = null;
+            ClearCellHighlightData();
         }
+        _previousCell = null;
     }
 
     private void HandleInput()
@@ -194,6 +204,22 @@ public class MapEditor : MonoBehaviour
         {
             _hexGrid.RemoveUnit(cell.Unit);
         }
+    }
+
+    void UpdateCellHighlightData(HexCell cell)
+    {
+        if (cell == null)
+        {
+            ClearCellHighlightData();
+            return;
+        }
+
+        Shader.SetGlobalVector(cellHighlightingId, new Vector4(cell.Coordinates.HexX, cell.Coordinates.HexZ, _brushSize * _brushSize + 0.5f, 0));
+    }
+
+    void ClearCellHighlightData()
+    {
+        Shader.SetGlobalVector(cellHighlightingId, new Vector4(0f, 0f, -1f, 0f));
     }
 
     #region UI

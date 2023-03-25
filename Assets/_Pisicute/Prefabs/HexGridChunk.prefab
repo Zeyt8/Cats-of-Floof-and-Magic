@@ -804,41 +804,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _walls: {fileID: 5693067910122204173}
   _urbanCollections:
-  - _prefabs:
-    - {fileID: 4000011812086372, guid: 21b1020286582424ab6d62085ed5ee87, type: 3}
-    - {fileID: 4000011812086372, guid: 5d26578fd32c84d1ab4d755ab7f23577, type: 3}
-  - _prefabs:
-    - {fileID: 4000013436407900, guid: 89adbf41f320f4141964bfa388ba2865, type: 3}
-    - {fileID: 4000013436407900, guid: 2fad1b4af64d84c8e810f040299dec1e, type: 3}
-  - _prefabs:
-    - {fileID: 4000013997932258, guid: bca46d0c670c447a0a5c7208498000ab, type: 3}
-    - {fileID: 4000013997932258, guid: 4c4b904516a814dc7b4433a49713c96f, type: 3}
+  - Prefabs:
+    - {fileID: 1000013731776376, guid: bca46d0c670c447a0a5c7208498000ab, type: 3}
+    - {fileID: 1000013731776376, guid: 4c4b904516a814dc7b4433a49713c96f, type: 3}
+  - Prefabs:
+    - {fileID: 1000010872681204, guid: 89adbf41f320f4141964bfa388ba2865, type: 3}
+    - {fileID: 1000010872681204, guid: 2fad1b4af64d84c8e810f040299dec1e, type: 3}
+  - Prefabs:
+    - {fileID: 1000011931043878, guid: 21b1020286582424ab6d62085ed5ee87, type: 3}
+    - {fileID: 1000011931043878, guid: 5d26578fd32c84d1ab4d755ab7f23577, type: 3}
   _farmCollections:
-  - _prefabs:
-    - {fileID: 4000011812086372, guid: 694c4113acb734a299b240d50494600c, type: 3}
-    - {fileID: 4000011812086372, guid: 93fc8e728d60b44a28eac5ac0d4a0852, type: 3}
-  - _prefabs:
-    - {fileID: 4000013436407900, guid: 2183fa930894243a69c8d48294482e53, type: 3}
-    - {fileID: 4000013436407900, guid: d0962edf5b6cf47f8b0a1fc7ae336c32, type: 3}
-  - _prefabs:
-    - {fileID: 4000013997932258, guid: 15bb05f82a5564326ae50111c46b898b, type: 3}
-    - {fileID: 4000013997932258, guid: 5c6c17863f6cc4021bdced61fe712fb1, type: 3}
+  - Prefabs:
+    - {fileID: 1000013731776376, guid: 15bb05f82a5564326ae50111c46b898b, type: 3}
+    - {fileID: 1000013731776376, guid: 5c6c17863f6cc4021bdced61fe712fb1, type: 3}
+  - Prefabs:
+    - {fileID: 1000010872681204, guid: 2183fa930894243a69c8d48294482e53, type: 3}
+    - {fileID: 1000010872681204, guid: d0962edf5b6cf47f8b0a1fc7ae336c32, type: 3}
+  - Prefabs:
+    - {fileID: 1000011931043878, guid: 694c4113acb734a299b240d50494600c, type: 3}
+    - {fileID: 1000011931043878, guid: 93fc8e728d60b44a28eac5ac0d4a0852, type: 3}
   _plantCollections:
-  - _prefabs:
-    - {fileID: 4000011812086372, guid: e64480d9f2c5c42439cac262a22f542f, type: 3}
-    - {fileID: 4000011812086372, guid: 3b3f395112d654a6a85e97ebefaf4d91, type: 3}
-  - _prefabs:
-    - {fileID: 4000013436407900, guid: db065bb94d2684adf9f80eb695f76fed, type: 3}
-    - {fileID: 4000013436407900, guid: 0e9a5fa1d0db54bd09163d3d6509d210, type: 3}
-  - _prefabs:
-    - {fileID: 4000013997932258, guid: eeb3748a5f0ed40f3ad86263ab781421, type: 3}
-    - {fileID: 4000013997932258, guid: 2fe8d139a980145f997e9f4c3e1c2606, type: 3}
+  - Prefabs:
+    - {fileID: 1000013731776376, guid: eeb3748a5f0ed40f3ad86263ab781421, type: 3}
+    - {fileID: 1000013731776376, guid: 2fe8d139a980145f997e9f4c3e1c2606, type: 3}
+  - Prefabs:
+    - {fileID: 1000010872681204, guid: db065bb94d2684adf9f80eb695f76fed, type: 3}
+    - {fileID: 1000010872681204, guid: 0e9a5fa1d0db54bd09163d3d6509d210, type: 3}
+  - Prefabs:
+    - {fileID: 1000011931043878, guid: e64480d9f2c5c42439cac262a22f542f, type: 3}
+    - {fileID: 1000011931043878, guid: 3b3f395112d654a6a85e97ebefaf4d91, type: 3}
   _special:
-  - {fileID: 4000013750885840, guid: f2967fed6444e43559e32916c2465d27, type: 3}
-  - {fileID: 4000011263270592, guid: cb7be9a74fd6e4cbdb5be2ac7319e699, type: 3}
-  - {fileID: 4000012893891830, guid: cc90e6fbc542a40c080d2c64da7d26ed, type: 3}
-  _wallTower: {fileID: 4000011665626236, guid: 1589993158ba34786b54f448bdeb6085, type: 3}
-  _bridge: {fileID: 4000012598710820, guid: 234387bb7219042168570e127fbd5b58, type: 3}
+  - {fileID: 1000010049943836, guid: f2967fed6444e43559e32916c2465d27, type: 3}
+  - {fileID: 1000014050431084, guid: cc90e6fbc542a40c080d2c64da7d26ed, type: 3}
+  - {fileID: 1000012481183398, guid: cb7be9a74fd6e4cbdb5be2ac7319e699, type: 3}
+  _wallTower: {fileID: 1000010046023388, guid: 1589993158ba34786b54f448bdeb6085, type: 3}
+  _bridge: {fileID: 1000014278269524, guid: 234387bb7219042168570e127fbd5b58, type: 3}
 --- !u!1 &7686168359736129252
 GameObject:
   m_ObjectHideFlags: 0

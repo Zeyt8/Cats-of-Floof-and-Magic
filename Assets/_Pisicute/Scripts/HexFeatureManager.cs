@@ -1,14 +1,13 @@
-using Cinemachine.Utility;
+using System;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class HexFeatureManager : MonoBehaviour
 {
     [SerializeField] private HexMesh _walls;
     [SerializeField] private HexFeatureCollection[] _urbanCollections, _farmCollections, _plantCollections;
-    [SerializeField] private Transform[] _special;
-    [SerializeField] private Transform _wallTower;
-    [SerializeField] private Transform _bridge;
+    [SerializeField] private GameObject[] _special;
+    [SerializeField] private GameObject _wallTower;
+    [SerializeField] private GameObject _bridge;
     private Transform _container;
     
     public void Clear()
@@ -32,8 +31,8 @@ public class HexFeatureManager : MonoBehaviour
         if (cell.IsSpecial) return;
         
         HexHash hash = HexMetrics.SampleHashGrid(position);
-        Transform prefab = PickPrefab(_urbanCollections, cell.UrbanLevel, hash.A, hash.D);
-        Transform otherPrefab = PickPrefab(_farmCollections, cell.FarmLevel, hash.B, hash.D);
+        GameObject prefab = PickPrefab(_urbanCollections, cell.UrbanLevel, hash.A, hash.D);
+        GameObject otherPrefab = PickPrefab(_farmCollections, cell.FarmLevel, hash.B, hash.D);
         float usedHash = hash.A;
         if (prefab)
         {
@@ -64,9 +63,9 @@ public class HexFeatureManager : MonoBehaviour
         {
             return;
         }
-        Transform instance = Instantiate(prefab, _container, false);
-        instance.localPosition = HexMetrics.Perturb(position);
-        instance.localRotation = Quaternion.Euler(0f, 360f * hash.E, 0f);
+        GameObject instance = Instantiate(prefab, _container, false);
+        instance.transform.localPosition = HexMetrics.Perturb(position);
+        instance.transform.localRotation = Quaternion.Euler(0f, 360f * hash.E, 0f);
     }
 
     public void AddWall(EdgeVertices near, HexCell nearCell, EdgeVertices far, HexCell farCell, bool hasRiver, bool hasRoad)
@@ -123,7 +122,7 @@ public class HexFeatureManager : MonoBehaviour
         }
     }
 
-    private Transform PickPrefab(HexFeatureCollection[] collection, int level, float hash, float choice)
+    private GameObject PickPrefab(HexFeatureCollection[] collection, int level, float hash, float choice)
     {
         if (level > 0)
         {
@@ -171,8 +170,8 @@ public class HexFeatureManager : MonoBehaviour
 
         if (addTower)
         {
-            Transform towerInstance = Instantiate(_wallTower, _container, false);
-            towerInstance.localPosition = (left + right) * 0.5f;
+            GameObject towerInstance = Instantiate(_wallTower, _container, false);
+            towerInstance.transform.localPosition = (left + right) * 0.5f;
             Vector3 rightDirection = right - left;
             towerInstance.transform.right = rightDirection;
         }
@@ -260,18 +259,18 @@ public class HexFeatureManager : MonoBehaviour
     {
         roadCenter1 = HexMetrics.Perturb(roadCenter1);
         roadCenter2 = HexMetrics.Perturb(roadCenter2);
-        Transform instance = Instantiate(_bridge, _container, false);
-        instance.localPosition = (roadCenter1 + roadCenter2) * 0.5f;
-        instance.forward = roadCenter2 - roadCenter1;
+        GameObject instance = Instantiate(_bridge, _container, false);
+        instance.transform.localPosition = (roadCenter1 + roadCenter2) * 0.5f;
+        instance.transform.forward = roadCenter2 - roadCenter1;
         float length = Vector3.Distance(roadCenter1, roadCenter2);
-        instance.localScale = new Vector3(1f, 1f, length * (1f / HexMetrics.BridgeDesignLength));
+        instance.transform.localScale = new Vector3(1f, 1f, length * (1f / HexMetrics.BridgeDesignLength));
     }
 
     public void AddSpecialFeature(HexCell cell, Vector3 position)
     {
-        Transform instance = Instantiate(_special[cell.SpecialIndex - 1], _container, false);
-        instance.localPosition = HexMetrics.Perturb(position);
+        GameObject instance = Instantiate(_special[cell.SpecialIndex - 1], _container, false);
+        instance.transform.localPosition = HexMetrics.Perturb(position);
         HexHash hash = HexMetrics.SampleHashGrid(position);
-        instance.localRotation = Quaternion.Euler(0f, 360f * hash.E, 0f);
+        instance.transform.localRotation = Quaternion.Euler(0f, 360f * hash.E, 0f);
     }
 }

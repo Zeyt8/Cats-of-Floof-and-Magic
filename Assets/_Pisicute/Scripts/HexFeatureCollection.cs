@@ -1,12 +1,12 @@
+using System;
 using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public class HexFeatureCollection
 {
-    [SerializeField] private Transform[] _prefabs;
-
-    public Transform Pick(float choice)
+    public GameObject[] Prefabs;
+    public GameObject Pick(float choice)
     {
-        return _prefabs[(int)(choice * _prefabs.Length)];
+        return Prefabs[(int)choice * Prefabs.Length];
     }
 }

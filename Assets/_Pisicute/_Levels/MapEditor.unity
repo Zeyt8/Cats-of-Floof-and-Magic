@@ -1249,7 +1249,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 265617232}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 49837388b6897aa4d9b19b57994d6845, type: 3}
   m_Name: 
@@ -9162,6 +9162,12 @@ MonoBehaviour:
   _windDirection: 5
   _windStrength: 0
   _startingMoisture: 0.1
+  _riverPercentage: 10
+  _extraLakeProbability: 0.25
+  _lowTemperature: 0
+  _highTemperature: 1
+  _temperatureJitter: 0.1
+  _hemisphere: 0
   _grid: {fileID: 967716812}
 --- !u!1 &1249370099
 GameObject:
