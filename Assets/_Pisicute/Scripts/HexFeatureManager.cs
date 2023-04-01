@@ -107,6 +107,21 @@ public class HexFeatureManager : MonoBehaviour
         {
             AddWallSegment(c3, cell3, c1, cell1, c2, cell2);
         }
+        else if (cell1.HasWallThroughEdge(cell1.GetNeighborDirection(cell2)))
+        {
+            AddWallSegment(c1, cell1, c2, cell2, c3, cell3);
+            AddWallSegment(c1, cell1, c3, cell3, c2, cell2);
+        }
+        else if (cell2.HasWallThroughEdge(cell2.GetNeighborDirection(cell3)))
+        {
+            AddWallSegment(c2, cell2, c3, cell3, c1, cell1);
+            AddWallSegment(c2, cell2, c1, cell1, c3, cell3);
+        }
+        else if (cell3.HasWallThroughEdge(cell3.GetNeighborDirection(cell1)))
+        {
+            AddWallSegment(c3, cell3, c1, cell1, c2, cell2);
+            AddWallSegment(c3, cell3, c2, cell2, c1, cell1);
+        }
     }
 
     private GameObject PickPrefab(HexFeatureCollection[] collection, int level, float hash, float choice)
@@ -167,9 +182,9 @@ public class HexFeatureManager : MonoBehaviour
     private void AddWallSegment(Vector3 pivot, HexCell pivotCell, Vector3 left, HexCell leftCell, Vector3 right, HexCell rightCell)
     {
         if (pivotCell.IsUnderwater) return;
-        bool hasLeftWall = !leftCell.IsUnderwater && pivotCell.GetEdgeType(leftCell) != HexEdgeType.Cliff;
-        bool hasRightWall = !rightCell.IsUnderwater && pivotCell.GetEdgeType(rightCell) != HexEdgeType.Cliff;
-
+        bool hasLeftWall = pivotCell.HasWallThroughEdge(pivotCell.GetNeighborDirection(leftCell));
+        bool hasRightWall = pivotCell.HasWallThroughEdge(pivotCell.GetNeighborDirection(rightCell));
+        
         if (hasLeftWall)
         {
             if (hasRightWall)
