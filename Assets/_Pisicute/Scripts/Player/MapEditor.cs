@@ -9,7 +9,7 @@ public class MapEditor : MonoBehaviour
     [SerializeField] private InputHandler _inputHandler;
     [SerializeField] private HexGrid _hexGrid;
     [SerializeField] private Material _terrainMaterial;
-    private int _activeTerrainTypeIndex;
+    private int _activeTerrainTypeIndex = -1;
     private int _activeElevation;
     private int _activeWaterLevel;
     private int _activeUrbanLevel, _activeFarmLevel, _activePlantLevel, _activeSpecialIndex;
@@ -58,14 +58,15 @@ public class MapEditor : MonoBehaviour
             }
             else
             {
-                UpdateCellHighlightData(GetCellUnderCursor());
+                _previousCell = null;
             }
+            UpdateCellHighlightData(GetCellUnderCursor());
         }
         else
         {
+            _previousCell = null;
             ClearCellHighlightData();
         }
-        _previousCell = null;
     }
 
     private void HandleInput()
@@ -129,9 +130,9 @@ public class MapEditor : MonoBehaviour
         {
             cell.RemoveRoads();
         }
-        if (_walledMode != OptionalToggle.Ignore)
+        if (_walledMode == OptionalToggle.No)
         {
-            cell.Walled = _walledMode == OptionalToggle.Yes;
+            cell.RemoveWall();
         }
         if (_isDrag)
         {
@@ -145,6 +146,10 @@ public class MapEditor : MonoBehaviour
                 if (_roadMode == OptionalToggle.Yes)
                 {
                     otherCell.AddRoad(_dragDirection);
+                }
+                if (_walledMode == OptionalToggle.Yes)
+                {
+                    otherCell.AddWall(_dragDirection);
                 }
             }
         }

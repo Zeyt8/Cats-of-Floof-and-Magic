@@ -21,14 +21,14 @@ public class HexCell : MonoBehaviour, ISaveableObject
     [NonSerialized] public bool IsExplorable;
 
     [SerializeField] private HexCell[] _neighbors = new HexCell[6];
-    [SerializeField] private bool[] _roads;
+    [SerializeField] private bool[] _roads = new bool[6];
+    [SerializeField] private bool[] _walls = new bool[6];
     private int _terrainTypeIndex;
     private int _elevation = int.MinValue;
     private int _waterLevel;
     private int _urbanLevel;
     private int _farmLevel;
     private int _plantLevel;
-    private bool _walled;
     private int _specialIndex;
     private int _visibility;
     private bool _explored;
@@ -118,16 +118,6 @@ public class HexCell : MonoBehaviour, ISaveableObject
             RefreshSelfOnly();
         }
     }
-    public bool Walled
-    {
-        get => _walled;
-        set
-        {
-            if (_walled == value) return;
-            _walled = value;
-            Refresh();
-        }
-    }
     public int SpecialIndex
     {
         get => _specialIndex;
@@ -149,7 +139,18 @@ public class HexCell : MonoBehaviour, ISaveableObject
     {
         return _neighbors[(int)direction];
     }
+    public HexDirection GetNeighborDirection(HexCell cell)
+    {
+        for (int i = 0; i < _neighbors.Length; i++)
+        {
+            if (_neighbors[i] == cell)
+            {
+                return (HexDirection)i;
+            }
+        }
 
+        return HexDirection.NE;
+    }
     public bool HasRiverThroughEdge(HexDirection direction)
     {
         return HasIncomingRiver && IncomingRiver == direction || HasOutgoingRiver && OutgoingRiver == direction;
@@ -158,6 +159,11 @@ public class HexCell : MonoBehaviour, ISaveableObject
     public bool HasRoadThroughEdge(HexDirection direction)
     {
         return _roads[(int)direction];
+    }
+
+    public bool HasWallThroughEdge(HexDirection direction)
+    {
+        return _walls[(int)direction];
     }
 
     public int GetElevationDifference(HexDirection direction)
@@ -252,6 +258,25 @@ public class HexCell : MonoBehaviour, ISaveableObject
         }
     }
 
+    public void AddWall(HexDirection direction)
+    {
+        if (!HasWallThroughEdge(direction) && GetEdgeType(direction) != HexEdgeType.Cliff && !GetNeighbor(direction).IsUnderwater)
+        {
+            SetWall((int)direction, true);
+        }
+    }
+
+    public void RemoveWall()
+    {
+        for (int i = 0; i < _neighbors.Length; i++)
+        {
+            if (_walls[i])
+            {
+                SetWall(i, false);
+            }
+        }
+    }
+
     private bool IsValidRiverDestination(HexCell neighbor)
     {
         return neighbor && (Elevation >= neighbor.Elevation || WaterLevel == neighbor.Elevation);
@@ -273,6 +298,13 @@ public class HexCell : MonoBehaviour, ISaveableObject
     {
         _roads[index] = state;
         _neighbors[index]._roads[(int)((HexDirection)index).Opposite()] = state;
+        Refresh();
+    }
+
+    private void SetWall(int index, bool state)
+    {
+        _walls[index] = state;
+        _neighbors[index]._walls[(int)((HexDirection)index).Opposite()] = state;
         _neighbors[index].RefreshSelfOnly();
         RefreshSelfOnly();
     }
@@ -344,7 +376,6 @@ public class HexCell : MonoBehaviour, ISaveableObject
         writer.Write((byte)_farmLevel);
         writer.Write((byte)_plantLevel);
         writer.Write((byte)_specialIndex);
-        writer.Write(_walled);
 
         if (HasIncomingRiver)
         {
@@ -373,6 +404,15 @@ public class HexCell : MonoBehaviour, ISaveableObject
             }
         }
         writer.Write((byte)roadFlags);
+        int wallFlags = 0;
+        for (int i = 0; i < _walls.Length; i++)
+        {
+            if (_walls[i])
+            {
+                wallFlags |= 1 << i;
+            }
+        }
+        writer.Write((byte)wallFlags);
         writer.Write(IsExplored);
     }
 
@@ -387,7 +427,6 @@ public class HexCell : MonoBehaviour, ISaveableObject
         _farmLevel = reader.ReadByte();
         _plantLevel = reader.ReadByte();
         _specialIndex = reader.ReadByte();
-        _walled = reader.ReadBoolean();
 
         byte riverData = reader.ReadByte();
         if (riverData >= 128)
@@ -415,6 +454,11 @@ public class HexCell : MonoBehaviour, ISaveableObject
         for (int i = 0; i < _roads.Length; i++)
         {
             _roads[i] = (roadFlags & (1 << i)) != 0;
+        }
+        int wallFlags = reader.ReadByte();
+        for (int i = 0; i < _walls.Length; i++)
+        {
+            _walls[i] = (wallFlags & (1 << i)) != 0;
         }
 
         IsExplored = reader.ReadBoolean();
