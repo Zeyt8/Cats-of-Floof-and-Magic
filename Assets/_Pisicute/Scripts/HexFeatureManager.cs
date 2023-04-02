@@ -165,7 +165,8 @@ public class HexFeatureManager : MonoBehaviour
 
         v1 = v3 = left + leftThicknessOffset;
         v2 = v4 = right + rightThicknessOffset;
-        v3.y = v4.y = left.y + HexMetrics.WallHeight;
+        v3.y = leftTop;
+        v4.y = rightTop;
         _walls.AddQuadUnperturbed(v2, v1, v4, v3);
 
         _walls.AddQuadUnperturbed(t1, t2, v3, v4);
@@ -192,7 +193,7 @@ public class HexFeatureManager : MonoBehaviour
                 bool hasTower = false;
                 if (leftCell.Elevation == rightCell.Elevation)
                 {
-                    HexHash hash = HexMetrics.SampleHashGrid((pivot + left + right) * (1f / 3f));
+                    HexHash hash = HexMetrics.SampleHashGrid((pivot + left + right) / 3);
                     hasTower = hash.E < HexMetrics.WallTowerThreshold;
                 }
                 AddWallSegment(pivot, left, pivot, right, hasTower);
