@@ -5,12 +5,12 @@ public class HexCellShaderData : MonoBehaviour
 {
     private const float TransitionSpeed = 255f;
     
-    public bool ImmediateMode;
-    private Texture2D _cellTexture;
-    private Color32[] _cellTextureData;
-    private List<HexCell> _transitioningCells = new List<HexCell>();
-    private bool[] _visibilityTransitions;
-    private bool _needsVisibilityReset;
+    public bool immediateMode;
+    private Texture2D cellTexture;
+    private Color32[] cellTextureData;
+    private List<HexCell> transitioningCells = new List<HexCell>();
+    private bool[] visibilityTransitions;
+    private bool needsVisibilityReset;
 
     private void LateUpdate()
     {
@@ -19,85 +19,85 @@ public class HexCellShaderData : MonoBehaviour
         {
             delta = 1;
         }
-        for (int i = 0; i < _transitioningCells.Count; i++)
+        for (int i = 0; i < transitioningCells.Count; i++)
         {
-            if (!UpdateCellData(_transitioningCells[i], delta))
+            if (!UpdateCellData(transitioningCells[i], delta))
             {
-                _transitioningCells[i--] = _transitioningCells[^1];
-                _transitioningCells.RemoveAt(_transitioningCells.Count - 1);
+                transitioningCells[i--] = transitioningCells[^1];
+                transitioningCells.RemoveAt(transitioningCells.Count - 1);
             }
         }
-        _cellTexture.SetPixels32(_cellTextureData);
-        _cellTexture.Apply();
-        enabled = _transitioningCells.Count > 0;
+        cellTexture.SetPixels32(cellTextureData);
+        cellTexture.Apply();
+        enabled = transitioningCells.Count > 0;
     }
     
     public void Initialize(int x, int z)
     {
-        if (_cellTexture)
+        if (cellTexture)
         {
-            _cellTexture.Reinitialize(x, z);
+            cellTexture.Reinitialize(x, z);
         }
         else
         {
-            _cellTexture = new Texture2D(x, z, TextureFormat.RGBA32, false, true);
-            _cellTexture.filterMode = FilterMode.Point;
-            _cellTexture.wrapMode = TextureWrapMode.Clamp;
-            Shader.SetGlobalTexture("_HexCellData", _cellTexture);
+            cellTexture = new Texture2D(x, z, TextureFormat.RGBA32, false, true);
+            cellTexture.filterMode = FilterMode.Point;
+            cellTexture.wrapMode = TextureWrapMode.Clamp;
+            Shader.SetGlobalTexture("_HexCellData", cellTexture);
         }
         Shader.SetGlobalVector("_HexCellData_TexelSize", new Vector4(1f / x, 1f / z, x, z));
-        if (_cellTextureData == null || _cellTextureData.Length != x * z)
+        if (cellTextureData == null || cellTextureData.Length != x * z)
         {
-            _cellTextureData = new Color32[x * z];
-            _visibilityTransitions = new bool[x * z];
+            cellTextureData = new Color32[x * z];
+            visibilityTransitions = new bool[x * z];
         }
         else
         {
-            for (int i = 0; i < _cellTextureData.Length; i++)
+            for (int i = 0; i < cellTextureData.Length; i++)
             {
-                _cellTextureData[i] = Color.clear;
-                _visibilityTransitions[i] = false;
+                cellTextureData[i] = Color.clear;
+                visibilityTransitions[i] = false;
             }
         }
-        _transitioningCells.Clear();
+        transitioningCells.Clear();
         enabled = true;
     }
 
     public void RefreshTerrain(HexCell cell)
     {
-        Color32 data = _cellTextureData[cell.Index];
+        Color32 data = cellTextureData[cell.index];
         data.b = cell.IsUnderwater ? (byte)(cell.WaterSurfaceY * (255f / 30f)) : (byte)0;
         data.a = (byte)cell.TerrainTypeIndex;
-        _cellTextureData[cell.Index] = data;
+        cellTextureData[cell.index] = data;
         enabled = true;
     }
 
     public void RefreshVisibility(HexCell cell)
     {
-        int index = cell.Index;
-        if (ImmediateMode)
+        int index = cell.index;
+        if (immediateMode)
         {
-            _cellTextureData[index].r = cell.IsVisible ? (byte)255 : (byte)0;
-            _cellTextureData[index].g = cell.IsExplored ? (byte)255 : (byte)0;
+            cellTextureData[index].r = cell.IsVisible ? (byte)255 : (byte)0;
+            cellTextureData[index].g = cell.IsExplored ? (byte)255 : (byte)0;
         }
-        else if (!_visibilityTransitions[index])
+        else if (!visibilityTransitions[index])
         {
-            _visibilityTransitions[index] = true;
-            _transitioningCells.Add(cell);   
+            visibilityTransitions[index] = true;
+            transitioningCells.Add(cell);   
         }
         enabled = true;
     }
 
     public void SetMapData(HexCell cell, float data)
     {
-        _cellTextureData[cell.Index].b = data < 0f ? (byte)0 : (data < 1f ? (byte)(data * 255f) : (byte)255);
+        cellTextureData[cell.index].b = data < 0f ? (byte)0 : (data < 1f ? (byte)(data * 255f) : (byte)255);
         enabled = true;
     }
 
     private bool UpdateCellData(HexCell cell, int delta)
     {
-        int index = cell.Index;
-        Color32 data = _cellTextureData[index];
+        int index = cell.index;
+        Color32 data = cellTextureData[index];
         bool stillUpdating = false;
         if (cell.IsExplored && data.g < 255)
         {
@@ -122,9 +122,9 @@ public class HexCellShaderData : MonoBehaviour
         }
         if (!stillUpdating)
         {
-            _visibilityTransitions[index] = false;
+            visibilityTransitions[index] = false;
         }
-        _cellTextureData[index] = data;
+        cellTextureData[index] = data;
         return stillUpdating;
     }
 }

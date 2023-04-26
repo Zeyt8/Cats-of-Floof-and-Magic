@@ -4,23 +4,23 @@ using UnityEngine.UI;
 
 public class SaveLoadItem : MonoBehaviour
 {
-    public SaveLoadMenu Menu;
-    [SerializeField] TextMeshProUGUI _text;
-    private string _mapName;
+    public SaveLoadMenu menu;
+    [SerializeField] TextMeshProUGUI text;
+    private string mapName;
 
     public string MapName
     {
-        get => _mapName;
+        get => mapName;
         set
         {
-            _mapName = value;
-            _text.text = value;
+            mapName = value;
+            text.text = value;
         }
     }
 
 
     public void Select()
     {
-        Menu.SelectItem(_mapName);
+        menu.SelectItem(mapName);
     }
 }

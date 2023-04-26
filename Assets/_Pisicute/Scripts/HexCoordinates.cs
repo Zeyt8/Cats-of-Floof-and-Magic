@@ -4,18 +4,18 @@ using UnityEngine;
 [System.Serializable]
 public struct HexCoordinates : ISaveableObject
 {
-    public int X => _x;
-    public int Z => _z;
+    public int X => x;
+    public int Z => z;
     public int Y => -X - Z;
     public float HexX => X + Z / 2 + ((Z & 1) == 0 ? 0f : 0.5f);
     public float HexZ => Z * HexMetrics.OuterToInner;
 
-    [SerializeField] private int _x, _z;
+    [SerializeField] private int x, z;
 
     public HexCoordinates(int x, int z)
     {
-        _x = x;
-        _z = z;
+        this.x = x;
+        this.z = z;
     }
 
     public static HexCoordinates FromOffsetCoordinates(int x, int z)
@@ -82,8 +82,8 @@ public struct HexCoordinates : ISaveableObject
     public static HexCoordinates Load(BinaryReader reader)
     {
         HexCoordinates c;
-        c._x = reader.ReadInt32();
-        c._z = reader.ReadInt32();
+        c.x = reader.ReadInt32();
+        c.z = reader.ReadInt32();
         return c;
     }
 }

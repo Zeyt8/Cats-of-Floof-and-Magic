@@ -2,20 +2,20 @@ using UnityEngine;
 
 public struct HexHash
 {
-    public float A;
-    public float B;
-    public float C;
-    public float D;
-    public float E;
+    public float a;
+    public float b;
+    public float c;
+    public float d;
+    public float e;
 
     public static HexHash Create()
     {
         HexHash hash;
-        hash.A = Random.value * 0.999f;
-        hash.B = Random.value * 0.999f;
-        hash.C = Random.value * 0.999f;
-        hash.D = Random.value * 0.999f;
-        hash.E = Random.value * 0.999f;
+        hash.a = Random.value * 0.999f;
+        hash.b = Random.value * 0.999f;
+        hash.c = Random.value * 0.999f;
+        hash.d = Random.value * 0.999f;
+        hash.e = Random.value * 0.999f;
         return hash;
     }
 }

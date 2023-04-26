@@ -3,27 +3,27 @@ using UnityEngine;
 
 public class HexFeatureManager : MonoBehaviour
 {
-    [SerializeField] private HexMesh _walls;
-    [SerializeField] private HexFeatureCollection[] _urbanCollections, _farmCollections, _plantCollections;
-    [SerializeField] private GameObject[] _special;
-    [SerializeField] private GameObject _wallTower;
-    [SerializeField] private GameObject _bridge;
-    private Transform _container;
+    [SerializeField] private HexMesh walls;
+    [SerializeField] private HexFeatureCollection[] urbanCollections, farmCollections, plantCollections;
+    [SerializeField] private GameObject[] special;
+    [SerializeField] private GameObject wallTower;
+    [SerializeField] private GameObject bridge;
+    private Transform container;
     
     public void Clear()
     {
-        if (_container)
+        if (container)
         {
-            Destroy(_container.gameObject);
+            Destroy(container.gameObject);
         }
-        _container = new GameObject("Features Container").transform;
-        _container.SetParent(transform, false);
-        _walls.Clear();
+        container = new GameObject("Features Container").transform;
+        container.SetParent(transform, false);
+        walls.Clear();
     }
 
     public void Apply()
     {
-        _walls.Apply();
+        walls.Apply();
     }
 
     public void AddFeature(HexCell cell, Vector3 position)
@@ -31,26 +31,26 @@ public class HexFeatureManager : MonoBehaviour
         if (cell.IsSpecial) return;
         
         HexHash hash = HexMetrics.SampleHashGrid(position);
-        GameObject prefab = PickPrefab(_urbanCollections, cell.UrbanLevel, hash.A, hash.D);
-        GameObject otherPrefab = PickPrefab(_farmCollections, cell.FarmLevel, hash.B, hash.D);
-        float usedHash = hash.A;
+        GameObject prefab = PickPrefab(urbanCollections, cell.UrbanLevel, hash.a, hash.d);
+        GameObject otherPrefab = PickPrefab(farmCollections, cell.FarmLevel, hash.b, hash.d);
+        float usedHash = hash.a;
         if (prefab)
         {
-            if (otherPrefab && hash.B < hash.A)
+            if (otherPrefab && hash.b < hash.a)
             {
                 prefab = otherPrefab;
-                usedHash = hash.B;
+                usedHash = hash.b;
             }
         }
         else if (otherPrefab)
         {
             prefab = otherPrefab;
-            usedHash = hash.B;
+            usedHash = hash.b;
         }
-        otherPrefab = PickPrefab(_plantCollections, cell.PlantLevel, hash.C, hash.D);
+        otherPrefab = PickPrefab(plantCollections, cell.PlantLevel, hash.c, hash.d);
         if (prefab)
         {
-            if (otherPrefab && hash.C < usedHash)
+            if (otherPrefab && hash.c < usedHash)
             {
                 prefab = otherPrefab;
             }
@@ -63,26 +63,26 @@ public class HexFeatureManager : MonoBehaviour
         {
             return;
         }
-        GameObject instance = Instantiate(prefab, _container, false);
+        GameObject instance = Instantiate(prefab, container, false);
         instance.transform.localPosition = HexMetrics.Perturb(position);
-        instance.transform.localRotation = Quaternion.Euler(0f, 360f * hash.E, 0f);
+        instance.transform.localRotation = Quaternion.Euler(0f, 360f * hash.e, 0f);
     }
 
     public void AddWall(EdgeVertices near, HexCell nearCell, EdgeVertices far, HexCell farCell, bool hasRiver, bool hasRoad)
     {
         if (!nearCell.HasWallThroughEdge(nearCell.GetNeighborDirection(farCell))) return;
-        AddWallSegment(near.V1, far.V1, near.V2, far.V2);
+        AddWallSegment(near.v1, far.v1, near.v2, far.v2);
         if (hasRiver || hasRoad)
         {
-            AddWallCap(near.V2, far.V2);
-            AddWallCap(far.V4, near.V4);
+            AddWallCap(near.v2, far.v2);
+            AddWallCap(far.v4, near.v4);
         }
         else
         {
-            AddWallSegment(near.V2, far.V2, near.V3, far.V3);
-            AddWallSegment(near.V3, far.V3, near.V4, far.V4);
+            AddWallSegment(near.v2, far.v2, near.v3, far.v3);
+            AddWallSegment(near.v3, far.v3, near.v4, far.v4);
         }
-        AddWallSegment(near.V4, far.V4, near.V5, far.V5);
+        AddWallSegment(near.v4, far.v4, near.v5, far.v5);
     }
 
     public void AddWall(Vector3 c1, HexCell cell1, Vector3 c2, HexCell cell2, Vector3 c3, HexCell cell3)
@@ -159,7 +159,7 @@ public class HexFeatureManager : MonoBehaviour
         v2 = v4 = right - rightThicknessOffset;
         v3.y = leftTop;
         v4.y = rightTop;
-        _walls.AddQuadUnperturbed(v1, v2, v3, v4);
+        walls.AddQuadUnperturbed(v1, v2, v3, v4);
 
         Vector3 t1 = v3, t2 = v4;
 
@@ -167,13 +167,13 @@ public class HexFeatureManager : MonoBehaviour
         v2 = v4 = right + rightThicknessOffset;
         v3.y = leftTop;
         v4.y = rightTop;
-        _walls.AddQuadUnperturbed(v2, v1, v4, v3);
+        walls.AddQuadUnperturbed(v2, v1, v4, v3);
 
-        _walls.AddQuadUnperturbed(t1, t2, v3, v4);
+        walls.AddQuadUnperturbed(t1, t2, v3, v4);
 
         if (addTower)
         {
-            GameObject towerInstance = Instantiate(_wallTower, _container, false);
+            GameObject towerInstance = Instantiate(wallTower, container, false);
             towerInstance.transform.localPosition = (left + right) * 0.5f;
             Vector3 rightDirection = right - left;
             towerInstance.transform.right = rightDirection;
@@ -194,7 +194,7 @@ public class HexFeatureManager : MonoBehaviour
                 if (leftCell.Elevation == rightCell.Elevation)
                 {
                     HexHash hash = HexMetrics.SampleHashGrid((pivot + left + right) / 3);
-                    hasTower = hash.E < HexMetrics.WallTowerThreshold;
+                    hasTower = hash.e < HexMetrics.WallTowerThreshold;
                 }
                 AddWallSegment(pivot, left, pivot, right, hasTower);
             }
@@ -233,7 +233,7 @@ public class HexFeatureManager : MonoBehaviour
         v1 = v3 = center - thickness;
         v2 = v4 = center + thickness;
         v3.y = v4.y = center.y + HexMetrics.WallHeight;
-        _walls.AddQuadUnperturbed(v1, v2, v3, v4);
+        walls.AddQuadUnperturbed(v1, v2, v3, v4);
     }
 
     private void AddWallWedge(Vector3 near, Vector3 far, Vector3 point)
@@ -253,16 +253,16 @@ public class HexFeatureManager : MonoBehaviour
         v2 = v4 = center + thickness;
         v3.y = v4.y = pointTop.y = center.y + HexMetrics.WallHeight;
 
-        _walls.AddQuadUnperturbed(v1, point, v3, pointTop);
-        _walls.AddQuadUnperturbed(point, v2, pointTop, v4);
-        _walls.AddTriangleUnperturbed(pointTop, v3, v4);
+        walls.AddQuadUnperturbed(v1, point, v3, pointTop);
+        walls.AddQuadUnperturbed(point, v2, pointTop, v4);
+        walls.AddTriangleUnperturbed(pointTop, v3, v4);
     }
 
     public void AddBridge(Vector3 roadCenter1, Vector3 roadCenter2)
     {
         roadCenter1 = HexMetrics.Perturb(roadCenter1);
         roadCenter2 = HexMetrics.Perturb(roadCenter2);
-        GameObject instance = Instantiate(_bridge, _container, false);
+        GameObject instance = Instantiate(bridge, container, false);
         instance.transform.localPosition = (roadCenter1 + roadCenter2) * 0.5f;
         instance.transform.forward = roadCenter2 - roadCenter1;
         float length = Vector3.Distance(roadCenter1, roadCenter2);
@@ -271,9 +271,9 @@ public class HexFeatureManager : MonoBehaviour
 
     public void AddSpecialFeature(HexCell cell, Vector3 position)
     {
-        GameObject instance = Instantiate(_special[cell.SpecialIndex - 1], _container, false);
+        GameObject instance = Instantiate(special[cell.SpecialIndex - 1], container, false);
         instance.transform.localPosition = HexMetrics.Perturb(position);
         HexHash hash = HexMetrics.SampleHashGrid(position);
-        instance.transform.localRotation = Quaternion.Euler(0f, 360f * hash.E, 0f);
+        instance.transform.localRotation = Quaternion.Euler(0f, 360f * hash.e, 0f);
     }
 }

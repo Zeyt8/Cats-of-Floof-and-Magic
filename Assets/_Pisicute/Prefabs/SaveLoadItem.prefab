@@ -282,5 +282,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6a7a9c21281eee488af39a6efc7338d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Menu: {fileID: 0}
-  _text: {fileID: 5272432434470200674}
+  menu: {fileID: 0}
+  text: {fileID: 5272432434470200674}

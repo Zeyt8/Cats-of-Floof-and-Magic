@@ -4,9 +4,9 @@ using UnityEngine;
 [Serializable]
 public class HexFeatureCollection
 {
-    public GameObject[] Prefabs;
+    public GameObject[] prefabs;
     public GameObject Pick(float choice)
     {
-        return Prefabs[(int)choice * Prefabs.Length];
+        return prefabs[(int)choice * prefabs.Length];
     }
 }

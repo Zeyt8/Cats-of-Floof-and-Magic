@@ -1254,8 +1254,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49837388b6897aa4d9b19b57994d6845, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _grid: {fileID: 967716812}
-  _inputHandler: {fileID: 11400000, guid: 90363687a8f88644cbc70ff1aa362b85, type: 2}
+  grid: {fileID: 967716812}
+  inputHandler: {fileID: 0}
 --- !u!1 &267603270
 GameObject:
   m_ObjectHideFlags: 0
@@ -7147,18 +7147,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0709fc225d318e41b1feea068adaf38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UnitPrefab: {fileID: 4840009015928866894, guid: 9e25c1c4f9117fc4da87c8e9b07d3273,
+  unitPrefab: {fileID: 4840009015928866894, guid: 9e25c1c4f9117fc4da87c8e9b07d3273,
     type: 3}
-  CellCountX: 4
-  CellCountZ: 3
-  _seed: 1234
-  _cellPrefab: {fileID: 7219900728345646861, guid: f26c55414219ba54e9c64392fa3703c2,
+  cellCountX: 4
+  cellCountZ: 3
+  seed: 0
+  cellPrefab: {fileID: 7219900728345646861, guid: f26c55414219ba54e9c64392fa3703c2,
     type: 3}
-  _chunkPrefab: {fileID: 7525116573421556856, guid: a9340e94a55dd4e4a8638443fcac1aa4,
+  chunkPrefab: {fileID: 7525116573421556856, guid: a9340e94a55dd4e4a8638443fcac1aa4,
     type: 3}
-  _cellLabelPrefab: {fileID: 5068088112184473218, guid: 27f410c931306e94bb89435839db4c57,
+  cellLabelPrefab: {fileID: 5068088112184473218, guid: 27f410c931306e94bb89435839db4c57,
     type: 3}
-  _noiseSource: {fileID: 2800000, guid: a9662976c7c7a6b4b9cafa481c5d0688, type: 3}
+  noiseSource: {fileID: 2800000, guid: a9662976c7c7a6b4b9cafa481c5d0688, type: 3}
 --- !u!114 &967716813
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7171,7 +7171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20023c2e63176b746ade22caf78406e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ImmediateMode: 0
+  immediateMode: 0
 --- !u!1 &968321734
 GameObject:
   m_ObjectHideFlags: 0
@@ -9139,36 +9139,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e6b3da2ca9bfed459dd015174148329, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _seed: 1234
-  _useFixedSeed: 0
-  _jitterProbability: 0.25
-  _chunkSizeMin: 30
-  _chunkSizeMax: 100
-  _highRiseProbability: 0.25
-  _sinkProbability: 0.2
-  _landPercentage: 40
-  _waterLevel: 3
-  _elevationMinimum: -2
-  _elevationMaximum: 8
-  _mapBorderX: 5
-  _mapBorderZ: 6
-  _regionBorder: 5
-  _regionCount: 1
-  _erosionPercentage: 50
-  _precipitationFactor: 0.25
-  _evaporationFactor: 0.5
-  _runoffFactor: 0.25
-  _seepageFactor: 0.125
-  _windDirection: 5
-  _windStrength: 0
-  _startingMoisture: 0.1
-  _riverPercentage: 10
-  _extraLakeProbability: 0.25
-  _lowTemperature: 0
-  _highTemperature: 1
-  _temperatureJitter: 0.1
-  _hemisphere: 0
-  _grid: {fileID: 967716812}
+  seed: 0
+  useFixedSeed: 0
+  jitterProbability: 0.25
+  chunkSizeMin: 30
+  chunkSizeMax: 100
+  highRiseProbability: 0.25
+  sinkProbability: 0.2
+  landPercentage: 50
+  waterLevel: 3
+  elevationMinimum: -2
+  elevationMaximum: 8
+  mapBorderX: 5
+  mapBorderZ: 5
+  regionBorder: 5
+  regionCount: 1
+  erosionPercentage: 50
+  precipitationFactor: 0.25
+  evaporationFactor: 0.5
+  runoffFactor: 0.25
+  seepageFactor: 0.125
+  windDirection: 5
+  windStrength: 4
+  startingMoisture: 0.1
+  riverPercentage: 10
+  extraLakeProbability: 0.25
+  lowTemperature: 0
+  highTemperature: 1
+  temperatureJitter: 0.1
+  hemisphere: 0
+  grid: {fileID: 967716812}
 --- !u!1 &1249370099
 GameObject:
   m_ObjectHideFlags: 0
@@ -11192,14 +11192,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ed1605db3a9d784e9be96647d9cbbfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputHandler: {fileID: 11400000, guid: 90363687a8f88644cbc70ff1aa362b85, type: 2}
-  _virtualCamera: {fileID: 1521285265}
-  _speed: 150
-  _orbitSpeed: 1.2
-  _zoomScrollSpeed: 20
-  _zoomSpeed: 50
-  _zoomLowerClamp: 20
-  _zoomUpperClamp: 600
+  inputHandler: {fileID: 11400000, guid: 90363687a8f88644cbc70ff1aa362b85, type: 2}
+  virtualCamera: {fileID: 1521285265}
+  speed: 5
+  orbitSpeed: 5
+  zoomScrollSpeed: 5
+  zoomSpeed: 5
+  zoomLowerClamp: 5
+  zoomUpperClamp: 200
 --- !u!1 &1512002751
 GameObject:
   m_ObjectHideFlags: 0
@@ -12873,6 +12873,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -14257,8 +14258,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec2ce5fb426f31045a8a7a306f4eb485, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hexGrid: {fileID: 967716812}
-  _mapGenerator: {fileID: 1243810980}
+  hexGrid: {fileID: 967716812}
+  mapGenerator: {fileID: 1243810980}
 --- !u!1 &1846915424
 GameObject:
   m_ObjectHideFlags: 0
@@ -16546,9 +16547,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb359145e54fc5745853cfb07e596fd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputHandler: {fileID: 11400000, guid: 90363687a8f88644cbc70ff1aa362b85, type: 2}
-  _hexGrid: {fileID: 967716812}
-  _terrainMaterial: {fileID: 2100000, guid: da66e8f0c1d16476bae8e2d228492d7f, type: 2}
+  inputHandler: {fileID: 11400000, guid: 90363687a8f88644cbc70ff1aa362b85, type: 2}
+  hexGrid: {fileID: 967716812}
+  terrainMaterial: {fileID: 0}
 --- !u!222 &2571628732434139510
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -17125,12 +17126,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7b6d1875258c9f45badc6e5a97fc966, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hexGrid: {fileID: 967716812}
-  _menuLabel: {fileID: 1871310308}
-  _actionButtonLabel: {fileID: 1682273413}
-  _nameInput: {fileID: 1932862174}
-  _listContent: {fileID: 2571628732592335172}
-  _itemPrefab: {fileID: 3628481292069167152, guid: c8b01841cd2653b43973cbeacfa31552,
+  hexGrid: {fileID: 967716812}
+  menuLabel: {fileID: 1871310308}
+  actionButtonLabel: {fileID: 1682273413}
+  nameInput: {fileID: 1932862174}
+  listContent: {fileID: 0}
+  itemPrefab: {fileID: 3628481292069167152, guid: c8b01841cd2653b43973cbeacfa31552,
     type: 3}
 --- !u!224 &2571628733427084600
 RectTransform:

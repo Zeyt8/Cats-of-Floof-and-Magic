@@ -7,26 +7,26 @@ public class SaveLoadMenu : MonoBehaviour
 {
     private const int MapFileVersion = 1;
 
-    [SerializeField] private HexGrid _hexGrid;
-    [SerializeField] private TextMeshProUGUI _menuLabel;
-    [SerializeField] private TextMeshProUGUI _actionButtonLabel;
-    [SerializeField] private TMP_InputField _nameInput;
-    [SerializeField] private RectTransform _listContent;
-    [SerializeField] private SaveLoadItem _itemPrefab;
+    [SerializeField] private HexGrid hexGrid;
+    [SerializeField] private TextMeshProUGUI menuLabel;
+    [SerializeField] private TextMeshProUGUI actionButtonLabel;
+    [SerializeField] private TMP_InputField nameInput;
+    [SerializeField] private RectTransform listContent;
+    [SerializeField] private SaveLoadItem itemPrefab;
 
-    private bool _saveMode;
+    private bool saveMode;
     public void Open(bool saveMode)
     {
-        _saveMode = saveMode;
+        this.saveMode = saveMode;
         if (saveMode)
         {
-            _menuLabel.text = "Save Map";
-            _actionButtonLabel.text = "Save";
+            menuLabel.text = "Save Map";
+            actionButtonLabel.text = "Save";
         }
         else
         {
-            _menuLabel.text = "Load Map";
-            _actionButtonLabel.text = "Load";
+            menuLabel.text = "Load Map";
+            actionButtonLabel.text = "Load";
         }
 
         FillList();
@@ -40,7 +40,7 @@ public class SaveLoadMenu : MonoBehaviour
         {
             return;
         }
-        if (_saveMode)
+        if (saveMode)
         {
             Save(path);
         }
@@ -54,7 +54,7 @@ public class SaveLoadMenu : MonoBehaviour
 
     public void SelectItem(string name)
     {
-        _nameInput.text = name;
+        nameInput.text = name;
     }
 
     public void Delete()
@@ -68,7 +68,7 @@ public class SaveLoadMenu : MonoBehaviour
         {
             File.Delete(path);
         }
-        _nameInput.text = "";
+        nameInput.text = "";
         FillList();
     }
 
@@ -76,7 +76,7 @@ public class SaveLoadMenu : MonoBehaviour
     {
         using BinaryWriter writer = new BinaryWriter(File.Open(path, FileMode.Create));
         writer.Write(MapFileVersion);
-        _hexGrid.Save(writer);
+        hexGrid.Save(writer);
     }
 
     private void Load(string path)
@@ -90,7 +90,7 @@ public class SaveLoadMenu : MonoBehaviour
         int header = reader.ReadInt32();
         if (header == MapFileVersion)
         {
-            _hexGrid.Load(reader, header);
+            hexGrid.Load(reader, header);
         }
         else
         {
@@ -100,22 +100,22 @@ public class SaveLoadMenu : MonoBehaviour
 
     private string GetSelectedPath()
     {
-        string mapName = _nameInput.text;
+        string mapName = nameInput.text;
         return mapName.Length == 0 ? null : Path.Combine(Application.persistentDataPath, mapName + ".map");
     }
 
     private void FillList()
     {
-        for (int i = 0; i < _listContent.childCount; i++)
+        for (int i = 0; i < listContent.childCount; i++)
         {
-            Destroy(_listContent.GetChild(i).gameObject);
+            Destroy(listContent.GetChild(i).gameObject);
         }
         string[] paths = Directory.GetFiles(Application.persistentDataPath, "*.map");
         Array.Sort(paths);
         for (int i = 0; i < paths.Length; i++)
         {
-            SaveLoadItem item = Instantiate(_itemPrefab, _listContent, false);
-            item.Menu = this;
+            SaveLoadItem item = Instantiate(itemPrefab, listContent, false);
+            item.menu = this;
             item.MapName = Path.GetFileNameWithoutExtension(paths[i]);
         }
     }

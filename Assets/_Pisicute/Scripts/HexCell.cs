@@ -7,46 +7,46 @@ using System;
 
 public class HexCell : MonoBehaviour, ISaveableObject
 {
-    public HexCoordinates Coordinates;
-    public RectTransform UiRect;
-    public HexGridChunk Chunk;
-    [NonSerialized] public int Index;
-    [NonSerialized] public HexCellShaderData ShaderData;
-    [NonSerialized] public int Distance;
-    [NonSerialized] public HexCell PathFrom;
-    [NonSerialized] public int SearchHeuristic;
-    [NonSerialized] public HexCell NextWithSamePriority;
-    [NonSerialized] public int SearchPhase;
-    [NonSerialized] public UnitObject Unit;
-    [NonSerialized] public bool IsExplorable;
+    public HexCoordinates coordinates;
+    public RectTransform uiRect;
+    public HexGridChunk chunk;
+    [NonSerialized] public int index;
+    [NonSerialized] public HexCellShaderData shaderData;
+    [NonSerialized] public int distance;
+    [NonSerialized] public HexCell pathFrom;
+    [NonSerialized] public int searchHeuristic;
+    [NonSerialized] public HexCell nextWithSamePriority;
+    [NonSerialized] public int searchPhase;
+    [NonSerialized] public UnitObject unit;
+    [NonSerialized] public bool isExplorable;
 
-    [SerializeField] private HexCell[] _neighbors = new HexCell[6];
-    [SerializeField] private bool[] _roads = new bool[6];
-    [SerializeField] private bool[] _walls = new bool[6];
-    private int _terrainTypeIndex;
-    private int _elevation = int.MinValue;
-    private int _waterLevel;
-    private int _urbanLevel;
-    private int _farmLevel;
-    private int _plantLevel;
-    private int _specialIndex;
-    private int _visibility;
-    private bool _explored;
+    [SerializeField] private HexCell[] neighbors = new HexCell[6];
+    [SerializeField] private bool[] roads = new bool[6];
+    [SerializeField] private bool[] walls = new bool[6];
+    private int terrainTypeIndex;
+    private int elevation = int.MinValue;
+    private int waterLevel;
+    private int urbanLevel;
+    private int farmLevel;
+    private int plantLevel;
+    private int specialIndex;
+    private int visibility;
+    private bool explored;
 
     public Vector3 Position => transform.localPosition;
     public int Elevation
     {
-        get => _elevation;
+        get => elevation;
         set
         {
-            if (_elevation == value) return;
-            _elevation = value;
+            if (elevation == value) return;
+            elevation = value;
             RefreshPosition();
             ValidateRivers();
 
-            for (int i = 0; i < _roads.Length; i++)
+            for (int i = 0; i < roads.Length; i++)
             {
-                if (_roads[i] && GetElevationDifference((HexDirection)i) > 1)
+                if (roads[i] && GetElevationDifference((HexDirection)i) > 1)
                 {
                     SetRoad(i, false);
                 }
@@ -57,12 +57,12 @@ public class HexCell : MonoBehaviour, ISaveableObject
     }
     public int TerrainTypeIndex
     {
-        get => _terrainTypeIndex;
+        get => terrainTypeIndex;
         set
         {
-            if (_terrainTypeIndex == value) return;
-            _terrainTypeIndex = value;
-            ShaderData.RefreshTerrain(this);
+            if (terrainTypeIndex == value) return;
+            terrainTypeIndex = value;
+            shaderData.RefreshTerrain(this);
         }
     }
     public bool HasIncomingRiver { get; private set; }
@@ -73,15 +73,15 @@ public class HexCell : MonoBehaviour, ISaveableObject
     public bool HasRiverBeginOrEnd => HasIncomingRiver != HasOutgoingRiver;
     public float StreamBedY => (Elevation + HexMetrics.StreamBedElevationOffset) * HexMetrics.ElevationStep;
     public float RiverSurfaceY => (Elevation + HexMetrics.WaterElevationOffset) * HexMetrics.ElevationStep;
-    public bool HasRoads => _roads.Any(t => t);
+    public bool HasRoads => roads.Any(t => t);
     public HexDirection RiverBeginOrEndDirection => HasIncomingRiver ? IncomingRiver : OutgoingRiver;
     public int WaterLevel
     {
-        get => _waterLevel;
+        get => waterLevel;
         set
         {
-            if (_waterLevel == value) return;
-            _waterLevel = value;
+            if (waterLevel == value) return;
+            waterLevel = value;
             ValidateRivers();
             Refresh();
         }
@@ -90,60 +90,60 @@ public class HexCell : MonoBehaviour, ISaveableObject
     public float WaterSurfaceY => (WaterLevel + HexMetrics.WaterElevationOffset) * HexMetrics.ElevationStep;
     public int UrbanLevel
     {
-        get => _urbanLevel;
+        get => urbanLevel;
         set
         {
-            if (_urbanLevel == value) return;
-            _urbanLevel = value;
+            if (urbanLevel == value) return;
+            urbanLevel = value;
             RefreshSelfOnly();
         }
     }
     public int FarmLevel
     {
-        get => _farmLevel;
+        get => farmLevel;
         set
         {
-            if (_farmLevel == value) return;
-            _farmLevel = value;
+            if (farmLevel == value) return;
+            farmLevel = value;
             RefreshSelfOnly();
         }
     }
     public int PlantLevel
     {
-        get => _plantLevel;
+        get => plantLevel;
         set
         {
-            if (_plantLevel == value) return;
-            _plantLevel = value;
+            if (plantLevel == value) return;
+            plantLevel = value;
             RefreshSelfOnly();
         }
     }
     public int SpecialIndex
     {
-        get => _specialIndex;
+        get => specialIndex;
         set
         {
-            if (_specialIndex == value || HasRiver) return;
-            _specialIndex = value;
+            if (specialIndex == value || HasRiver) return;
+            specialIndex = value;
             RemoveRoads();
             RefreshSelfOnly();
         }
     }
     public bool IsSpecial => SpecialIndex > 0;
-    public int SearchPriority => Distance + SearchHeuristic;
-    public bool IsVisible => _visibility > 0 && IsExplorable;
-    public bool IsExplored { get => _explored && IsExplorable; private set => _explored = value; }
+    public int SearchPriority => distance + searchHeuristic;
+    public bool IsVisible => visibility > 0 && isExplorable;
+    public bool IsExplored { get => explored && isExplorable; private set => explored = value; }
     public int ViewElevation => Elevation >= WaterLevel ? Elevation : WaterLevel;
 
     public HexCell GetNeighbor(HexDirection direction)
     {
-        return _neighbors[(int)direction];
+        return neighbors[(int)direction];
     }
     public HexDirection GetNeighborDirection(HexCell cell)
     {
-        for (int i = 0; i < _neighbors.Length; i++)
+        for (int i = 0; i < neighbors.Length; i++)
         {
-            if (_neighbors[i] == cell)
+            if (neighbors[i] == cell)
             {
                 return (HexDirection)i;
             }
@@ -158,12 +158,12 @@ public class HexCell : MonoBehaviour, ISaveableObject
 
     public bool HasRoadThroughEdge(HexDirection direction)
     {
-        return _roads[(int)direction];
+        return roads[(int)direction];
     }
 
     public bool HasWallThroughEdge(HexDirection direction)
     {
-        return _walls[(int)direction];
+        return walls[(int)direction];
     }
 
     public int GetElevationDifference(HexDirection direction)
@@ -174,13 +174,13 @@ public class HexCell : MonoBehaviour, ISaveableObject
 
     public void SetNeighbor(HexDirection direction, HexCell cell)
     {
-        _neighbors[(int)direction] = cell;
-        cell._neighbors[(int)direction.Opposite()] = this;
+        neighbors[(int)direction] = cell;
+        cell.neighbors[(int)direction.Opposite()] = this;
     }
 
     public HexEdgeType GetEdgeType(HexDirection direction)
     {
-        return HexMetrics.GetEdgeType(Elevation, _neighbors[(int)direction].Elevation);
+        return HexMetrics.GetEdgeType(Elevation, neighbors[(int)direction].Elevation);
     }
 
     public HexEdgeType GetEdgeType(HexCell otherCell)
@@ -241,7 +241,7 @@ public class HexCell : MonoBehaviour, ISaveableObject
 
     public void AddRoad(HexDirection direction)
     {
-        if (!_roads[(int)direction] && !HasRiverThroughEdge(direction) && !IsSpecial && !GetNeighbor(direction).IsSpecial && GetElevationDifference(direction) <= 1)
+        if (!roads[(int)direction] && !HasRiverThroughEdge(direction) && !IsSpecial && !GetNeighbor(direction).IsSpecial && GetElevationDifference(direction) <= 1)
         {
             SetRoad((int)direction, true);
         }
@@ -249,9 +249,9 @@ public class HexCell : MonoBehaviour, ISaveableObject
 
     public void RemoveRoads()
     {
-        for (int i = 0; i < _neighbors.Length; i++)
+        for (int i = 0; i < neighbors.Length; i++)
         {
-            if (_roads[i])
+            if (roads[i])
             {
                 SetRoad(i, false);
             }
@@ -268,9 +268,9 @@ public class HexCell : MonoBehaviour, ISaveableObject
 
     public void RemoveWall()
     {
-        for (int i = 0; i < _neighbors.Length; i++)
+        for (int i = 0; i < neighbors.Length; i++)
         {
-            if (_walls[i])
+            if (walls[i])
             {
                 SetWall(i, false);
             }
@@ -296,86 +296,86 @@ public class HexCell : MonoBehaviour, ISaveableObject
 
     private void SetRoad(int index, bool state)
     {
-        _roads[index] = state;
-        _neighbors[index]._roads[(int)((HexDirection)index).Opposite()] = state;
+        roads[index] = state;
+        neighbors[index].roads[(int)((HexDirection)index).Opposite()] = state;
         Refresh();
     }
 
     private void SetWall(int index, bool state)
     {
-        _walls[index] = state;
-        _neighbors[index]._walls[(int)((HexDirection)index).Opposite()] = state;
-        _neighbors[index].RefreshSelfOnly();
+        walls[index] = state;
+        neighbors[index].walls[(int)((HexDirection)index).Opposite()] = state;
+        neighbors[index].RefreshSelfOnly();
         RefreshSelfOnly();
     }
 
     private void Refresh()
     {
-        if (!Chunk) return;
-        Chunk.Refresh();
-        foreach (HexCell neighbor in _neighbors)
+        if (!chunk) return;
+        chunk.Refresh();
+        foreach (HexCell neighbor in neighbors)
         {
-            if (neighbor != null && neighbor.Chunk != Chunk)
+            if (neighbor != null && neighbor.chunk != chunk)
             {
-                neighbor.Chunk.Refresh();
+                neighbor.chunk.Refresh();
             }
         }
 
-        if (Unit)
+        if (unit)
         {
-            Unit.ValidateLocation();
+            unit.ValidateLocation();
         }
     }
 
     private void RefreshSelfOnly()
     {
-        Chunk.Refresh();
-        if (Unit)
+        chunk.Refresh();
+        if (unit)
         {
-            Unit.ValidateLocation();
+            unit.ValidateLocation();
         }
     }
 
     private void RefreshPosition()
     {
         Vector3 position = transform.localPosition;
-        position.y = _elevation * HexMetrics.ElevationStep;
+        position.y = elevation * HexMetrics.ElevationStep;
         position.y += (HexMetrics.SampleNoise(position).y * 2f - 1f) * HexMetrics.ElevationPerturbStrength;
         transform.localPosition = position;
 
-        Vector3 uiPosition = UiRect.localPosition;
+        Vector3 uiPosition = uiRect.localPosition;
         uiPosition.z = -position.y;
-        UiRect.localPosition = uiPosition;
+        uiRect.localPosition = uiPosition;
     }
 
     public void IncreaseVisibility()
     {
-        _visibility++;
-        if (_visibility == 1)
+        visibility++;
+        if (visibility == 1)
         {
             IsExplored = true;
-            ShaderData.RefreshVisibility(this);
+            shaderData.RefreshVisibility(this);
         }
     }
 
     public void DecreaseVisibility()
     {
-        _visibility--;
-        if (_visibility == 0)
+        visibility--;
+        if (visibility == 0)
         {
-            ShaderData.RefreshVisibility(this);
+            shaderData.RefreshVisibility(this);
         }
     }
 
     public void Save(BinaryWriter writer)
     {
-        writer.Write((byte)_terrainTypeIndex);
-        writer.Write((byte)(_elevation + 127));
-        writer.Write((byte)_waterLevel);
-        writer.Write((byte)_urbanLevel);
-        writer.Write((byte)_farmLevel);
-        writer.Write((byte)_plantLevel);
-        writer.Write((byte)_specialIndex);
+        writer.Write((byte)terrainTypeIndex);
+        writer.Write((byte)(elevation + 127));
+        writer.Write((byte)waterLevel);
+        writer.Write((byte)urbanLevel);
+        writer.Write((byte)farmLevel);
+        writer.Write((byte)plantLevel);
+        writer.Write((byte)specialIndex);
 
         if (HasIncomingRiver)
         {
@@ -396,18 +396,18 @@ public class HexCell : MonoBehaviour, ISaveableObject
         }
 
         int roadFlags = 0;
-        for (int i = 0; i < _roads.Length; i++)
+        for (int i = 0; i < roads.Length; i++)
         {
-            if (_roads[i])
+            if (roads[i])
             {
                 roadFlags |= 1 << i;
             }
         }
         writer.Write((byte)roadFlags);
         int wallFlags = 0;
-        for (int i = 0; i < _walls.Length; i++)
+        for (int i = 0; i < walls.Length; i++)
         {
-            if (_walls[i])
+            if (walls[i])
             {
                 wallFlags |= 1 << i;
             }
@@ -418,15 +418,15 @@ public class HexCell : MonoBehaviour, ISaveableObject
 
     public void Load(BinaryReader reader, int header, HexGrid grid = null)
     {
-        _terrainTypeIndex = reader.ReadByte();
-        ShaderData.RefreshTerrain(this);
-        _elevation = reader.ReadByte();
+        terrainTypeIndex = reader.ReadByte();
+        shaderData.RefreshTerrain(this);
+        elevation = reader.ReadByte();
         RefreshPosition();
-        _waterLevel = reader.ReadByte();
-        _urbanLevel = reader.ReadByte();
-        _farmLevel = reader.ReadByte();
-        _plantLevel = reader.ReadByte();
-        _specialIndex = reader.ReadByte();
+        waterLevel = reader.ReadByte();
+        urbanLevel = reader.ReadByte();
+        farmLevel = reader.ReadByte();
+        plantLevel = reader.ReadByte();
+        specialIndex = reader.ReadByte();
 
         byte riverData = reader.ReadByte();
         if (riverData >= 128)
@@ -451,36 +451,36 @@ public class HexCell : MonoBehaviour, ISaveableObject
         }
 
         int roadFlags = reader.ReadByte();
-        for (int i = 0; i < _roads.Length; i++)
+        for (int i = 0; i < roads.Length; i++)
         {
-            _roads[i] = (roadFlags & (1 << i)) != 0;
+            roads[i] = (roadFlags & (1 << i)) != 0;
         }
         int wallFlags = reader.ReadByte();
-        for (int i = 0; i < _walls.Length; i++)
+        for (int i = 0; i < walls.Length; i++)
         {
-            _walls[i] = (wallFlags & (1 << i)) != 0;
+            walls[i] = (wallFlags & (1 << i)) != 0;
         }
 
         IsExplored = reader.ReadBoolean();
-        ShaderData.RefreshVisibility(this);
+        shaderData.RefreshVisibility(this);
     }
 
     public void DisableHighlight()
     {
-        GameObject highlight = UiRect.GetChild(0).gameObject;
+        GameObject highlight = uiRect.GetChild(0).gameObject;
         highlight.SetActive(false);
     }
 
     public void EnableHighlight(Color color)
     {
-        Image highlight = UiRect.GetChild(0).GetComponent<Image>();
+        Image highlight = uiRect.GetChild(0).GetComponent<Image>();
         highlight.color = color;
         highlight.gameObject.SetActive(true);
     }
 
     public void SetLabel(string text)
     {
-        TextMeshProUGUI label = UiRect.GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI label = uiRect.GetComponent<TextMeshProUGUI>();
         label.text = text;
     }
 }

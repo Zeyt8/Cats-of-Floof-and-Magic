@@ -6,10 +6,10 @@ using UnityEngine.InputSystem;
 [CreateAssetMenu(fileName = "InputHandler", menuName = "Scriptable Objects/Input Handler")]
 public class InputHandler : ScriptableObject, InputControlSchemes.IPlayerActions, InputControlSchemes.IMapEditorActions, InputControlSchemes.ICameraActions
 {
-    public PlayerInput Player = new PlayerInput();
-    public MapEditorInput MapEditor = new MapEditorInput();
-    public CameraInput Camera = new CameraInput();
-    private InputControlSchemes _inputControlSchemes;
+    public PlayerInput player = new PlayerInput();
+    public MapEditorInput mapEditor = new MapEditorInput();
+    public CameraInput camera = new CameraInput();
+    private InputControlSchemes inputControlSchemes;
 
     public class PlayerInput
     {
@@ -18,28 +18,28 @@ public class InputHandler : ScriptableObject, InputControlSchemes.IPlayerActions
 
     public class MapEditorInput
     {
-        public bool IsEditing;
+        public bool isEditing;
         public UnityEvent OnCreateUnit = new UnityEvent();
         public UnityEvent OnDestroyUnit = new UnityEvent();
     }
 
     public class CameraInput
     {
-        public Vector3 Pan;
-        public Vector2 Orbit;
-        public float Zoom;
+        public Vector3 pan;
+        public Vector2 orbit;
+        public float zoom;
         public UnityEvent<bool> OnToggleOrbit = new UnityEvent<bool>();
     }
 
     private void OnEnable()
     {
-        _inputControlSchemes = new InputControlSchemes();
-        _inputControlSchemes.Player.SetCallbacks(this);
-        _inputControlSchemes.MapEditor.SetCallbacks(this);
-        _inputControlSchemes.Camera.SetCallbacks(this);
-        _inputControlSchemes.Player.Enable();
-        _inputControlSchemes.MapEditor.Enable();
-        _inputControlSchemes.Camera.Enable();
+        inputControlSchemes = new InputControlSchemes();
+        inputControlSchemes.Player.SetCallbacks(this);
+        inputControlSchemes.MapEditor.SetCallbacks(this);
+        inputControlSchemes.Camera.SetCallbacks(this);
+        inputControlSchemes.Player.Enable();
+        inputControlSchemes.MapEditor.Enable();
+        inputControlSchemes.Camera.Enable();
     }
 
     #region Player Input
@@ -47,7 +47,7 @@ public class InputHandler : ScriptableObject, InputControlSchemes.IPlayerActions
     {
         if (context.performed)
         {
-            Player.OnSelectCell?.Invoke();
+            player.OnSelectCell?.Invoke();
         }
     }
 
@@ -58,22 +58,22 @@ public class InputHandler : ScriptableObject, InputControlSchemes.IPlayerActions
     {
         if (context.performed)
         {
-            MapEditor.IsEditing = true;
+            mapEditor.isEditing = true;
         }
         else
         {
-            MapEditor.IsEditing = false;
+            mapEditor.isEditing = false;
         }
     }
 
     public void OnCreateUnit(InputAction.CallbackContext context)
     {
-        MapEditor.OnCreateUnit?.Invoke();
+        mapEditor.OnCreateUnit?.Invoke();
     }
 
     public void OnDestroyUnit(InputAction.CallbackContext context)
     {
-        MapEditor.OnDestroyUnit?.Invoke();
+        mapEditor.OnDestroyUnit?.Invoke();
     }
 
     #endregion
@@ -82,22 +82,22 @@ public class InputHandler : ScriptableObject, InputControlSchemes.IPlayerActions
     void InputControlSchemes.ICameraActions.OnCameraPan(InputAction.CallbackContext context)
     {
         Vector2 pan = context.ReadValue<Vector2>();
-        Camera.Pan = new Vector3(pan.x, 0, pan.y);
+        camera.pan = new Vector3(pan.x, 0, pan.y);
     }
 
     void InputControlSchemes.ICameraActions.OnCameraOrbit(InputAction.CallbackContext context)
     {
-        Camera.Orbit = -context.ReadValue<Vector2>();
+        camera.orbit = -context.ReadValue<Vector2>();
     }
 
     void InputControlSchemes.ICameraActions.OnZoom(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
-        Camera.Zoom = -context.ReadValue<Vector2>().y;
+        camera.zoom = -context.ReadValue<Vector2>().y;
     }
 
     void InputControlSchemes.ICameraActions.OnActivateOrbit(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
-        Camera.OnToggleOrbit?.Invoke(context.performed);
+        camera.OnToggleOrbit?.Invoke(context.performed);
     }
     #endregion
 }

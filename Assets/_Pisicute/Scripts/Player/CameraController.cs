@@ -3,65 +3,65 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] private InputHandler _inputHandler;
-    [SerializeField] private CinemachineVirtualCamera _virtualCamera;
+    [SerializeField] private InputHandler inputHandler;
+    [SerializeField] private CinemachineVirtualCamera virtualCamera;
 
-    [SerializeField] private float _speed;
-    [SerializeField] private float _orbitSpeed;
-    [SerializeField] private float _zoomScrollSpeed;
-    [SerializeField] private float _zoomSpeed;
-    [SerializeField] private float _zoomLowerClamp;
-    [SerializeField] private float _zoomUpperClamp;
+    [SerializeField] private float speed;
+    [SerializeField] private float orbitSpeed;
+    [SerializeField] private float zoomScrollSpeed;
+    [SerializeField] private float zoomSpeed;
+    [SerializeField] private float zoomLowerClamp;
+    [SerializeField] private float zoomUpperClamp;
 
-    private bool _isOrbiting;
-    private float _targetZoom;
-    private float _currentZoom;
-    private float _polar;
-    private float _elevation;
-    private CinemachineTransposer _transposer;
-    private CinemachineHardLookAt _hardLookAt;
+    private bool isOrbiting;
+    private float targetZoom;
+    private float currentZoom;
+    private float polar;
+    private float elevation;
+    private CinemachineTransposer transposer;
+    private CinemachineHardLookAt hardLookAt;
 
     private void Awake()
     {
-        _transposer = _virtualCamera.GetCinemachineComponent<CinemachineTransposer>();
-        _hardLookAt = _virtualCamera.GetCinemachineComponent<CinemachineHardLookAt>();
-        _currentZoom = _targetZoom = _zoomUpperClamp;
-        _elevation = Mathf.PI / 4;
-        _polar = -Mathf.PI / 2;
+        transposer = virtualCamera.GetCinemachineComponent<CinemachineTransposer>();
+        hardLookAt = virtualCamera.GetCinemachineComponent<CinemachineHardLookAt>();
+        currentZoom = targetZoom = zoomUpperClamp;
+        elevation = Mathf.PI / 4;
+        polar = -Mathf.PI / 2;
     }
 
     private void OnEnable()
     {
-        _inputHandler.Camera.OnToggleOrbit.AddListener(ToggleOrbit);
+        inputHandler.camera.OnToggleOrbit.AddListener(ToggleOrbit);
     }
 
     private void OnDisable()
     {
-        _inputHandler.Camera.OnToggleOrbit.RemoveListener(ToggleOrbit);
+        inputHandler.camera.OnToggleOrbit.RemoveListener(ToggleOrbit);
     }
 
     private void Update()
     {
-        transform.position += AdjustInputToFaceCamera(_inputHandler.Camera.Pan) * (Time.deltaTime * _speed);
+        transform.position += AdjustInputToFaceCamera(inputHandler.camera.pan) * (Time.deltaTime * speed);
 
-        _targetZoom += _inputHandler.Camera.Zoom * _zoomScrollSpeed;
-        _targetZoom = Mathf.Clamp(_targetZoom, _zoomLowerClamp, _zoomUpperClamp);
-        _currentZoom = Mathf.MoveTowards(_currentZoom, _targetZoom, Mathf.Abs(_currentZoom - _targetZoom) / 10 * _zoomSpeed * Time.deltaTime);
+        targetZoom += inputHandler.camera.zoom * zoomScrollSpeed;
+        targetZoom = Mathf.Clamp(targetZoom, zoomLowerClamp, zoomUpperClamp);
+        currentZoom = Mathf.MoveTowards(currentZoom, targetZoom, Mathf.Abs(currentZoom - targetZoom) / 10 * zoomSpeed * Time.deltaTime);
         
-        if (_isOrbiting)
+        if (isOrbiting)
         {
-            _polar += _inputHandler.Camera.Orbit.x * _orbitSpeed * Time.deltaTime;
-            _elevation += _inputHandler.Camera.Orbit.y * _orbitSpeed * Time.deltaTime;
-            _elevation = Mathf.Clamp(_elevation, 0.1f, Mathf.PI / 2 - 0.01f);
+            polar += inputHandler.camera.orbit.x * orbitSpeed * Time.deltaTime;
+            elevation += inputHandler.camera.orbit.y * orbitSpeed * Time.deltaTime;
+            elevation = Mathf.Clamp(elevation, 0.1f, Mathf.PI / 2 - 0.01f);
         }
 
-        _transposer.m_FollowOffset = ToCartesian(_polar, _elevation, _currentZoom);
+        transposer.m_FollowOffset = ToCartesian(polar, elevation, currentZoom);
     }
 
     private void ToggleOrbit(bool toggle)
     {
-        _isOrbiting = toggle;
-        _hardLookAt.enabled = toggle;
+        isOrbiting = toggle;
+        hardLookAt.enabled = toggle;
     }
 
     public Vector3 ToCartesian(float polar, float elevation, float radius)

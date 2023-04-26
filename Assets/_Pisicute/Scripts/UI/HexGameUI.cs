@@ -4,19 +4,19 @@ using UnityEngine.InputSystem;
 
 public class HexGameUI : MonoBehaviour
 {
-    [SerializeField] HexGrid _grid;
-    [SerializeField] InputHandler _inputHandler;
-    private HexCell _currentCell;
-    private UnitObject _selectedUnit;
+    [SerializeField] HexGrid grid;
+    [SerializeField] InputHandler inputHandler;
+    private HexCell currentCell;
+    private UnitObject selectedUnit;
 
     private void OnEnable()
     {
-        _inputHandler.Player.OnSelectCell.AddListener(DoSelection);
+        inputHandler.player.OnSelectCell.AddListener(DoSelection);
     }
 
     private void OnDisable()
     {
-        _inputHandler.Player.OnSelectCell.RemoveListener(DoSelection);
+        inputHandler.player.OnSelectCell.RemoveListener(DoSelection);
     }
 
     private void Update()
@@ -27,8 +27,8 @@ public class HexGameUI : MonoBehaviour
     public void SetEditMode(bool toggle)
     {
         enabled = !toggle;
-        _grid.ShowUI(!toggle);
-        _grid.ClearPath();
+        grid.ShowUI(!toggle);
+        grid.ClearPath();
         if (toggle)
         {
             Shader.EnableKeyword("_HEX_MAP_EDIT_MODE");
@@ -41,10 +41,10 @@ public class HexGameUI : MonoBehaviour
 
     private bool UpdateCurrentCell()
     {
-        HexCell cell = _grid.GetCell(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()));
-        if (cell != _currentCell)
+        HexCell cell = grid.GetCell(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()));
+        if (cell != currentCell)
         {
-            _currentCell = cell;
+            currentCell = cell;
             return true;
         }
         return false;
@@ -57,38 +57,38 @@ public class HexGameUI : MonoBehaviour
             return;
         }
 
-        if (_selectedUnit)
+        if (selectedUnit)
         {
             DoMove();
         }
 
-        _grid.ClearPath();
+        grid.ClearPath();
         UpdateCurrentCell();
-        if (_currentCell)
+        if (currentCell)
         {
-            _selectedUnit = _currentCell.Unit;
+            selectedUnit = currentCell.unit;
         }
     }
 
     private void DoPathfinding()
     {
         if (!UpdateCurrentCell()) return;
-        if (_currentCell && _selectedUnit && _selectedUnit.IsValidDestination(_currentCell))
+        if (currentCell && selectedUnit && selectedUnit.IsValidDestination(currentCell))
         {
-            _grid.FindPath(_selectedUnit.Location, _currentCell, _selectedUnit);
+            grid.FindPath(selectedUnit.Location, currentCell, selectedUnit);
         }
         else
         {
-            _grid.ClearPath();
+            grid.ClearPath();
         }
     }
 
     private void DoMove()
     {
-        if (_grid.HasPath)
+        if (grid.HasPath)
         {
-            _selectedUnit.Travel(_grid.GetPath());
-            _grid.ClearPath();
+            selectedUnit.Travel(grid.GetPath());
+            grid.ClearPath();
         }
     }
 }

@@ -32,7 +32,7 @@ public static class HexMetrics
     public const float WallTowerThreshold = 0.5f;
     public const float BridgeDesignLength = 7f;
 
-    private static HexHash[] _hashGrid;
+    private static HexHash[] HashGrid;
 
     public static Vector3[] Corners =
     {
@@ -45,7 +45,7 @@ public static class HexMetrics
         new Vector3(0f, 0f, OuterRadius)
     };
 
-    private static float[][] _featureThresholds =
+    private static float[][] FeatureThresholds =
     {
         new float[] { 0.0f, 0.0f, 0.4f },
         new float[] { 0.0f, 0.4f, 0.6f },
@@ -142,12 +142,12 @@ public static class HexMetrics
 
     public static void InitializeHashGrid(int seed)
     {
-        _hashGrid = new HexHash[HashGridSize * HashGridSize];
+        HashGrid = new HexHash[HashGridSize * HashGridSize];
         Random.State currentState = Random.state;
         Random.InitState(seed);
-        for (int i = 0; i < _hashGrid.Length; i++)
+        for (int i = 0; i < HashGrid.Length; i++)
         {
-            _hashGrid[i] = HexHash.Create();
+            HashGrid[i] = HexHash.Create();
         }
         Random.state = currentState;
     }
@@ -164,12 +164,12 @@ public static class HexMetrics
         {
             z += HashGridSize;
         }
-        return _hashGrid[x + z * HashGridSize];
+        return HashGrid[x + z * HashGridSize];
     }
 
     public static float[] GetFeatureThresholds(int level)
     {
-        return _featureThresholds[level];
+        return FeatureThresholds[level];
     }
 
     public static Vector3 WallThicknessOffset(Vector3 near, Vector3 far)
