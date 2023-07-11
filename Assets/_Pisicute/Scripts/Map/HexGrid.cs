@@ -253,12 +253,12 @@ public class HexGrid : MonoBehaviour, ISaveableObject
         currentPathFrom = fromCell;
         currentPathTo = toCell;
         currentPathExists = Search(fromCell, toCell, unit);
-        ShowPath(unit.speed);
+        ShowPath(unit.Speed);
     }
 
     private bool Search(HexCell fromCell, HexCell toCell, UnitObject unit)
     {
-        int speed = unit.speed;
+        int speed = unit.Speed;
         searchFrontierPhase += 2;
         searchFrontier.Clear();
         fromCell.searchPhase = searchFrontierPhase;

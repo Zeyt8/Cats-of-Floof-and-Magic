@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class UnitObject : MonoBehaviour, ISaveableObject
 {
-    public int speed = 24;
+    public virtual int Speed => 24;
     [NonSerialized] public HexGrid grid;
     private const float TravelSpeed = 4f;
     private const float RotationSpeed = 180f;
@@ -41,7 +41,7 @@ public class UnitObject : MonoBehaviour, ISaveableObject
         }
     }
 
-    public void Die()
+    public virtual void Die()
     {
         if (Location)
         {
@@ -56,12 +56,12 @@ public class UnitObject : MonoBehaviour, ISaveableObject
         transform.localPosition = Location.Position;
     }
 
-    public bool IsValidDestination(HexCell cell)
+    public virtual bool IsValidDestination(HexCell cell)
     {
         return cell.IsExplored && !cell.IsUnderwater && !cell.unit;
     }
 
-    public bool IsValidCrossing(HexCell fromCell, HexCell toCell)
+    protected virtual bool IsValidCrossing(HexCell fromCell, HexCell toCell)
     {
         HexEdgeType edgeType = fromCell.GetEdgeType(toCell);
         return edgeType != HexEdgeType.Cliff && !fromCell.HasWallThroughEdge(fromCell.GetNeighborDirection(toCell));
