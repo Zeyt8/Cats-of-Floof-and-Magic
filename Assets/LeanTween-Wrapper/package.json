@@ -1,0 +1,14 @@
+{
+    "name": "com.zeyt8.dependency",
+    "displayName": "LeanTween Wrapper",
+    "version": "1.0.0",
+    "unity": "2022.3",
+    "author": "Zeyt8",
+    "description": "A wrapper component for Lean Tween.",
+    "dependencies": {
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Zeyt8/LeanTween-Wrapper.git"
+    }
+}
