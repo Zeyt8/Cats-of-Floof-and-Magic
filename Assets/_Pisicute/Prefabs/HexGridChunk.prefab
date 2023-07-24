@@ -242,8 +242,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19b2c232e42479847b27c13d0e2ebe1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useCollider: 0
-  useCellData: 0
+  useCollider: 1
+  useCellData: 1
   useUVCoordinates: 0
   useUV2Coordinates: 0
 --- !u!1 &3428586625889975322
@@ -366,8 +366,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   useCollider: 0
-  useCellData: 0
-  useUVCoordinates: 0
+  useCellData: 1
+  useUVCoordinates: 1
   useUV2Coordinates: 0
 --- !u!1 &4165633304845862958
 GameObject:
@@ -489,7 +489,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   useCollider: 0
-  useCellData: 0
+  useCellData: 1
   useUVCoordinates: 0
   useUV2Coordinates: 0
 --- !u!1 &5712948538302429930
@@ -756,8 +756,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   useCollider: 0
-  useCellData: 0
-  useUVCoordinates: 0
+  useCellData: 1
+  useUVCoordinates: 1
   useUV2Coordinates: 0
 --- !u!1 &6829442701613287385
 GameObject:
@@ -803,13 +803,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bca5ede1ec775448a6a0f0af93255dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walls: {fileID: 0}
-  urbanCollections: []
-  farmCollections: []
-  plantCollections: []
-  special: []
-  wallTower: {fileID: 0}
-  bridge: {fileID: 0}
+  walls: {fileID: 5693067910122204173}
+  urbanCollections:
+  - prefabs:
+    - {fileID: 1000011931043878, guid: 21b1020286582424ab6d62085ed5ee87, type: 3}
+    - {fileID: 1000011931043878, guid: 5d26578fd32c84d1ab4d755ab7f23577, type: 3}
+  - prefabs:
+    - {fileID: 1000010872681204, guid: 89adbf41f320f4141964bfa388ba2865, type: 3}
+    - {fileID: 1000010872681204, guid: 2fad1b4af64d84c8e810f040299dec1e, type: 3}
+  - prefabs:
+    - {fileID: 1000013731776376, guid: bca46d0c670c447a0a5c7208498000ab, type: 3}
+    - {fileID: 1000013731776376, guid: 4c4b904516a814dc7b4433a49713c96f, type: 3}
+  farmCollections:
+  - prefabs:
+    - {fileID: 1000011931043878, guid: 694c4113acb734a299b240d50494600c, type: 3}
+    - {fileID: 1000011931043878, guid: 93fc8e728d60b44a28eac5ac0d4a0852, type: 3}
+  - prefabs:
+    - {fileID: 1000010872681204, guid: 2183fa930894243a69c8d48294482e53, type: 3}
+    - {fileID: 1000010872681204, guid: d0962edf5b6cf47f8b0a1fc7ae336c32, type: 3}
+  - prefabs:
+    - {fileID: 1000013731776376, guid: 15bb05f82a5564326ae50111c46b898b, type: 3}
+    - {fileID: 1000013731776376, guid: 5c6c17863f6cc4021bdced61fe712fb1, type: 3}
+  plantCollections:
+  - prefabs:
+    - {fileID: 1000011931043878, guid: e64480d9f2c5c42439cac262a22f542f, type: 3}
+    - {fileID: 1000011931043878, guid: 3b3f395112d654a6a85e97ebefaf4d91, type: 3}
+  - prefabs:
+    - {fileID: 1000010872681204, guid: db065bb94d2684adf9f80eb695f76fed, type: 3}
+    - {fileID: 1000010872681204, guid: 0e9a5fa1d0db54bd09163d3d6509d210, type: 3}
+  - prefabs:
+    - {fileID: 1000013731776376, guid: eeb3748a5f0ed40f3ad86263ab781421, type: 3}
+    - {fileID: 1000013731776376, guid: 2fe8d139a980145f997e9f4c3e1c2606, type: 3}
+  special:
+  - {fileID: 1000010049943836, guid: f2967fed6444e43559e32916c2465d27, type: 3}
+  - {fileID: 1000014050431084, guid: cc90e6fbc542a40c080d2c64da7d26ed, type: 3}
+  - {fileID: 1000012481183398, guid: cb7be9a74fd6e4cbdb5be2ac7319e699, type: 3}
+  wallTower: {fileID: 1000010046023388, guid: 1589993158ba34786b54f448bdeb6085, type: 3}
+  bridge: {fileID: 1000014278269524, guid: 234387bb7219042168570e127fbd5b58, type: 3}
 --- !u!1 &7686168359736129252
 GameObject:
   m_ObjectHideFlags: 0
@@ -930,9 +960,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   useCollider: 0
-  useCellData: 0
-  useUVCoordinates: 0
-  useUV2Coordinates: 0
+  useCellData: 1
+  useUVCoordinates: 1
+  useUV2Coordinates: 1
 --- !u!1 &9045684005004437503
 GameObject:
   m_ObjectHideFlags: 0
@@ -1053,6 +1083,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   useCollider: 0
-  useCellData: 0
-  useUVCoordinates: 0
+  useCellData: 1
+  useUVCoordinates: 1
   useUV2Coordinates: 0

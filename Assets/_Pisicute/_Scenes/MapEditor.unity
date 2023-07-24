@@ -1255,7 +1255,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grid: {fileID: 967716812}
-  inputHandler: {fileID: 0}
+  inputHandler: {fileID: 11400000, guid: 90363687a8f88644cbc70ff1aa362b85, type: 2}
 --- !u!1 &267603270
 GameObject:
   m_ObjectHideFlags: 0
@@ -5623,7 +5623,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &832575518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11195,12 +11195,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputHandler: {fileID: 11400000, guid: 90363687a8f88644cbc70ff1aa362b85, type: 2}
   virtualCamera: {fileID: 1521285265}
-  speed: 5
-  orbitSpeed: 5
-  zoomScrollSpeed: 5
-  zoomSpeed: 5
+  speed: 200
+  orbitSpeed: 1
+  zoomScrollSpeed: 20
+  zoomSpeed: 50
   zoomLowerClamp: 5
-  zoomUpperClamp: 200
+  zoomUpperClamp: 400
 --- !u!1 &1512002751
 GameObject:
   m_ObjectHideFlags: 0
@@ -16550,7 +16550,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputHandler: {fileID: 11400000, guid: 90363687a8f88644cbc70ff1aa362b85, type: 2}
   hexGrid: {fileID: 967716812}
-  terrainMaterial: {fileID: 0}
+  terrainMaterial: {fileID: 2100000, guid: da66e8f0c1d16476bae8e2d228492d7f, type: 2}
 --- !u!222 &2571628732434139510
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -17131,7 +17131,7 @@ MonoBehaviour:
   menuLabel: {fileID: 1871310308}
   actionButtonLabel: {fileID: 1682273413}
   nameInput: {fileID: 1932862174}
-  listContent: {fileID: 0}
+  listContent: {fileID: 2571628732592335172}
   itemPrefab: {fileID: 3628481292069167152, guid: c8b01841cd2653b43973cbeacfa31552,
     type: 3}
 --- !u!224 &2571628733427084600

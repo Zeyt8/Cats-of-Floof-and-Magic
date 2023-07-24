@@ -271,7 +271,7 @@ public class HexFeatureManager : MonoBehaviour
 
     public void AddSpecialFeature(HexCell cell, Vector3 position)
     {
-        GameObject instance = Instantiate(special[cell.SpecialIndex - 1], container, false);
+        GameObject instance = Instantiate(special[(int)cell.Building - 1], container, false);
         instance.transform.localPosition = HexMetrics.Perturb(position);
         HexHash hash = HexMetrics.SampleHashGrid(position);
         instance.transform.localRotation = Quaternion.Euler(0f, 360f * hash.e, 0f);

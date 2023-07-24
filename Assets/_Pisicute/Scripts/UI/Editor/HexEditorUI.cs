@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-public class HexGameUI : MonoBehaviour
+public class HexEditorUI : MonoBehaviour
 {
     [SerializeField] HexGrid grid;
     [SerializeField] InputHandler inputHandler;

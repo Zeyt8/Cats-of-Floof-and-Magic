@@ -120,7 +120,7 @@ public class MapEditor : MonoBehaviour
         }
         if (applySpecialIndex)
         {
-            cell.SpecialIndex = activeSpecialIndex;
+            cell.Building = (Buildings)activeSpecialIndex;
         }
         if (riverMode == OptionalToggle.No)
         {
