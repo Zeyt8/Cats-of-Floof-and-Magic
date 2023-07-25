@@ -5,4 +5,5 @@ using UnityEngine;
 public class Building : MonoBehaviour
 {
     public Resources resourceCost;
+    public Sprite icon;
 }
