@@ -1255,7 +1255,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grid: {fileID: 967716812}
-  inputHandler: {fileID: 11400000, guid: 90363687a8f88644cbc70ff1aa362b85, type: 2}
+  inputHandler: {fileID: 11400000, guid: 6e5279e34a1ec934f9b814a09399b761, type: 2}
 --- !u!1 &267603270
 GameObject:
   m_ObjectHideFlags: 0
@@ -11193,7 +11193,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ed1605db3a9d784e9be96647d9cbbfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputHandler: {fileID: 11400000, guid: 90363687a8f88644cbc70ff1aa362b85, type: 2}
+  inputHandler: {fileID: 11400000, guid: 43b87b1e62a7d3040896b28a8fd9b243, type: 2}
   virtualCamera: {fileID: 1521285265}
   speed: 200
   orbitSpeed: 1
@@ -16548,7 +16548,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb359145e54fc5745853cfb07e596fd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputHandler: {fileID: 11400000, guid: 90363687a8f88644cbc70ff1aa362b85, type: 2}
+  inputHandler: {fileID: 11400000, guid: 28b981685921c9b4f9595e5ba479b771, type: 2}
   hexGrid: {fileID: 967716812}
   terrainMaterial: {fileID: 2100000, guid: da66e8f0c1d16476bae8e2d228492d7f, type: 2}
 --- !u!222 &2571628732434139510

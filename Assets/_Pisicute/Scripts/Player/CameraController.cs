@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] private InputHandler inputHandler;
+    [SerializeField] private CameraInputHandler inputHandler;
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
 
     [SerializeField] private float speed;
@@ -32,26 +32,26 @@ public class CameraController : MonoBehaviour
 
     private void OnEnable()
     {
-        inputHandler.camera.OnToggleOrbit.AddListener(ToggleOrbit);
+        inputHandler.OnToggleOrbit.AddListener(ToggleOrbit);
     }
 
     private void OnDisable()
     {
-        inputHandler.camera.OnToggleOrbit.RemoveListener(ToggleOrbit);
+        inputHandler.OnToggleOrbit.RemoveListener(ToggleOrbit);
     }
 
     private void Update()
     {
-        transform.position += AdjustInputToFaceCamera(inputHandler.camera.pan) * (Time.deltaTime * speed);
+        transform.position += AdjustInputToFaceCamera(inputHandler.pan) * (Time.deltaTime * speed);
 
-        targetZoom += inputHandler.camera.zoom * zoomScrollSpeed;
+        targetZoom += inputHandler.zoom * zoomScrollSpeed;
         targetZoom = Mathf.Clamp(targetZoom, zoomLowerClamp, zoomUpperClamp);
         currentZoom = Mathf.MoveTowards(currentZoom, targetZoom, Mathf.Abs(currentZoom - targetZoom) / 10 * zoomSpeed * Time.deltaTime);
         
         if (isOrbiting)
         {
-            polar += inputHandler.camera.orbit.x * orbitSpeed * Time.deltaTime;
-            elevation += inputHandler.camera.orbit.y * orbitSpeed * Time.deltaTime;
+            polar += inputHandler.orbit.x * orbitSpeed * Time.deltaTime;
+            elevation += inputHandler.orbit.y * orbitSpeed * Time.deltaTime;
             elevation = Mathf.Clamp(elevation, 0.1f, Mathf.PI / 2 - 0.01f);
         }
 

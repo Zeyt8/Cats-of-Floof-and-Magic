@@ -1856,7 +1856,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ed1605db3a9d784e9be96647d9cbbfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputHandler: {fileID: 11400000, guid: 90363687a8f88644cbc70ff1aa362b85, type: 2}
+  inputHandler: {fileID: 11400000, guid: 43b87b1e62a7d3040896b28a8fd9b243, type: 2}
   virtualCamera: {fileID: 1521285265}
   speed: 200
   orbitSpeed: 1

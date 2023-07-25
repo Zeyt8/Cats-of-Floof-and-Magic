@@ -9,6 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1c3f7ddb2d12ef4aad294d5231adef3, type: 3}
-  m_Name: InputHandler
+  m_Script: {fileID: 11500000, guid: dbb4b370d26f5c741bc939229d5e32d1, type: 3}
+  m_Name: MapEditorInputHandler
   m_EditorClassIdentifier: 
+  isEditing: 0
+  OnCreateUnit:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDestroyUnit:
+    m_PersistentCalls:
+      m_Calls: []

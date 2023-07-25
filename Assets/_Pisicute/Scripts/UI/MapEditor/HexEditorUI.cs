@@ -5,18 +5,18 @@ using UnityEngine.InputSystem;
 public class HexEditorUI : MonoBehaviour
 {
     [SerializeField] HexGrid grid;
-    [SerializeField] InputHandler inputHandler;
+    [SerializeField] PlayerInputHandler inputHandler;
     private HexCell currentCell;
     private UnitObject selectedUnit;
 
     private void OnEnable()
     {
-        inputHandler.player.OnSelectCell.AddListener(DoSelection);
+        inputHandler.OnSelectCell.AddListener(DoSelection);
     }
 
     private void OnDisable()
     {
-        inputHandler.player.OnSelectCell.RemoveListener(DoSelection);
+        inputHandler.OnSelectCell.RemoveListener(DoSelection);
     }
 
     private void Update()

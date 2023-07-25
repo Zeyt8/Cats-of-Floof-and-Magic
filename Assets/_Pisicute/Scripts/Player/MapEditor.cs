@@ -6,7 +6,7 @@ public class MapEditor : MonoBehaviour
 {
     static int CellHighlightingId = Shader.PropertyToID("_CellHighlighting");
     
-    [SerializeField] private InputHandler inputHandler;
+    [SerializeField] private MapEditorInputHandler inputHandler;
     [SerializeField] private HexGrid hexGrid;
     [SerializeField] private Material terrainMaterial;
     private int activeTerrainTypeIndex = -1;
@@ -38,21 +38,21 @@ public class MapEditor : MonoBehaviour
 
     private void OnEnable()
     {
-        inputHandler.mapEditor.OnCreateUnit.AddListener(CreateUnit);
-        inputHandler.mapEditor.OnDestroyUnit.AddListener(DestroyUnit);
+        inputHandler.OnCreateUnit.AddListener(CreateUnit);
+        inputHandler.OnDestroyUnit.AddListener(DestroyUnit);
     }
 
     private void OnDisable()
     {
-        inputHandler.mapEditor.OnCreateUnit.RemoveListener(CreateUnit);
-        inputHandler.mapEditor.OnDestroyUnit.RemoveListener(DestroyUnit);
+        inputHandler.OnCreateUnit.RemoveListener(CreateUnit);
+        inputHandler.OnDestroyUnit.RemoveListener(DestroyUnit);
     }
 
     private void Update()
     {
         if (!EventSystem.current.IsPointerOverGameObject())
         {
-            if (inputHandler.mapEditor.isEditing)
+            if (inputHandler.isEditing)
             {
                 HandleInput();
             }
