@@ -7,10 +7,25 @@ public class Player : Singleton<Player>
     [SerializeField] HexGrid grid;
     [SerializeField] PlayerInputHandler inputHandler;
     [SerializeField] BuildingCollection buildingCollection;
+    private Resources CurrentResources
+    {
+        get => currentResources;
+        set
+        {
+            currentResources = value;
+            GameManager.Instance.resourcesPanel.SetResourcesUI(currentResources);
+        }
+    }
+    private Resources currentResources;
     [HideInInspector] public BuildingTypes buildingToBuild;
 
     private HexCell currentCell;
     private UnitObject selectedUnit;
+
+    public void Start()
+    {
+        CurrentResources = new Resources(10, 10, 0, 0);
+    }
 
     private void OnEnable()
     {
@@ -49,20 +64,24 @@ public class Player : Singleton<Player>
         {
             DoMove();
         }
-        else
-        {
-            if (buildingToBuild != BuildingTypes.None)
-            {
-                // build
-                currentCell.Building = buildingToBuild;
-            }
-        }
 
         grid.ClearPath();
         UpdateCurrentCell();
         if (currentCell)
         {
-            selectedUnit = currentCell.unit;
+            if (buildingToBuild != BuildingTypes.None)
+            {
+                if (buildingCollection.buildings[buildingToBuild].resourceCost <= CurrentResources)
+                {
+                    currentCell.Building = buildingToBuild;
+                    CurrentResources -= buildingCollection.buildings[buildingToBuild].resourceCost;
+                }
+                buildingToBuild = BuildingTypes.None;
+            }
+            else
+            {
+                selectedUnit = currentCell.unit;
+            }
         }
     }
 

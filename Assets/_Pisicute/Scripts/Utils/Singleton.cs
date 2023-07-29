@@ -7,5 +7,6 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     public virtual void Awake()
     {
         Instance = GetComponent<T>();
+        print(Instance);
     }
 }

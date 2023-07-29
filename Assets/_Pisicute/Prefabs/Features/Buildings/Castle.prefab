@@ -49,6 +49,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbb335bdac5b3834b9c6ace28b70a7a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  resourceCost:
+    wood: 5
+    stone: 5
+    steel: 0
+    sulfur: 0
   icon: {fileID: 0}
 --- !u!1 &1000010535470662
 GameObject:

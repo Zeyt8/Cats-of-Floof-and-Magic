@@ -1,13 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 
+[Serializable]
 public class Resources
 {
-    private int wood;
-    private int stone;
-    private int steel;
-    private int sulfur;
+    public int wood;
+    public int stone;
+    public int steel;
+    public int sulfur;
+
+    public Resources() { }
+
+    public Resources(int wood, int stone, int steel, int sulfur)
+    {
+        this.wood = wood;
+        this.stone = stone;
+        this.steel = steel;
+        this.sulfur = sulfur;
+    }
 
     public static Resources operator +(Resources a, Resources b)
     {
@@ -63,5 +72,15 @@ public class Resources
     public static bool operator <=(Resources a, Resources b)
     {
         return (a < b || a == b);
+    }
+
+    public override bool Equals(object obj)
+    {
+        return this == (Resources)obj;
+    }
+
+    public override int GetHashCode()
+    {
+        return base.GetHashCode();
     }
 }
