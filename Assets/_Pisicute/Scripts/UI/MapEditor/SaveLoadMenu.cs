@@ -101,7 +101,7 @@ public class SaveLoadMenu : MonoBehaviour
     private string GetSelectedPath()
     {
         string mapName = nameInput.text;
-        return mapName.Length == 0 ? null : Path.Combine(Application.persistentDataPath, mapName + ".map");
+        return mapName.Length == 0 ? null : Path.Combine(Application.streamingAssetsPath, "Maps", mapName + ".map");
     }
 
     private void FillList()
@@ -110,7 +110,7 @@ public class SaveLoadMenu : MonoBehaviour
         {
             Destroy(listContent.GetChild(i).gameObject);
         }
-        string[] paths = Directory.GetFiles(Application.persistentDataPath, "*.map");
+        string[] paths = Directory.GetFiles(Path.Combine(Application.streamingAssetsPath, "Maps"), "*.map");
         Array.Sort(paths);
         for (int i = 0; i < paths.Length; i++)
         {
