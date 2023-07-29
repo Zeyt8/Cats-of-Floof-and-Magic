@@ -89,6 +89,7 @@ public class HexGrid : MonoBehaviour, ISaveableObject
 
     public void ShowUI(bool visible)
     {
+        if (chunks == null) return;
         foreach (HexGridChunk t in chunks)
         {
             t.ShowUI(visible);

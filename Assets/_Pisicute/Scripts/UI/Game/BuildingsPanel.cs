@@ -15,7 +15,7 @@ public class BuildingsPanel : MonoBehaviour
 
     private void Start()
     {
-        foreach (KeyValuePair<Buildings, Building> building in buildingCollection.buildings)
+        foreach (KeyValuePair<BuildingTypes, Building> building in buildingCollection.buildings)
         {
             Image buildingIcon = Instantiate(buildingIconPrefab, buildingIconsParent);
             buildingIcon.sprite = building.Value.icon;
@@ -23,7 +23,7 @@ public class BuildingsPanel : MonoBehaviour
         }
     }
 
-    private void SelectBuilding(Image image, Buildings buildingType)
+    private void SelectBuilding(Image image, BuildingTypes buildingType)
     {
         foreach (Image buildingIcon in buildingIcons)
         {

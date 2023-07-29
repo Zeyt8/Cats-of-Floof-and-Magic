@@ -90,7 +90,7 @@ public class SaveLoadMenu : MonoBehaviour
         int header = reader.ReadInt32();
         if (header == MapFileVersion)
         {
-            hexGrid.Load(reader, header);
+            hexGrid.Load(reader, header, hexGrid);
         }
         else
         {

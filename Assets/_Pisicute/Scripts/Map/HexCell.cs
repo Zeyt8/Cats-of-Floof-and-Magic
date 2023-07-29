@@ -29,7 +29,7 @@ public class HexCell : MonoBehaviour, ISaveableObject
     private int urbanLevel;
     private int farmLevel;
     private int plantLevel;
-    private Buildings building;
+    private BuildingTypes building;
     private int visibility;
     private bool explored;
 
@@ -229,7 +229,7 @@ public class HexCell : MonoBehaviour, ISaveableObject
             RefreshSelfOnly();
         }
     }
-    public Buildings Building
+    public BuildingTypes Building
     {
         get => building;
         set
@@ -434,7 +434,7 @@ public class HexCell : MonoBehaviour, ISaveableObject
         urbanLevel = reader.ReadByte();
         farmLevel = reader.ReadByte();
         plantLevel = reader.ReadByte();
-        building = (Buildings)reader.ReadByte();
+        building = (BuildingTypes)reader.ReadByte();
 
         byte riverData = reader.ReadByte();
         if (riverData >= 128)

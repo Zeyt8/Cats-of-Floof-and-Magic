@@ -15,10 +15,10 @@ MonoBehaviour:
   buildings:
     keys: 01000000020000000300000004000000050000000600000007000000
     values:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: -3629525308629844343, guid: f2967fed6444e43559e32916c2465d27, type: 3}
+    - {fileID: -4382897269352886066, guid: cb7be9a74fd6e4cbdb5be2ac7319e699, type: 3}
+    - {fileID: -4382897269352886066, guid: cb7be9a74fd6e4cbdb5be2ac7319e699, type: 3}
+    - {fileID: -4382897269352886066, guid: cb7be9a74fd6e4cbdb5be2ac7319e699, type: 3}
+    - {fileID: -4382897269352886066, guid: cb7be9a74fd6e4cbdb5be2ac7319e699, type: 3}
+    - {fileID: -4382897269352886066, guid: cb7be9a74fd6e4cbdb5be2ac7319e699, type: 3}
+    - {fileID: -4382897269352886066, guid: cb7be9a74fd6e4cbdb5be2ac7319e699, type: 3}

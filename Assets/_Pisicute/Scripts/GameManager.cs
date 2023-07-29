@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerObject : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
     {
-        
+        Shader.DisableKeyword("_HEX_MAP_EDIT_MODE");
     }
 
     // Update is called once per frame

@@ -1,4 +1,4 @@
-public enum Buildings
+public enum BuildingTypes
 {
     None,
     MainBase,

@@ -2,10 +2,13 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-public class HexEditorUI : MonoBehaviour
+public class Player : Singleton<Player>
 {
     [SerializeField] HexGrid grid;
     [SerializeField] PlayerInputHandler inputHandler;
+    [SerializeField] BuildingCollection buildingCollection;
+    [HideInInspector] public BuildingTypes buildingToBuild;
+
     private HexCell currentCell;
     private UnitObject selectedUnit;
 
@@ -22,21 +25,6 @@ public class HexEditorUI : MonoBehaviour
     private void Update()
     {
         DoPathfinding();
-    }
-
-    public void SetEditMode(bool toggle)
-    {
-        enabled = !toggle;
-        grid.ShowUI(!toggle);
-        grid.ClearPath();
-        if (toggle)
-        {
-            Shader.EnableKeyword("_HEX_MAP_EDIT_MODE");
-        }
-        else
-        {
-            Shader.DisableKeyword("_HEX_MAP_EDIT_MODE");
-        }
     }
 
     private bool UpdateCurrentCell()
@@ -60,6 +48,14 @@ public class HexEditorUI : MonoBehaviour
         if (selectedUnit)
         {
             DoMove();
+        }
+        else
+        {
+            if (buildingToBuild != BuildingTypes.None)
+            {
+                // build
+                currentCell.Building = buildingToBuild;
+            }
         }
 
         grid.ClearPath();

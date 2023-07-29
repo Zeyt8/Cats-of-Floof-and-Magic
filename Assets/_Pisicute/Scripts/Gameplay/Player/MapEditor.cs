@@ -31,8 +31,7 @@ public class MapEditor : MonoBehaviour
 
     private void Awake()
     {
-        terrainMaterial.DisableKeyword("_SHOW_GRID");
-        Shader.EnableKeyword("_HEX_MAP_EDIT_MODE");
+        ShowGrid(false);
         SetEditMode(true);
     }
 
@@ -120,7 +119,7 @@ public class MapEditor : MonoBehaviour
         }
         if (applySpecialIndex)
         {
-            cell.Building = (Buildings)activeSpecialIndex;
+            cell.Building = (BuildingTypes)activeSpecialIndex;
         }
         if (riverMode == OptionalToggle.No)
         {
@@ -328,6 +327,16 @@ public class MapEditor : MonoBehaviour
     public void SetEditMode(bool toggle)
     {
         enabled = toggle;
+        hexGrid.ShowUI(toggle);
+        hexGrid.ClearPath();
+        if (toggle)
+        {
+            Shader.EnableKeyword("_HEX_MAP_EDIT_MODE");
+        }
+        else
+        {
+            Shader.DisableKeyword("_HEX_MAP_EDIT_MODE");
+        }
     }
     #endregion
 }

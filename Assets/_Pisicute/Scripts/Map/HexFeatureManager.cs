@@ -5,7 +5,7 @@ public class HexFeatureManager : MonoBehaviour
 {
     [SerializeField] private HexMesh walls;
     [SerializeField] private HexFeatureCollection[] urbanCollections, farmCollections, plantCollections;
-    [SerializeField] private GameObject[] special;
+    [SerializeField] private BuildingCollection buildings;
     [SerializeField] private GameObject wallTower;
     [SerializeField] private GameObject bridge;
     private Transform container;
@@ -271,7 +271,7 @@ public class HexFeatureManager : MonoBehaviour
 
     public void AddSpecialFeature(HexCell cell, Vector3 position)
     {
-        GameObject instance = Instantiate(special[(int)cell.Building - 1], container, false);
+        Building instance = Instantiate(buildings.buildings[cell.Building], container, false);
         instance.transform.localPosition = HexMetrics.Perturb(position);
         HexHash hash = HexMetrics.SampleHashGrid(position);
         instance.transform.localRotation = Quaternion.Euler(0f, 360f * hash.e, 0f);
