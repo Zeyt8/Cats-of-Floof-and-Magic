@@ -296,4 +296,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbb335bdac5b3834b9c6ace28b70a7a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
+  resourceCost:
+    wood: 0
+    stone: 0
+    steel: 0
+    sulfur: 0
+  icon: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  description: Placeholder building for now. Might be used as some neutral monument
+    later.

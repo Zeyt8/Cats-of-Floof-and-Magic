@@ -6,4 +6,6 @@ public class Building : MonoBehaviour
 {
     public Resources resourceCost;
     public Sprite icon;
+    [TextArea]
+    public string description;
 }

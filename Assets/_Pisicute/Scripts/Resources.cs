@@ -48,7 +48,10 @@ public class Resources
 
     public static bool operator <(Resources a, Resources b)
     {
-        return !(a > b);
+        if (a.wood < b.wood && a.stone < b.stone && a.steel < b.steel && a.sulfur < b.sulfur)
+            return true;
+        else
+            return false;
     }
 
     public static bool operator ==(Resources a, Resources b)
@@ -66,12 +69,18 @@ public class Resources
 
     public static bool operator >=(Resources a, Resources b)
     {
-        return (a > b || a == b);
+        if (a.wood >= b.wood && a.stone >= b.stone && a.steel >= b.steel && a.sulfur >= b.sulfur)
+            return true;
+        else
+            return false;
     }
 
     public static bool operator <=(Resources a, Resources b)
     {
-        return (a < b || a == b);
+        if (a.wood <= b.wood && a.stone <= b.stone && a.steel <= b.steel && a.sulfur <= b.sulfur)
+            return true;
+        else
+            return false;
     }
 
     public override bool Equals(object obj)
@@ -82,5 +91,10 @@ public class Resources
     public override int GetHashCode()
     {
         return base.GetHashCode();
+    }
+
+    public override string ToString()
+    {
+        return "(" + wood + " " + stone + " " + steel + " " + sulfur + ")";
     }
 }

@@ -318,7 +318,7 @@ public class HexGrid : MonoBehaviour, ISaveableObject
             {
                 int turn = (current.distance - 1) / speed;
                 current.SetLabel(turn.ToString());
-                current.EnableHighlight(Color.white);
+                current.EnableHighlight(Color.gray);
                 current = current.pathFrom;
             }
         }

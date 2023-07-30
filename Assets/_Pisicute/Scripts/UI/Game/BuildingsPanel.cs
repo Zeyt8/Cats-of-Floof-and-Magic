@@ -7,34 +7,30 @@ public class BuildingsPanel : MonoBehaviour
     [SerializeField]
     private BuildingCollection buildingCollection;
     [SerializeField]
-    private Image buildingIconPrefab;
+    private BuildingIcon buildingIconPrefab;
     [SerializeField]
     private Transform buildingIconsParent;
 
-    private List<Image> buildingIcons = new List<Image>();
+    private List<BuildingIcon> buildingIcons = new List<BuildingIcon>();
 
     private void Start()
     {
         foreach (KeyValuePair<BuildingTypes, Building> building in buildingCollection.buildings)
         {
-            Image buildingIcon = Instantiate(buildingIconPrefab, buildingIconsParent);
-            buildingIcon.sprite = building.Value.icon;
+            BuildingIcon buildingIcon = Instantiate(buildingIconPrefab, buildingIconsParent);
+            buildingIcon.image.sprite = building.Value.icon;
             buildingIcon.GetComponent<Button>().onClick.AddListener(() => SelectBuilding(buildingIcon, building.Key));
+            buildingIcon.SetText(building.Value.description);
         }
     }
 
-    private void SelectBuilding(Image image, BuildingTypes buildingType)
+    private void SelectBuilding(BuildingIcon buildingIcon, BuildingTypes buildingType)
     {
-        foreach (Image buildingIcon in buildingIcons)
+        foreach (BuildingIcon bi in buildingIcons)
         {
-            DeselectBuilding(buildingIcon);
+            bi.Deselect();
         }
-        image.color = new Color(1, 1, 1, 1);
+        buildingIcon.Select();
         Player.Instance.buildingToBuild = buildingType;
-    }
-
-    private void DeselectBuilding(Image buildingIcon)
-    {
-        buildingIcon.color = new Color(1, 1, 1, 0.5f);
     }
 }

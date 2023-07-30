@@ -54,7 +54,8 @@ MonoBehaviour:
     stone: 5
     steel: 0
     sulfur: 0
-  icon: {fileID: 0}
+  icon: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  description: This is your Main Base. Protect it at all cost.
 --- !u!1 &1000010535470662
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,9 +4,9 @@ using UnityEngine.InputSystem;
 
 public class Player : Singleton<Player>
 {
-    [SerializeField] HexGrid grid;
-    [SerializeField] PlayerInputHandler inputHandler;
-    [SerializeField] BuildingCollection buildingCollection;
+    [SerializeField] private HexGrid grid;
+    [SerializeField] private PlayerInputHandler inputHandler;
+    [SerializeField] private BuildingCollection buildingCollection;
     private Resources CurrentResources
     {
         get => currentResources;
@@ -39,7 +39,10 @@ public class Player : Singleton<Player>
 
     private void Update()
     {
-        DoPathfinding();
+        if (selectedUnit != null)
+        {
+            DoPathfinding();
+        }
     }
 
     private bool UpdateCurrentCell()
@@ -47,7 +50,15 @@ public class Player : Singleton<Player>
         HexCell cell = grid.GetCell(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()));
         if (cell != currentCell)
         {
+            if (currentCell != null)
+            {
+                currentCell.DisableHighlight();
+            }
             currentCell = cell;
+            if (currentCell != null)
+            {
+                currentCell.EnableHighlight(Color.white);
+            }
             return true;
         }
         return false;
@@ -59,30 +70,35 @@ public class Player : Singleton<Player>
         {
             return;
         }
-
+        UpdateCurrentCell();
+        if (currentCell == null) return;
+        if (currentCell.Building != BuildingTypes.None)
+        {
+            GameManager.Instance.buildingDetails.Activate(buildingCollection[currentCell.Building]);
+        }
+        else
+        {
+            GameManager.Instance.buildingDetails.Deactivate();
+        }
         if (selectedUnit)
         {
             DoMove();
+            selectedUnit = null;
         }
-
-        grid.ClearPath();
-        UpdateCurrentCell();
-        if (currentCell)
+        else if (buildingToBuild != BuildingTypes.None)
         {
-            if (buildingToBuild != BuildingTypes.None)
+            if (buildingCollection[buildingToBuild].resourceCost <= CurrentResources)
             {
-                if (buildingCollection.buildings[buildingToBuild].resourceCost <= CurrentResources)
-                {
-                    currentCell.Building = buildingToBuild;
-                    CurrentResources -= buildingCollection.buildings[buildingToBuild].resourceCost;
-                }
-                buildingToBuild = BuildingTypes.None;
+                currentCell.Building = buildingToBuild;
+                CurrentResources -= buildingCollection[buildingToBuild].resourceCost;
             }
-            else
-            {
-                selectedUnit = currentCell.unit;
-            }
+            buildingToBuild = BuildingTypes.None;
         }
+        else
+        {
+            selectedUnit = currentCell.unit;
+        }
+        grid.ClearPath();
     }
 
     private void DoPathfinding()
