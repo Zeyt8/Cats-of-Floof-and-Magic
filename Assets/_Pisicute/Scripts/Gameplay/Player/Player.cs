@@ -21,6 +21,7 @@ public class Player : Singleton<Player>
 
     private HexCell currentCell;
     private UnitObject selectedUnit;
+    private HexCell lockedPath;
 
     public void Start()
     {
@@ -30,38 +31,37 @@ public class Player : Singleton<Player>
     private void OnEnable()
     {
         inputHandler.OnSelectCell.AddListener(DoSelection);
+        inputHandler.OnAltAction.AddListener(DoAlternateAction);
     }
 
     private void OnDisable()
     {
         inputHandler.OnSelectCell.RemoveListener(DoSelection);
-    }
-
-    private void Update()
-    {
-        if (selectedUnit != null)
-        {
-            DoPathfinding();
-        }
+        inputHandler.OnAltAction.RemoveListener(DoAlternateAction);
     }
 
     private bool UpdateCurrentCell()
     {
-        HexCell cell = grid.GetCell(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()));
+        HexCell cell = GetClickedCell();
         if (cell != currentCell)
         {
-            if (currentCell != null)
+            if (currentCell)
             {
                 currentCell.DisableHighlight();
             }
             currentCell = cell;
-            if (currentCell != null)
+            if (currentCell)
             {
                 currentCell.EnableHighlight(Color.white);
             }
             return true;
         }
         return false;
+    }
+
+    private HexCell GetClickedCell()
+    {
+        return grid.GetCell(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()));
     }
 
     private void DoSelection()
@@ -72,20 +72,8 @@ public class Player : Singleton<Player>
         }
         UpdateCurrentCell();
         if (currentCell == null) return;
-        if (currentCell.Building != BuildingTypes.None)
-        {
-            GameManager.Instance.buildingDetails.Activate(buildingCollection[currentCell.Building]);
-        }
-        else
-        {
-            GameManager.Instance.buildingDetails.Deactivate();
-        }
-        if (selectedUnit)
-        {
-            DoMove();
-            selectedUnit = null;
-        }
-        else if (buildingToBuild != BuildingTypes.None)
+        // build selected building
+        if (buildingToBuild != BuildingTypes.None)
         {
             if (buildingCollection[buildingToBuild].resourceCost <= CurrentResources)
             {
@@ -94,19 +82,50 @@ public class Player : Singleton<Player>
             }
             buildingToBuild = BuildingTypes.None;
         }
+        // if building on tile open building detail panel
+        if (currentCell.Building != BuildingTypes.None)
+        {
+            GameManager.Instance.buildingDetails.Activate(buildingCollection[currentCell.Building]);
+        }
         else
         {
-            selectedUnit = currentCell.unit;
+            GameManager.Instance.buildingDetails.Deactivate();
         }
-        grid.ClearPath();
+        // update selected unit
+        selectedUnit = currentCell.unit;
+        // if unit on tile open unit detail panel
+        if (selectedUnit)
+        {
+            GameManager.Instance.unitDetails.Activate(selectedUnit);
+        }
+        else
+        {
+            GameManager.Instance.unitDetails.Deactivate();
+        }
     }
 
-    private void DoPathfinding()
+    private void DoAlternateAction()
     {
-        if (!UpdateCurrentCell()) return;
-        if (currentCell && selectedUnit && selectedUnit.IsValidDestination(currentCell))
+        if (selectedUnit)
         {
-            grid.FindPath(selectedUnit.Location, currentCell, selectedUnit);
+            HexCell cell = GetClickedCell();
+            if (lockedPath == cell)
+            {
+                DoMove();
+            }
+            else
+            {
+                DoPathfinding(cell);
+            }
+        }
+    }
+
+    private void DoPathfinding(HexCell cell)
+    {
+        if (cell && selectedUnit.IsValidDestination(cell))
+        {
+            grid.FindPath(selectedUnit.Location, cell, selectedUnit);
+            lockedPath = cell;
         }
         else
         {
@@ -120,6 +139,7 @@ public class Player : Singleton<Player>
         {
             selectedUnit.Travel(grid.GetPath());
             grid.ClearPath();
+            lockedPath = null;
         }
     }
 }

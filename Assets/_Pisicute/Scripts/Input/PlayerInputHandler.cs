@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 public class PlayerInputHandler : InputHandler, InputControlSchemes.IPlayerActions
 {
     public UnityEvent OnSelectCell = new UnityEvent();
+    public UnityEvent OnAction = new UnityEvent();
+    public UnityEvent OnAltAction = new UnityEvent();
 
     protected override void OnEnable()
     {
@@ -18,6 +20,22 @@ public class PlayerInputHandler : InputHandler, InputControlSchemes.IPlayerActio
         if (context.performed)
         {
             OnSelectCell?.Invoke();
+        }
+    }
+
+    void InputControlSchemes.IPlayerActions.OnAction(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            OnAction?.Invoke();
+        }
+    }
+
+    void InputControlSchemes.IPlayerActions.OnAltAction(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            OnAltAction?.Invoke();
         }
     }
 }

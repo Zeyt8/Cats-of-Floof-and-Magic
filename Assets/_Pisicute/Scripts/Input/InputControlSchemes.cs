@@ -35,6 +35,24 @@ public partial class @InputControlSchemes: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Action"",
+                    ""type"": ""Button"",
+                    ""id"": ""c49f2d4f-dc60-4cbf-bc1e-9b85ec850e44"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Alt Action"",
+                    ""type"": ""Button"",
+                    ""id"": ""e838dea7-7b25-4c37-936b-5a09cd5ea2a3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -46,6 +64,28 @@ public partial class @InputControlSchemes: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""K&M"",
                     ""action"": ""Select Cell"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a03ef6f4-18ab-4a22-b4b5-567ed72f2f62"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""K&M"",
+                    ""action"": ""Action"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f6baf90f-5495-43c4-894e-5a64031d528e"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""K&M"",
+                    ""action"": ""Alt Action"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -301,6 +341,8 @@ public partial class @InputControlSchemes: IInputActionCollection2, IDisposable
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_SelectCell = m_Player.FindAction("Select Cell", throwIfNotFound: true);
+        m_Player_Action = m_Player.FindAction("Action", throwIfNotFound: true);
+        m_Player_AltAction = m_Player.FindAction("Alt Action", throwIfNotFound: true);
         // Map Editor
         m_MapEditor = asset.FindActionMap("Map Editor", throwIfNotFound: true);
         m_MapEditor_SelectCell = m_MapEditor.FindAction("Select Cell", throwIfNotFound: true);
@@ -374,11 +416,15 @@ public partial class @InputControlSchemes: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Player;
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_SelectCell;
+    private readonly InputAction m_Player_Action;
+    private readonly InputAction m_Player_AltAction;
     public struct PlayerActions
     {
         private @InputControlSchemes m_Wrapper;
         public PlayerActions(@InputControlSchemes wrapper) { m_Wrapper = wrapper; }
         public InputAction @SelectCell => m_Wrapper.m_Player_SelectCell;
+        public InputAction @Action => m_Wrapper.m_Player_Action;
+        public InputAction @AltAction => m_Wrapper.m_Player_AltAction;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -391,6 +437,12 @@ public partial class @InputControlSchemes: IInputActionCollection2, IDisposable
             @SelectCell.started += instance.OnSelectCell;
             @SelectCell.performed += instance.OnSelectCell;
             @SelectCell.canceled += instance.OnSelectCell;
+            @Action.started += instance.OnAction;
+            @Action.performed += instance.OnAction;
+            @Action.canceled += instance.OnAction;
+            @AltAction.started += instance.OnAltAction;
+            @AltAction.performed += instance.OnAltAction;
+            @AltAction.canceled += instance.OnAltAction;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -398,6 +450,12 @@ public partial class @InputControlSchemes: IInputActionCollection2, IDisposable
             @SelectCell.started -= instance.OnSelectCell;
             @SelectCell.performed -= instance.OnSelectCell;
             @SelectCell.canceled -= instance.OnSelectCell;
+            @Action.started -= instance.OnAction;
+            @Action.performed -= instance.OnAction;
+            @Action.canceled -= instance.OnAction;
+            @AltAction.started -= instance.OnAltAction;
+            @AltAction.performed -= instance.OnAltAction;
+            @AltAction.canceled -= instance.OnAltAction;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -568,6 +626,8 @@ public partial class @InputControlSchemes: IInputActionCollection2, IDisposable
     public interface IPlayerActions
     {
         void OnSelectCell(InputAction.CallbackContext context);
+        void OnAction(InputAction.CallbackContext context);
+        void OnAltAction(InputAction.CallbackContext context);
     }
     public interface IMapEditorActions
     {

@@ -4,6 +4,7 @@ public class GameManager : Singleton<GameManager>
 {
     public ResourcesPanel resourcesPanel;
     public BuildingDetails buildingDetails;
+    public UnitDetails unitDetails;
 
     // Start is called before the first frame update
     void Start()
