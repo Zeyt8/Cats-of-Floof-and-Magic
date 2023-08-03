@@ -1886,7 +1886,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33a848d587e5e3843b29f47332124e51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildingCollection: {fileID: 11400000, guid: 2f536239c3385a943a4c8de0d35ef92e, type: 2}
+  buildingCollection: {fileID: 11400000, guid: 9774d672a6066994d80e49a5006ab58b, type: 2}
   buildingIconPrefab: {fileID: 2353826146458022028, guid: 61b78584cc8c3164fa1b6499026eacf3,
     type: 3}
   buildingIconsParent: {fileID: 82813448}
@@ -2419,6 +2419,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitPrefab: {fileID: 4840009015928866894, guid: 9e25c1c4f9117fc4da87c8e9b07d3273,
     type: 3}
+  allBuildings: {fileID: 11400000, guid: 2f536239c3385a943a4c8de0d35ef92e, type: 2}
   cellCountX: 4
   cellCountZ: 3
   seed: 0
@@ -2610,7 +2611,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grid: {fileID: 967716812}
   inputHandler: {fileID: 11400000, guid: 6e5279e34a1ec934f9b814a09399b761, type: 2}
-  buildingCollection: {fileID: 11400000, guid: 2f536239c3385a943a4c8de0d35ef92e, type: 2}
+  buildingCollection: {fileID: 11400000, guid: 9774d672a6066994d80e49a5006ab58b, type: 2}
   buildingToBuild: 0
 --- !u!4 &1110464976
 Transform:

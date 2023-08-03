@@ -8,6 +8,7 @@ using UnityEngine;
 public class HexGrid : MonoBehaviour, ISaveableObject
 {
     public UnitObject unitPrefab;
+    public BuildingCollection allBuildings;
     public bool HasPath => currentPathExists;
 
     public int cellCountX = 4;
@@ -27,6 +28,7 @@ public class HexGrid : MonoBehaviour, ISaveableObject
     private HexCell currentPathFrom, currentPathTo;
     private bool currentPathExists;
     private List<UnitObject> units = new List<UnitObject>();
+    private List<Building> buildings = new List<Building>();
     private HexCellShaderData cellShaderData;
 
     private void Awake()
@@ -213,6 +215,12 @@ public class HexGrid : MonoBehaviour, ISaveableObject
         {
             units[i].Save(writer);
         }
+
+        writer.Write(buildings.Count);
+        for (int i = 0; i < buildings.Count; i++)
+        {
+            buildings[i].Save(writer);
+        }
     }
 
     public void Load(BinaryReader reader, int header, HexGrid grid = null)
@@ -244,6 +252,13 @@ public class HexGrid : MonoBehaviour, ISaveableObject
         {
             UnitObject unitObject = Instantiate(unitPrefab);
             unitObject.Load(reader, header, grid);
+        }
+        int buildingCount = reader.ReadInt32();
+        for (int i = 0; i < buildingCount; i++)
+        {
+            BuildingTypes type = (BuildingTypes)reader.ReadInt32();
+            Building buildingObject = Instantiate(allBuildings[type]);
+            buildingObject.Load(reader, header, grid);
         }
         cellShaderData.immediateMode = originalImmediateMode;
     }
@@ -346,6 +361,27 @@ public class HexGrid : MonoBehaviour, ISaveableObject
             currentPathTo.DisableHighlight();
         }
         currentPathFrom = currentPathTo = null;
+    }
+
+    public void AddBuilding(Building building, HexCell location)
+    {
+        if (location.Building != null) return;
+        buildings.Add(building);
+        building.grid = this;
+        building.transform.SetParent(transform, false);
+        building.Location = location;
+        location.Building = building;
+    }
+    public void AddBuilding(BuildingTypes buildingType, HexCell location)
+    {
+        if (location.Building != null) return;
+        Building building = Instantiate(allBuildings[buildingType]);
+        AddBuilding(building, location);
+    }
+
+    public void RemoveBuilding(Building building)
+    {
+        buildings.Remove(building);
     }
 
     public void AddUnit(UnitObject unit, HexCell location, float orientation)

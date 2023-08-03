@@ -77,15 +77,15 @@ public class Player : Singleton<Player>
         {
             if (buildingCollection[buildingToBuild].resourceCost <= CurrentResources)
             {
-                currentCell.Building = buildingToBuild;
+                grid.AddBuilding(buildingToBuild, currentCell);
                 CurrentResources -= buildingCollection[buildingToBuild].resourceCost;
             }
             buildingToBuild = BuildingTypes.None;
         }
         // if building on tile open building detail panel
-        if (currentCell.Building != BuildingTypes.None)
+        if (currentCell.Building != null)
         {
-            GameManager.Instance.buildingDetails.Activate(buildingCollection[currentCell.Building]);
+            GameManager.Instance.buildingDetails.Activate(currentCell.Building);
         }
         else
         {

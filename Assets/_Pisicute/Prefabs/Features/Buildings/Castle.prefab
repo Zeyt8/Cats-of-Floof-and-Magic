@@ -49,6 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbb335bdac5b3834b9c6ace28b70a7a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 1
   resourceCost:
     wood: 5
     stone: 5
@@ -56,6 +57,7 @@ MonoBehaviour:
     sulfur: 0
   icon: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   description: This is your Main Base. Protect it at all cost.
+  grid: {fileID: 0}
 --- !u!1 &1000010535470662
 GameObject:
   m_ObjectHideFlags: 0

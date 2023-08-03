@@ -119,7 +119,7 @@ public class MapEditor : MonoBehaviour
         }
         if (applySpecialIndex)
         {
-            cell.Building = (BuildingTypes)activeSpecialIndex;
+            hexGrid.AddBuilding((BuildingTypes)activeSpecialIndex + 1, cell);
         }
         if (riverMode == OptionalToggle.No)
         {
@@ -307,9 +307,9 @@ public class MapEditor : MonoBehaviour
         applySpecialIndex = toggle;
     }
 
-    public void SetSpecialIndex(float index)
+    public void SetSpecialIndex(int index)
     {
-        activeSpecialIndex = (int)index;
+        activeSpecialIndex = index;
     }
 
     public void ShowGrid(bool visible)

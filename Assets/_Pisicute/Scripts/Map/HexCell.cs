@@ -23,13 +23,13 @@ public class HexCell : MonoBehaviour, ISaveableObject
     [SerializeField] private HexCell[] neighbors = new HexCell[6];
     [SerializeField] private bool[] roads = new bool[6];
     [SerializeField] private bool[] walls = new bool[6];
+    private Building building;
     private int terrainTypeIndex;
     private int elevation = int.MinValue;
     private int waterLevel;
     private int urbanLevel;
     private int farmLevel;
     private int plantLevel;
-    private BuildingTypes building;
     private int visibility;
     private bool explored;
 
@@ -95,12 +95,10 @@ public class HexCell : MonoBehaviour, ISaveableObject
 
         HasOutgoingRiver = true;
         OutgoingRiver = direction;
-        Building = 0;
 
         neighbor.RemoveIncomingRiver();
         neighbor.HasIncomingRiver = true;
         neighbor.IncomingRiver = direction.Opposite();
-        neighbor.Building = 0;
 
         SetRoad((int)direction, false);
     }
@@ -161,7 +159,7 @@ public class HexCell : MonoBehaviour, ISaveableObject
 
     public void AddRoad(HexDirection direction)
     {
-        if (!roads[(int)direction] && !HasRiverThroughEdge(direction) && !IsSpecial && !GetNeighbor(direction).IsSpecial && GetElevationDifference(direction) <= 1)
+        if (!roads[(int)direction] && !HasRiverThroughEdge(direction) && !Building && !GetNeighbor(direction).Building && GetElevationDifference(direction) <= 1)
         {
             SetRoad((int)direction, true);
         }
@@ -229,7 +227,7 @@ public class HexCell : MonoBehaviour, ISaveableObject
             RefreshSelfOnly();
         }
     }
-    public BuildingTypes Building
+    public Building Building
     {
         get => building;
         set
@@ -240,7 +238,6 @@ public class HexCell : MonoBehaviour, ISaveableObject
             RefreshSelfOnly();
         }
     }
-    public bool IsSpecial => Building > 0;
     public int SearchPriority => distance + searchHeuristic;
     public bool IsVisible => visibility > 0 && isExplorable;
     public bool IsExplored { get => explored && isExplorable; private set => explored = value; }
@@ -383,7 +380,6 @@ public class HexCell : MonoBehaviour, ISaveableObject
         writer.Write((byte)urbanLevel);
         writer.Write((byte)farmLevel);
         writer.Write((byte)plantLevel);
-        writer.Write((byte)building);
 
         if (HasIncomingRiver)
         {
@@ -434,7 +430,6 @@ public class HexCell : MonoBehaviour, ISaveableObject
         urbanLevel = reader.ReadByte();
         farmLevel = reader.ReadByte();
         plantLevel = reader.ReadByte();
-        building = (BuildingTypes)reader.ReadByte();
 
         byte riverData = reader.ReadByte();
         if (riverData >= 128)
