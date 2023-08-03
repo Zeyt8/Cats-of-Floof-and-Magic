@@ -15,10 +15,10 @@ MonoBehaviour:
   buildings:
     keys: 01000000020000000300000004000000050000000600000007000000
     values:
-    - {fileID: -3629525308629844343, guid: f2967fed6444e43559e32916c2465d27, type: 3}
-    - {fileID: -4382897269352886066, guid: cb7be9a74fd6e4cbdb5be2ac7319e699, type: 3}
-    - {fileID: -4382897269352886066, guid: cb7be9a74fd6e4cbdb5be2ac7319e699, type: 3}
-    - {fileID: -4382897269352886066, guid: cb7be9a74fd6e4cbdb5be2ac7319e699, type: 3}
-    - {fileID: -4382897269352886066, guid: cb7be9a74fd6e4cbdb5be2ac7319e699, type: 3}
-    - {fileID: -4382897269352886066, guid: cb7be9a74fd6e4cbdb5be2ac7319e699, type: 3}
-    - {fileID: -4382897269352886066, guid: cb7be9a74fd6e4cbdb5be2ac7319e699, type: 3}
+    - {fileID: 2261956262435109514, guid: f2967fed6444e43559e32916c2465d27, type: 3}
+    - {fileID: 7061475200042666459, guid: 547d1c393bb2e674ebb9ae448edfedcd, type: 3}
+    - {fileID: 3374445391709714626, guid: adefa311a33116b4cbff7ff5fad6ef9c, type: 3}
+    - {fileID: 6279011557268586232, guid: f1e98abf4b3650a41bbade5b99e523e1, type: 3}
+    - {fileID: 5205878351402902493, guid: 948cec4f32f86b940a27ee853d0283cf, type: 3}
+    - {fileID: -3642680650354179239, guid: 63f851788c5281d4f800e080d807d78f, type: 3}
+    - {fileID: 1553147568265010644, guid: 3b999f315b8bd7349a709ca84c118324, type: 3}

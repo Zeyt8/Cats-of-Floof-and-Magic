@@ -8,8 +8,9 @@ public class Building : MonoBehaviour, ISaveableObject
     public Sprite icon;
     [TextArea]
     public string description;
-    public int VisionRange => 3;
+    public int visionRange = 3;
     [HideInInspector] public HexGrid grid;
+    [HideInInspector] public int owner = -1;
 
     [HideInInspector]
     public HexCell Location
@@ -18,7 +19,7 @@ public class Building : MonoBehaviour, ISaveableObject
         set
         {
             location = value;
-            grid.IncreaseVisibility(location, VisionRange);
+            grid.IncreaseVisibility(location, visionRange);
             transform.position = location.Position;
         }
     }
@@ -26,6 +27,11 @@ public class Building : MonoBehaviour, ISaveableObject
 
     public virtual void OnBuild(HexCell cell)
     {
+    }
+
+    public virtual void OnUnitEnter(UnitObject unit)
+    {
+        owner = unit.owner;
     }
 
     public void Save(BinaryWriter writer)

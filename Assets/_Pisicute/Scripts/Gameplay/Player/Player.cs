@@ -4,10 +4,12 @@ using UnityEngine.InputSystem;
 
 public class Player : Singleton<Player>
 {
+    public Teams team;
+    public int playerNumber;
     [SerializeField] private HexGrid grid;
     [SerializeField] private PlayerInputHandler inputHandler;
     [SerializeField] private BuildingCollection buildingCollection;
-    private Resources CurrentResources
+    public Resources CurrentResources
     {
         get => currentResources;
         set
@@ -25,7 +27,7 @@ public class Player : Singleton<Player>
 
     public void Start()
     {
-        CurrentResources = new Resources(10, 10, 0, 0);
+        CurrentResources = new Resources(10, 10, 0, 0, 0);
     }
 
     private void OnEnable()
@@ -66,6 +68,7 @@ public class Player : Singleton<Player>
 
     private void DoSelection()
     {
+        if (playerNumber != GameManager.Instance.currentPlayer) return;
         if (EventSystem.current.IsPointerOverGameObject())
         {
             return;
@@ -106,6 +109,7 @@ public class Player : Singleton<Player>
 
     private void DoAlternateAction()
     {
+        if (playerNumber != GameManager.Instance.currentPlayer) return;
         if (selectedUnit)
         {
             HexCell cell = GetClickedCell();

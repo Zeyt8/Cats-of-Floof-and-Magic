@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Buildable Buildings
   m_EditorClassIdentifier: 
   buildings:
-    keys: 07000000
+    keys: 02000000
     values:
-    - {fileID: -4382897269352886066, guid: cb7be9a74fd6e4cbdb5be2ac7319e699, type: 3}
+    - {fileID: 7061475200042666459, guid: 547d1c393bb2e674ebb9ae448edfedcd, type: 3}

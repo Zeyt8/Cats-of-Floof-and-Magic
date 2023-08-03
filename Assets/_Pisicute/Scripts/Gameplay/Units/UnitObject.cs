@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class UnitObject : MonoBehaviour, ISaveableObject
 {
+    [HideInInspector] public int owner;
     public virtual int Speed => 24;
     [NonSerialized] public HexGrid grid;
     private const float TravelSpeed = 4f;
@@ -14,7 +15,7 @@ public class UnitObject : MonoBehaviour, ISaveableObject
     private HexCell location;
     private float orientation;
     private List<HexCell> pathToTravel;
-    public int VisionRange => 3;
+    public int visionRange = 3;
     public HexCell Location
     {
         get => location;
@@ -22,13 +23,17 @@ public class UnitObject : MonoBehaviour, ISaveableObject
         {
             if (location)
             {
-                grid.DecreaseVisibility(location, VisionRange);
+                grid.DecreaseVisibility(location, visionRange);
                 location.unit = null;
             }
             location = value;
             value.unit = this;
-            grid.IncreaseVisibility(value, VisionRange);
+            grid.IncreaseVisibility(value, visionRange);
             transform.localPosition = value.Position;
+            if (location.Building != null)
+            {
+                location.Building.OnUnitEnter(this);
+            }
         }
     }
     public float Orientation
@@ -45,7 +50,7 @@ public class UnitObject : MonoBehaviour, ISaveableObject
     {
         if (Location)
         {
-            grid.DecreaseVisibility(Location, VisionRange);
+            grid.DecreaseVisibility(Location, visionRange);
         }
         Location.unit = null;
         Destroy(gameObject);
@@ -100,7 +105,7 @@ public class UnitObject : MonoBehaviour, ISaveableObject
     {
         Vector3 a, b, c = pathToTravel[0].Position;
         yield return LookAt(pathToTravel[1].Position);
-        grid.DecreaseVisibility(pathToTravel[0], VisionRange);
+        grid.DecreaseVisibility(pathToTravel[0], visionRange);
 
         float t = Time.deltaTime * TravelSpeed;
         for (int i = 1; i < pathToTravel.Count; i++)
@@ -108,7 +113,7 @@ public class UnitObject : MonoBehaviour, ISaveableObject
             a = c;
             b = pathToTravel[i - 1].Position;
             c = (b + pathToTravel[i].Position) * 0.5f;
-            grid.IncreaseVisibility(pathToTravel[i], VisionRange);
+            grid.IncreaseVisibility(pathToTravel[i], visionRange);
             for (; t < 1f; t += Time.deltaTime * TravelSpeed)
             {
                 transform.localPosition = Bezier.GetPoint(a, b, c, t);
@@ -117,14 +122,14 @@ public class UnitObject : MonoBehaviour, ISaveableObject
                 transform.localRotation = Quaternion.LookRotation(d);
                 yield return null;
             }
-            grid.DecreaseVisibility(pathToTravel[i], VisionRange);
+            grid.DecreaseVisibility(pathToTravel[i], visionRange);
             t -= 1f;
         }
 
         a = c;
         b = location.Position;
         c = b;
-        grid.IncreaseVisibility(location, VisionRange);
+        grid.IncreaseVisibility(location, visionRange);
         for (; t < 1f; t += Time.deltaTime * TravelSpeed)
         {
             transform.localPosition = Bezier.GetPoint(a, b, c, t);

@@ -7,6 +7,7 @@ public class ResourcesPanel : MonoBehaviour
     [SerializeField] private TextMeshProUGUI stone;
     [SerializeField] private TextMeshProUGUI steel;
     [SerializeField] private TextMeshProUGUI sulfur;
+    [SerializeField] private TextMeshProUGUI gems;
 
     public void SetResourcesUI(Resources playerResources)
     {
@@ -14,5 +15,6 @@ public class ResourcesPanel : MonoBehaviour
         stone.text = playerResources.stone.ToString();
         steel.text = playerResources.steel.ToString();
         sulfur.text = playerResources.sulfur.ToString();
+        gems.text = playerResources.gems.ToString();
     }
 }
