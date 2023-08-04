@@ -4,6 +4,7 @@ using UnityEngine.Events;
 public class GameManager : Singleton<GameManager>
 {
     public int currentPlayer;
+    public HexGrid mapHexGrid;
     [Header("Game Events")]
     public UnityEvent<int> OnTurnStart = new UnityEvent<int>();
     public UnityEvent<int> OnTurnEnd = new UnityEvent<int>();
@@ -16,7 +17,7 @@ public class GameManager : Singleton<GameManager>
     // Start is called before the first frame update
     void Start()
     {
-        Shader.DisableKeyword("_HEX_MAP_EDIT_MODE");
+        Shader.EnableKeyword("_HEX_MAP_EDIT_MODE");
     }
 
     public void EndTurn()

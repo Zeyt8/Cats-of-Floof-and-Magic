@@ -9296,35 +9296,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e6b3da2ca9bfed459dd015174148329, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seed: 0
-  useFixedSeed: 0
-  jitterProbability: 0.25
-  chunkSizeMin: 30
-  chunkSizeMax: 100
-  highRiseProbability: 0.25
-  sinkProbability: 0.2
-  landPercentage: 50
-  waterLevel: 3
-  elevationMinimum: -2
-  elevationMaximum: 8
-  mapBorderX: 5
-  mapBorderZ: 5
-  regionBorder: 5
-  regionCount: 1
-  erosionPercentage: 50
-  precipitationFactor: 0.25
-  evaporationFactor: 0.5
-  runoffFactor: 0.25
-  seepageFactor: 0.125
-  windDirection: 5
-  windStrength: 4
-  startingMoisture: 0.1
-  riverPercentage: 10
-  extraLakeProbability: 0.25
-  lowTemperature: 0
-  highTemperature: 1
-  temperatureJitter: 0.1
-  hemisphere: 0
+  settings: {fileID: 11400000, guid: c48f50db008896e44a63a5cb5f370107, type: 2}
   grid: {fileID: 967716812}
 --- !u!1 &1246094759
 GameObject:

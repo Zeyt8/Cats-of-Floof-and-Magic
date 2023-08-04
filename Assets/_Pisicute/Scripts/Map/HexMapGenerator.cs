@@ -23,6 +23,7 @@ public struct MapRegion
     public int xMin, xMax, zMin, zMax;
 }
 
+[System.Serializable]
 public struct ClimateData
 {
     public float clouds;
@@ -40,35 +41,7 @@ public class HexMapGenerator : MonoBehaviour
         new Biome(0, 0), new Biome(1, 1), new Biome(1, 2), new Biome(1, 3)
     };
 
-    [SerializeField] private int seed;
-    [SerializeField] private bool useFixedSeed;
-    [Range(0, 0.5f), SerializeField] private float jitterProbability = 0.25f;
-    [Range(20, 200), SerializeField] private int chunkSizeMin = 30;
-    [Range(20, 200), SerializeField] private int chunkSizeMax = 100;
-    [Range(0f, 1f), SerializeField] private float highRiseProbability = 0.25f;
-    [Range(0, 0.4f), SerializeField] private float sinkProbability = 0.2f;
-    [Range(0, 100), SerializeField] private int landPercentage = 50;
-    [Range(1, 5), SerializeField] private int waterLevel = 3;
-    [Range(-5, 0), SerializeField] private int elevationMinimum = -2;
-    [Range(0, 15), SerializeField] private int elevationMaximum = 8;
-    [Range(0, 10), SerializeField] private int mapBorderX = 5;
-    [Range(0, 10), SerializeField] private int mapBorderZ = 5;
-    [Range(0, 10), SerializeField] private int regionBorder = 5;
-    [Range(1, 4), SerializeField] private int regionCount = 1;
-    [Range(0, 100), SerializeField] private int erosionPercentage = 50;
-    [Range(0f, 1f), SerializeField] private float precipitationFactor = 0.25f;
-    [Range(0f, 1f), SerializeField] private float evaporationFactor = 0.5f;
-    [Range(0f, 1f), SerializeField] private float runoffFactor = 0.25f;
-    [Range(0f, 1f), SerializeField] private float seepageFactor = 0.125f;
-    [SerializeField] private HexDirection windDirection = HexDirection.NW;
-    [Range(1f, 10f), SerializeField] private float windStrength = 4f;
-    [Range(0f, 1f), SerializeField] private float startingMoisture = 0.1f;
-    [Range(0, 40), SerializeField] private int riverPercentage = 10;
-    [Range(0f, 1f), SerializeField] private float extraLakeProbability = 0.25f;
-    [Range(0f, 1f), SerializeField] private float lowTemperature = 0f;
-    [Range(0f, 1f), SerializeField] private float highTemperature = 1f;
-    [Range(0f, 1f), SerializeField] private float temperatureJitter = 0.1f;
-    [SerializeField] private HemisphereMode hemisphere;
+    [SerializeField] private MapGeneratorSettings settings;
     [SerializeField] private HexGrid grid;
     
     
@@ -85,20 +58,20 @@ public class HexMapGenerator : MonoBehaviour
     public void GenerateMap(int x, int z)
     {
         Random.State originalRandomState = Random.state;
-        if (!useFixedSeed)
+        if (!settings.useFixedSeed)
         {
-            seed = Random.Range(0, int.MaxValue);
-            seed ^= (int)System.DateTime.Now.Ticks;
-            seed ^= (int)Time.unscaledTime;
-            seed &= int.MaxValue;
+            settings.seed = Random.Range(0, int.MaxValue);
+            settings.seed ^= (int)System.DateTime.Now.Ticks;
+            settings.seed ^= (int)Time.unscaledTime;
+            settings.seed &= int.MaxValue;
         }
-        Random.InitState(seed);
+        Random.InitState(settings.seed);
         cellCount = x * z;
         grid.CreateMap(x, z);
         searchFrontier.Clear();
         for (int i = 0; i < cellCount; i++)
         {
-            grid.GetCell(i).WaterLevel = waterLevel;
+            grid.GetCell(i).WaterLevel = settings.waterLevel;
         }
         CreateRegions();
         CreateLand();
@@ -116,15 +89,15 @@ public class HexMapGenerator : MonoBehaviour
 
     private void CreateLand()
     {
-        int landBudget = Mathf.RoundToInt(cellCount * landPercentage * 0.01f);
+        int landBudget = Mathf.RoundToInt(cellCount * settings.landPercentage * 0.01f);
         landCells = landBudget;
         for (int guard = 0; guard < 10000; guard++)
         {
-            bool sink = Random.value < sinkProbability;
+            bool sink = Random.value < settings.sinkProbability;
             for (int i = 0; i < regions.Count; i++)
             {
                 MapRegion region = regions[i];
-                int chunkSize = Random.Range(chunkSizeMin, chunkSizeMax + 1);
+                int chunkSize = Random.Range(settings.chunkSizeMin, settings.chunkSizeMax + 1);
                 if (sink)
                 {
                     landBudget = SinkTerrain(chunkSize, landBudget, region);
@@ -156,19 +129,19 @@ public class HexMapGenerator : MonoBehaviour
         searchFrontier.Enqueue(firstCell);
         HexCoordinates center = firstCell.coordinates;
 
-        int rise = Random.value < highRiseProbability ? 2 : 1;
+        int rise = Random.value < settings.highRiseProbability ? 2 : 1;
         int size = 0;
         while (size < chunkSize && searchFrontier.Count > 0)
         {
             HexCell current = searchFrontier.Dequeue();
             int originalElevation = current.Elevation;
             int newElevation = originalElevation + rise;
-            if (newElevation > elevationMaximum)
+            if (newElevation > settings.elevationMaximum)
             {
                 continue;
             }
             current.Elevation = newElevation;
-            if (originalElevation < waterLevel && newElevation >= waterLevel && --budget == 0) break;
+            if (originalElevation < settings.waterLevel && newElevation >= settings.waterLevel && --budget == 0) break;
             size += 1;
 
             for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++)
@@ -178,7 +151,7 @@ public class HexMapGenerator : MonoBehaviour
                 {
                     neighbor.searchPhase = searchFrontierPhase;
                     neighbor.distance = neighbor.coordinates.DistanceTo(center);
-                    neighbor.searchHeuristic = Random.value < jitterProbability ? 1 : 0;
+                    neighbor.searchHeuristic = Random.value < settings.jitterProbability ? 1 : 0;
                     searchFrontier.Enqueue(neighbor);
                 }
             }
@@ -198,19 +171,19 @@ public class HexMapGenerator : MonoBehaviour
         searchFrontier.Enqueue(firstCell);
         HexCoordinates center = firstCell.coordinates;
 
-        int sink = Random.value < highRiseProbability ? 2 : 1;
+        int sink = Random.value < settings.highRiseProbability ? 2 : 1;
         int size = 0;
         while (size < chunkSize && searchFrontier.Count > 0)
         {
             HexCell current = searchFrontier.Dequeue();
             int originalElevation = current.Elevation;
             int newElevation = current.Elevation - sink;
-            if (newElevation < elevationMinimum)
+            if (newElevation < settings.elevationMinimum)
             {
                 continue;
             }
             current.Elevation = newElevation;
-            if (originalElevation >= waterLevel && newElevation < waterLevel)
+            if (originalElevation >= settings.waterLevel && newElevation < settings.waterLevel)
             {
                 budget++;
             }
@@ -223,7 +196,7 @@ public class HexMapGenerator : MonoBehaviour
                 {
                     neighbor.searchPhase = searchFrontierPhase;
                     neighbor.distance = neighbor.coordinates.DistanceTo(center);
-                    neighbor.searchHeuristic = Random.value < jitterProbability ? 1 : 0;
+                    neighbor.searchHeuristic = Random.value < settings.jitterProbability ? 1 : 0;
                     searchFrontier.Enqueue(neighbor);
                 }
             }
@@ -244,7 +217,7 @@ public class HexMapGenerator : MonoBehaviour
                 erodibleCells.Add(cell);
             }
         }
-        int targetErodibleCount = (int)(erodibleCells.Count * (100 - erosionPercentage) * 0.01f);
+        int targetErodibleCount = (int)(erodibleCells.Count * (100 - settings.erosionPercentage) * 0.01f);
 
         while (erodibleCells.Count > targetErodibleCount)
         {
@@ -291,7 +264,7 @@ public class HexMapGenerator : MonoBehaviour
     private void SetTerrainType()
     {
         temperatureJitterChannel = Random.Range(0, 4);
-        int rockDesertElevation = elevationMaximum - (elevationMaximum - waterLevel) / 2;
+        //int rockDesertElevation = settings.elevationMaximum - (settings.elevationMaximum - settings.waterLevel) / 2;
         for (int i = 0; i < cellCount; i++)
         {
             HexCell cell = grid.GetCell(i);
@@ -310,13 +283,16 @@ public class HexMapGenerator : MonoBehaviour
                 {
                     if (moisture < MoistureBands[m]) break;
                 }
-
+                
                 Biome cellBiome = Biomes[t * 4 + m];
-                if (cellBiome.terrain == 0 && cell.Elevation >= rockDesertElevation)
+                if (cellBiome.terrain == 0)
                 {
-                    cellBiome.terrain = 3;
+                    if (cell.Elevation >= settings.rockDesertElevation)
+                    {
+                        cellBiome.terrain = 3;
+                    }
                 }
-                else if (cell.Elevation == elevationMaximum)
+                else if (cell.Elevation == settings.elevationMaximum)
                 {
                     cellBiome.terrain = 4;
                 }
@@ -334,7 +310,7 @@ public class HexMapGenerator : MonoBehaviour
             else
             {
                 int terrain;
-                if (cell.Elevation == waterLevel - 1)
+                if (cell.Elevation == settings.waterLevel - 1)
                 {
                     int cliffs = 0;
                     int slopes = 0;
@@ -369,7 +345,7 @@ public class HexMapGenerator : MonoBehaviour
                         terrain = 1;
                     }
                 }
-                else if (cell.Elevation >= waterLevel)
+                else if (cell.Elevation >= settings.waterLevel)
                 {
                     terrain = 1;
                 }
@@ -395,66 +371,66 @@ public class HexMapGenerator : MonoBehaviour
         regions.Clear();
 
         MapRegion region;
-        switch (regionCount)
+        switch (settings.regionCount)
         {
             default:
-                region.xMin = mapBorderX;
-                region.xMax = grid.cellCountX - mapBorderX;
-                region.zMin = mapBorderZ;
-                region.zMax = grid.cellCountZ - mapBorderZ;
+                region.xMin = settings.mapBorderX;
+                region.xMax = grid.cellCountX - settings.mapBorderX;
+                region.zMin = settings.mapBorderZ;
+                region.zMax = grid.cellCountZ - settings.mapBorderZ;
                 regions.Add(region);
                 break;
             case 2:
                 if (Random.value < 0.5f)
                 {
-                    region.xMin = mapBorderX;
-                    region.xMax = grid.cellCountX / 2 - regionBorder;
-                    region.zMin = mapBorderZ;
-                    region.zMax = grid.cellCountZ - mapBorderZ;
+                    region.xMin = settings.mapBorderX;
+                    region.xMax = grid.cellCountX / 2 - settings.regionBorder;
+                    region.zMin = settings.mapBorderZ;
+                    region.zMax = grid.cellCountZ - settings.mapBorderZ;
                     regions.Add(region);
-                    region.xMin = grid.cellCountX / 2 + regionBorder;
-                    region.xMax = grid.cellCountX - mapBorderX;
+                    region.xMin = grid.cellCountX / 2 + settings.regionBorder;
+                    region.xMax = grid.cellCountX - settings.mapBorderX;
                     regions.Add(region);
                 }
                 else
                 {
-                    region.xMin = mapBorderX;
-                    region.xMax = grid.cellCountX - mapBorderX;
-                    region.zMin = mapBorderZ;
-                    region.zMax = grid.cellCountZ / 2 - regionBorder;
+                    region.xMin = settings.mapBorderX;
+                    region.xMax = grid.cellCountX - settings.mapBorderX;
+                    region.zMin = settings.mapBorderZ;
+                    region.zMax = grid.cellCountZ / 2 - settings.regionBorder;
                     regions.Add(region);
-                    region.zMin = grid.cellCountZ / 2 + regionBorder;
-                    region.zMax = grid.cellCountZ - mapBorderZ;
+                    region.zMin = grid.cellCountZ / 2 + settings.regionBorder;
+                    region.zMax = grid.cellCountZ - settings.mapBorderZ;
                     regions.Add(region);
                 }
                 break;
             case 3:
-                region.xMin = mapBorderX;
-                region.xMax = grid.cellCountX / 3 - regionBorder;
-                region.zMin = mapBorderZ;
-                region.zMax = grid.cellCountZ - mapBorderZ;
+                region.xMin = settings.mapBorderX;
+                region.xMax = grid.cellCountX / 3 - settings.regionBorder;
+                region.zMin = settings.mapBorderZ;
+                region.zMax = grid.cellCountZ - settings.mapBorderZ;
                 regions.Add(region);
-                region.xMin = grid.cellCountX / 3 + regionBorder;
-                region.xMax = grid.cellCountX * 2 / 3 - regionBorder;
+                region.xMin = grid.cellCountX / 3 + settings.regionBorder;
+                region.xMax = grid.cellCountX * 2 / 3 - settings.regionBorder;
                 regions.Add(region);
-                region.xMin = grid.cellCountX * 2 / 3 + regionBorder;
-                region.xMax = grid.cellCountX - mapBorderX;
+                region.xMin = grid.cellCountX * 2 / 3 + settings.regionBorder;
+                region.xMax = grid.cellCountX - settings.mapBorderX;
                 regions.Add(region);
                 break;
             case 4:
-                region.xMin = mapBorderX;
-                region.xMax = grid.cellCountX / 2 - regionBorder;
-                region.zMin = mapBorderZ;
-                region.zMax = grid.cellCountZ / 2 - regionBorder;
+                region.xMin = settings.mapBorderX;
+                region.xMax = grid.cellCountX / 2 - settings.regionBorder;
+                region.zMin = settings.mapBorderZ;
+                region.zMax = grid.cellCountZ / 2 - settings.regionBorder;
                 regions.Add(region);
-                region.xMin = grid.cellCountX / 2 + regionBorder;
-                region.xMax = grid.cellCountX - mapBorderX;
+                region.xMin = grid.cellCountX / 2 + settings.regionBorder;
+                region.xMax = grid.cellCountX - settings.mapBorderX;
                 regions.Add(region);
-                region.zMin = grid.cellCountZ / 2 + regionBorder;
-                region.zMax = grid.cellCountZ - mapBorderZ;
+                region.zMin = grid.cellCountZ / 2 + settings.regionBorder;
+                region.zMax = grid.cellCountZ - settings.mapBorderZ;
                 regions.Add(region);
-                region.xMin = mapBorderX;
-                region.xMax = grid.cellCountX / 2 - regionBorder;
+                region.xMin = settings.mapBorderX;
+                region.xMax = grid.cellCountX / 2 - settings.regionBorder;
                 regions.Add(region);
                 break;
         }
@@ -496,7 +472,7 @@ public class HexMapGenerator : MonoBehaviour
         climate.Clear();
         nextClimate.Clear();
         ClimateData initialData = new ClimateData();
-        initialData.moisture = startingMoisture;
+        initialData.moisture = settings.startingMoisture;
         ClimateData clearData = new ClimateData();
         for (int i = 0; i < cellCount; i++)
         {
@@ -523,30 +499,30 @@ public class HexMapGenerator : MonoBehaviour
         if (cell.IsUnderwater)
         {
             cellClimate.moisture = 1;
-            cellClimate.clouds += evaporationFactor;
+            cellClimate.clouds += settings.evaporationFactor;
         }
         else
         {
-            float evaporation = cellClimate.moisture * evaporationFactor;
+            float evaporation = cellClimate.moisture * settings.evaporationFactor;
             cellClimate.moisture -= evaporation;
             cellClimate.clouds += evaporation;
         }
 
-        float precipitation = cellClimate.clouds * precipitationFactor;
+        float precipitation = cellClimate.clouds * settings.precipitationFactor;
         cellClimate.clouds -= precipitation;
         cellClimate.moisture += precipitation;
 
-        float cloudMaximum = 1f - cell.ViewElevation / (elevationMaximum + 1f);
+        float cloudMaximum = 1f - cell.ViewElevation / (settings.elevationMaximum + 1f);
         if (cellClimate.clouds > cloudMaximum)
         {
             cellClimate.moisture += cellClimate.clouds - cloudMaximum;
             cellClimate.clouds = cloudMaximum;
         }
 
-        HexDirection mainDispersalDirection = windDirection.Opposite();
-        float cloudDispersal = cellClimate.clouds / (5 + windStrength);
-        float runoff = cellClimate.moisture * runoffFactor / 6;
-        float seepage = cellClimate.moisture * seepageFactor / 6;
+        HexDirection mainDispersalDirection = settings.windDirection.Opposite();
+        float cloudDispersal = cellClimate.clouds / (5 + settings.windStrength);
+        float runoff = cellClimate.moisture * settings.runoffFactor / 6;
+        float seepage = cellClimate.moisture * settings.seepageFactor / 6;
         for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++)
         {
             HexCell neighbor = cell.GetNeighbor(d);
@@ -558,7 +534,7 @@ public class HexMapGenerator : MonoBehaviour
             ClimateData neighborClimate = nextClimate[neighbor.index];
             if (d == mainDispersalDirection)
             {
-                neighborClimate.clouds += cloudDispersal * windStrength;
+                neighborClimate.clouds += cloudDispersal * settings.windStrength;
             }
             else
             {
@@ -602,7 +578,7 @@ public class HexMapGenerator : MonoBehaviour
             }
 
             ClimateData data = climate[i];
-            float weight = data.moisture * (cell.Elevation - waterLevel) / (elevationMaximum - waterLevel);
+            float weight = data.moisture * (cell.Elevation - settings.waterLevel) / (settings.elevationMaximum - settings.waterLevel);
             if (weight > 0.75f)
             {
                 riverOrigins.Add(cell);
@@ -618,7 +594,7 @@ public class HexMapGenerator : MonoBehaviour
             }
         }
 
-        int riverBudget = Mathf.RoundToInt(landCells * riverPercentage * 0.01f);
+        int riverBudget = Mathf.RoundToInt(landCells * settings.riverPercentage * 0.01f);
         while (riverBudget > 0 && riverOrigins.Count > 0)
         {
             int index = Random.Range(0, riverOrigins.Count);
@@ -717,7 +693,7 @@ public class HexMapGenerator : MonoBehaviour
             cell.SetOutgoingRiver(direction);
             length += 1;
 
-            if (minNeighborElevation >= cell.Elevation && Random.value < extraLakeProbability)
+            if (minNeighborElevation >= cell.Elevation && Random.value < settings.extraLakeProbability)
             {
                 cell.WaterLevel = cell.Elevation;
                 cell.Elevation -= 1;
@@ -732,7 +708,7 @@ public class HexMapGenerator : MonoBehaviour
     private float DetermineTemperature(HexCell cell)
     {
         float latitude = (float)cell.coordinates.Z / grid.cellCountZ;
-        if (hemisphere == HemisphereMode.Both)
+        if (settings.hemisphere == HemisphereMode.Both)
         {
             latitude *= 2f;
             if (latitude > 1f)
@@ -740,14 +716,14 @@ public class HexMapGenerator : MonoBehaviour
                 latitude = 2f - latitude;
             }
         }
-        else if (hemisphere == HemisphereMode.North)
+        else if (settings.hemisphere == HemisphereMode.North)
         {
             latitude = 1f - latitude;
         }
-        float temperature = Mathf.LerpUnclamped(lowTemperature, highTemperature, latitude);
-        temperature *= 1f - (cell.ViewElevation - waterLevel) / (elevationMaximum - waterLevel + 1f);
+        float temperature = Mathf.LerpUnclamped(settings.lowTemperature, settings.highTemperature, latitude);
+        temperature *= 1f - (cell.ViewElevation - settings.waterLevel) / (settings.elevationMaximum - settings.waterLevel + 1f);
         float jitter = HexMetrics.SampleNoise(cell.Position * 0.1f)[temperatureJitterChannel];
-        temperature += (jitter * 2f - 1f) *temperatureJitter;
+        temperature += (jitter * 2f - 1f) * settings.temperatureJitter;
         return temperature;
     }
 }

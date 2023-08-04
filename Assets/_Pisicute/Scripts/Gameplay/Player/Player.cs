@@ -6,7 +6,6 @@ public class Player : Singleton<Player>
 {
     public Teams team;
     public int playerNumber;
-    [SerializeField] private HexGrid grid;
     [SerializeField] private PlayerInputHandler inputHandler;
     [SerializeField] private BuildingCollection buildingCollection;
     public Resources CurrentResources
@@ -63,7 +62,7 @@ public class Player : Singleton<Player>
 
     private HexCell GetClickedCell()
     {
-        return grid.GetCell(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()));
+        return GameManager.Instance.mapHexGrid.GetCell(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()));
     }
 
     private void DoSelection()
@@ -80,7 +79,7 @@ public class Player : Singleton<Player>
         {
             if (buildingCollection[buildingToBuild].resourceCost <= CurrentResources)
             {
-                grid.AddBuilding(buildingToBuild, currentCell);
+                GameManager.Instance.mapHexGrid.AddBuilding(buildingToBuild, currentCell);
                 CurrentResources -= buildingCollection[buildingToBuild].resourceCost;
             }
             buildingToBuild = BuildingTypes.None;
@@ -128,21 +127,21 @@ public class Player : Singleton<Player>
     {
         if (cell && selectedUnit.IsValidDestination(cell))
         {
-            grid.FindPath(selectedUnit.Location, cell, selectedUnit);
+            GameManager.Instance.mapHexGrid.FindPath(selectedUnit.Location, cell, selectedUnit);
             lockedPath = cell;
         }
         else
         {
-            grid.ClearPath();
+            GameManager.Instance.mapHexGrid.ClearPath();
         }
     }
 
     private void DoMove()
     {
-        if (grid.HasPath)
+        if (GameManager.Instance.mapHexGrid.HasPath)
         {
-            selectedUnit.Travel(grid.GetPath());
-            grid.ClearPath();
+            selectedUnit.Travel(GameManager.Instance.mapHexGrid.GetPath());
+            GameManager.Instance.mapHexGrid.ClearPath();
             lockedPath = null;
         }
     }
