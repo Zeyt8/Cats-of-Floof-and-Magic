@@ -573,6 +573,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   battleMapPrefab: {fileID: 1422721371468207755, guid: ea80c388c1964824ab2b1a32441dbda5,
     type: 3}
+  biomeConfigurations:
+  - {fileID: 11400000, guid: ba216f068da343d42987d1d8ccc5c721, type: 2}
+  - {fileID: 11400000, guid: 7c30b5511b2db0b42b7a54b170061697, type: 2}
+  - {fileID: 11400000, guid: adb9251de03063e44baf1bd62f69bd6f, type: 2}
+  - {fileID: 11400000, guid: f6e86d5d54a67dd4e9f5286edf10881b, type: 2}
+  - {fileID: 11400000, guid: 6893a221072dfba41b792cc3039a3680, type: 2}
 --- !u!1 &119583998
 GameObject:
   m_ObjectHideFlags: 0

@@ -43,9 +43,11 @@ public class HexCellShaderData : MonoBehaviour
             cellTexture = new Texture2D(x, z, TextureFormat.RGBA32, false, true);
             cellTexture.filterMode = FilterMode.Point;
             cellTexture.wrapMode = TextureWrapMode.Clamp;
-            Shader.SetGlobalTexture("_HexCellData", cellTexture);
+            foreach (HexGridChunk hgc in transform.GetComponentsInChildren<HexGridChunk>())
+            {
+                hgc.SetShaderProperties(cellTexture);
+            }
         }
-        Shader.SetGlobalVector("_HexCellData_TexelSize", new Vector4(1f / x, 1f / z, x, z));
         if (cellTextureData == null || cellTextureData.Length != x * z)
         {
             cellTextureData = new Color32[x * z];

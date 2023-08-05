@@ -12,32 +12,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 922eefecf39e8034696fd05fde37c323, type: 3}
   m_Name: Grass
   m_EditorClassIdentifier: 
-  seed: 0
+  seed: 243532323
   useFixedSeed: 0
   jitterProbability: 0.25
   chunkSizeMin: 30
   chunkSizeMax: 100
-  highRiseProbability: 0.25
-  sinkProbability: 0.2
-  landPercentage: 80
-  waterLevel: 1
-  elevationMinimum: -1
-  elevationMaximum: 3
-  mapBorderX: 1
-  mapBorderZ: 1
-  regionBorder: 1
+  mapBorderX: 0
+  mapBorderZ: 0
+  regionBorder: 0
   regionCount: 1
-  erosionPercentage: 50
-  precipitationFactor: 0.25
-  evaporationFactor: 0.5
-  runoffFactor: 0.25
-  seepageFactor: 0.125
+  highRiseProbability: 0.2
+  sinkProbability: 0.2
+  landPercentage: 90
+  waterLevel: 1
+  elevationMinimum: -2
+  elevationMaximum: 6
+  erosionPercentage: 65
+  rockDesertElevation: 5
+  precipitationFactor: 0.5
+  evaporationFactor: 0.4
+  runoffFactor: 0.3
+  seepageFactor: 0.3
+  startingMoisture: 1.5
+  riverPercentage: 40
+  extraLakeProbability: 0.4
   windDirection: 5
-  windStrength: 4
-  startingMoisture: 0.1
-  riverPercentage: 10
-  extraLakeProbability: 0.25
-  lowTemperature: 0
-  highTemperature: 1
+  windStrength: 2
+  lowTemperature: 0.5
+  highTemperature: 0.8
   temperatureJitter: 0.1
   hemisphere: 0

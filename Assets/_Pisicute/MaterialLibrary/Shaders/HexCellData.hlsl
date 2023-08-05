@@ -1,9 +1,5 @@
 ﻿#include "HexMetrics.hlsl"
 
-TEXTURE2D(_HexCellData);
-SAMPLER(sampler_HexCellData);
-float4 _HexCellData_TexelSize;
-
 float4 FilterCellData(float4 data, bool editMode) {
 	if (editMode) {
 		data.xy = 1;

@@ -17,26 +17,27 @@ MonoBehaviour:
   jitterProbability: 0.25
   chunkSizeMin: 30
   chunkSizeMax: 100
+  mapBorderX: 1
+  mapBorderZ: 1
+  regionBorder: 1
+  regionCount: 1
   highRiseProbability: 0.25
   sinkProbability: 0.2
   landPercentage: 80
   waterLevel: 1
   elevationMinimum: -1
-  elevationMaximum: 3
-  mapBorderX: 1
-  mapBorderZ: 1
-  regionBorder: 1
-  regionCount: 1
+  elevationMaximum: 8
   erosionPercentage: 50
+  rockDesertElevation: 5
   precipitationFactor: 0.25
   evaporationFactor: 0.5
   runoffFactor: 0.25
   seepageFactor: 0.125
-  windDirection: 5
-  windStrength: 4
   startingMoisture: 0.1
   riverPercentage: 10
   extraLakeProbability: 0.25
+  windDirection: 5
+  windStrength: 4
   lowTemperature: 0
   highTemperature: 1
   temperatureJitter: 0.1

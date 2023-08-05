@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BattleMap : MonoBehaviour
 {
-    [SerializeField] private HexMapGenerator generator;
+    public HexMapGenerator generator;
     [SerializeField] private int width = 10;
     [SerializeField] private int height = 5;
 

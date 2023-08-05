@@ -59,9 +59,9 @@ public class HexGrid : MonoBehaviour, ISaveableObject
         cellCountZ = z;
         chunkCountX = cellCountX / HexMetrics.ChunkSizeX;
         chunkCountZ = cellCountZ / HexMetrics.ChunkSizeZ;
-        cellShaderData.Initialize(cellCountX, cellCountZ);
 
         CreateChunks();
+        cellShaderData.Initialize(cellCountX, cellCountZ);
         CreateCells();
 
         return true;

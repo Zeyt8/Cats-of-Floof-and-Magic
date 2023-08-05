@@ -32,16 +32,16 @@ public struct ClimateData
 
 public class HexMapGenerator : MonoBehaviour
 {
-    private static float[] TemperatureBands = { 0.1f, 0.3f, 0.6f };
-    private static float[] MoistureBands = { 0.12f, 0.28f, 0.85f };
-    private static Biome[] Biomes = {
+    private static readonly float[] TemperatureBands = { 0.1f, 0.3f, 0.6f };
+    private static readonly float[] MoistureBands = { 0.12f, 0.28f, 0.85f };
+    private static readonly Biome[] Biomes = {
         new Biome(0, 0), new Biome(4, 0), new Biome(4, 0), new Biome(4, 0),
         new Biome(0, 0), new Biome(2, 0), new Biome(2, 1), new Biome(2, 2),
         new Biome(0, 0), new Biome(1, 0), new Biome(1, 1), new Biome(1, 2),
         new Biome(0, 0), new Biome(1, 1), new Biome(1, 2), new Biome(1, 3)
     };
 
-    [SerializeField] private MapGeneratorSettings settings;
+    public MapGeneratorSettings settings;
     [SerializeField] private HexGrid grid;
     
     

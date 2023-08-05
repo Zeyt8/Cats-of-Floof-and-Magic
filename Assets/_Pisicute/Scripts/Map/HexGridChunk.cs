@@ -12,6 +12,7 @@ public class HexGridChunk : MonoBehaviour
     [SerializeField] private HexMesh water;
     [SerializeField] private HexMesh waterShore;
     [SerializeField] private HexMesh estuaries;
+    [SerializeField] private HexMesh walls;
     [SerializeField] private HexFeatureManager features;
 
     private HexCell[] cells;
@@ -68,6 +69,20 @@ public class HexGridChunk : MonoBehaviour
         waterShore.Apply();
         estuaries.Apply();
         features.Apply();
+    }
+
+    public void SetShaderProperties(Texture2D cellTexture)
+    {
+        if (cellTexture != null)
+        {
+            terrain.GetComponent<MeshRenderer>().material.SetTexture("_HexCellData", cellTexture);
+            rivers.GetComponent<MeshRenderer>().material.SetTexture("_HexCellData", cellTexture);
+            roads.GetComponent<MeshRenderer>().material.SetTexture("_HexCellData", cellTexture);
+            water.GetComponent<MeshRenderer>().material.SetTexture("_HexCellData", cellTexture);
+            waterShore.GetComponent<MeshRenderer>().material.SetTexture("_HexCellData", cellTexture);
+            estuaries.GetComponent<MeshRenderer>().material.SetTexture("_HexCellData", cellTexture);
+            walls.GetComponent<MeshRenderer>().material.SetTexture("_HexCellData", cellTexture);
+        }
     }
 
     private void Triangulate(HexCell cell)

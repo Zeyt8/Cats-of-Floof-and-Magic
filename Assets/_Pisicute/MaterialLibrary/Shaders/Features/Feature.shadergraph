@@ -4,6 +4,9 @@
     "m_ObjectId": "6e291edf8bec4637b5ec7ecc0806d362",
     "m_Properties": [
         {
+            "m_Id": "6ee4446490c34ab78b3b19918b3baeb1"
+        },
+        {
             "m_Id": "7392f470da274c4a8bcb5feae3356b09"
         },
         {
@@ -1713,6 +1716,36 @@
 }
 
 {
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Internal.Texture2DShaderProperty",
+    "m_ObjectId": "6ee4446490c34ab78b3b19918b3baeb1",
+    "m_Guid": {
+        "m_GuidSerialized": "a80d51b4-0925-4854-9eab-fca077c1b0e2"
+    },
+    "m_Name": "HexCellData",
+    "m_DefaultRefNameVersion": 1,
+    "m_RefNameGeneratedByDisplayName": "HexCellData",
+    "m_DefaultReferenceName": "_HexCellData",
+    "m_OverrideReferenceName": "",
+    "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
+    "m_DismissedVersion": 0,
+    "m_Precision": 0,
+    "overrideHLSLDeclaration": true,
+    "hlslDeclarationOverride": 2,
+    "m_Hidden": false,
+    "m_Value": {
+        "m_SerializedTexture": "{\"texture\":{\"instanceID\":0}}",
+        "m_Guid": ""
+    },
+    "isMainTexture": false,
+    "useTilingAndOffset": false,
+    "m_Modifiable": true,
+    "m_DefaultType": 0
+}
+
+{
     "m_SGVersion": 3,
     "m_Type": "UnityEditor.ShaderGraph.Internal.ColorShaderProperty",
     "m_ObjectId": "71061cdcccca4bb387be2673815b4c54",
@@ -2300,6 +2333,9 @@
         },
         {
             "m_Id": "ad7e668ea9b14f00a5bf4dc734b2b076"
+        },
+        {
+            "m_Id": "6ee4446490c34ab78b3b19918b3baeb1"
         }
     ]
 }

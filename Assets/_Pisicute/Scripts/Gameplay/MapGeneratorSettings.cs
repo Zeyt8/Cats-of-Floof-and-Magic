@@ -27,7 +27,7 @@ public class MapGeneratorSettings : ScriptableObject
     [Range(0f, 1f)] public float evaporationFactor = 0.5f;
     [Range(0f, 1f)] public float runoffFactor = 0.25f;
     [Range(0f, 1f)] public float seepageFactor = 0.125f;
-    [Range(0f, 1f)] public float startingMoisture = 0.1f;
+    [Range(0f, 2f)] public float startingMoisture = 0.1f;
     [Range(0, 40)] public int riverPercentage = 10;
     [Range(0f, 1f)] public float extraLakeProbability = 0.25f;
     [Header("Wind")]

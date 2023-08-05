@@ -634,6 +634,7 @@ MonoBehaviour:
   water: {fileID: 4502406655826199993}
   waterShore: {fileID: 8163251807197482444}
   estuaries: {fileID: 5265748375836710861}
+  walls: {fileID: 5693067910122204173}
   features: {fileID: 5709284856206239117}
 --- !u!1 &6765784514949976738
 GameObject:
