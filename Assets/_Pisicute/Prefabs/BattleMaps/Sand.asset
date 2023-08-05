@@ -40,5 +40,5 @@ MonoBehaviour:
   windStrength: 1
   lowTemperature: 0.7
   highTemperature: 1
-  temperatureJitter: 0.1
+  temperatureJitter: 0.05
   hemisphere: 0

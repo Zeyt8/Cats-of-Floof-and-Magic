@@ -12,33 +12,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 922eefecf39e8034696fd05fde37c323, type: 3}
   m_Name: Stone
   m_EditorClassIdentifier: 
-  seed: 0
+  seed: 807097025
   useFixedSeed: 0
   jitterProbability: 0.25
   chunkSizeMin: 30
   chunkSizeMax: 100
-  mapBorderX: 1
-  mapBorderZ: 1
-  regionBorder: 1
+  mapBorderX: 0
+  mapBorderZ: 0
+  regionBorder: 0
   regionCount: 1
-  highRiseProbability: 0.25
-  sinkProbability: 0.2
-  landPercentage: 80
+  highRiseProbability: 1
+  sinkProbability: 0.4
+  landPercentage: 100
   waterLevel: 1
   elevationMinimum: -1
   elevationMaximum: 8
-  erosionPercentage: 50
-  rockDesertElevation: 5
-  precipitationFactor: 0.25
-  evaporationFactor: 0.5
-  runoffFactor: 0.25
-  seepageFactor: 0.125
-  startingMoisture: 0.1
+  erosionPercentage: 40
+  rockDesertElevation: 3
+  precipitationFactor: 0.3
+  evaporationFactor: 0.2
+  runoffFactor: 0.4
+  seepageFactor: 0.1
+  startingMoisture: 0.4
   riverPercentage: 10
-  extraLakeProbability: 0.25
+  extraLakeProbability: 0.1
   windDirection: 5
-  windStrength: 4
-  lowTemperature: 0
-  highTemperature: 1
-  temperatureJitter: 0.1
+  windStrength: 6
+  lowTemperature: 0.3
+  highTemperature: 0.6
+  temperatureJitter: 0.05
   hemisphere: 0
