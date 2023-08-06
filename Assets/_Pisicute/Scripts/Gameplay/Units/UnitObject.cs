@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class UnitObject : MonoBehaviour, ISaveableObject
 {
-    [HideInInspector] public int owner;
+    public int owner;
     public virtual int Speed => 24;
     [NonSerialized] public HexGrid grid;
     private const float TravelSpeed = 4f;
@@ -28,7 +28,10 @@ public class UnitObject : MonoBehaviour, ISaveableObject
             }
             location = value;
             value.unit = this;
-            grid.IncreaseVisibility(value, visionRange);
+            if (Player.Instance && owner == Player.Instance.playerNumber)
+            {
+                grid.IncreaseVisibility(value, visionRange);
+            }
             transform.localPosition = value.Position;
             if (location.Building != null)
             {
@@ -51,8 +54,8 @@ public class UnitObject : MonoBehaviour, ISaveableObject
         if (Location)
         {
             grid.DecreaseVisibility(Location, visionRange);
+            Location.unit = null;
         }
-        Location.unit = null;
         Destroy(gameObject);
     }
 
@@ -169,12 +172,14 @@ public class UnitObject : MonoBehaviour, ISaveableObject
 
     public void Save(BinaryWriter writer)
     {
+        writer.Write(owner);
         Location.coordinates.Save(writer);
         writer.Write(Orientation);
     }
     
     public void Load(BinaryReader reader, int header, HexGrid grid = null)
     {
+        owner = reader.ReadInt32();
         HexCoordinates coordinates = HexCoordinates.Load(reader);
         float orientation = reader.ReadSingle();
         grid.AddUnit(this, grid.GetCell(coordinates), orientation);

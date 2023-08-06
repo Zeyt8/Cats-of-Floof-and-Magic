@@ -16,8 +16,7 @@ public class SulfurMounds : Building
 
     private void GenerateWood(int player)
     {
-        if (owner == -1) return;
-        if (player == owner)
+        if (player == owner && owner == Player.Instance.playerNumber)
         {
             Player.Instance.CurrentResources += new Resources(0, 0, 0, 1, 0);
         }

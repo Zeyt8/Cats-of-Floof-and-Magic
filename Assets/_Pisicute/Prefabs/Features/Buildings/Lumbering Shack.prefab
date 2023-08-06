@@ -54,9 +54,9 @@ MonoBehaviour:
     gems: 0
   icon: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   description: Produces wood at the end of every turn.
-  visionRange: 2
+  visionRange: 3
   grid: {fileID: 0}
-  owner: {fileID: 0}
+  owner: -1
 --- !u!1 &5238263690854457734
 GameObject:
   m_ObjectHideFlags: 0

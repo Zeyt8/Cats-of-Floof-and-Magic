@@ -10,16 +10,18 @@ public class Building : MonoBehaviour, ISaveableObject
     public string description;
     public int visionRange = 3;
     [HideInInspector] public HexGrid grid;
-    [HideInInspector] public int owner = -1;
+    public int owner = -1;
 
-    [HideInInspector]
     public HexCell Location
     {
         get => location;
         set
         {
             location = value;
-            grid.IncreaseVisibility(location, visionRange);
+            if (Player.Instance && owner == Player.Instance.playerNumber)
+            {
+                grid.IncreaseVisibility(location, visionRange);
+            }
             transform.position = location.Position;
         }
     }
@@ -36,12 +38,14 @@ public class Building : MonoBehaviour, ISaveableObject
 
     public void Save(BinaryWriter writer)
     {
-        writer.Write((int)type);
+        writer.Write((int)type); // this must be first
+        writer.Write(owner);
         Location.coordinates.Save(writer);
     }
 
     public void Load(BinaryReader reader, int header, HexGrid grid = null)
     {
+        owner = reader.ReadInt32();
         HexCoordinates coordinates = HexCoordinates.Load(reader);
         grid.AddBuilding(this, grid.GetCell(coordinates));
     }

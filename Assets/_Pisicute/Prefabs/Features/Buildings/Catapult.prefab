@@ -54,7 +54,7 @@ MonoBehaviour:
     gems: 0
   icon: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   description: 
-  visionRange: 3
+  visionRange: 4
   grid: {fileID: 0}
   owner: -1
 --- !u!1 &5238263690854457734

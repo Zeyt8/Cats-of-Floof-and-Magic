@@ -17,7 +17,7 @@ public class GameManager : Singleton<GameManager>
     // Start is called before the first frame update
     void Start()
     {
-        Shader.EnableKeyword("_HEX_MAP_EDIT_MODE");
+        Shader.DisableKeyword("_HEX_MAP_EDIT_MODE");
     }
 
     public void EndTurn()
