@@ -10,4 +10,30 @@ public class Leader : UnitObject
     {
         army.Add(data);
     }
+
+    protected override void FinishTravel(HexCell destination)
+    {
+        foreach (UnitObject unit in destination.units)
+        {
+            if (unit.owner != owner)
+            {
+                BattleManager.Instance.GenerateBattle(destination.TerrainTypeIndex);
+            }
+        }
+    }
+
+    public override bool IsValidDestination(HexCell cell)
+    {
+        return cell.IsExplored && !cell.IsUnderwater;
+    }
+
+    public override void Die()
+    {
+        if (Location)
+        {
+            grid.DecreaseVisibility(Location, visionRange);
+            Location.units.Remove(this);
+        }
+        Destroy(gameObject);
+    }
 }

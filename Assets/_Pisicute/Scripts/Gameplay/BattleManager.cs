@@ -8,14 +8,6 @@ public class BattleManager : Singleton<BattleManager>
 
     private List<BattleMap> battleMaps = new List<BattleMap>();
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            GenerateBattle(1);
-        }
-    }
-
     public void GenerateBattle(int terrain)
     {
         for (int i = 0; i < battleMaps.Count; i++)

@@ -24,10 +24,10 @@ public class UnitObject : MonoBehaviour, ISaveableObject
             if (location)
             {
                 grid.DecreaseVisibility(location, visionRange);
-                location.unit = null;
+                location.units.Remove(this);
             }
             location = value;
-            value.unit = this;
+            value.units.Add(this);
             if (Player.Instance && owner == Player.Instance.playerNumber)
             {
                 grid.IncreaseVisibility(value, visionRange);
@@ -51,12 +51,6 @@ public class UnitObject : MonoBehaviour, ISaveableObject
 
     public virtual void Die()
     {
-        if (Location)
-        {
-            grid.DecreaseVisibility(Location, visionRange);
-            Location.unit = null;
-        }
-        Destroy(gameObject);
     }
 
     public void ValidateLocation()
@@ -66,7 +60,7 @@ public class UnitObject : MonoBehaviour, ISaveableObject
 
     public virtual bool IsValidDestination(HexCell cell)
     {
-        return cell.IsExplored && !cell.IsUnderwater && !cell.unit;
+        return cell.IsExplored && !cell.IsUnderwater && cell.units.Count == 0;
     }
 
     protected virtual bool IsValidCrossing(HexCell fromCell, HexCell toCell)
@@ -97,11 +91,15 @@ public class UnitObject : MonoBehaviour, ISaveableObject
 
     public void Travel(List<HexCell> path)
     {
-        location.unit = null;
+        location.units.Remove(this);
         location = path[^1];
-        location.unit = this;
+        location.units.Add(this);
         pathToTravel = path;
         StartCoroutine(TravelPath());
+    }
+
+    protected virtual void FinishTravel(HexCell destination)
+    {
     }
 
     private IEnumerator TravelPath()
@@ -147,6 +145,7 @@ public class UnitObject : MonoBehaviour, ISaveableObject
 
         ListPool<HexCell>.Add(pathToTravel);
         pathToTravel = null;
+        FinishTravel(location);
     }
 
     private IEnumerator LookAt(Vector3 point)

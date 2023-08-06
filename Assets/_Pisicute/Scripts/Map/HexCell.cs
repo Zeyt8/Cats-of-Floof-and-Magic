@@ -4,6 +4,7 @@ using System.IO;
 using TMPro;
 using UnityEngine.UI;
 using System;
+using System.Collections.Generic;
 
 public class HexCell : MonoBehaviour, ISaveableObject
 {
@@ -17,7 +18,7 @@ public class HexCell : MonoBehaviour, ISaveableObject
     [NonSerialized] public int searchHeuristic;
     [NonSerialized] public HexCell nextWithSamePriority;
     [NonSerialized] public int searchPhase;
-    [NonSerialized] public UnitObject unit;
+    [NonSerialized] public List<UnitObject> units = new List<UnitObject>();
     [NonSerialized] public bool isExplorable;
 
     [SerializeField] private HexCell[] neighbors = new HexCell[6];
@@ -326,18 +327,24 @@ public class HexCell : MonoBehaviour, ISaveableObject
             }
         }
 
-        if (unit)
+        if (units.Count > 0)
         {
-            unit.ValidateLocation();
+            foreach (UnitObject unit in units)
+            {
+                unit.ValidateLocation();
+            }
         }
     }
 
     private void RefreshSelfOnly()
     {
         chunk.Refresh();
-        if (unit)
+        if (units.Count > 0)
         {
-            unit.ValidateLocation();
+            foreach (UnitObject unit in units)
+            {
+                unit.ValidateLocation();
+            }
         }
     }
 

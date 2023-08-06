@@ -195,7 +195,7 @@ public class MapEditor : MonoBehaviour
     private void CreateUnit()
     {
         HexCell cell = GetCellUnderCursor();
-        if (cell && !cell.unit)
+        if (cell && cell.units.Count == 0)
         {
             hexGrid.AddUnit(Instantiate(hexGrid.unitPrefab), cell, Random.Range(0, 360f));
         }
@@ -204,9 +204,12 @@ public class MapEditor : MonoBehaviour
     private void DestroyUnit()
     {
         HexCell cell = GetCellUnderCursor();
-        if (cell && cell.unit)
+        if (cell && cell.units.Count > 0)
         {
-            hexGrid.RemoveUnit(cell.unit);
+            foreach (UnitObject unit in cell.units)
+            {
+                hexGrid.RemoveUnit(unit);
+            }
         }
     }
 

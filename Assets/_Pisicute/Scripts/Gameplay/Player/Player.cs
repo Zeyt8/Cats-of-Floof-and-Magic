@@ -94,7 +94,7 @@ public class Player : Singleton<Player>
             GameManager.Instance.buildingDetails.Deactivate();
         }
         // update selected unit
-        selectedUnit = currentCell.unit;
+        selectedUnit = currentCell.units[0];
         // if unit on tile open unit detail panel
         if (selectedUnit)
         {
