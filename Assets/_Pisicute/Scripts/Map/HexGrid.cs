@@ -21,7 +21,7 @@ public class HexGrid : MonoBehaviour, ISaveableObject
     [SerializeField] private Texture2D noiseSource;
     private int chunkCountX;
     private int chunkCountZ;
-    private HexCell[] cells;
+    public HexCell[] cells;
     private HexGridChunk[] chunks;
     private HexCellPriorityQueue searchFrontier = new HexCellPriorityQueue();
     private int searchFrontierPhase;

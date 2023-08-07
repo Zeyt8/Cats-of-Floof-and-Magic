@@ -85,6 +85,11 @@ public class HexMapGenerator : MonoBehaviour
         }
 
         Random.state = originalRandomState;
+
+        foreach (HexGridChunk hgc in grid.transform.GetComponentsInChildren<HexGridChunk>())
+        {
+            hgc.SetShaderCellVisibles(false);
+        }
     }
 
     private void CreateLand()

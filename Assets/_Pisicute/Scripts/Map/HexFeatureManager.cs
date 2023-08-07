@@ -1,11 +1,9 @@
-using System;
 using UnityEngine;
 
 public class HexFeatureManager : MonoBehaviour
 {
     [SerializeField] private HexMesh walls;
     [SerializeField] private HexFeatureCollection[] urbanCollections, farmCollections, plantCollections;
-    [SerializeField] private BuildingCollection buildings;
     [SerializeField] private GameObject wallTower;
     [SerializeField] private GameObject bridge;
     private Transform container;

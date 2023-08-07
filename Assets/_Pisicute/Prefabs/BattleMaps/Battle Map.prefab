@@ -49,6 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   generator: {fileID: 8116019497104981907}
+  hexGrid: {fileID: 0}
   width: 15
   height: 10
 --- !u!114 &3172390657513214595
@@ -63,7 +64,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0709fc225d318e41b1feea068adaf38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitPrefab: {fileID: 4840009015928866894, guid: 9e25c1c4f9117fc4da87c8e9b07d3273,
+  unitPrefab: {fileID: 1080861093048124148, guid: 9e25c1c4f9117fc4da87c8e9b07d3273,
     type: 3}
   allBuildings: {fileID: 11400000, guid: 2f536239c3385a943a4c8de0d35ef92e, type: 2}
   cellCountX: 4
@@ -128,14 +129,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2751400956604318561}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 0, y: 60, z: -60}
+  m_LocalRotation: {x: 0.5, y: 0, z: 0, w: 0.8660254}
+  m_LocalPosition: {x: 121.24355, y: 142, z: -31.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3768345735986983565}
   m_Father: {fileID: 1947264180438416044}
-  m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 60, y: 0, z: 0}
 --- !u!114 &577365582546417050
 MonoBehaviour:
   m_ObjectHideFlags: 0

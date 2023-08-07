@@ -3,6 +3,7 @@ using System;
 [Serializable]
 public class CatData
 {
+    public CatTypes type;
     public int health;
     public int maxHealth;
     public int power;

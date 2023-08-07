@@ -1,10 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using System.Linq;
 
 public class Leader : UnitObject
 {
-    private List<CatData> army = new List<CatData>();
+    public List<CatData> army = new List<CatData>();
 
     public void AddCatToArmy(CatData data)
     {
@@ -17,14 +16,14 @@ public class Leader : UnitObject
         {
             if (unit.owner != owner)
             {
-                BattleManager.Instance.GenerateBattle(destination.TerrainTypeIndex);
+                BattleManager.Instance.GenerateBattle(destination.TerrainTypeIndex, destination.units);
             }
         }
     }
 
     public override bool IsValidDestination(HexCell cell)
     {
-        return cell.IsExplored && !cell.IsUnderwater;
+        return cell.IsExplored && !cell.IsUnderwater && cell.units.All(unit => unit.owner != owner);
     }
 
     public override void Die()

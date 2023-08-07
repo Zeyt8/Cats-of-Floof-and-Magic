@@ -71,17 +71,38 @@ public class HexGridChunk : MonoBehaviour
         features.Apply();
     }
 
-    public void SetShaderProperties(Texture2D cellTexture)
+    public void SetShaderCellTexture(Texture2D cellTexture)
     {
-        if (cellTexture != null)
+        terrain.GetComponent<MeshRenderer>().material.SetTexture("_HexCellData", cellTexture);
+        rivers.GetComponent<MeshRenderer>().material.SetTexture("_HexCellData", cellTexture);
+        roads.GetComponent<MeshRenderer>().material.SetTexture("_HexCellData", cellTexture);
+        water.GetComponent<MeshRenderer>().material.SetTexture("_HexCellData", cellTexture);
+        waterShore.GetComponent<MeshRenderer>().material.SetTexture("_HexCellData", cellTexture);
+        estuaries.GetComponent<MeshRenderer>().material.SetTexture("_HexCellData", cellTexture);
+        walls.GetComponent<MeshRenderer>().material.SetTexture("_HexCellData", cellTexture);
+    }
+
+    public void SetShaderCellVisibles(bool visible)
+    {
+        if (visible)
         {
-            terrain.GetComponent<MeshRenderer>().material.SetTexture("_HexCellData", cellTexture);
-            rivers.GetComponent<MeshRenderer>().material.SetTexture("_HexCellData", cellTexture);
-            roads.GetComponent<MeshRenderer>().material.SetTexture("_HexCellData", cellTexture);
-            water.GetComponent<MeshRenderer>().material.SetTexture("_HexCellData", cellTexture);
-            waterShore.GetComponent<MeshRenderer>().material.SetTexture("_HexCellData", cellTexture);
-            estuaries.GetComponent<MeshRenderer>().material.SetTexture("_HexCellData", cellTexture);
-            walls.GetComponent<MeshRenderer>().material.SetTexture("_HexCellData", cellTexture);
+            terrain.GetComponent<MeshRenderer>().material.EnableKeyword("_HEX_MAP_EDIT_MODE");
+            rivers.GetComponent<MeshRenderer>().material.EnableKeyword("_HEX_MAP_EDIT_MODE");
+            roads.GetComponent<MeshRenderer>().material.EnableKeyword("_HEX_MAP_EDIT_MODE");
+            water.GetComponent<MeshRenderer>().material.EnableKeyword("_HEX_MAP_EDIT_MODE");
+            waterShore.GetComponent<MeshRenderer>().material.EnableKeyword("_HEX_MAP_EDIT_MODE");
+            estuaries.GetComponent<MeshRenderer>().material.EnableKeyword("_HEX_MAP_EDIT_MODE");
+            walls.GetComponent<MeshRenderer>().material.EnableKeyword("_HEX_MAP_EDIT_MODE");
+        }
+        else
+        {
+            terrain.GetComponent<MeshRenderer>().material.DisableKeyword("_HEX_MAP_EDIT_MODE");
+            rivers.GetComponent<MeshRenderer>().material.DisableKeyword("_HEX_MAP_EDIT_MODE");
+            roads.GetComponent<MeshRenderer>().material.DisableKeyword("_HEX_MAP_EDIT_MODE");
+            water.GetComponent<MeshRenderer>().material.DisableKeyword("_HEX_MAP_EDIT_MODE");
+            waterShore.GetComponent<MeshRenderer>().material.DisableKeyword("_HEX_MAP_EDIT_MODE");
+            estuaries.GetComponent<MeshRenderer>().material.DisableKeyword("_HEX_MAP_EDIT_MODE");
+            walls.GetComponent<MeshRenderer>().material.DisableKeyword("_HEX_MAP_EDIT_MODE");
         }
     }
 

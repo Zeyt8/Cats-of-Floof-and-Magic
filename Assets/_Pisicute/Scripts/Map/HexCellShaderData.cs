@@ -45,7 +45,7 @@ public class HexCellShaderData : MonoBehaviour
             cellTexture.wrapMode = TextureWrapMode.Clamp;
             foreach (HexGridChunk hgc in transform.GetComponentsInChildren<HexGridChunk>())
             {
-                hgc.SetShaderProperties(cellTexture);
+                hgc.SetShaderCellTexture(cellTexture);
             }
         }
         if (cellTextureData == null || cellTextureData.Length != x * z)

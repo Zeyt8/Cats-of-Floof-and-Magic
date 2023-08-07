@@ -1,0 +1,24 @@
+public enum CatTypes
+{
+    Pallas,
+    BigPallas,
+    Witch,
+    Void,
+    Sphinx,
+    Tabby,
+    Tuxedo,
+    Orange,
+    BoxArmour,
+    Liquid,
+    Nebelung,
+    TeleportingBox,
+    LevitatingBlob,
+    TwistingDrill,
+    DesertBlackFoot,
+    Calico,
+    Ragdoll,
+    ScottishWild,
+    ArabianSand,
+    Oriental,
+    ShortFoot
+}
