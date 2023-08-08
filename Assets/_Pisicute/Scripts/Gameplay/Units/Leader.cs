@@ -16,7 +16,12 @@ public class Leader : UnitObject
         {
             if (unit.owner != owner)
             {
-                BattleManager.Instance.GenerateBattle(destination.TerrainTypeIndex, destination.units);
+                List<Leader> leaders = new List<Leader>();
+                foreach (UnitObject u in destination.units)
+                {
+                    leaders.Add((Leader)u);
+                }
+                destination.battleMap = BattleManager.Instance.GenerateBattle(destination.TerrainTypeIndex, leaders);
             }
         }
     }

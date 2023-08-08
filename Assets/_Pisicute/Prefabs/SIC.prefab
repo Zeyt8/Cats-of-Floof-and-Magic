@@ -114,9 +114,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2523363979332422640}
-  - component: {fileID: 1080861093048124148}
+  - component: {fileID: 1383316174885638883}
   m_Layer: 0
-  m_Name: Leader
+  m_Name: SIC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -131,14 +131,14 @@ Transform:
   m_GameObject: {fileID: 2139440890055595572}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 129.90381, y: 18.190168, z: 45}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8901231977153424941}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1080861093048124148
+--- !u!114 &1383316174885638883
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -147,13 +147,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2139440890055595572}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad901eae20340684187f31e2f944660d, type: 3}
+  m_Script: {fileID: 11500000, guid: e7e489bb8c7cd0e4f868c2a866d789ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  owner: -1
+  owner: 1
   visionRange: 3
-  army:
-  - type: 5
+  data:
+    type: 5
     health: 5
     maxHealth: 5
     power: 5

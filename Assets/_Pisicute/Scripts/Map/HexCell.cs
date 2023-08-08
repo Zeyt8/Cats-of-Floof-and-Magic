@@ -20,6 +20,7 @@ public class HexCell : MonoBehaviour, ISaveableObject
     [NonSerialized] public int searchPhase;
     [NonSerialized] public List<UnitObject> units = new List<UnitObject>();
     [NonSerialized] public bool isExplorable;
+    [NonSerialized] public BattleMap battleMap;
 
     [SerializeField] private HexCell[] neighbors = new HexCell[6];
     [SerializeField] private bool[] roads = new bool[6];

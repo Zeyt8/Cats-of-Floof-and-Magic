@@ -1,15 +1,16 @@
-using System.Collections;
+using Cinemachine;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BattleMap : MonoBehaviour
 {
     public HexMapGenerator generator;
+    public HexGrid hexGrid;
     [SerializeField] private CatCollection allCats;
-    private HexGrid hexGrid;
+    [SerializeField] private CinemachineVirtualCamera virtualCamera;
     private List<Leader> battlingLeaders = new List<Leader>();
+    private Queue<CatData> catTurnQueue = new Queue<CatData>();
     private Cat currentCatTurn = null;
-    private Queue<CatData> catsToPlace = new Queue<CatData>();
     private CatData currentCatToPlace = null;
 
     private enum State
@@ -36,19 +37,40 @@ public class BattleMap : MonoBehaviour
         SetupDeploy();
     }
 
+    public void SelectedCell(HexCell cell)
+    {
+        if (state == State.Deploy)
+        {
+            PlaceCat(cell);
+        }
+    }
+
+    public void SetBattleActive(bool active)
+    {
+        if (active)
+        {
+            virtualCamera.gameObject.SetActive(true);
+        }
+        else
+        {
+            virtualCamera.gameObject.SetActive(false);
+        }
+    }
+
     private void SetupDeploy()
     {
         foreach (Leader leader in battlingLeaders)
         {
             foreach (CatData cat in leader.army)
             {
-                catsToPlace.Enqueue(cat);
+                catTurnQueue.Enqueue(cat);
             }
         }
-        currentCatToPlace = catsToPlace.Dequeue();
+        currentCatToPlace = catTurnQueue.Dequeue();
         if (currentCatToPlace != null)
         {
             state = State.Deploy;
+            HighlightPlaceableTiles(currentCatToPlace);
         }
         else
         {
@@ -56,13 +78,18 @@ public class BattleMap : MonoBehaviour
         }
     }
 
-    public void PlaceCat()
+    private void PlaceCat(HexCell location)
     {
         // place cat
-        currentCatToPlace = catsToPlace.Dequeue();
+        hexGrid.AddUnit(Instantiate(allCats[currentCatToPlace.type]), location, 0);
+        currentCatToPlace = catTurnQueue.Dequeue();
         if (currentCatToPlace == null)
         {
             state = State.Fight;
+        }
+        else
+        {
+            HighlightPlaceableTiles(currentCatToPlace);
         }
     }
 

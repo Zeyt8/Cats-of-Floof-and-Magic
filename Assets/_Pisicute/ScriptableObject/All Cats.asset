@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4be53de2a709c4e4699bf9cc7425a16b, type: 3}
-  m_Name: Common Units
+  m_Name: All Cats
   m_EditorClassIdentifier: 
   cats:
     keys: 05000000

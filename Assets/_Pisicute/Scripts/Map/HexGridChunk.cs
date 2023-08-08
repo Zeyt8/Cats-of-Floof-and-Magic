@@ -5,6 +5,8 @@ public class HexGridChunk : MonoBehaviour
     private static readonly Color Weights1 = new Color(1f, 0f, 0f);
     private static readonly Color Weights2 = new Color(0f, 1f, 0f);
     private static readonly Color Weights3 = new Color(0f, 0f, 1f);
+
+    public HexGrid grid;
     
     [SerializeField] private HexMesh terrain;
     [SerializeField] private HexMesh rivers;

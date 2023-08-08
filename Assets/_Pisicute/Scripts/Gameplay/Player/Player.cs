@@ -23,6 +23,7 @@ public class Player : Singleton<Player>
     private HexCell currentCell;
     private UnitObject selectedUnit;
     private HexCell lockedPath;
+    private BattleMap currentBattleMap;
 
     public void Start()
     {
@@ -39,6 +40,18 @@ public class Player : Singleton<Player>
     {
         inputHandler.OnSelectCell.RemoveListener(DoSelection);
         inputHandler.OnAltAction.RemoveListener(DoAlternateAction);
+    }
+
+    public void GoToBattleMap(BattleMap map)
+    {
+        currentBattleMap = map;
+        map.SetBattleActive(true);
+    }
+
+    public void GoToWorldMap()
+    {
+        currentBattleMap.SetBattleActive(false);
+        currentBattleMap = null;
     }
 
     private bool UpdateCurrentCell()
@@ -62,7 +75,14 @@ public class Player : Singleton<Player>
 
     private HexCell GetClickedCell()
     {
-        return GameManager.Instance.mapHexGrid.GetCell(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()));
+        if (currentBattleMap == null)
+        {
+            return GameManager.Instance.mapHexGrid.GetCell(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()));
+        }
+        else
+        {
+            return currentBattleMap.hexGrid.GetCell(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()));
+        }
     }
 
     private void DoSelection()
@@ -74,6 +94,18 @@ public class Player : Singleton<Player>
         }
         UpdateCurrentCell();
         if (currentCell == null) return;
+        if (currentBattleMap == null)
+        {
+            SelectionWorldMap();
+        }
+        else
+        {
+            SelectionBattleMap();
+        }
+    }
+
+    private void SelectionWorldMap()
+    {
         // build selected building
         if (buildingToBuild != BuildingTypes.None)
         {
@@ -94,16 +126,22 @@ public class Player : Singleton<Player>
             GameManager.Instance.buildingDetails.Deactivate();
         }
         // update selected unit
-        selectedUnit = currentCell.units[0];
+        selectedUnit = currentCell.units.Count > 0 ? currentCell.units[0] : null;
         // if unit on tile open unit detail panel
         if (selectedUnit)
         {
-            GameManager.Instance.unitDetails.Activate(selectedUnit);
+            GameManager.Instance.unitDetails.Activate(currentCell, selectedUnit);
         }
         else
         {
             GameManager.Instance.unitDetails.Deactivate();
         }
+    }
+
+    private void SelectionBattleMap()
+    {
+        currentBattleMap.SelectedCell(currentCell);
+        selectedUnit = currentCell.units.Count > 0 ? currentCell.units[0] : null;
     }
 
     private void DoAlternateAction()

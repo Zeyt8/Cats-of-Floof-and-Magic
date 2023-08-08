@@ -8,17 +8,18 @@ public class BattleManager : Singleton<BattleManager>
 
     private List<BattleMap> battleMaps = new List<BattleMap>();
 
-    public void GenerateBattle(int terrain, List<Leader> leaders)
+    public BattleMap GenerateBattle(int terrain, List<Leader> leaders)
     {
         for (int i = 0; i < battleMaps.Count; i++)
         {
             if (battleMaps[i] == null)
             {
-                battleMaps[i] = GenerateBattleMap(terrain, (i + 1) * -250, leaders);
-                return;
+                return battleMaps[i] = GenerateBattleMap(terrain, (i + 1) * -250, leaders);
             }
         }
-        battleMaps.Add(GenerateBattleMap(terrain, (battleMaps.Count + 1) * -250, leaders));
+        BattleMap battleMap = GenerateBattleMap(terrain, (battleMaps.Count + 1) * -250, leaders);
+        battleMaps.Add(battleMap);
+        return battleMap;
     }
 
     private BattleMap GenerateBattleMap(int terrain, int z, List<Leader> leaders)

@@ -127,6 +127,7 @@ public class HexGrid : MonoBehaviour, ISaveableObject
             {
                 HexGridChunk chunk = chunks[i++] = Instantiate(chunkPrefab);
                 chunk.transform.SetParent(transform);
+                chunk.grid = this;
             }
         }
     }

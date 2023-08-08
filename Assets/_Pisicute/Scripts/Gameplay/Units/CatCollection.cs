@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "UnitCollection", menuName = "Scriptable Objects/UnitCollection", order = 1)]
+[CreateAssetMenu(fileName = "CatCollection", menuName = "Scriptable Objects/Cat Collection", order = 1)]
 public class CatCollection : ScriptableObject
 {
     public UDictionary<CatTypes, Cat> cats = new UDictionary<CatTypes, Cat>();
