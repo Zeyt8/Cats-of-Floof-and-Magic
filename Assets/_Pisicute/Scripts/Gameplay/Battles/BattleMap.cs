@@ -12,6 +12,8 @@ public class BattleMap : MonoBehaviour
     private Queue<CatData> catTurnQueue = new Queue<CatData>();
     private Cat currentCatTurn = null;
     private CatData currentCatToPlace = null;
+    private int width;
+    private int height;
 
     private enum State
     {
@@ -25,9 +27,10 @@ public class BattleMap : MonoBehaviour
         hexGrid = GetComponent<HexGrid>();
     }
 
-    [ContextMenu("Generate Battle Map")]
     public void GenerateBattleMap(int width, int height, List<Leader> leaders)
     {
+        this.width = width;
+        this.height = height;
         battlingLeaders = leaders;
         generator.GenerateMap(width, height);
         foreach (HexGridChunk hgc in hexGrid.transform.GetComponentsInChildren<HexGridChunk>())
@@ -66,8 +69,8 @@ public class BattleMap : MonoBehaviour
                 catTurnQueue.Enqueue(cat);
             }
         }
-        currentCatToPlace = catTurnQueue.Dequeue();
-        if (currentCatToPlace != null)
+        bool catLeft = catTurnQueue.TryDequeue(out currentCatToPlace);
+        if (catLeft)
         {
             state = State.Deploy;
             HighlightPlaceableTiles(currentCatToPlace);
@@ -75,6 +78,7 @@ public class BattleMap : MonoBehaviour
         else
         {
             state = State.Fight;
+            currentCatToPlace = null;
         }
     }
 
@@ -82,14 +86,15 @@ public class BattleMap : MonoBehaviour
     {
         // place cat
         hexGrid.AddUnit(Instantiate(allCats[currentCatToPlace.type]), location, 0);
-        currentCatToPlace = catTurnQueue.Dequeue();
-        if (currentCatToPlace == null)
+        bool catLeft = catTurnQueue.TryDequeue(out currentCatToPlace);
+        if (catLeft)
         {
-            state = State.Fight;
+            HighlightPlaceableTiles(currentCatToPlace);
         }
         else
         {
-            HighlightPlaceableTiles(currentCatToPlace);
+            state = State.Fight;
+            currentCatToPlace = null;
         }
     }
 
@@ -97,7 +102,7 @@ public class BattleMap : MonoBehaviour
     {
         foreach (HexCell cell in hexGrid.cells)
         {
-            if (allCats[catData.type].IsValidDestination(cell))
+            if (allCats[catData.type].IsValidDestination(cell) && (cell.coordinates.HexX < 2.5f || cell.coordinates.HexX > width - 3))
             {
                 cell.EnableHighlight(Color.white);
             }

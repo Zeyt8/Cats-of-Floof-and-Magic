@@ -7,7 +7,7 @@ public struct HexCoordinates : ISaveableObject
     public int X => x;
     public int Z => z;
     public int Y => -X - Z;
-    public float HexX => X + Z / 2 + ((Z & 1) == 0 ? 0f : 0.5f);
+    public float HexX => X + Z / 2 + ((Z % 2) == 0 ? 0f : 0.5f);
     public float HexZ => Z * HexMetrics.OuterToInner;
 
     [SerializeField] private int x, z;

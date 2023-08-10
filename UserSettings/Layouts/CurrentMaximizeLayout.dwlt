@@ -238,23 +238,23 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: f284fcff
-      m_LastClickedID: -228110
-      m_ExpandedIDs: fe84fcff909ffcff5ca1fcff92c9fcffcea0fdffe6a0fdff04f4ffff0efbffff
+      m_SelectedIDs: ee6e0000
+      m_LastClickedID: 0
+      m_ExpandedIDs: 4e2affff0efbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: Battle Map(Clone)
-        m_OriginalName: Battle Map(Clone)
+        m_Name: 
+        m_OriginalName: 
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: -220836
+        m_UserData: 0
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 0
+        m_OriginalEventType: 11
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 5}
       m_SearchString: 
@@ -333,7 +333,7 @@ MonoBehaviour:
       floating: 0
       collapsed: 0
       displayed: 1
-      snapOffset: {x: -156, y: -26}
+      snapOffset: {x: -166, y: -26}
       snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 3
       id: Tool Settings
@@ -614,6 +614,19 @@ MonoBehaviour:
       layout: 4
       size: {x: 0, y: 0}
       sizeOverriden: 0
+    - dockPosition: 1
+      containerId: overlay-container--right
+      floating: 0
+      collapsed: 0
+      displayed: 1
+      snapOffset: {x: 48, y: 48}
+      snapOffsetDelta: {x: 0, y: 0}
+      snapCorner: 0
+      id: UnityEditor.SceneViewCameraOverlay
+      index: 10
+      layout: 4
+      size: {x: 0, y: 0}
+      sizeOverriden: 0
     m_OverlaysVisible: 1
   m_WindowGUID: cc27987af1a868c49b0894db9c0f5429
   m_Gizmos: 1
@@ -625,9 +638,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 194.53625, y: 113.56974, z: 15.8312}
+    m_Target: {x: 124.99124, y: -216.82404, z: -56.090866}
     speed: 2
-    m_Value: {x: 194.53625, y: 113.56974, z: 15.8312}
+    m_Value: {x: 124.99124, y: -216.82404, z: -56.090866}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -673,13 +686,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.1907964, y: -0.70544595, z: 0.20691638, w: -0.65049386}
+    m_Target: {x: -0.48583066, y: -0.0007873175, z: 0.00044226518, w: -0.8740606}
     speed: 2
-    m_Value: {x: -0.18951015, y: -0.706726, z: 0.20614104, w: -0.6497155}
+    m_Value: {x: -0.48582724, y: -0.000787312, z: 0.00044226207, w: -0.87405443}
   m_Size:
-    m_Target: 178.9211
+    m_Target: 219.71638
     speed: 2
-    m_Value: 171.21635
+    m_Value: 219.71638
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -697,7 +710,7 @@ MonoBehaviour:
     m_FarClip: 10000
     m_DynamicClip: 1
     m_OcclusionCulling: 0
-  m_LastSceneViewRotation: {x: -0.08717229, y: 0.89959055, z: -0.21045254, w: -0.3726226}
+  m_LastSceneViewRotation: {x: -0.1907964, y: -0.70544595, z: 0.20691638, w: -0.65049386}
   m_LastSceneViewOrtho: 0
   m_ReplacementShader: {fileID: 0}
   m_ReplacementString: 
@@ -1058,7 +1071,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: ProjectBrowser
+  m_Name: ConsoleWindow
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
@@ -1067,17 +1080,17 @@ MonoBehaviour:
     y: 581
     width: 1497
     height: 376
-  m_MinSize: {x: 231, y: 271}
-  m_MaxSize: {x: 10001, y: 10021}
-  m_ActualView: {fileID: 13}
+  m_MinSize: {x: 100, y: 100}
+  m_MaxSize: {x: 4000, y: 4000}
+  m_ActualView: {fileID: 14}
   m_Panes:
   - {fileID: 13}
   - {fileID: 14}
   - {fileID: 15}
   - {fileID: 16}
   - {fileID: 17}
-  m_Selected: 0
-  m_LastSelected: 1
+  m_Selected: 1
+  m_LastSelected: 0
 --- !u!114 &13
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -1124,7 +1137,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/_Pisicute/Prefabs/BattleMaps
+    - Assets/_Pisicute/Scripts/Gameplay/Battles
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
@@ -1132,16 +1145,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/_Pisicute/Prefabs/BattleMaps
+  - Assets/_Pisicute/Scripts/Gameplay/Battles
   m_LastFoldersGridSize: -1
-  m_LastProjectPath: D:\programare\Projects\Jocuri Unity\Pisicute
+  m_LastProjectPath: E:\programare\Projects\Jocuri Unity\Pisicute
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 225}
-    m_SelectedIDs: b6750000
-    m_LastClickedID: 30134
-    m_ExpandedIDs: 000000007a75000086750000887500008a7500008c7500008e75000090750000927500009475000096750000b4750000be75000000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 37}
+    m_SelectedIDs: 34760000
+    m_LastClickedID: 30260
+    m_ExpandedIDs: 00000000ae750000ba750000bc7500001676000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1169,7 +1182,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000007a75000086750000887500008a7500008c7500008e75000090750000927500009475000096750000
+    m_ExpandedIDs: 00000000ae750000ba750000bc750000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1194,8 +1207,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: f284fcff
-    m_LastClickedInstanceID: -228110
+    m_SelectedInstanceIDs: ee6e0000
+    m_LastClickedInstanceID: 28398
     m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000a6190000
     m_RenameOverlay:
@@ -1297,7 +1310,7 @@ MonoBehaviour:
     m_OverlaysVisible: 1
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: 30710
+  m_LastSelectedObjectID: 28398
 --- !u!114 &16
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -1532,8 +1545,8 @@ MonoBehaviour:
   - rid: 7949673972480081932
   - rid: 7949673972480081933
   - rid: 7949673972480081934
-  - rid: 7949673972480081935
   - rid: 3090791517608476672
+  - rid: 7949673972480081935
   - rid: 3090791517608476673
   m_CallstackRecordMode: 1
   m_ClearOnPlay: 0
@@ -2359,8 +2372,8 @@ MonoBehaviour:
     y: 0
     width: 423
     height: 957
-  m_MinSize: {x: 276, y: 71}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 19}
   m_Panes:
   - {fileID: 19}

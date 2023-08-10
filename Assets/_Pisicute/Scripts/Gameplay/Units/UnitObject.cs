@@ -8,6 +8,7 @@ public class UnitObject : MonoBehaviour, ISaveableObject
 {
     public int owner;
     public virtual int Speed => 24;
+    public bool IsMoving = false;
     [NonSerialized] public HexGrid grid;
     private const float TravelSpeed = 4f;
     private const float RotationSpeed = 180f;
@@ -91,6 +92,7 @@ public class UnitObject : MonoBehaviour, ISaveableObject
 
     public void Travel(List<HexCell> path)
     {
+        IsMoving = true;
         location.units.Remove(this);
         location = path[^1];
         location.units.Add(this);
@@ -146,6 +148,7 @@ public class UnitObject : MonoBehaviour, ISaveableObject
         ListPool<HexCell>.Add(pathToTravel);
         pathToTravel = null;
         FinishTravel(location);
+        IsMoving = false;
     }
 
     private IEnumerator LookAt(Vector3 point)

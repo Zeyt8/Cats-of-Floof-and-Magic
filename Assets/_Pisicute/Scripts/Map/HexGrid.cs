@@ -61,8 +61,8 @@ public class HexGrid : MonoBehaviour, ISaveableObject
         chunkCountZ = cellCountZ / HexMetrics.ChunkSizeZ;
 
         CreateChunks();
-        cellShaderData.Initialize(cellCountX, cellCountZ);
         CreateCells();
+        cellShaderData.Initialize(cellCountX, cellCountZ);
 
         return true;
     }
@@ -87,15 +87,6 @@ public class HexGrid : MonoBehaviour, ISaveableObject
             return null;
         }
         return cells[x + z * cellCountX];
-    }
-
-    public void ShowUI(bool visible)
-    {
-        if (chunks == null) return;
-        foreach (HexGridChunk t in chunks)
-        {
-            t.ShowUI(visible);
-        }
     }
 
     public HexCell GetCell(Ray ray)

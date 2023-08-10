@@ -330,7 +330,6 @@ public class MapEditor : MonoBehaviour
     public void SetEditMode(bool toggle)
     {
         enabled = toggle;
-        hexGrid.ShowUI(toggle);
         hexGrid.ClearPath();
         if (toggle)
         {

@@ -1112,8 +1112,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.57700664, y: 0.10943262, z: -0.07838337, w: 0.8055706}
-  m_LocalPosition: {x: -10.30272, y: 113.6154, z: -37.22112}
+  m_LocalRotation: {x: 0.5770065, y: 0.109432615, z: -0.078383364, w: 0.8055706}
+  m_LocalPosition: {x: 189.69728, y: 113.6154, z: 162.77888}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2991,7 +2991,7 @@ Transform:
   m_GameObject: {fileID: 1110464974}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 50, y: 0, z: 50}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3689,7 +3689,7 @@ Transform:
   m_GameObject: {fileID: 1510049879}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 200, y: 0, z: 200}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3713,8 +3713,8 @@ MonoBehaviour:
   orbitSpeed: 1
   zoomScrollSpeed: 20
   zoomSpeed: 50
-  zoomLowerClamp: 5
-  zoomUpperClamp: 400
+  zoomLowerClamp: 20
+  zoomUpperClamp: 250
 --- !u!1 &1521285264
 GameObject:
   m_ObjectHideFlags: 0
@@ -3779,14 +3779,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1521285264}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.57700664, y: 0.10943262, z: -0.07838337, w: 0.8055706}
-  m_LocalPosition: {x: -10.30272, y: 113.6154, z: -37.22112}
+  m_LocalRotation: {x: 0.5770065, y: 0.109432615, z: -0.078383364, w: 0.8055706}
+  m_LocalPosition: {x: 189.69728, y: 113.6154, z: 162.77888}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1958847882}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 71.226, y: 15.2, z: 0}
 --- !u!1 &1536427386
 GameObject:
   m_ObjectHideFlags: 0
@@ -6537,7 +6537,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0709fc225d318e41b1feea068adaf38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
   unitPrefab: {fileID: 1080861093048124148, guid: 9e25c1c4f9117fc4da87c8e9b07d3273,
     type: 3}
   allBuildings: {fileID: 11400000, guid: 2f536239c3385a943a4c8de0d35ef92e, type: 2}

@@ -7,9 +7,9 @@ public class HexCoordinatesDrawer : PropertyDrawer
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
         HexCoordinates coordinates = new HexCoordinates(
-            property.FindPropertyRelative("_x").intValue,
-            property.FindPropertyRelative("_z").intValue
+            property.FindPropertyRelative("x").intValue,
+            property.FindPropertyRelative("z").intValue
         );
-        EditorGUI.LabelField(position, label.text, coordinates.ToString());
+        EditorGUI.LabelField(position, label.text, coordinates.ToString() + $"({coordinates.HexX}, {coordinates.HexZ})");
     }
 }

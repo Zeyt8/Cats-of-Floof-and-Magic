@@ -163,6 +163,7 @@ public class Player : Singleton<Player>
 
     private void DoPathfinding(HexCell cell)
     {
+        if (selectedUnit.IsMoving) return;
         if (cell && selectedUnit.IsValidDestination(cell))
         {
             GameManager.Instance.mapHexGrid.FindPath(selectedUnit.Location, cell, selectedUnit);
