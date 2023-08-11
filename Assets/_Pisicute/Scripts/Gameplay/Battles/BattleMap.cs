@@ -104,7 +104,7 @@ public class BattleMap : MonoBehaviour
         {
             if (allCats[catData.type].IsValidDestination(cell) && (cell.coordinates.HexX < 2.5f || cell.coordinates.HexX > width - 3))
             {
-                cell.EnableHighlight(Color.white);
+                cell.EnableHighlight(HighlightType.Selection);
             }
         }
     }

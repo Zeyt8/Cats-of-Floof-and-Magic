@@ -2977,7 +2977,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0364317edafb284c84435dfc8c67a7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  team: 0
+  team: 1
   playerNumber: 0
   inputHandler: {fileID: 11400000, guid: 6e5279e34a1ec934f9b814a09399b761, type: 2}
   buildingCollection: {fileID: 11400000, guid: 9774d672a6066994d80e49a5006ab58b, type: 2}

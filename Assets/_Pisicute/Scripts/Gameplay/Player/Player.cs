@@ -64,10 +64,6 @@ public class Player : Singleton<Player>
                 currentCell.DisableHighlight();
             }
             currentCell = cell;
-            if (currentCell)
-            {
-                currentCell.EnableHighlight(Color.white);
-            }
             return true;
         }
         return false;
@@ -96,52 +92,59 @@ public class Player : Singleton<Player>
         if (currentCell == null) return;
         if (currentBattleMap == null)
         {
-            SelectionWorldMap();
+            SelectionWorldMap(currentCell);
         }
         else
         {
-            SelectionBattleMap();
+            SelectionBattleMap(currentCell);
         }
     }
 
-    private void SelectionWorldMap()
+    private void SelectionWorldMap(HexCell cell)
     {
         // build selected building
         if (buildingToBuild != BuildingTypes.None)
         {
             if (buildingCollection[buildingToBuild].resourceCost <= CurrentResources)
             {
-                GameManager.Instance.mapHexGrid.AddBuilding(buildingToBuild, currentCell);
+                GameManager.Instance.mapHexGrid.AddBuilding(buildingToBuild, cell);
                 CurrentResources -= buildingCollection[buildingToBuild].resourceCost;
             }
             buildingToBuild = BuildingTypes.None;
         }
+        SelectCell(cell);
+    }
+
+    public void SelectCell(HexCell cell)
+    {
         // if building on tile open building detail panel
-        if (currentCell.Building != null)
+        if (cell.Building != null)
         {
-            GameManager.Instance.buildingDetails.Activate(currentCell.Building);
+            GameManager.Instance.buildingDetails.Activate(cell.Building);
         }
         else
         {
             GameManager.Instance.buildingDetails.Deactivate();
         }
         // update selected unit
-        selectedUnit = currentCell.units.Count > 0 ? currentCell.units[0] : null;
+        selectedUnit = cell.units.Count > 0 ? cell.units[0] : null;
         // if unit on tile open unit detail panel
         if (selectedUnit)
         {
-            GameManager.Instance.unitDetails.Activate(currentCell, selectedUnit);
+            GameManager.Instance.unitDetails.Activate(cell, selectedUnit);
         }
         else
         {
             GameManager.Instance.unitDetails.Deactivate();
         }
+        cell.EnableHighlight(HighlightType.Selection);
     }
 
-    private void SelectionBattleMap()
+    private void SelectionBattleMap(HexCell cell)
     {
-        currentBattleMap.SelectedCell(currentCell);
-        selectedUnit = currentCell.units.Count > 0 ? currentCell.units[0] : null;
+        currentBattleMap.SelectedCell(cell);
+        selectedUnit = cell.units.Count > 0 ? cell.units[0] : null;
+        cell.EnableHighlight(HighlightType.Selection);
     }
 
     private void DoAlternateAction()

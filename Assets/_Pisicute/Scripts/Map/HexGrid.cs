@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -261,12 +262,11 @@ public class HexGrid : MonoBehaviour, ISaveableObject
         currentPathFrom = fromCell;
         currentPathTo = toCell;
         currentPathExists = Search(fromCell, toCell, unit);
-        ShowPath(unit.Speed);
+        ShowPath(unit.Speed, unit.movementPoints);
     }
 
     private bool Search(HexCell fromCell, HexCell toCell, UnitObject unit)
     {
-        int speed = unit.Speed;
         searchFrontierPhase += 2;
         searchFrontier.Clear();
         fromCell.searchPhase = searchFrontierPhase;
@@ -280,7 +280,6 @@ public class HexGrid : MonoBehaviour, ISaveableObject
             {
                 return true;
             }
-            int currentTurn = (current.distance - 1) / speed;
             for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++)
             {
                 HexCell neighbor = current.GetNeighbor(d);
@@ -290,11 +289,6 @@ public class HexGrid : MonoBehaviour, ISaveableObject
                 if (moveCost < 0) continue;
                 
                 int distance = current.distance + moveCost;
-                int turn = (distance - 1) / speed;
-                if (turn > currentTurn)
-                {
-                    distance = turn * speed + moveCost;
-                }
 
                 if (neighbor.searchPhase < searchFrontierPhase)
                 {
@@ -316,21 +310,39 @@ public class HexGrid : MonoBehaviour, ISaveableObject
         return false;
     }
 
-    private void ShowPath(int speed)
+    private void ShowPath(int speed, int movementPoints)
     {
         if (currentPathExists)
         {
             HexCell current = currentPathTo;
             while (current != currentPathFrom)
             {
-                int turn = (current.distance - 1) / speed;
+                int turn = (current.distance - 1) / movementPoints;
+                if (turn > 0)
+                {
+                    turn = (current.distance - 1 - movementPoints) / speed + 1;
+                }
                 current.SetLabel(turn.ToString());
-                current.EnableHighlight(Color.gray);
+                if (turn == 0)
+                {
+                    current.EnableHighlight(HighlightType.Path);
+                }
+                else
+                {
+                    current.EnableHighlight(HighlightType.LongerPath);
+                }
                 current = current.pathFrom;
             }
         }
-        currentPathFrom.EnableHighlight(Color.blue);
-        currentPathTo.EnableHighlight(Color.red);
+        currentPathFrom.EnableHighlight(HighlightType.MovingFrom);
+        if (currentPathTo.units.Count > 0)
+        {
+            currentPathTo.EnableHighlight(HighlightType.Enemy);
+        }
+        else
+        {
+            currentPathTo.EnableHighlight(HighlightType.Selection);
+        }
     }
 
     public void ClearPath()

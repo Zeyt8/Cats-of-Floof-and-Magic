@@ -25,6 +25,7 @@ public class Leader : UnitObject
                 Player.Instance.GoToBattleMap(destination.battleMap);
             }
         }
+        Player.Instance.SelectCell(destination);
     }
 
     public override bool IsValidDestination(HexCell cell)

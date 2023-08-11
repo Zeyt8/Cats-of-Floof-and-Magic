@@ -8,6 +8,7 @@ public class UnitObject : MonoBehaviour, ISaveableObject
 {
     public int owner;
     public virtual int Speed => 24;
+    public int movementPoints;
     public bool IsMoving = false;
     [NonSerialized] public HexGrid grid;
     private const float TravelSpeed = 4f;
@@ -48,6 +49,11 @@ public class UnitObject : MonoBehaviour, ISaveableObject
             orientation = value;
             transform.localRotation = Quaternion.Euler(0f, value, 0f);
         }
+    }
+
+    private void Start()
+    {
+        movementPoints = Speed;
     }
 
     public virtual void Die()
@@ -93,9 +99,6 @@ public class UnitObject : MonoBehaviour, ISaveableObject
     public void Travel(List<HexCell> path)
     {
         IsMoving = true;
-        location.units.Remove(this);
-        location = path[^1];
-        location.units.Add(this);
         pathToTravel = path;
         StartCoroutine(TravelPath());
     }
@@ -107,16 +110,17 @@ public class UnitObject : MonoBehaviour, ISaveableObject
     private IEnumerator TravelPath()
     {
         Vector3 a, b, c = pathToTravel[0].Position;
-        yield return LookAt(pathToTravel[1].Position);
-        grid.DecreaseVisibility(pathToTravel[0], visionRange);
 
         float t = Time.deltaTime * TravelSpeed;
-        for (int i = 1; i < pathToTravel.Count; i++)
+        int i = 0;
+        int nextMovementCost = GetMoveCost(pathToTravel[0], pathToTravel[1], pathToTravel[0].GetNeighborDirection(pathToTravel[1]));
+        while (movementPoints - nextMovementCost > 0)
         {
+            // move smoothly
             a = c;
-            b = pathToTravel[i - 1].Position;
-            c = (b + pathToTravel[i].Position) * 0.5f;
-            grid.IncreaseVisibility(pathToTravel[i], visionRange);
+            b = pathToTravel[i].Position;
+            c = (b + pathToTravel[i + 1].Position) * 0.5f;
+            grid.IncreaseVisibility(pathToTravel[i + 1], visionRange);
             for (; t < 1f; t += Time.deltaTime * TravelSpeed)
             {
                 transform.localPosition = Bezier.GetPoint(a, b, c, t);
@@ -127,19 +131,17 @@ public class UnitObject : MonoBehaviour, ISaveableObject
             }
             grid.DecreaseVisibility(pathToTravel[i], visionRange);
             t -= 1f;
-        }
-
-        a = c;
-        b = location.Position;
-        c = b;
-        grid.IncreaseVisibility(location, visionRange);
-        for (; t < 1f; t += Time.deltaTime * TravelSpeed)
-        {
-            transform.localPosition = Bezier.GetPoint(a, b, c, t);
-            Vector3 d = Bezier.GetDerivative(a, b, c, t);
-            d.y = 0;
-            transform.localRotation = Quaternion.LookRotation(d);
-            yield return null;
+            // update cell data
+            pathToTravel[i].units.Remove(this);
+            pathToTravel[i + 1].units.Add(this);
+            location = pathToTravel[i + 1];
+            movementPoints -= nextMovementCost;
+            i++;
+            if (i >= pathToTravel.Count - 1)
+            {
+                break;
+            }
+            nextMovementCost = GetMoveCost(pathToTravel[i], pathToTravel[i + 1], pathToTravel[i].GetNeighborDirection(pathToTravel[i + 1]));
         }
 
         transform.localPosition = location.Position;
@@ -149,27 +151,6 @@ public class UnitObject : MonoBehaviour, ISaveableObject
         pathToTravel = null;
         FinishTravel(location);
         IsMoving = false;
-    }
-
-    private IEnumerator LookAt(Vector3 point)
-    {
-        point.y = transform.localPosition.y;
-        Quaternion fromRotation = transform.localRotation;
-        Quaternion toRotation = Quaternion.LookRotation(point - transform.localPosition);
-        float angle = Quaternion.Angle(fromRotation, toRotation);
-        if (angle > 0)
-        {
-            float speed = RotationSpeed / angle;
-
-            for (float t = Time.deltaTime * speed; t < 1f; t += Time.deltaTime * speed)
-            {
-                transform.localRotation = Quaternion.Slerp(fromRotation, toRotation, t);
-                yield return null;
-            }
-
-            transform.LookAt(point);
-            orientation = transform.localRotation.eulerAngles.y;
-        }
     }
 
     public void Save(BinaryWriter writer)

@@ -5,6 +5,16 @@ using TMPro;
 using UnityEngine.UI;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+
+public enum HighlightType
+{
+    Enemy,
+    MovingFrom,
+    Selection,
+    Path,
+    LongerPath
+}
 
 public class HexCell : MonoBehaviour, ISaveableObject
 {
@@ -482,11 +492,28 @@ public class HexCell : MonoBehaviour, ISaveableObject
         highlight.SetActive(false);
     }
 
-    public void EnableHighlight(Color color)
+    public void EnableHighlight(HighlightType type)
     {
         Image highlight = uiRect.GetChild(0).GetComponent<Image>();
-        highlight.color = color;
         highlight.gameObject.SetActive(true);
+        switch (type)
+        {
+            case HighlightType.MovingFrom:
+                highlight.color = UnityEngine.Color.blue;
+                break;
+            case HighlightType.Enemy:
+                highlight.color = UnityEngine.Color.red;
+                break;
+            case HighlightType.Selection:
+                highlight.color = UnityEngine.Color.white;
+                break;
+            case HighlightType.Path:
+                highlight.color = UnityEngine.Color.white;
+                break;
+            case HighlightType.LongerPath:
+                highlight.color = UnityEngine.Color.gray;
+                break;
+        }
     }
 
     public void SetLabel(string text)
