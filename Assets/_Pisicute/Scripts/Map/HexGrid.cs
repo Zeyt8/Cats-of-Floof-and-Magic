@@ -376,6 +376,7 @@ public class HexGrid : MonoBehaviour, ISaveableObject
         building.Location = location;
         location.Building = building;
     }
+
     public void AddBuilding(BuildingTypes buildingType, HexCell location)
     {
         if (location.Building != null) return;
@@ -449,7 +450,6 @@ public class HexGrid : MonoBehaviour, ISaveableObject
                 HexCell neighbor = current.GetNeighbor(d);
                 if (neighbor == null || neighbor.searchPhase > searchFrontierPhase || !neighbor.isExplorable) continue;
                 if (!canSee(current, neighbor)) continue;
-                HexEdgeType edgeType = current.GetEdgeType(neighbor);
 
                 int distance = current.distance + 1;
                 if (distance + neighbor.Elevation > range ||

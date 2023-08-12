@@ -47,16 +47,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 7
   resourceCost:
-    wood: 0
+    wood: 5
     stone: 0
     steel: 0
     sulfur: 0
     gems: 0
   icon: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  description: 
+  description: Can be used to destroy an enemy wall.
   visionRange: 4
   grid: {fileID: 0}
   owner: -1
+  uiPanel: {fileID: 0}
 --- !u!1 &5238263690854457734
 GameObject:
   m_ObjectHideFlags: 0

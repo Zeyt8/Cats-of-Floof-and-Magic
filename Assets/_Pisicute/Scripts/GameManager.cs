@@ -13,6 +13,13 @@ public class GameManager : Singleton<GameManager>
     public ResourcesPanel resourcesPanel;
     public BuildingDetails buildingDetails;
     public UnitDetails unitDetails;
+    public Canvas canvas;
+
+    public override void Awake()
+    {
+        base.Awake();
+        Shader.DisableKeyword("_HEX_MAP_EDIT_MODE");
+    }
 
     public void EndTurn()
     {

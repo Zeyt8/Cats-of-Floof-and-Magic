@@ -11,6 +11,7 @@ public class Building : MonoBehaviour, ISaveableObject
     public int visionRange = 3;
     [HideInInspector] public HexGrid grid;
     public int owner = -1;
+    [SerializeField] private GameObject uiPanel;
 
     public HexCell Location
     {
@@ -34,6 +35,12 @@ public class Building : MonoBehaviour, ISaveableObject
     public virtual void OnUnitEnter(UnitObject unit)
     {
         owner = unit.owner;
+    }
+
+    public virtual GameObject OpenUIPanel()
+    {
+        if (uiPanel == null) return null;
+        return Instantiate(uiPanel, GameManager.Instance.canvas.transform);
     }
 
     public void Save(BinaryWriter writer)

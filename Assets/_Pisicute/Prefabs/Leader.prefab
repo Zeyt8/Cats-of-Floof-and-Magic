@@ -151,6 +151,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   owner: -1
+  movementPoints: 0
+  IsMoving: 0
   visionRange: 3
   army:
   - type: 5

@@ -4,15 +4,6 @@ using UnityEngine;
 
 public class SteelFoundry : Building
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public static readonly Resources SmeltCost = new Resources(5, 5, 0, 0, 0);
+    public static readonly Resources SmeltGain = new Resources(0, 0, 4, 0, 0);
 }

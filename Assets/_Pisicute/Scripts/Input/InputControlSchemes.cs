@@ -53,6 +53,15 @@ public partial class @InputControlSchemes: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Cancel"",
+                    ""type"": ""Button"",
+                    ""id"": ""d2e45e73-e565-4a86-853d-d26bf8398d25"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -86,6 +95,17 @@ public partial class @InputControlSchemes: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""K&M"",
                     ""action"": ""Alt Action"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7ab600cf-f604-4d4a-b16d-3046990aba0f"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""K&M"",
+                    ""action"": ""Cancel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -330,11 +350,6 @@ public partial class @InputControlSchemes: IInputActionCollection2, IDisposable
                     ""isOR"": false
                 }
             ]
-        },
-        {
-            ""name"": ""Gamepad"",
-            ""bindingGroup"": ""Gamepad"",
-            ""devices"": []
         }
     ]
 }");
@@ -343,6 +358,7 @@ public partial class @InputControlSchemes: IInputActionCollection2, IDisposable
         m_Player_SelectCell = m_Player.FindAction("Select Cell", throwIfNotFound: true);
         m_Player_Action = m_Player.FindAction("Action", throwIfNotFound: true);
         m_Player_AltAction = m_Player.FindAction("Alt Action", throwIfNotFound: true);
+        m_Player_Cancel = m_Player.FindAction("Cancel", throwIfNotFound: true);
         // Map Editor
         m_MapEditor = asset.FindActionMap("Map Editor", throwIfNotFound: true);
         m_MapEditor_SelectCell = m_MapEditor.FindAction("Select Cell", throwIfNotFound: true);
@@ -418,6 +434,7 @@ public partial class @InputControlSchemes: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_SelectCell;
     private readonly InputAction m_Player_Action;
     private readonly InputAction m_Player_AltAction;
+    private readonly InputAction m_Player_Cancel;
     public struct PlayerActions
     {
         private @InputControlSchemes m_Wrapper;
@@ -425,6 +442,7 @@ public partial class @InputControlSchemes: IInputActionCollection2, IDisposable
         public InputAction @SelectCell => m_Wrapper.m_Player_SelectCell;
         public InputAction @Action => m_Wrapper.m_Player_Action;
         public InputAction @AltAction => m_Wrapper.m_Player_AltAction;
+        public InputAction @Cancel => m_Wrapper.m_Player_Cancel;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -443,6 +461,9 @@ public partial class @InputControlSchemes: IInputActionCollection2, IDisposable
             @AltAction.started += instance.OnAltAction;
             @AltAction.performed += instance.OnAltAction;
             @AltAction.canceled += instance.OnAltAction;
+            @Cancel.started += instance.OnCancel;
+            @Cancel.performed += instance.OnCancel;
+            @Cancel.canceled += instance.OnCancel;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -456,6 +477,9 @@ public partial class @InputControlSchemes: IInputActionCollection2, IDisposable
             @AltAction.started -= instance.OnAltAction;
             @AltAction.performed -= instance.OnAltAction;
             @AltAction.canceled -= instance.OnAltAction;
+            @Cancel.started -= instance.OnCancel;
+            @Cancel.performed -= instance.OnCancel;
+            @Cancel.canceled -= instance.OnCancel;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -614,20 +638,12 @@ public partial class @InputControlSchemes: IInputActionCollection2, IDisposable
             return asset.controlSchemes[m_KMSchemeIndex];
         }
     }
-    private int m_GamepadSchemeIndex = -1;
-    public InputControlScheme GamepadScheme
-    {
-        get
-        {
-            if (m_GamepadSchemeIndex == -1) m_GamepadSchemeIndex = asset.FindControlSchemeIndex("Gamepad");
-            return asset.controlSchemes[m_GamepadSchemeIndex];
-        }
-    }
     public interface IPlayerActions
     {
         void OnSelectCell(InputAction.CallbackContext context);
         void OnAction(InputAction.CallbackContext context);
         void OnAltAction(InputAction.CallbackContext context);
+        void OnCancel(InputAction.CallbackContext context);
     }
     public interface IMapEditorActions
     {

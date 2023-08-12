@@ -53,10 +53,11 @@ MonoBehaviour:
     sulfur: 0
     gems: 0
   icon: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  description: 
+  description: Produces gems at the end of your turn.
   visionRange: 3
   grid: {fileID: 0}
   owner: -1
+  uiPanel: {fileID: 0}
 --- !u!1 &5238263690854457734
 GameObject:
   m_ObjectHideFlags: 0

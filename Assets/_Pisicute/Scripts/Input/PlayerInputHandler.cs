@@ -8,6 +8,7 @@ public class PlayerInputHandler : InputHandler, InputControlSchemes.IPlayerActio
     public UnityEvent OnSelectCell = new UnityEvent();
     public UnityEvent OnAction = new UnityEvent();
     public UnityEvent OnAltAction = new UnityEvent();
+    public UnityEvent OnCancel = new UnityEvent();
 
     protected override void OnEnable()
     {
@@ -36,6 +37,14 @@ public class PlayerInputHandler : InputHandler, InputControlSchemes.IPlayerActio
         if (context.performed)
         {
             OnAltAction?.Invoke();
+        }
+    }
+
+    void InputControlSchemes.IPlayerActions.OnCancel(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            OnCancel?.Invoke();
         }
     }
 }

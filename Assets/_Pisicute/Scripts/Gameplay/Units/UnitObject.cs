@@ -12,7 +12,6 @@ public class UnitObject : MonoBehaviour, ISaveableObject
     public bool IsMoving = false;
     [NonSerialized] public HexGrid grid;
     private const float TravelSpeed = 4f;
-    private const float RotationSpeed = 180f;
 
     private HexCell location;
     private float orientation;
@@ -49,6 +48,16 @@ public class UnitObject : MonoBehaviour, ISaveableObject
             orientation = value;
             transform.localRotation = Quaternion.Euler(0f, value, 0f);
         }
+    }
+
+    private void OnEnable()
+    {
+        GameManager.Instance.OnTurnStart.AddListener(ResetMovementPoints);
+    }
+
+    private void OnDisable()
+    {
+        GameManager.Instance.OnTurnStart.RemoveListener(ResetMovementPoints);
     }
 
     private void Start()
@@ -89,8 +98,7 @@ public class UnitObject : MonoBehaviour, ISaveableObject
         }
         else
         {
-            moveCost = edgeType == HexEdgeType.Flat ? 5 : 10;
-            moveCost += toCell.UrbanLevel + toCell.FarmLevel + toCell.PlantLevel;
+            moveCost = edgeType == HexEdgeType.Flat ? 4 : 6;
         }
 
         return moveCost;
@@ -146,11 +154,17 @@ public class UnitObject : MonoBehaviour, ISaveableObject
 
         transform.localPosition = location.Position;
         Orientation = transform.localRotation.eulerAngles.y;
+        Location = location;
 
         ListPool<HexCell>.Add(pathToTravel);
         pathToTravel = null;
         FinishTravel(location);
         IsMoving = false;
+    }
+
+    private void ResetMovementPoints(int player)
+    {
+        movementPoints = Speed;
     }
 
     public void Save(BinaryWriter writer)
