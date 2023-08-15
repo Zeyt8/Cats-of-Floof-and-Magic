@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SteelFoundryUI : MonoBehaviour
+public class SteelFoundryUI : BuildingUI
 {
     public void Smelt()
     {

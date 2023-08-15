@@ -6,7 +6,7 @@ public class BuildingDetails : MonoBehaviour
     [SerializeField] private TextMeshProUGUI text;
     [SerializeField] private PlayerInputHandler playerInputHandler;
     private Building currentBuilding;
-    private GameObject currentOpenUIPanel;
+    private BuildingUI currentOpenUIPanel;
 
     private void OnEnable()
     {

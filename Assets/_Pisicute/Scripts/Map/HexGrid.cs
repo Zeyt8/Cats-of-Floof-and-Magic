@@ -1,14 +1,12 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using TMPro;
 using UnityEngine;
 
 public class HexGrid : MonoBehaviour, ISaveableObject
 {
-    public UnitObject unitPrefab;
+    [SerializeField] private Leader leaderPrefab;
     public BuildingCollection allBuildings;
     public bool HasPath => currentPathExists;
 
@@ -243,7 +241,7 @@ public class HexGrid : MonoBehaviour, ISaveableObject
         int unitCount = reader.ReadInt32();
         for (int i = 0; i < unitCount; i++)
         {
-            UnitObject unitObject = Instantiate(unitPrefab);
+            UnitObject unitObject = Instantiate(leaderPrefab);
             unitObject.Load(reader, header, grid);
         }
         int buildingCount = reader.ReadInt32();
@@ -375,6 +373,7 @@ public class HexGrid : MonoBehaviour, ISaveableObject
         building.transform.SetParent(transform, false);
         building.Location = location;
         location.Building = building;
+        building.OnBuild(location);
     }
 
     public void AddBuilding(BuildingTypes buildingType, HexCell location)

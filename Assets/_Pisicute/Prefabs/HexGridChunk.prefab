@@ -628,6 +628,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83bf68b21b7cccc4cb7c95395d4fa0b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  grid: {fileID: 0}
   terrain: {fileID: 1641221302994433932}
   rivers: {fileID: 119623702151601214}
   roads: {fileID: 995578039186398377}
@@ -807,13 +808,10 @@ MonoBehaviour:
   urbanCollections:
   - prefabs:
     - {fileID: 1000011931043878, guid: 21b1020286582424ab6d62085ed5ee87, type: 3}
-    - {fileID: 1000011931043878, guid: 5d26578fd32c84d1ab4d755ab7f23577, type: 3}
   - prefabs:
     - {fileID: 1000010872681204, guid: 89adbf41f320f4141964bfa388ba2865, type: 3}
-    - {fileID: 1000010872681204, guid: 2fad1b4af64d84c8e810f040299dec1e, type: 3}
   - prefabs:
     - {fileID: 1000013731776376, guid: bca46d0c670c447a0a5c7208498000ab, type: 3}
-    - {fileID: 1000013731776376, guid: 4c4b904516a814dc7b4433a49713c96f, type: 3}
   farmCollections:
   - prefabs:
     - {fileID: 1000011931043878, guid: 694c4113acb734a299b240d50494600c, type: 3}
@@ -834,7 +832,6 @@ MonoBehaviour:
   - prefabs:
     - {fileID: 1000013731776376, guid: eeb3748a5f0ed40f3ad86263ab781421, type: 3}
     - {fileID: 1000013731776376, guid: 2fe8d139a980145f997e9f4c3e1c2606, type: 3}
-  buildings: {fileID: 11400000, guid: 2f536239c3385a943a4c8de0d35ef92e, type: 2}
   wallTower: {fileID: 1000010046023388, guid: 1589993158ba34786b54f448bdeb6085, type: 3}
   bridge: {fileID: 1000014278269524, guid: 234387bb7219042168570e127fbd5b58, type: 3}
 --- !u!1 &7686168359736129252

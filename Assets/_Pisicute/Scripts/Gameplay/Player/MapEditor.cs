@@ -9,6 +9,7 @@ public class MapEditor : MonoBehaviour
     [SerializeField] private MapEditorInputHandler inputHandler;
     [SerializeField] private HexGrid hexGrid;
     [SerializeField] private Material terrainMaterial;
+    [SerializeField] Leader leaderPrefab;
     private int activeTerrainTypeIndex = -1;
     private int activeElevation;
     private int activeWaterLevel;
@@ -119,7 +120,7 @@ public class MapEditor : MonoBehaviour
         }
         if (applySpecialIndex)
         {
-            hexGrid.AddBuilding((BuildingTypes)activeSpecialIndex + 1, cell);
+            cell.AddBuilding((BuildingTypes)activeSpecialIndex + 1);
         }
         if (riverMode == OptionalToggle.No)
         {
@@ -197,7 +198,7 @@ public class MapEditor : MonoBehaviour
         HexCell cell = GetCellUnderCursor();
         if (cell && cell.units.Count == 0)
         {
-            hexGrid.AddUnit(Instantiate(hexGrid.unitPrefab), cell, Random.Range(0, 360f));
+            cell.AddUnit(Instantiate(leaderPrefab), Random.Range(0, 360f));
         }
     }
 

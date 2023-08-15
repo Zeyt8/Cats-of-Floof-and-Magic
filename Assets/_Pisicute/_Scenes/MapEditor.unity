@@ -7280,8 +7280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0709fc225d318e41b1feea068adaf38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitPrefab: {fileID: 1080861093048124148, guid: 9e25c1c4f9117fc4da87c8e9b07d3273,
-    type: 3}
+  leaderPrefab: {fileID: 0}
   allBuildings: {fileID: 11400000, guid: 2f536239c3385a943a4c8de0d35ef92e, type: 2}
   cellCountX: 4
   cellCountZ: 3
@@ -7293,6 +7292,7 @@ MonoBehaviour:
   cellLabelPrefab: {fileID: 5068088112184473218, guid: 27f410c931306e94bb89435839db4c57,
     type: 3}
   noiseSource: {fileID: 2800000, guid: a9662976c7c7a6b4b9cafa481c5d0688, type: 3}
+  cells: []
 --- !u!114 &967716813
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17163,6 +17163,8 @@ MonoBehaviour:
   inputHandler: {fileID: 11400000, guid: 28b981685921c9b4f9595e5ba479b771, type: 2}
   hexGrid: {fileID: 967716812}
   terrainMaterial: {fileID: 2100000, guid: da66e8f0c1d16476bae8e2d228492d7f, type: 2}
+  leaderPrefab: {fileID: 1080861093048124148, guid: 9e25c1c4f9117fc4da87c8e9b07d3273,
+    type: 3}
 --- !u!222 &2571628732434139510
 CanvasRenderer:
   m_ObjectHideFlags: 0

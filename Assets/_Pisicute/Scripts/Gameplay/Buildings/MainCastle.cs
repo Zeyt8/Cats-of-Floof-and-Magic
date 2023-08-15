@@ -1,18 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MainCastle : Building
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] Leader leaderPrefab;
 
-    // Update is called once per frame
-    void Update()
+    public void CreateLeader(HexCell cell)
     {
-        
+        cell.AddUnit(Instantiate(leaderPrefab), 0);
     }
 }

@@ -1,4 +1,5 @@
 using Cinemachine;
+using System.Collections;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
@@ -21,13 +22,16 @@ public class CameraController : MonoBehaviour
     private CinemachineTransposer transposer;
     private CinemachineHardLookAt hardLookAt;
 
-    private void Awake()
+    private IEnumerator Start()
     {
         transposer = virtualCamera.GetCinemachineComponent<CinemachineTransposer>();
         hardLookAt = virtualCamera.GetCinemachineComponent<CinemachineHardLookAt>();
         currentZoom = targetZoom = zoomUpperClamp;
         elevation = Mathf.PI / 3;
         polar = -Mathf.PI / 2;
+        yield return new WaitForEndOfFrame();
+        yield return new WaitForFixedUpdate();
+        hardLookAt.enabled = false;
     }
 
     private void OnEnable()

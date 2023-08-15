@@ -77,15 +77,14 @@ public class BattleMap : MonoBehaviour
         }
         else
         {
-            state = State.Fight;
-            currentCatToPlace = null;
+            SetupFight();
         }
     }
 
     private void PlaceCat(HexCell location)
     {
         // place cat
-        hexGrid.AddUnit(Instantiate(allCats[currentCatToPlace.type]), location, 0);
+        location.AddUnit(Instantiate(allCats[currentCatToPlace.type]), 0);
         bool catLeft = catTurnQueue.TryDequeue(out currentCatToPlace);
         if (catLeft)
         {
@@ -93,8 +92,7 @@ public class BattleMap : MonoBehaviour
         }
         else
         {
-            state = State.Fight;
-            currentCatToPlace = null;
+            SetupFight();
         }
     }
 
@@ -106,6 +104,25 @@ public class BattleMap : MonoBehaviour
             {
                 cell.EnableHighlight(HighlightType.Selection);
             }
+            else
+            {
+                cell.DisableHighlight();
+            }
         }
+    }
+
+    private void UnhighlightAllTiles()
+    {
+        foreach (HexCell cell in hexGrid.cells)
+        {
+            cell.DisableHighlight();
+        }
+    }
+
+    private void SetupFight()
+    {
+        state = State.Fight;
+        currentCatToPlace = null;
+        UnhighlightAllTiles();
     }
 }

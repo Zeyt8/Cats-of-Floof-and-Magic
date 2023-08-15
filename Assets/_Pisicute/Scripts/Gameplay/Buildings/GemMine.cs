@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class GemMine : Building
 {
     private void OnEnable()
@@ -18,7 +14,7 @@ public class GemMine : Building
     {
         if (player == owner && owner == Player.Instance.playerNumber)
         {
-            Player.Instance.CurrentResources += new Resources(0, 0, 0, 0, 1);
+            Player.Instance.CurrentResources += new Resources(0, 0, 0, 0, 0, 1);
         }
     }
 }

@@ -57,7 +57,9 @@ MonoBehaviour:
   visionRange: 4
   grid: {fileID: 0}
   owner: -1
-  uiPanel: {fileID: 0}
+  uiPanel: {fileID: 8298352812392306562, guid: 50fd40231459bb54ea20999dbb4a01d2, type: 3}
+  leaderPrefab: {fileID: 1080861093048124148, guid: 9e25c1c4f9117fc4da87c8e9b07d3273,
+    type: 3}
 --- !u!1001 &882476850880648439
 PrefabInstance:
   m_ObjectHideFlags: 0

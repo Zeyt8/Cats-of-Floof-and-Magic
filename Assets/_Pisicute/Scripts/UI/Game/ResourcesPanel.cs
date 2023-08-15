@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class ResourcesPanel : MonoBehaviour
 {
+    [SerializeField] private TextMeshProUGUI food;
     [SerializeField] private TextMeshProUGUI wood;
     [SerializeField] private TextMeshProUGUI stone;
     [SerializeField] private TextMeshProUGUI steel;
@@ -11,6 +12,7 @@ public class ResourcesPanel : MonoBehaviour
 
     public void SetResourcesUI(Resources playerResources)
     {
+        food.text = playerResources.food.ToString();
         wood.text = playerResources.wood.ToString();
         stone.text = playerResources.stone.ToString();
         steel.text = playerResources.steel.ToString();

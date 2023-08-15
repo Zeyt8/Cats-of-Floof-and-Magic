@@ -318,6 +318,16 @@ public class HexCell : MonoBehaviour, ISaveableObject
         }
     }
 
+    public void AddUnit(UnitObject unit, float orientation)
+    {
+        chunk.grid.AddUnit(unit, this, orientation);
+    }
+
+    public void AddBuilding(BuildingTypes buildingType)
+    {
+        chunk.grid.AddBuilding(buildingType, this);
+    }
+
     private void SetWall(int index, bool state)
     {
         walls[index] = state;

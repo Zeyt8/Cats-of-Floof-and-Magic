@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -25,9 +26,12 @@ public class Player : Singleton<Player>
     private HexCell lockedPath;
     private BattleMap currentBattleMap;
 
+    public delegate void Action<HexCell>(HexCell cell);
+    Action<HexCell> onClickAction;
+
     public void Start()
     {
-        CurrentResources = new Resources(10, 10, 0, 0, 0);
+        CurrentResources = new Resources(10, 10, 10, 0, 0, 0);
     }
 
     private void OnEnable()
@@ -52,6 +56,52 @@ public class Player : Singleton<Player>
     {
         currentBattleMap.SetBattleActive(false);
         currentBattleMap = null;
+    }
+
+    public void InitiateSelectCellForEffect(Func<HexCell, bool> selectionCondition, Action<HexCell> onClickAction)
+    {
+        this.onClickAction = onClickAction;
+        foreach (HexCell cell in GameManager.Instance.mapHexGrid.cells)
+        {
+            if (selectionCondition(cell))
+            {
+                cell.EnableHighlight(HighlightType.Path);
+            }
+            else
+            {
+                cell.DisableHighlight();
+            }
+        }
+    }
+
+    private void DoSelection()
+    {
+        if (playerNumber != GameManager.Instance.currentPlayer) return;
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
+        UpdateCurrentCell();
+        if (currentCell == null) return;
+        if (onClickAction != null)
+        {
+            onClickAction(currentCell);
+            onClickAction = null;
+            foreach (HexCell cell in GameManager.Instance.mapHexGrid.cells)
+            {
+                cell.DisableHighlight();
+            }
+            SelectCell(currentCell);
+            return;
+        }
+        if (currentBattleMap == null)
+        {
+            SelectionWorldMap(currentCell);
+        }
+        else
+        {
+            SelectionBattleMap(currentCell);
+        }
     }
 
     private bool UpdateCurrentCell()
@@ -81,25 +131,6 @@ public class Player : Singleton<Player>
         }
     }
 
-    private void DoSelection()
-    {
-        if (playerNumber != GameManager.Instance.currentPlayer) return;
-        if (EventSystem.current.IsPointerOverGameObject())
-        {
-            return;
-        }
-        UpdateCurrentCell();
-        if (currentCell == null) return;
-        if (currentBattleMap == null)
-        {
-            SelectionWorldMap(currentCell);
-        }
-        else
-        {
-            SelectionBattleMap(currentCell);
-        }
-    }
-
     private void SelectionWorldMap(HexCell cell)
     {
         // build selected building
@@ -107,7 +138,7 @@ public class Player : Singleton<Player>
         {
             if (buildingCollection[buildingToBuild].resourceCost <= CurrentResources)
             {
-                GameManager.Instance.mapHexGrid.AddBuilding(buildingToBuild, cell);
+                cell.AddBuilding(buildingToBuild);
                 CurrentResources -= buildingCollection[buildingToBuild].resourceCost;
             }
             buildingToBuild = BuildingTypes.None;

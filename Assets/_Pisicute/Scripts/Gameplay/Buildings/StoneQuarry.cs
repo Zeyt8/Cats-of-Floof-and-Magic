@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class StoneQuarry : Building
 {
     private void OnEnable()
@@ -18,7 +14,7 @@ public class StoneQuarry : Building
     {
         if (player == owner && owner == Player.Instance.playerNumber)
         {
-            Player.Instance.CurrentResources += new Resources(0, 5, 0, 0, 0);
+            Player.Instance.CurrentResources += new Resources(0, 0, 5, 0, 0, 0);
         }
     }
 }

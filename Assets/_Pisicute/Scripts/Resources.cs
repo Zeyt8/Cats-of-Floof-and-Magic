@@ -3,6 +3,7 @@ using System;
 [Serializable]
 public class Resources
 {
+    public int food;
     public int wood;
     public int stone;
     public int steel;
@@ -11,8 +12,9 @@ public class Resources
 
     public Resources() { }
 
-    public Resources(int wood, int stone, int steel, int sulfur, int gems)
+    public Resources(int food, int wood, int stone, int steel, int sulfur, int gems)
     {
+        this.food = food;
         this.wood = wood;
         this.stone = stone;
         this.steel = steel;
@@ -23,6 +25,7 @@ public class Resources
     public static Resources operator +(Resources a, Resources b)
     {
         Resources result = new Resources();
+        result.food = a.food + b.food;
         result.wood = a.wood + b.wood;
         result.stone = a.stone + b.stone;
         result.steel = a.steel + b.steel;
@@ -34,6 +37,7 @@ public class Resources
     public static Resources operator -(Resources a, Resources b)
     {
         Resources result = new Resources();
+        result.food = a.food - b.food;
         result.wood = a.wood - b.wood;
         result.stone = a.stone - b.stone;
         result.steel = a.steel - b.steel;
@@ -44,7 +48,7 @@ public class Resources
 
     public static bool operator >(Resources a, Resources b)
     {
-        if (a.wood > b.wood && a.stone > b.stone && a.steel > b.steel && a.sulfur > b.sulfur && a.gems > b.gems)
+        if (a.food > b.food && a.wood > b.wood && a.stone > b.stone && a.steel > b.steel && a.sulfur > b.sulfur && a.gems > b.gems)
             return true;
         else
             return false;
@@ -52,7 +56,7 @@ public class Resources
 
     public static bool operator <(Resources a, Resources b)
     {
-        if (a.wood < b.wood && a.stone < b.stone && a.steel < b.steel && a.sulfur < b.sulfur && a.gems < b.gems)
+        if (a.food < b.food && a.wood < b.wood && a.stone < b.stone && a.steel < b.steel && a.sulfur < b.sulfur && a.gems < b.gems)
             return true;
         else
             return false;
@@ -60,7 +64,7 @@ public class Resources
 
     public static bool operator ==(Resources a, Resources b)
     {
-        if (a.wood == b.wood && a.stone == b.stone && a.steel == b.steel && a.sulfur == b.sulfur && a.gems == b.gems)
+        if (a.food == b.food && a.wood == b.wood && a.stone == b.stone && a.steel == b.steel && a.sulfur == b.sulfur && a.gems == b.gems)
             return true;
         else
             return false;
@@ -73,7 +77,7 @@ public class Resources
 
     public static bool operator >=(Resources a, Resources b)
     {
-        if (a.wood >= b.wood && a.stone >= b.stone && a.steel >= b.steel && a.sulfur >= b.sulfur && a.gems >= b.gems)
+        if (a.food >= b.food && a.wood >= b.wood && a.stone >= b.stone && a.steel >= b.steel && a.sulfur >= b.sulfur && a.gems >= b.gems)
             return true;
         else
             return false;
@@ -81,7 +85,7 @@ public class Resources
 
     public static bool operator <=(Resources a, Resources b)
     {
-        if (a.wood <= b.wood && a.stone <= b.stone && a.steel <= b.steel && a.sulfur <= b.sulfur && a.gems <= b.gems)
+        if (a.food <= b.food && a.wood <= b.wood && a.stone <= b.stone && a.steel <= b.steel && a.sulfur <= b.sulfur && a.gems <= b.gems)
             return true;
         else
             return false;
@@ -99,6 +103,6 @@ public class Resources
 
     public override string ToString()
     {
-        return "(" + wood + " " + stone + " " + steel + " " + sulfur + gems + ")";
+        return "(" + food + wood + " " + stone + " " + steel + " " + sulfur + gems + ")";
     }
 }

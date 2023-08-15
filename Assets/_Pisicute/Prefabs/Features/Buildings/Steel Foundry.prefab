@@ -57,7 +57,7 @@ MonoBehaviour:
   visionRange: 3
   grid: {fileID: 0}
   owner: -1
-  uiPanel: {fileID: 2832454399968058027, guid: e8ee035b97bbd8444900b7106f2330bf, type: 3}
+  uiPanel: {fileID: 7569950775255858784, guid: e8ee035b97bbd8444900b7106f2330bf, type: 3}
 --- !u!1 &5238263690854457734
 GameObject:
   m_ObjectHideFlags: 0
