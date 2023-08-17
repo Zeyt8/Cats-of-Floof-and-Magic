@@ -365,22 +365,23 @@ public class HexGrid : MonoBehaviour, ISaveableObject
         currentPathFrom = currentPathTo = null;
     }
 
-    public void AddBuilding(Building building, HexCell location)
+    public Building AddBuilding(Building building, HexCell location)
     {
-        if (location.Building != null) return;
+        if (location.Building != null) return null;
         buildings.Add(building);
         building.grid = this;
         building.transform.SetParent(transform, false);
         building.Location = location;
         location.Building = building;
-        building.OnBuild(location);
+        building.OnSpawn(location);
+        return building;
     }
 
-    public void AddBuilding(BuildingTypes buildingType, HexCell location)
+    public Building AddBuilding(BuildingTypes buildingType, HexCell location)
     {
-        if (location.Building != null) return;
+        if (location.Building != null) return null;
         Building building = Instantiate(allBuildings[buildingType]);
-        AddBuilding(building, location);
+        return AddBuilding(building, location);
     }
 
     public void RemoveBuilding(Building building)

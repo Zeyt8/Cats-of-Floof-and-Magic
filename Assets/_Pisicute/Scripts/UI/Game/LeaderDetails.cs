@@ -1,15 +1,20 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class UnitDetails : MonoBehaviour
+public class LeaderDetails : MonoBehaviour
 {
     [SerializeField] private GameObject unitDetails;
     [SerializeField] private GameObject battleDetails;
-    [SerializeField] private TextMeshProUGUI text;
+    [Header("Unit Details")]
+    [SerializeField] private Image unitIcon;
+    [SerializeField] private TextMeshProUGUI description;
+    [SerializeField] private Slider floofSlider;
+    [SerializeField] private Slider movementPointsSlider;
 
     private HexCell currentCell;
 
-    public void Activate(HexCell cell, UnitObject unit)
+    public void Activate(HexCell cell, Leader unit)
     {
         currentCell = cell;
         gameObject.SetActive(true);
@@ -17,7 +22,12 @@ public class UnitDetails : MonoBehaviour
         {
             unitDetails.SetActive(true);
             battleDetails.SetActive(false);
-            text.text = unit.name;
+            unitIcon.sprite = unit.icon;
+            description.text = $"Player {unit.owner}";
+            floofSlider.maxValue = unit.maxFloof;
+            floofSlider.value = unit.currentFloof;
+            movementPointsSlider.maxValue = unit.Speed;
+            movementPointsSlider.value = unit.movementPoints;
         }
         else if (cell.units.Count > 1)
         {

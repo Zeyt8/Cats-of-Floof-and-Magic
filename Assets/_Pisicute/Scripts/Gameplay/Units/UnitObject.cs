@@ -7,16 +7,17 @@ using UnityEngine;
 public class UnitObject : MonoBehaviour, ISaveableObject
 {
     public int owner;
+    public Sprite icon;
     public virtual int Speed => 24;
     public int movementPoints;
     public bool IsMoving = false;
     [NonSerialized] public HexGrid grid;
     private const float TravelSpeed = 4f;
+    public int visionRange = 3;
 
     private HexCell location;
     private float orientation;
     private List<HexCell> pathToTravel;
-    public int visionRange = 3;
     public HexCell Location
     {
         get => location;
@@ -52,12 +53,12 @@ public class UnitObject : MonoBehaviour, ISaveableObject
 
     private void OnEnable()
     {
-        GameManager.Instance.OnTurnStart.AddListener(ResetMovementPoints);
+        GameManager.OnTurnStart.AddListener(ResetMovementPoints);
     }
 
     private void OnDisable()
     {
-        GameManager.Instance.OnTurnStart.RemoveListener(ResetMovementPoints);
+        GameManager.OnTurnStart.RemoveListener(ResetMovementPoints);
     }
 
     private void Start()

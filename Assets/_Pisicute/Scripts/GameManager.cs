@@ -3,16 +3,16 @@ using UnityEngine.Events;
 
 public class GameManager : Singleton<GameManager>
 {
+    public static UnityEvent<int> OnTurnStart = new UnityEvent<int>();
+    public static UnityEvent<int> OnTurnEnd = new UnityEvent<int>();
+    public static UnityEvent OnRoundEnd = new UnityEvent();
+
     public int currentPlayer;
     public HexGrid mapHexGrid;
-    [Header("Game Events")]
-    public UnityEvent<int> OnTurnStart = new UnityEvent<int>();
-    public UnityEvent<int> OnTurnEnd = new UnityEvent<int>();
-    public UnityEvent OnRoundEnd = new UnityEvent();
     [Header("UI References")]
     public ResourcesPanel resourcesPanel;
     public BuildingDetails buildingDetails;
-    public UnitDetails unitDetails;
+    public LeaderDetails unitDetails;
     public Canvas canvas;
 
     public override void Awake()

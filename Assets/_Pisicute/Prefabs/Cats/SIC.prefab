@@ -151,6 +151,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   owner: 1
+  movementPoints: 0
+  IsMoving: 0
   visionRange: 3
   data:
     type: 5
@@ -158,3 +160,4 @@ MonoBehaviour:
     maxHealth: 5
     power: 5
     speed: 5
+  icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}

@@ -138,8 +138,12 @@ public class Player : Singleton<Player>
         {
             if (buildingCollection[buildingToBuild].resourceCost <= CurrentResources)
             {
-                cell.AddBuilding(buildingToBuild);
-                CurrentResources -= buildingCollection[buildingToBuild].resourceCost;
+                Building building = cell.AddBuilding(buildingToBuild);
+                if (building)
+                {
+                    CurrentResources -= buildingCollection[buildingToBuild].resourceCost;
+                    building.OnBuild(cell);
+                }
             }
             buildingToBuild = BuildingTypes.None;
         }
@@ -162,7 +166,7 @@ public class Player : Singleton<Player>
         // if unit on tile open unit detail panel
         if (selectedUnit)
         {
-            GameManager.Instance.unitDetails.Activate(cell, selectedUnit);
+            GameManager.Instance.unitDetails.Activate(cell, (Leader)selectedUnit);
         }
         else
         {

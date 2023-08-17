@@ -11,6 +11,7 @@ public class Building : MonoBehaviour, ISaveableObject
     public int visionRange = 3;
     [HideInInspector] public HexGrid grid;
     public int owner = -1;
+    public bool HasUIPanel => uiPanel != null;
     [SerializeField] private BuildingUI uiPanel;
 
     public HexCell Location
@@ -29,6 +30,10 @@ public class Building : MonoBehaviour, ISaveableObject
     private HexCell location;
 
     public virtual void OnBuild(HexCell cell)
+    {
+    }
+
+    public virtual void OnSpawn(HexCell cell)
     {
     }
 

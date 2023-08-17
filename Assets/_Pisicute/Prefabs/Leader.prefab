@@ -151,6 +151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   owner: -1
+  icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   movementPoints: 0
   IsMoving: 0
   visionRange: 3

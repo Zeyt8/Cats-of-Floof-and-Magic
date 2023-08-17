@@ -4,10 +4,15 @@ using System.Linq;
 public class Leader : UnitObject
 {
     public List<CatData> army = new List<CatData>();
+    public int maxFloof;
+    public int currentFloof;
 
     public void AddCatToArmy(CatData data)
     {
-        army.Add(data);
+        if (army.Count < 7)
+        {
+            army.Add(data);
+        }
     }
 
     protected override void FinishTravel(HexCell destination)

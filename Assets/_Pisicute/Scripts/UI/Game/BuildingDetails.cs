@@ -4,6 +4,7 @@ using UnityEngine;
 public class BuildingDetails : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI text;
+    [SerializeField] private GameObject button;
     [SerializeField] private PlayerInputHandler playerInputHandler;
     private Building currentBuilding;
     private BuildingUI currentOpenUIPanel;
@@ -23,6 +24,7 @@ public class BuildingDetails : MonoBehaviour
         currentBuilding = building;
         gameObject.SetActive(true);
         text.text = building.description;
+        button.SetActive(building.HasUIPanel);
         DeactivateBuildingUI();
     }
 
@@ -40,6 +42,9 @@ public class BuildingDetails : MonoBehaviour
 
     private void DeactivateBuildingUI()
     {
-        Destroy(currentOpenUIPanel);
+        if (currentOpenUIPanel)
+        {
+            Destroy(currentOpenUIPanel.gameObject);
+        }
     }
 }
