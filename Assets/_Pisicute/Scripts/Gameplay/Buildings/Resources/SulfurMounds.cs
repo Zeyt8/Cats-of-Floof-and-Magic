@@ -2,7 +2,7 @@ public class SulfurMounds : Building
 {
     public override void OnSpawn(HexCell cell)
     {
-        GameManager.OnRoundEnd.AddListener(GenerateSulfur);
+        GameEvents.OnRoundEnd.AddListener(GenerateSulfur);
     }
 
     private void GenerateSulfur()

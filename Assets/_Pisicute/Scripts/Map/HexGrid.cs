@@ -313,12 +313,25 @@ public class HexGrid : MonoBehaviour, ISaveableObject
         if (currentPathExists)
         {
             HexCell current = currentPathTo;
+            HexCell lastCellWithTurn0 = null;
+            Stack<HexCell> path = new Stack<HexCell>();
             while (current != currentPathFrom)
             {
-                int turn = (current.distance - 1) / movementPoints;
-                if (turn > 0)
+                path.Push(current);
+                current = current.pathFrom;
+            }
+            while (path.Count > 0)
+            {
+                current = path.Pop();
+                int turn;
+                if (current.distance <= movementPoints)
                 {
-                    turn = (current.distance - 1 - movementPoints) / speed + 1;
+                    turn = 0;
+                    lastCellWithTurn0 = current;
+                }
+                else
+                {
+                    turn = (current.distance - (lastCellWithTurn0 != null ? lastCellWithTurn0.distance : 0)) / speed + 1;
                 }
                 current.SetLabel(turn.ToString());
                 if (turn == 0)
@@ -329,7 +342,6 @@ public class HexGrid : MonoBehaviour, ISaveableObject
                 {
                     current.EnableHighlight(HighlightType.LongerPath);
                 }
-                current = current.pathFrom;
             }
         }
         currentPathFrom.EnableHighlight(HighlightType.MovingFrom);

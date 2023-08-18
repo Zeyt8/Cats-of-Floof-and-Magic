@@ -7,7 +7,7 @@ public class SicFactory : Building
 
     public override void OnSpawn(HexCell cell)
     {
-        GameManager.OnRoundEnd.AddListener(CreateCat);
+        GameEvents.OnRoundEnd.AddListener(CreateCat);
     }
 
     public void TakeCat()

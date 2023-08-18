@@ -2,7 +2,7 @@ public class GemMine : Building
 {
     public override void OnSpawn(HexCell cell)
     {
-        GameManager.OnRoundEnd.AddListener(GenerateGems);
+        GameEvents.OnRoundEnd.AddListener(GenerateGems);
     }
 
     private void GenerateGems()

@@ -7,6 +7,25 @@ public class Leader : UnitObject
     public int maxFloof;
     public int currentFloof;
 
+    protected override void Start()
+    {
+        base.Start();
+        currentFloof = maxFloof / 2;
+        if (owner == Player.Instance.playerNumber)
+        {
+            Player.Instance.leaders.Add(this);
+        }
+        GameEvents.OnLeaderRecruited.Invoke(owner);
+    }
+
+    private void OnDestroy()
+    {
+        if (owner == Player.Instance.playerNumber)
+        {
+            Player.Instance.leaders.Remove(this);
+        }
+    }
+
     public void AddCatToArmy(CatData data)
     {
         if (army.Count < 8)

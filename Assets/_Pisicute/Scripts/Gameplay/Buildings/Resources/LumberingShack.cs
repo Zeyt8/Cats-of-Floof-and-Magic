@@ -2,7 +2,7 @@ public class LumberingShack : Building
 {
     public override void OnSpawn(HexCell cell)
     {
-        GameManager.OnRoundEnd.AddListener(GenerateWood);
+        GameEvents.OnRoundEnd.AddListener(GenerateWood);
     }
 
     private void GenerateWood()

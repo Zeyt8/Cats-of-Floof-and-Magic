@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -7,6 +8,7 @@ public class Player : Singleton<Player>
 {
     public Teams team;
     public int playerNumber;
+    public List<Leader> leaders = new List<Leader>();
     [SerializeField] private PlayerInputHandler inputHandler;
     [SerializeField] private BuildingCollection buildingCollection;
     public Resources CurrentResources

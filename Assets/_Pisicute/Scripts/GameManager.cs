@@ -1,14 +1,10 @@
 using UnityEngine;
-using UnityEngine.Events;
 
 public class GameManager : Singleton<GameManager>
 {
-    public static UnityEvent<int> OnTurnStart = new UnityEvent<int>();
-    public static UnityEvent<int> OnTurnEnd = new UnityEvent<int>();
-    public static UnityEvent OnRoundEnd = new UnityEvent();
-
     public int currentPlayer;
     public HexGrid mapHexGrid;
+    [SerializeField] private CameraController cameraController;
     [Header("UI References")]
     public ResourcesPanel resourcesPanel;
     public BuildingDetails buildingDetails;
@@ -23,12 +19,17 @@ public class GameManager : Singleton<GameManager>
 
     public void EndTurn()
     {
-        OnTurnEnd?.Invoke(currentPlayer);
+        GameEvents.OnTurnEnd?.Invoke(currentPlayer);
         currentPlayer = (currentPlayer + 1) % 2;
         if (currentPlayer == 0)
         {
-            OnRoundEnd?.Invoke();
+            GameEvents.OnRoundEnd?.Invoke();
         }
-        OnTurnStart?.Invoke(currentPlayer);
+        GameEvents.OnTurnStart?.Invoke(currentPlayer);
+    }
+
+    public void MoveCamera(Vector2 position)
+    {
+        cameraController.transform.position = new Vector3(position.x, 0, position.y);
     }
 }

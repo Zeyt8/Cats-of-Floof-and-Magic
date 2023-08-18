@@ -53,15 +53,15 @@ public class UnitObject : MonoBehaviour, ISaveableObject
 
     private void OnEnable()
     {
-        GameManager.OnTurnStart.AddListener(ResetMovementPoints);
+        GameEvents.OnTurnStart.AddListener(ResetMovementPoints);
     }
 
     private void OnDisable()
     {
-        GameManager.OnTurnStart.RemoveListener(ResetMovementPoints);
+        GameEvents.OnTurnStart.RemoveListener(ResetMovementPoints);
     }
 
-    private void Start()
+    protected virtual void Start()
     {
         movementPoints = Speed;
     }
