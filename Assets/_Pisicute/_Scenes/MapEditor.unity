@@ -11515,7 +11515,7 @@ MonoBehaviour:
   orbitSpeed: 1
   zoomScrollSpeed: 20
   zoomSpeed: 50
-  zoomLowerClamp: 5
+  zoomLowerClamp: 40
   zoomUpperClamp: 400
 --- !u!1 &1512002751
 GameObject:

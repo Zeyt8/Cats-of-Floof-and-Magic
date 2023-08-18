@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class LeaderDetails : MonoBehaviour
 {
+    [SerializeField] private CatCollection allCats;
     [SerializeField] private GameObject unitDetails;
     [SerializeField] private GameObject battleDetails;
     [Header("Unit Details")]
@@ -11,6 +12,8 @@ public class LeaderDetails : MonoBehaviour
     [SerializeField] private TextMeshProUGUI description;
     [SerializeField] private Slider floofSlider;
     [SerializeField] private Slider movementPointsSlider;
+    [SerializeField] private Transform unitList;
+    [SerializeField] private GameObject catIconPrefab;
 
     private HexCell currentCell;
 
@@ -28,6 +31,15 @@ public class LeaderDetails : MonoBehaviour
             floofSlider.value = unit.currentFloof;
             movementPointsSlider.maxValue = unit.Speed;
             movementPointsSlider.value = unit.movementPoints;
+            foreach (Transform t in unitList)
+            {
+                Destroy(t.gameObject);
+            }
+            foreach (CatData cd in unit.army)
+            {
+                GameObject go = Instantiate(catIconPrefab, unitList);
+                go.GetComponent<Image>().sprite = allCats[cd.type].icon;
+            }
         }
         else if (cell.units.Count > 1)
         {

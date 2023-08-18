@@ -3070,12 +3070,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3468e33abd24dc94588eaad4695097bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allCats: {fileID: 11400000, guid: 43b6399bf83a61d468b367c25e553446, type: 2}
   unitDetails: {fileID: 1736503263}
   battleDetails: {fileID: 625707210}
   unitIcon: {fileID: 591052495}
   description: {fileID: 5283817}
   floofSlider: {fileID: 1759386514}
   movementPointsSlider: {fileID: 1717574949}
+  unitList: {fileID: 1382516033}
+  catIconPrefab: {fileID: 931218254546291701, guid: 4eca9b0d055ea4e4eaf5e9fa634c0589,
+    type: 3}
 --- !u!114 &931814565
 MonoBehaviour:
   m_ObjectHideFlags: 0

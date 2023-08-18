@@ -26,5 +26,6 @@ public class SicFactoryUI : BuildingUI
     public void TakeCat()
     {
         ((SicFactory)currentBuilding).TakeCat();
+        Initialize(currentBuilding);
     }
 }

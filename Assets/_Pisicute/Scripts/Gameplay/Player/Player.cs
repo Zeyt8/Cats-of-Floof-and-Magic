@@ -81,6 +81,7 @@ public class Player : Singleton<Player>
         {
             return;
         }
+        GameManager.Instance.mapHexGrid.ClearPath();
         UpdateCurrentCell();
         if (currentCell == null) return;
         if (onClickAction != null)

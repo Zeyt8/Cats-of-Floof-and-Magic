@@ -9,7 +9,7 @@ public class Leader : UnitObject
 
     public void AddCatToArmy(CatData data)
     {
-        if (army.Count < 7)
+        if (army.Count < 8)
         {
             army.Add(data);
         }

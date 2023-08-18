@@ -12,11 +12,12 @@ public class SicFactory : Building
 
     public void TakeCat()
     {
-        if (Location.battleMap != null)
+        if (Location.battleMap == null && catInWaiting != null)
         {
             if (Location.units[0].owner == owner)
             {
                 ((Leader)Location.units[0]).AddCatToArmy(catInWaiting.data);
+                catInWaiting = null;
             }
         }
     }
