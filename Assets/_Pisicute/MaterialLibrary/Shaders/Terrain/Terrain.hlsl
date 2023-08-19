@@ -37,6 +37,20 @@ float4 GetTerrainColor (
 	return c * (Weights[index] * Visibility[index]);
 }
 
+float4 GetTerrainNormal(
+	UnityTexture2DArray NormalTextures,
+    float3 WorldPosition,
+    float4 Terrain,
+    float3 Weights,
+    float4 Visibility,
+    int index
+)
+{
+	float3 uvw = float3(WorldPosition.xz * (2 * TILING_SCALE), Terrain[index]);
+    float4 c = NormalTextures.Sample(NormalTextures.samplerstate, uvw);
+    return c * (Weights[index] * Visibility[index]);
+}
+
 // Apply an 80% darkening grid outline at hex center distance 0.965-1.
 float3 ApplyGrid (float3 baseColor, HexGridData h) {
 	return baseColor * (0.2 + 0.8 * h.Smoothstep10(0.965));
@@ -57,12 +71,14 @@ float3 ColorizeSubmergence (float3 baseColor, float surfaceY, float waterY) {
 
 void GetFragmentData_float (
 	UnityTexture2DArray TerrainTextures,
+	UnityTexture2DArray NormalTextures,
 	float3 WorldPosition,
 	float4 Terrain,
 	float4 Visibility,
 	float3 Weights,
 	bool ShowGrid,
 	out float3 BaseColor,
+	out float3 Normal,
 	out float Exploration
 ) {
 	float4 c =
@@ -81,6 +97,13 @@ void GetFragmentData_float (
 	if (hgd.IsHighlighted()) {
 		BaseColor = ApplyHighlight(BaseColor, hgd);
 	}
+	
+	float4 n = 
+        GetTerrainNormal(NormalTextures, WorldPosition, Terrain, Weights, Visibility, 0) +
+        GetTerrainNormal(NormalTextures, WorldPosition, Terrain, Weights, Visibility, 1) +
+        GetTerrainNormal(NormalTextures, WorldPosition, Terrain, Weights, Visibility, 2);
+	
+    Normal = n.rgb;
 	
 	Exploration = Visibility.w;
 }
