@@ -1,5 +1,6 @@
 using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Building : MonoBehaviour, ISaveableObject
 {
@@ -13,6 +14,7 @@ public class Building : MonoBehaviour, ISaveableObject
     public int owner = -1;
     public bool HasUIPanel => uiPanel != null;
     [SerializeField] private BuildingUI uiPanel;
+    [SerializeField] private Image playerMarker;
 
     public HexCell Location
     {
@@ -35,11 +37,12 @@ public class Building : MonoBehaviour, ISaveableObject
 
     public virtual void OnSpawn(HexCell cell)
     {
+        ChangeOwner(owner);
     }
 
     public virtual void OnUnitEnter(UnitObject unit)
     {
-        owner = unit.owner;
+        ChangeOwner(unit.owner);
     }
 
     public virtual BuildingUI OpenUIPanel()
@@ -48,6 +51,12 @@ public class Building : MonoBehaviour, ISaveableObject
         BuildingUI buildingUI = Instantiate(uiPanel, GameManager.Instance.canvas.transform);
         buildingUI.Initialize(this);
         return buildingUI;
+    }
+
+    public void ChangeOwner(int player)
+    {
+        owner = player;
+        playerMarker.color = PlayerColors.Get(player);
     }
 
     public void Save(BinaryWriter writer)

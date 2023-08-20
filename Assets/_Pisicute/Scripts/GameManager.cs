@@ -3,6 +3,7 @@ using UnityEngine;
 public class GameManager : Singleton<GameManager>
 {
     public int currentPlayer;
+    public int maxPlayers = 2;
     public HexGrid mapHexGrid;
     [SerializeField] private CameraController cameraController;
     [Header("UI References")]
@@ -20,9 +21,10 @@ public class GameManager : Singleton<GameManager>
     public void EndTurn()
     {
         GameEvents.OnTurnEnd?.Invoke(currentPlayer);
-        currentPlayer = (currentPlayer + 1) % 2;
-        if (currentPlayer == 0)
+        currentPlayer = currentPlayer + 1;
+        if (currentPlayer > maxPlayers)
         {
+            currentPlayer = 1;
             GameEvents.OnRoundEnd?.Invoke();
         }
         GameEvents.OnTurnStart?.Invoke(currentPlayer);

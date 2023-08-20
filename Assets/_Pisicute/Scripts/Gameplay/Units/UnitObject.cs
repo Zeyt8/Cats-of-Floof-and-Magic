@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UnitObject : MonoBehaviour, ISaveableObject
 {
@@ -11,9 +12,10 @@ public class UnitObject : MonoBehaviour, ISaveableObject
     public virtual int Speed => 24;
     public int movementPoints;
     public bool IsMoving = false;
+    public int visionRange = 3;
+    [SerializeField] private Image playerMarker;
     [NonSerialized] public HexGrid grid;
     private const float TravelSpeed = 4f;
-    public int visionRange = 3;
 
     private HexCell location;
     private float orientation;
@@ -64,6 +66,7 @@ public class UnitObject : MonoBehaviour, ISaveableObject
     protected virtual void Start()
     {
         movementPoints = Speed;
+        ChangeOwner(owner);
     }
 
     public virtual void Die()
@@ -110,6 +113,12 @@ public class UnitObject : MonoBehaviour, ISaveableObject
         IsMoving = true;
         pathToTravel = path;
         StartCoroutine(TravelPath());
+    }
+
+    public void ChangeOwner(int player)
+    {
+        owner = player;
+        playerMarker.color = PlayerColors.Get(player);
     }
 
     protected virtual void FinishTravel(HexCell destination)

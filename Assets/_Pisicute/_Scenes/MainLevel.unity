@@ -3437,7 +3437,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   team: 1
-  playerNumber: 0
+  playerNumber: 1
   leaders: []
   inputHandler: {fileID: 11400000, guid: 6e5279e34a1ec934f9b814a09399b761, type: 2}
   buildingCollection: {fileID: 11400000, guid: 9774d672a6066994d80e49a5006ab58b, type: 2}
@@ -6246,7 +6246,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fefbe95a1caa5dc419ba77332dd733a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentPlayer: 0
+  currentPlayer: 1
+  maxPlayers: 2
   mapHexGrid: {fileID: 8784611594592856403}
   cameraController: {fileID: 1510049881}
   resourcesPanel: {fileID: 414534480}

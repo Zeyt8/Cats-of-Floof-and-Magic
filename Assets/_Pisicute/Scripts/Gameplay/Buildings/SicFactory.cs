@@ -7,6 +7,7 @@ public class SicFactory : Building
 
     public override void OnSpawn(HexCell cell)
     {
+        base.OnSpawn(cell);
         GameEvents.OnRoundEnd.AddListener(CreateCat);
     }
 
@@ -24,7 +25,7 @@ public class SicFactory : Building
 
     private void CreateCat()
     {
-        if (catInWaiting == null)
+        if (catInWaiting == null && owner == Player.Instance.playerNumber)
         {
             catInWaiting = sicCats.cats.Values.GetRandom();
         }

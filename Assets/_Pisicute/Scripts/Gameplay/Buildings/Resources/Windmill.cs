@@ -2,6 +2,7 @@ public class Windmill : Building
 {
     public override void OnSpawn(HexCell cell)
     {
+        base.OnSpawn(cell);
         GameEvents.OnRoundEnd.AddListener(GenerateFood);
     }
 

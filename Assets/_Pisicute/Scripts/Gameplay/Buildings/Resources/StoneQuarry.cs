@@ -2,6 +2,7 @@ public class StoneQuarry : Building
 {
     public override void OnSpawn(HexCell cell)
     {
+        base.OnSpawn(cell);
         GameEvents.OnRoundEnd.AddListener(GenerateStone);
     }
 

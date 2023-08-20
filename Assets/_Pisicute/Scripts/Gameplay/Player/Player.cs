@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 public class Player : Singleton<Player>
 {
-    public Teams team;
+    public int team;
     public int playerNumber;
     public List<Leader> leaders = new List<Leader>();
     [SerializeField] private PlayerInputHandler inputHandler;

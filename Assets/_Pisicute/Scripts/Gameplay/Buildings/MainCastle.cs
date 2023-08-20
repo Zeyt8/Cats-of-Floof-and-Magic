@@ -6,6 +6,8 @@ public class MainCastle : Building
 
     public void CreateLeader(HexCell cell)
     {
-        cell.AddUnit(Instantiate(leaderPrefab), 0);
+        Leader leader = Instantiate(leaderPrefab);
+        leader.ChangeOwner(owner);
+        cell.AddUnit(leader, 0);
     }
 }
