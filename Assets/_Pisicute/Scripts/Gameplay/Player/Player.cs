@@ -26,7 +26,6 @@ public class Player : Singleton<Player>
     private HexCell currentCell;
     private UnitObject selectedUnit;
     private HexCell lockedPath;
-    private BattleMap currentBattleMap;
 
     public delegate void Action<HexCell>(HexCell cell);
     Action<HexCell> onClickAction;
@@ -48,18 +47,6 @@ public class Player : Singleton<Player>
         inputHandler.OnAltAction.RemoveListener(DoAlternateAction);
     }
 
-    public void GoToBattleMap(BattleMap map)
-    {
-        currentBattleMap = map;
-        map.SetBattleActive(true);
-    }
-
-    public void GoToWorldMap()
-    {
-        currentBattleMap.SetBattleActive(false);
-        currentBattleMap = null;
-    }
-
     public void InitiateSelectCellForEffect(Func<HexCell, bool> selectionCondition, Action<HexCell> onClickAction)
     {
         this.onClickAction = onClickAction;
@@ -78,7 +65,6 @@ public class Player : Singleton<Player>
 
     private void DoSelection()
     {
-        if (playerNumber != GameManager.Instance.currentPlayer) return;
         if (EventSystem.current.IsPointerOverGameObject())
         {
             return;
@@ -97,7 +83,7 @@ public class Player : Singleton<Player>
             SelectCell(currentCell);
             return;
         }
-        if (currentBattleMap == null)
+        if (GameManager.Instance.currentBattleMap == null && playerNumber == GameManager.Instance.currentPlayer)
         {
             SelectionWorldMap(currentCell);
         }
@@ -124,14 +110,7 @@ public class Player : Singleton<Player>
 
     private HexCell GetClickedCell()
     {
-        if (currentBattleMap == null)
-        {
-            return GameManager.Instance.mapHexGrid.GetCell(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()));
-        }
-        else
-        {
-            return currentBattleMap.hexGrid.GetCell(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()));
-        }
+        return GameManager.Instance.CurrentMap.GetCell(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()));
     }
 
     private void SelectionWorldMap(HexCell cell)
@@ -180,8 +159,10 @@ public class Player : Singleton<Player>
 
     private void SelectionBattleMap(HexCell cell)
     {
-        currentBattleMap.SelectedCell(cell);
-        selectedUnit = cell.units.Count > 0 ? cell.units[0] : null;
+        if (GameManager.Instance.currentBattleMap.SelectedCell(cell))
+        {
+            selectedUnit = cell.units.Count > 0 ? cell.units[0] : null;
+        }
         cell.EnableHighlight(HighlightType.Selection);
     }
 

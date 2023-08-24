@@ -162,7 +162,7 @@ MonoBehaviour:
     health: 5
     maxHealth: 5
     power: 5
-    speed: 5
+    speed: 20
 --- !u!1 &2902873987606075414
 GameObject:
   m_ObjectHideFlags: 0

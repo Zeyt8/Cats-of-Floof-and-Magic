@@ -11,6 +11,9 @@ public class GameManager : Singleton<GameManager>
     public BuildingDetails buildingDetails;
     public LeaderDetails unitDetails;
     public Canvas canvas;
+    [SerializeField] BattleCanvas battleCanvas;
+    public HexGrid CurrentMap => currentBattleMap == null ? mapHexGrid : currentBattleMap.hexGrid;
+    [HideInInspector] public BattleMap currentBattleMap;
 
     public override void Awake()
     {
@@ -33,5 +36,22 @@ public class GameManager : Singleton<GameManager>
     public void MoveCamera(Vector2 position)
     {
         cameraController.transform.position = new Vector3(position.x, 0, position.y);
+    }
+
+    public void GoToBattleMap(BattleMap map)
+    {
+        canvas.gameObject.SetActive(false);
+        battleCanvas.gameObject.SetActive(true);
+        map.SetBattleActive(true);
+        battleCanvas.Setup(map);
+        currentBattleMap = map;
+    }
+
+    public void GoToWorldMap()
+    {
+        canvas.gameObject.SetActive(true);
+        battleCanvas.gameObject.SetActive(false);
+        currentBattleMap.SetBattleActive(false);
+        currentBattleMap = null;
     }
 }

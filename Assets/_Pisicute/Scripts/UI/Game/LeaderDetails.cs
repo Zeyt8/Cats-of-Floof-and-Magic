@@ -55,6 +55,6 @@ public class LeaderDetails : MonoBehaviour
 
     public void GoToBattle()
     {
-        Player.Instance.GoToBattleMap(currentCell.battleMap);
+        GameManager.Instance.GoToBattleMap(currentCell.battleMap);
     }
 }
