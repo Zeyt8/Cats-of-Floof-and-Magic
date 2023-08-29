@@ -50,7 +50,7 @@ public class Player : Singleton<Player>
     public void InitiateSelectCellForEffect(Func<HexCell, bool> selectionCondition, Action<HexCell> onClickAction)
     {
         this.onClickAction = onClickAction;
-        foreach (HexCell cell in GameManager.Instance.mapHexGrid.cells)
+        foreach (HexCell cell in GameManager.Instance.CurrentMap.cells)
         {
             if (selectionCondition(cell))
             {

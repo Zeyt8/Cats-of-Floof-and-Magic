@@ -11,7 +11,6 @@ public class GameManager : Singleton<GameManager>
     public BuildingDetails buildingDetails;
     public LeaderDetails unitDetails;
     public Canvas canvas;
-    [SerializeField] BattleCanvas battleCanvas;
     public HexGrid CurrentMap => currentBattleMap == null ? mapHexGrid : currentBattleMap.hexGrid;
     [HideInInspector] public BattleMap currentBattleMap;
 
@@ -41,16 +40,15 @@ public class GameManager : Singleton<GameManager>
     public void GoToBattleMap(BattleMap map)
     {
         canvas.gameObject.SetActive(false);
-        battleCanvas.gameObject.SetActive(true);
         map.SetBattleActive(true);
-        battleCanvas.Setup(map);
+        BattleCanvas.Instance.Setup(map);
         currentBattleMap = map;
     }
 
     public void GoToWorldMap()
     {
         canvas.gameObject.SetActive(true);
-        battleCanvas.gameObject.SetActive(false);
+        BattleCanvas.Instance.gameObject.SetActive(false);
         currentBattleMap.SetBattleActive(false);
         currentBattleMap = null;
     }

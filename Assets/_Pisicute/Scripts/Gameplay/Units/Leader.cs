@@ -1,11 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 public class Leader : UnitObject
 {
-    public List<CatData> army = new List<CatData>();
     public int maxFloof;
     public int currentFloof;
+    [SerializeField] private CatCollection sicCats;
+    [HideInInspector] public List<CatData> army = new List<CatData>();
 
     protected override void Start()
     {
@@ -16,6 +18,7 @@ public class Leader : UnitObject
             Player.Instance.leaders.Add(this);
         }
         GameEvents.OnLeaderRecruited.Invoke(owner);
+        AddCatToArmy(sicCats.cats.Values.GetRandom().data);
     }
 
     private void OnDestroy()

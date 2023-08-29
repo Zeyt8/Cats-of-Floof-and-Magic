@@ -11,10 +11,9 @@ public class BattleMap : MonoBehaviour
     private List<Leader> battlingLeaders = new List<Leader>();
     // cat deployment
     private Stack<Pair<int, CatData>> catsToPlace = new Stack<Pair<int, CatData>>();
-    private Pair<int, CatData> currentCatToPlace = null;
     // cat turn order
     private List<Cat> catTurnQueue = new List<Cat>();
-    private Cat currentCatTurn = null;
+    private Cat CurrentCatTurn => catTurnQueue[0];
     // grid dimensions
     private int width;
     private int height;
@@ -48,12 +47,12 @@ public class BattleMap : MonoBehaviour
     {
         if (state == State.Deploy)
         {
-            if (currentCatToPlace.item1 != Player.Instance.playerNumber) return false;
+            if (catsToPlace.Peek().item1 != Player.Instance.playerNumber) return false;
             PlaceCat(cell);
         }
         else if (state == State.Fight)
         {
-            if (currentCatTurn.owner  != Player.Instance.playerNumber) return false;
+            if (catTurnQueue[0].owner != Player.Instance.playerNumber) return false;
         }
         return true;
     }
@@ -79,30 +78,29 @@ public class BattleMap : MonoBehaviour
                 catsToPlace.Push(new Pair<int, CatData>(leader.owner, cat));
             }
         }
-        bool catLeft = catsToPlace.TryPop(out currentCatToPlace);
-        if (catLeft)
-        {
-            state = State.Deploy;
-            HighlightPlaceableTiles(currentCatToPlace);
-        }
-        else
-        {
-            SetupFight();
-        }
+        SetupNextCatPlacement();
     }
 
     private void PlaceCat(HexCell location)
     {
         // TODO: Check location valid
         // place cat
-        Cat cat = Instantiate(allCats[currentCatToPlace.item2.type]);
-        cat.owner = currentCatToPlace.item1;
+        Pair<int, CatData> catToPlace = catsToPlace.Pop();
+        Cat cat = Instantiate(allCats[catToPlace.item2.type]);
+        cat.owner = catToPlace.item1;
+        cat.battleMap = this;
         location.AddUnit(cat, 0);
         catTurnQueue.Add(cat);
-        bool catLeft = catsToPlace.TryPop(out currentCatToPlace);
+        SetupNextCatPlacement();
+    }
+
+    private void SetupNextCatPlacement()
+    {
+        bool catLeft = catsToPlace.TryPeek(out Pair<int, CatData> catToPlace);
         if (catLeft)
         {
-            HighlightPlaceableTiles(currentCatToPlace);
+            state = State.Deploy;
+            HighlightPlaceableTiles(catToPlace);
         }
         else
         {
@@ -138,11 +136,17 @@ public class BattleMap : MonoBehaviour
     private void SetupFight()
     {
         state = State.Fight;
-        currentCatToPlace = null;
         UnhighlightAllTiles();
         catTurnQueue.Sort((cat1, cat2) => cat2.Speed - cat1.Speed);
-        currentCatTurn = catTurnQueue[0];
+        catTurnQueue.Add(CurrentCatTurn);
         catTurnQueue.RemoveAt(0);
-        catTurnQueue.Add(currentCatTurn);
+        BattleCanvas.Instance.ShowAbilities(CurrentCatTurn);
+    }
+
+    public void EndTurn()
+    {
+        catTurnQueue.Add(CurrentCatTurn);
+        catTurnQueue.RemoveAt(0);
+        BattleCanvas.Instance.ShowAbilities(CurrentCatTurn);
     }
 }

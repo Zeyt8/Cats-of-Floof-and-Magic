@@ -114,9 +114,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2523363979332422640}
-  - component: {fileID: 1383316174885638883}
+  - component: {fileID: -6720652429973485856}
   m_Layer: 0
-  m_Name: SIC
+  m_Name: Pallas Cat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -139,7 +139,7 @@ Transform:
   - {fileID: 5012528153847216546}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1383316174885638883
+--- !u!114 &-6720652429973485856
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -148,21 +148,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 2139440890055595572}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7e489bb8c7cd0e4f868c2a866d789ad, type: 3}
+  m_Script: {fileID: 11500000, guid: 215039f2f25d0174992f297d36c73b96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  owner: 1
+  owner: 0
   icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
   movementPoints: 0
   IsMoving: 0
   visionRange: 3
   playerMarker: {fileID: 8834641787741074148}
   data:
-    type: 5
-    health: 5
-    maxHealth: 5
+    type: 0
+    health: 10
+    maxHealth: 10
     power: 5
     speed: 20
+  abilities:
+  - {fileID: -5892320475343654142, guid: 74789eab3b78fb149b550e11f2bbf022, type: 3}
 --- !u!1 &2902873987606075414
 GameObject:
   m_ObjectHideFlags: 0

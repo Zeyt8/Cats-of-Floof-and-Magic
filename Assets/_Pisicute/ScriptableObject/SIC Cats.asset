@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: SIC Cats
   m_EditorClassIdentifier: 
   cats:
-    keys: 05000000
+    keys: 0500000000000000
     values:
     - {fileID: 1383316174885638883, guid: 8ed6acde7cc105c46a00d5e3bc749ee7, type: 3}
+    - {fileID: -6720652429973485856, guid: 177a120cbe207944da34df5882aa6b05, type: 3}
