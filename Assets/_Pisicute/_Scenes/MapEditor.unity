@@ -3697,6 +3697,7 @@ GameObject:
   - component: {fileID: 539326726}
   - component: {fileID: 539326725}
   - component: {fileID: 539326724}
+  - component: {fileID: 539326727}
   m_Layer: 5
   m_Name: Dropdown
   m_TagString: Untagged
@@ -3775,21 +3776,7 @@ MonoBehaviour:
   m_ItemImage: {fileID: 0}
   m_Value: 0
   m_Options:
-    m_Options:
-    - m_Text: MainBase
-      m_Image: {fileID: 0}
-    - m_Text: LumberingShack
-      m_Image: {fileID: 0}
-    - m_Text: StoneQuarry
-      m_Image: {fileID: 0}
-    - m_Text: SteelFoundry
-      m_Image: {fileID: 0}
-    - m_Text: SulfurMounds
-      m_Image: {fileID: 0}
-    - m_Text: GemMine
-      m_Image: {fileID: 0}
-    - m_Text: 'Catapult '
-      m_Image: {fileID: 0}
+    m_Options: []
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -3844,6 +3831,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 539326722}
   m_CullTransparentMesh: 1
+--- !u!114 &539326727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 539326722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 920d8f7f63d524c418b893cdaeca284b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allBuildings: {fileID: 11400000, guid: 2f536239c3385a943a4c8de0d35ef92e, type: 2}
 --- !u!1 &553438578
 GameObject:
   m_ObjectHideFlags: 0
@@ -10967,7 +10967,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: MainBase
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

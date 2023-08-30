@@ -9,5 +9,10 @@ public enum BuildingTypes
     SulfurMounds,
     GemMine,
     Catapult,
-    SicFactory
+    SicFactory,
+    CatShelter,
+    Marketplace,
+    TrainingGrounds,
+    MageGuild,
+    Portal
 }

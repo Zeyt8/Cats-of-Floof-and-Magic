@@ -120,7 +120,7 @@ public class MapEditor : MonoBehaviour
         }
         if (applySpecialIndex)
         {
-            cell.AddBuilding((BuildingTypes)activeSpecialIndex + 1);
+            cell.AddBuilding((BuildingTypes)activeSpecialIndex);
         }
         if (riverMode == OptionalToggle.No)
         {
@@ -313,7 +313,7 @@ public class MapEditor : MonoBehaviour
 
     public void SetSpecialIndex(int index)
     {
-        activeSpecialIndex = index;
+        activeSpecialIndex = index + 1;
     }
 
     public void ShowGrid(bool visible)
