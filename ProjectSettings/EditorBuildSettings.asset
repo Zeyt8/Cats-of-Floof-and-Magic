@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Pisicute/_Scenes/MapEditor.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/_Pisicute/_Scenes/MainMenu.unity
+    guid: 19f9ac4238d91d743a638873c448b168
   m_configObjects: {}

@@ -104,6 +104,7 @@ public class LobbyHandler
         {
             await LobbyService.Instance.DeleteLobbyAsync(JoinedLobby.Id);
             JoinedLobby = null;
+            IsLobbyHost = false;
         }
         catch (LobbyServiceException e)
         {

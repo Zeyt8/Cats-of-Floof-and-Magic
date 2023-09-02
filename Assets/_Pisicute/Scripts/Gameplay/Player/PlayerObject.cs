@@ -17,7 +17,7 @@ public class PlayerObject : Singleton<PlayerObject>
         set
         {
             currentResources = value;
-            GameManager.Instance.resourcesPanel.SetResourcesUI(currentResources);
+            LevelManager.Instance.resourcesPanel.SetResourcesUI(currentResources);
         }
     }
     private Resources currentResources;
@@ -50,7 +50,7 @@ public class PlayerObject : Singleton<PlayerObject>
     public void InitiateSelectCellForEffect(Func<HexCell, bool> selectionCondition, Action<HexCell> onClickAction)
     {
         this.onClickAction = onClickAction;
-        foreach (HexCell cell in GameManager.Instance.CurrentMap.cells)
+        foreach (HexCell cell in LevelManager.Instance.CurrentMap.cells)
         {
             if (selectionCondition(cell))
             {
@@ -69,21 +69,21 @@ public class PlayerObject : Singleton<PlayerObject>
         {
             return;
         }
-        GameManager.Instance.mapHexGrid.ClearPath();
+        LevelManager.Instance.mapHexGrid.ClearPath();
         UpdateCurrentCell();
         if (currentCell == null) return;
         if (onClickAction != null)
         {
             onClickAction(currentCell);
             onClickAction = null;
-            foreach (HexCell cell in GameManager.Instance.mapHexGrid.cells)
+            foreach (HexCell cell in LevelManager.Instance.mapHexGrid.cells)
             {
                 cell.DisableHighlight();
             }
             SelectCell(currentCell);
             return;
         }
-        if (GameManager.Instance.currentBattleMap == null && playerNumber == GameManager.Instance.currentPlayer)
+        if (LevelManager.Instance.currentBattleMap == null && playerNumber == LevelManager.Instance.currentPlayer)
         {
             SelectionWorldMap(currentCell);
         }
@@ -110,7 +110,7 @@ public class PlayerObject : Singleton<PlayerObject>
 
     private HexCell GetClickedCell()
     {
-        return GameManager.Instance.CurrentMap.GetCell(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()));
+        return LevelManager.Instance.CurrentMap.GetCell(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()));
     }
 
     private void SelectionWorldMap(HexCell cell)
@@ -137,29 +137,29 @@ public class PlayerObject : Singleton<PlayerObject>
         // if building on tile open building detail panel
         if (cell.Building != null)
         {
-            GameManager.Instance.buildingDetails.Activate(cell.Building);
+            LevelManager.Instance.buildingDetails.Activate(cell.Building);
         }
         else
         {
-            GameManager.Instance.buildingDetails.Deactivate();
+            LevelManager.Instance.buildingDetails.Deactivate();
         }
         // update selected unit
         selectedUnit = cell.units.Count > 0 ? cell.units[0] : null;
         // if unit on tile open unit detail panel
         if (selectedUnit)
         {
-            GameManager.Instance.unitDetails.Activate(cell, (Leader)selectedUnit);
+            LevelManager.Instance.unitDetails.Activate(cell, (Leader)selectedUnit);
         }
         else
         {
-            GameManager.Instance.unitDetails.Deactivate();
+            LevelManager.Instance.unitDetails.Deactivate();
         }
         cell.EnableHighlight(HighlightType.Selection);
     }
 
     private void SelectionBattleMap(HexCell cell)
     {
-        if (GameManager.Instance.currentBattleMap.SelectedCell(cell))
+        if (LevelManager.Instance.currentBattleMap.SelectedCell(cell))
         {
             selectedUnit = cell.units.Count > 0 ? cell.units[0] : null;
         }
@@ -168,7 +168,7 @@ public class PlayerObject : Singleton<PlayerObject>
 
     private void DoAlternateAction()
     {
-        if (playerNumber != GameManager.Instance.currentPlayer) return;
+        if (playerNumber != LevelManager.Instance.currentPlayer) return;
         if (selectedUnit)
         {
             HexCell cell = GetClickedCell();
@@ -188,21 +188,21 @@ public class PlayerObject : Singleton<PlayerObject>
         if (selectedUnit.IsMoving) return;
         if (cell && selectedUnit.IsValidDestination(cell))
         {
-            GameManager.Instance.mapHexGrid.FindPath(selectedUnit.Location, cell, selectedUnit);
+            LevelManager.Instance.mapHexGrid.FindPath(selectedUnit.Location, cell, selectedUnit);
             lockedPath = cell;
         }
         else
         {
-            GameManager.Instance.mapHexGrid.ClearPath();
+            LevelManager.Instance.mapHexGrid.ClearPath();
         }
     }
 
     private void DoMove()
     {
-        if (GameManager.Instance.mapHexGrid.HasPath)
+        if (LevelManager.Instance.mapHexGrid.HasPath)
         {
-            selectedUnit.Travel(GameManager.Instance.mapHexGrid.GetPath());
-            GameManager.Instance.mapHexGrid.ClearPath();
+            selectedUnit.Travel(LevelManager.Instance.mapHexGrid.GetPath());
+            LevelManager.Instance.mapHexGrid.ClearPath();
             lockedPath = null;
         }
     }

@@ -13,13 +13,18 @@ public class MainMenuManager : NetworkSingleton<MainMenuManager>
     [SerializeField] private TMP_InputField createLobbyNameInput;
     [SerializeField] private TMP_InputField joinPrivateLobbyCodeInput;
     [SerializeField] private Toggle privateLobbyToggle;
-    [SerializeField] private GameObject menuCanvas;
+    [SerializeField] private PlayerLobby playerLobby;
 
     private Lobby currentSelectedLobby;
 
     private void Start()
     {
         ConnectToServer();
+    }
+
+    public void SetPlayerName(string playerName)
+    {
+        NetworkHandler.PlayerName = playerName;
     }
 
     public async void ConnectToServer()
@@ -46,7 +51,7 @@ public class MainMenuManager : NetworkSingleton<MainMenuManager>
             loadingPanel.gameObject.SetActive(false);
 
             NetworkManager.Singleton.StartClient();
-            menuCanvas.SetActive(false);
+            playerLobby.gameObject.SetActive(true);
         }
         catch (Exception e)
         {
@@ -67,7 +72,7 @@ public class MainMenuManager : NetworkSingleton<MainMenuManager>
             loadingPanel.gameObject.SetActive(false);
 
             NetworkManager.Singleton.StartClient();
-            menuCanvas.SetActive(false);
+            playerLobby.gameObject.SetActive(true);
         }
         catch (Exception e)
         {
@@ -87,7 +92,7 @@ public class MainMenuManager : NetworkSingleton<MainMenuManager>
             await LobbyHandler.CreateLobby(createLobbyNameInput.text, privateLobbyToggle.isOn);
             loadingPanel.gameObject.SetActive(false);
             NetworkManager.Singleton.StartHost();
-            menuCanvas.SetActive(false);
+            playerLobby.gameObject.SetActive(true);
         }
         catch (Exception e)
         {
@@ -108,20 +113,16 @@ public class MainMenuManager : NetworkSingleton<MainMenuManager>
         try
         {
             NetworkManager.Singleton.Shutdown();
-            await LobbyHandler.LeaveLobby();
-        }
-        catch (Exception e)
-        {
-            loadingPanel.ShowLoad(LoadingType.Error, e.Message);
-        }
-    }
-
-    public async void DeleteLobby()
-    {
-        try
-        {
-            NetworkManager.Singleton.Shutdown();
-            await LobbyHandler.DeleteLobby();
+            if (LobbyHandler.IsLobbyHost)
+            {
+                await LobbyHandler.DeleteLobby();
+            }
+            else
+            {
+                await LobbyHandler.LeaveLobby();
+            }
+            playerLobby.gameObject.SetActive(false);
+            RefreshLobbyList();
         }
         catch (Exception e)
         {

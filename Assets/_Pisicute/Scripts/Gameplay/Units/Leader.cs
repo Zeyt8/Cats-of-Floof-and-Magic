@@ -49,7 +49,7 @@ public class Leader : UnitObject
                     leaders.Add((Leader)u);
                 }
                 destination.battleMap = BattleManager.Instance.GenerateBattle(destination.TerrainTypeIndex, leaders);
-                GameManager.Instance.GoToBattleMap(destination.battleMap);
+                LevelManager.Instance.GoToBattleMap(destination.battleMap);
             }
         }
         PlayerObject.Instance.SelectCell(destination);

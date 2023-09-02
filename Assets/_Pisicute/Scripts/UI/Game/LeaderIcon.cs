@@ -19,6 +19,6 @@ public class LeaderIcon : MonoBehaviour
 
     public void GoToLeaderPosition()
     {
-        GameManager.Instance.MoveCamera(new Vector2(leader.transform.position.x, leader.transform.position.z));
+        LevelManager.Instance.MoveCamera(new Vector2(leader.transform.position.x, leader.transform.position.z));
     }
 }

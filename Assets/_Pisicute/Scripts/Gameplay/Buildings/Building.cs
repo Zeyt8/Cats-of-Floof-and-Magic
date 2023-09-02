@@ -48,7 +48,7 @@ public class Building : MonoBehaviour, ISaveableObject
     public virtual BuildingUI OpenUIPanel()
     {
         if (uiPanel == null) return null;
-        BuildingUI buildingUI = Instantiate(uiPanel, GameManager.Instance.canvas.transform);
+        BuildingUI buildingUI = Instantiate(uiPanel, LevelManager.Instance.canvas.transform);
         buildingUI.Initialize(this);
         return buildingUI;
     }
