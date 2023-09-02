@@ -25,7 +25,7 @@ public class SicFactory : Building
 
     private void CreateCat()
     {
-        if (catInWaiting == null && owner == Player.Instance.playerNumber)
+        if (catInWaiting == null && owner == PlayerObject.Instance.playerNumber)
         {
             catInWaiting = sicCats.cats.Values.GetRandom();
         }

@@ -4,10 +4,10 @@ public class SteelFoundryUI : BuildingUI
 {
     public void Smelt()
     {
-        if (Player.Instance.CurrentResources >= SteelFoundry.SmeltCost)
+        if (PlayerObject.Instance.CurrentResources >= SteelFoundry.SmeltCost)
         {
-            Player.Instance.CurrentResources -= SteelFoundry.SmeltCost;
-            Player.Instance.CurrentResources += SteelFoundry.SmeltGain;
+            PlayerObject.Instance.CurrentResources -= SteelFoundry.SmeltCost;
+            PlayerObject.Instance.CurrentResources += SteelFoundry.SmeltGain;
         }
     }
 }

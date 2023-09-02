@@ -47,12 +47,12 @@ public class BattleMap : MonoBehaviour
     {
         if (state == State.Deploy)
         {
-            if (catsToPlace.Peek().item1 != Player.Instance.playerNumber) return false;
+            if (catsToPlace.Peek().item1 != PlayerObject.Instance.playerNumber) return false;
             PlaceCat(cell);
         }
         else if (state == State.Fight)
         {
-            if (catTurnQueue[0].owner != Player.Instance.playerNumber) return false;
+            if (catTurnQueue[0].owner != PlayerObject.Instance.playerNumber) return false;
         }
         return true;
     }

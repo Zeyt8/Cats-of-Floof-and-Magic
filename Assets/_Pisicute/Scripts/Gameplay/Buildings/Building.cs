@@ -22,7 +22,7 @@ public class Building : MonoBehaviour, ISaveableObject
         set
         {
             location = value;
-            if (Player.Instance && owner == Player.Instance.playerNumber)
+            if (PlayerObject.Instance && owner == PlayerObject.Instance.playerNumber)
             {
                 grid.IncreaseVisibility(location, visionRange);
             }

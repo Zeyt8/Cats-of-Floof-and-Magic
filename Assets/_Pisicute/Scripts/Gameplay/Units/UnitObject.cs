@@ -32,7 +32,7 @@ public class UnitObject : MonoBehaviour, ISaveableObject
             }
             location = value;
             value.units.Add(this);
-            if (Player.Instance && owner == Player.Instance.playerNumber)
+            if (PlayerObject.Instance && owner == PlayerObject.Instance.playerNumber)
             {
                 grid.IncreaseVisibility(value, visionRange);
             }

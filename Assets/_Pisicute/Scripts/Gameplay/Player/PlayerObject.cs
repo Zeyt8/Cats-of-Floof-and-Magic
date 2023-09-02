@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-public class Player : Singleton<Player>
+public class PlayerObject : Singleton<PlayerObject>
 {
     public int team;
     public int playerNumber;

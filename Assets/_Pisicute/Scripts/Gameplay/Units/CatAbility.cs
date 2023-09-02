@@ -8,7 +8,7 @@ public abstract class CatAbility : MonoBehaviour
 
     public abstract Func<HexCell, bool> GetAvailableTargets(Cat cat);
 
-    public virtual Player.Action<HexCell> CastAbility(Cat caster)
+    public virtual PlayerObject.Action<HexCell> CastAbility(Cat caster)
     {
         caster.OnAbilityCasted(this);
         return (cell) => { };

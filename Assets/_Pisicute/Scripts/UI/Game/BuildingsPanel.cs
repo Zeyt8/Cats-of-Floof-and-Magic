@@ -31,6 +31,6 @@ public class BuildingsPanel : MonoBehaviour
             bi.Deselect();
         }
         buildingIcon.Select();
-        Player.Instance.buildingToBuild = buildingType;
+        PlayerObject.Instance.buildingToBuild = buildingType;
     }
 }

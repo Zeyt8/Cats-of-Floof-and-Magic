@@ -18,12 +18,12 @@ public class LeaderList : MonoBehaviour
 
     private void SetupLeaderIcons(int team)
     {
-        if (team != Player.Instance.playerNumber) return;
+        if (team != PlayerObject.Instance.playerNumber) return;
         foreach (Transform t in transform)
         {
             Destroy(t.gameObject);
         }
-        foreach (Leader leader in Player.Instance.leaders)
+        foreach (Leader leader in PlayerObject.Instance.leaders)
         {
             LeaderIcon leaderIcon = Instantiate(leaderIconPrefab, transform);
             leaderIcon.leader = leader;

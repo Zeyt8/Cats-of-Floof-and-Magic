@@ -10,7 +10,7 @@ public class MainBaseUI : BuildingUI
 
     public void RecruitLeaderSelectTile()
     {
-        Player.Instance.InitiateSelectCellForEffect(
+        PlayerObject.Instance.InitiateSelectCellForEffect(
             (cell) => (cell.coordinates.DistanceTo(location) <= 1),
             ((MainCastle)currentBuilding).CreateLeader);
         Destroy(gameObject);

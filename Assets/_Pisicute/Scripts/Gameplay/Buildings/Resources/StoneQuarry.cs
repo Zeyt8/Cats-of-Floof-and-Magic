@@ -8,9 +8,9 @@ public class StoneQuarry : Building
 
     private void GenerateStone()
     {
-        if (owner == Player.Instance.playerNumber)
+        if (owner == PlayerObject.Instance.playerNumber)
         {
-            Player.Instance.CurrentResources += new Resources(0, 0, 5, 0, 0, 0);
+            PlayerObject.Instance.CurrentResources += new Resources(0, 0, 5, 0, 0, 0);
         }
     }
 }

@@ -8,9 +8,9 @@ public class GemMine : Building
 
     private void GenerateGems()
     {
-        if (owner == Player.Instance.playerNumber)
+        if (owner == PlayerObject.Instance.playerNumber)
         {
-            Player.Instance.CurrentResources += new Resources(0, 0, 0, 0, 0, 1);
+            PlayerObject.Instance.CurrentResources += new Resources(0, 0, 0, 0, 0, 1);
         }
     }
 }

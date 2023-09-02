@@ -13,9 +13,9 @@ public class Leader : UnitObject
     {
         base.Start();
         currentFloof = maxFloof / 2;
-        if (owner == Player.Instance.playerNumber)
+        if (owner == PlayerObject.Instance.playerNumber)
         {
-            Player.Instance.leaders.Add(this);
+            PlayerObject.Instance.leaders.Add(this);
         }
         GameEvents.OnLeaderRecruited.Invoke(owner);
         AddCatToArmy(sicCats.cats.Values.GetRandom().data);
@@ -23,9 +23,9 @@ public class Leader : UnitObject
 
     private void OnDestroy()
     {
-        if (owner == Player.Instance.playerNumber)
+        if (owner == PlayerObject.Instance.playerNumber)
         {
-            Player.Instance.leaders.Remove(this);
+            PlayerObject.Instance.leaders.Remove(this);
         }
     }
 
@@ -52,7 +52,7 @@ public class Leader : UnitObject
                 GameManager.Instance.GoToBattleMap(destination.battleMap);
             }
         }
-        Player.Instance.SelectCell(destination);
+        PlayerObject.Instance.SelectCell(destination);
     }
 
     public override bool IsValidDestination(HexCell cell)

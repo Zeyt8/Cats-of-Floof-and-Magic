@@ -16,6 +16,6 @@ public class CatAbilityIcon : MonoBehaviour
 
     public void BeginAbility()
     {
-        Player.Instance.InitiateSelectCellForEffect(ability.GetAvailableTargets(cat), ability.CastAbility(cat));
+        PlayerObject.Instance.InitiateSelectCellForEffect(ability.GetAvailableTargets(cat), ability.CastAbility(cat));
     }
 }

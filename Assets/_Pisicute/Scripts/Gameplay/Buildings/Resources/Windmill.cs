@@ -16,9 +16,9 @@ public class Windmill : Building
 
     private void GenerateFood()
     {
-        if (owner == Player.Instance.playerNumber)
+        if (owner == PlayerObject.Instance.playerNumber)
         {
-            Player.Instance.CurrentResources += new Resources(5, 0, 0, 0, 0, 0);
+            PlayerObject.Instance.CurrentResources += new Resources(5, 0, 0, 0, 0, 0);
         }
     }
 }
