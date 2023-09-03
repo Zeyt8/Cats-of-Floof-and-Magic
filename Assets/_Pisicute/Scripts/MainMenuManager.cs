@@ -3,6 +3,7 @@ using TMPro;
 using Unity.Netcode;
 using Unity.Services.Lobbies.Models;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MainMenuManager : NetworkSingleton<MainMenuManager>
@@ -25,6 +26,11 @@ public class MainMenuManager : NetworkSingleton<MainMenuManager>
     public void SetPlayerName(string playerName)
     {
         NetworkHandler.PlayerName = playerName;
+    }
+
+    public void StartGame()
+    {
+        NetworkManager.Singleton.SceneManager.LoadScene(levelScene, LoadSceneMode.Single);
     }
 
     public async void ConnectToServer()

@@ -1,6 +1,7 @@
-using UnityEngine;
+using Unity.Collections;
+using Unity.Netcode;
 
-public class GameManager : MonoBehaviour
+public class GameManager : NetworkPersistentSingleton<GameManager>
 {
-    public static string SelectedMap;
+    public static NetworkVariable<FixedString128Bytes> SelectedMap = new NetworkVariable<FixedString128Bytes>();
 }

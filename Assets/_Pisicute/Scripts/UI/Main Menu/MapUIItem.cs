@@ -13,6 +13,6 @@ public class MapUIItem : MonoBehaviour
 
     public void SelectMap()
     {
-        playerLobby.SetSelectedMap(name);
+        playerLobby.SetSelectedMap(Name);
     }
 }

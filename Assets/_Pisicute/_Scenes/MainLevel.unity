@@ -5299,10 +5299,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1917792165}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fefbe95a1caa5dc419ba77332dd733a6, type: 3}
+  m_Script: {fileID: 11500000, guid: cc88901e578f2184591556a7a18871c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentPlayer: 1
+  currentPlayer: 0
   maxPlayers: 2
   mapHexGrid: {fileID: 8784611594592856403}
   cameraController: {fileID: 1510049881}

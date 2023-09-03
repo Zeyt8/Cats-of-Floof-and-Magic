@@ -1,3 +1,4 @@
+using System.IO;
 using UnityEngine;
 
 public class LevelManager : Singleton<LevelManager>
@@ -18,6 +19,21 @@ public class LevelManager : Singleton<LevelManager>
     {
         base.Awake();
         Shader.DisableKeyword("_HEX_MAP_EDIT_MODE");
+    }
+
+    private void Start()
+    {
+        string mapName = Path.Combine(Application.streamingAssetsPath, "Maps", GameManager.SelectedMap.Value + ".map");
+        using BinaryReader reader = new BinaryReader(File.OpenRead(mapName));
+        int header = reader.ReadInt32();
+        if (header == 1)
+        {
+            mapHexGrid.Load(reader, header, mapHexGrid);
+        }
+        else
+        {
+            Debug.LogWarning("Unknown map format " + header);
+        }
     }
 
     public void EndTurn()

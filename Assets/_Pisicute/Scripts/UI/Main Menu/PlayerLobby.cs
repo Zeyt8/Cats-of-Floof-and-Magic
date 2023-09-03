@@ -27,7 +27,7 @@ public class PlayerLobby : MonoBehaviour
 
     public void SetSelectedMap(string mapName)
     {
-        GameManager.SelectedMap = Path.Combine(Application.streamingAssetsPath, "Maps", mapName + ".map");
+        GameManager.SelectedMap.Value = mapName;
     }
 
     private void FillList()
