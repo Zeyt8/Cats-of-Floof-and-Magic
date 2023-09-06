@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 1007
   m_ShowMode: 4
-  m_Title: Hierarchy
+  m_Title: Inspector
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 371}
   m_MaxSize: {x: 10000, y: 10000}
@@ -308,7 +308,7 @@ MonoBehaviour:
     x: 353
     y: 73
     width: 1142
-    height: 562
+    height: 565
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -325,7 +325,7 @@ MonoBehaviour:
   m_SplitterFlex: 0.2
   m_SearchText: 
   m_TreeViewState:
-    scrollPos: {x: 0, y: 0}
+    scrollPos: {x: 0, y: 3}
     m_SelectedIDs: a01a5fa6
     m_LastClickedID: -1503716704
     m_ExpandedIDs: a01a5fa653336be200000000c53aba5a
@@ -483,9 +483,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
-      m_LastClickedID: 0
-      m_ExpandedIDs: 00fbffff
+      m_SelectedIDs: b6500200
+      m_LastClickedID: 151734
+      m_ExpandedIDs: dea4feff4864ffff0efbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1326,7 +1326,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/_Pisicute/Prefabs/UI/Main Menu
+    - Assets/_Pisicute/Scripts/Gameplay/Player
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
@@ -1334,16 +1334,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/_Pisicute/Prefabs/UI/Main Menu
+  - Assets/_Pisicute/Scripts/Gameplay/Player
   m_LastFoldersGridSize: -1
   m_LastProjectPath: E:\programare\Projects\Jocuri Unity\Pisicute
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 90}
-    m_SelectedIDs: f8750000
-    m_LastClickedID: 30200
-    m_ExpandedIDs: 00000000ba750000c8750000ca750000cc750000ce750000d075000000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 270}
+    m_SelectedIDs: c2510200
+    m_LastClickedID: 152002
+    m_ExpandedIDs: 00000000ba750000c8750000ca750000cc750000ce750000d0750000507b0000ae7b000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1398,7 +1398,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000a6190000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -1499,7 +1499,7 @@ MonoBehaviour:
     m_OverlaysVisible: 1
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: 117520
+  m_LastSelectedObjectID: 112214
 --- !u!114 &22
 MonoBehaviour:
   m_ObjectHideFlags: 52

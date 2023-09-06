@@ -10,6 +10,7 @@ using UnityEngine;
 public class NetworkHandler : Singleton<NetworkHandler>
 {
     public static string PlayerName;
+    public static Player SelfPlayer => LobbyHandler.JoinedLobby.Players.Find(p => p.Id == AuthenticationService.Instance.PlayerId);
 
     private float heartbeatTimer;
     private float lobbiesUpdateTimer;
@@ -48,6 +49,10 @@ public class NetworkHandler : Singleton<NetworkHandler>
                 {
                     "PlayerName",
                     new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, PlayerName)
+                },
+                {
+                    "PlayerIndex",
+                    new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, "1")
                 }
             }
         };

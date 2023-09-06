@@ -10,6 +10,8 @@ public class LobbyCallbacks
     public static event Action<List<Lobby>> OnLobbyListUpdated;
     public static event Action OnLobbyRefresh;
     public static event Action OnLobbyDisconnect;
+    public static event Action<List<LobbyPlayerJoined>> OnPlayersJoined;
+    public static event Action<List<int>> OnPlayersLeft;
 
     private static ILobbyEvents LobbyEvents;
 
@@ -18,6 +20,8 @@ public class LobbyCallbacks
         OnLobbyListUpdated = null;
         OnLobbyRefresh = null;
         OnLobbyDisconnect = null;
+        OnPlayersJoined = null;
+        OnPlayersLeft = null;
     }
 
     public static async void RefreshLobbyList()
@@ -29,6 +33,8 @@ public class LobbyCallbacks
     public static async Task SubscribeToLobbyChanges()
     {
         LobbyEventCallbacks callbacks = new LobbyEventCallbacks();
+        callbacks.PlayerJoined += OnPlayerJoined;
+        callbacks.PlayerLeft += OnPlayerLeft;
         callbacks.LobbyChanged += OnLobbyChanged;
         callbacks.KickedFromLobby += OnKickedFromLobby;
         callbacks.LobbyEventConnectionStateChanged += OnLobbyEventConnectionStateChanged;
@@ -46,6 +52,16 @@ public class LobbyCallbacks
                 default: throw;
             }
         }
+    }
+
+    private static async void OnPlayerJoined(List<LobbyPlayerJoined> players)
+    {
+        OnPlayersJoined?.Invoke(players);
+    }
+
+    private static async void OnPlayerLeft(List<int> players)
+    {
+        OnPlayersLeft?.Invoke(players);
     }
 
     private static async void OnLobbyChanged(ILobbyChanges changes)

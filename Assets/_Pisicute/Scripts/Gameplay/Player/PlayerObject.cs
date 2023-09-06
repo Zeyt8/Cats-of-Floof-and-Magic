@@ -33,6 +33,7 @@ public class PlayerObject : Singleton<PlayerObject>
     public void Start()
     {
         CurrentResources = new Resources(10, 10, 10, 0, 0, 0);
+        playerNumber = NetworkHandler.SelfPlayer.GetPlayerIndex();
     }
 
     private void OnEnable()

@@ -1,3 +1,4 @@
+using System.Collections;
 using System.IO;
 using UnityEngine;
 
@@ -21,8 +22,9 @@ public class LevelManager : Singleton<LevelManager>
         Shader.DisableKeyword("_HEX_MAP_EDIT_MODE");
     }
 
-    private void Start()
+    private IEnumerator Start()
     {
+        yield return new WaitForEndOfFrame();
         string mapName = Path.Combine(Application.streamingAssetsPath, "Maps", GameManager.SelectedMap.Value + ".map");
         using BinaryReader reader = new BinaryReader(File.OpenRead(mapName));
         int header = reader.ReadInt32();

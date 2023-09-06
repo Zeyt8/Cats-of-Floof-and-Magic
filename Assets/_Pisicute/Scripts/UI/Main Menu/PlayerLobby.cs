@@ -1,8 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
-using TMPro;
 using Unity.Services.Lobbies.Models;
 using UnityEngine;
+using TMPro;
 
 public class PlayerLobby : MonoBehaviour
 {
@@ -46,17 +47,29 @@ public class PlayerLobby : MonoBehaviour
         }
     }
 
-    private void SetPlayers()
+    private async void SetPlayers()
     {
         foreach (Transform child in playerUIItemParent)
         {
             Destroy(child.gameObject);
         }
 
+        if (LobbyHandler.IsLobbyHost)
+        {
+            List<Player> players = LobbyHandler.JoinedLobby.Players;
+            players.Sort((p1, p2) => p1.Id.CompareTo(p2.Id));
+            Dictionary<string, int> playerIds = new Dictionary<string, int>();
+            for (int i = 0; i < players.Count; i++)
+            {
+                playerIds[players[i].Id] = i + 1;
+            }
+            await LobbyHandler.JoinedLobby.UpdateData(playerIds);
+        }
+
         foreach (Player t in LobbyHandler.JoinedLobby.Players)
         {
             PlayerUIItem item = Instantiate(playerUIItemPrefab, playerUIItemParent);
-            item.Set(t.Data["PlayerName"].Value, Color.red);
+            item.Set(t.GetPlayerName(), PlayerColors.Get(t.GetPlayerIndex()));
         }
     }
 }
