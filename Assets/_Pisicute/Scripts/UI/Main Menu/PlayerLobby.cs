@@ -4,7 +4,7 @@ using System.IO;
 using Unity.Services.Lobbies.Models;
 using UnityEngine;
 using TMPro;
-using Unity.Services.Authentication;
+using Unity.Services.Lobbies;
 
 public class PlayerLobby : MonoBehaviour
 {
@@ -16,15 +16,15 @@ public class PlayerLobby : MonoBehaviour
 
     private void OnEnable()
     {
-        SetPlayers();
+        SetPlayers(null);
         FillList();
         lobbyCode.text = LobbyHandler.JoinedLobby.LobbyCode;
-        LobbyCallbacks.OnLobbyRefresh += SetPlayers;
+        LobbyCallbacks.LobbyEvents.Callbacks.LobbyChanged += SetPlayers;
     }
 
     private void OnDisable()
     {
-        LobbyCallbacks.OnLobbyRefresh -= SetPlayers;
+        LobbyCallbacks.LobbyEvents.Callbacks.LobbyChanged -= SetPlayers;
     }
 
     public void SetSelectedMap(string mapName)
@@ -48,7 +48,7 @@ public class PlayerLobby : MonoBehaviour
         }
     }
 
-    private async void SetPlayers()
+    private async void SetPlayers(ILobbyChanges changes)
     {
         foreach (Transform child in playerUIItemParent)
         {

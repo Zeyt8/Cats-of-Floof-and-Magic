@@ -29,6 +29,14 @@ public static class LobbyUtils
         {
             return;
         }
-        await LobbyService.Instance.UpdateLobbyAsync(lobby.Id, options);
+        try
+        {
+            LobbyHandler.JoinedLobby = await LobbyService.Instance.UpdateLobbyAsync(lobby.Id, options);
+        }
+        catch (LobbyServiceException e)
+        {
+            Debug.Log(e);
+            throw;
+        }
     }
 }
