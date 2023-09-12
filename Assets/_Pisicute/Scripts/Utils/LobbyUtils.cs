@@ -13,8 +13,10 @@ public static class LobbyUtils
 
     public static async Task UpdateData(this Lobby lobby, Dictionary<string, int> playerIds)
     {
-        UpdateLobbyOptions options = new UpdateLobbyOptions();
-        options.Data = lobby.Data;
+        UpdateLobbyOptions options = new UpdateLobbyOptions()
+        {
+            Data = lobby.Data
+        };
         // check if any player id changed
         bool changed = false;
         foreach (var id in playerIds)

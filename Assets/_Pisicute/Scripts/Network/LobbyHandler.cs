@@ -73,6 +73,7 @@ public class LobbyHandler
 
             await LobbyCallbacks.SubscribeToLobbyChanges();
             await RelayHandler.JoinRelay(JoinedLobby.Data["KEY_RELAY"].Value);
+            JoinedLobby = await Lobbies.Instance.GetLobbyAsync(JoinedLobby.Id);
         }
         catch (Exception e)
         {
