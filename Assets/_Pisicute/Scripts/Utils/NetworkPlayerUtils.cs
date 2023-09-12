@@ -7,8 +7,8 @@ public static class NetworkPlayerUtils
         return player.Data["PlayerName"].Value;
     }
 
-    public static int GetPlayerIndex(this Player player)
+    public static int GetPlayerIndex(string playerId)
     {
-        return LobbyHandler.JoinedLobby.Data.ContainsKey(player.Id) ? int.Parse(LobbyHandler.JoinedLobby.Data[player.Id].Value) : 1;
+        return LobbyHandler.JoinedLobby.Data.ContainsKey(playerId) ? int.Parse(LobbyHandler.JoinedLobby.Data[playerId].Value) : 1;
     }
 }

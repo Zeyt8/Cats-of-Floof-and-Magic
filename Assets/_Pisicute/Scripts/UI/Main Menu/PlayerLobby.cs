@@ -4,6 +4,7 @@ using System.IO;
 using Unity.Services.Lobbies.Models;
 using UnityEngine;
 using TMPro;
+using Unity.Services.Authentication;
 
 public class PlayerLobby : MonoBehaviour
 {
@@ -69,7 +70,7 @@ public class PlayerLobby : MonoBehaviour
         foreach (Player t in LobbyHandler.JoinedLobby.Players)
         {
             PlayerUIItem item = Instantiate(playerUIItemPrefab, playerUIItemParent);
-            item.Set(t.GetPlayerName(), PlayerColors.Get(t.GetPlayerIndex()));
+            item.Set(t.GetPlayerName(), PlayerColors.Get(NetworkPlayerUtils.GetPlayerIndex(t.Id)));
         }
     }
 }

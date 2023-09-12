@@ -10,7 +10,7 @@ using UnityEngine;
 public class NetworkHandler : Singleton<NetworkHandler>
 {
     public static string PlayerName;
-    public static Player SelfPlayer { get; private set; }
+    public static string PlayerId => AuthenticationService.Instance.PlayerId;
 
     private float heartbeatTimer;
     private float lobbiesUpdateTimer;
@@ -22,6 +22,7 @@ public class NetworkHandler : Singleton<NetworkHandler>
 
     private async void Update()
     {
+        print(AuthenticationService.Instance.PlayerId);
         if (LobbyHandler.IsLobbyHost)
         {
             heartbeatTimer += Time.deltaTime;
@@ -42,7 +43,7 @@ public class NetworkHandler : Singleton<NetworkHandler>
 
     public static Player GetPlayer()
     {
-        SelfPlayer = new Player
+        return new Player
         (
             data: new Dictionary<string, PlayerDataObject>
             {
@@ -56,7 +57,6 @@ public class NetworkHandler : Singleton<NetworkHandler>
                 }
             }
         );
-        return SelfPlayer;
     }
 
     public static async Task ConnectToServer()
