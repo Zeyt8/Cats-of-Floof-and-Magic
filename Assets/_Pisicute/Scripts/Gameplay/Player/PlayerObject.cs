@@ -88,7 +88,7 @@ public class PlayerObject : Singleton<PlayerObject>
         {
             SelectionWorldMap(currentCell);
         }
-        else
+        else if (playerNumber == LevelManager.Instance.currentPlayer)
         {
             SelectionBattleMap(currentCell);
         }
