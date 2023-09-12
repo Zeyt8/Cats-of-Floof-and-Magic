@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Unity.Services.Lobbies.Models;
 using Unity.Services.Lobbies;
 using System.Threading.Tasks;
+using UnityEngine;
 
 public static class LobbyUtils
 {
@@ -18,7 +19,7 @@ public static class LobbyUtils
         bool changed = false;
         foreach (var id in playerIds)
         {
-            if (!lobby.Data.ContainsKey(id.Key) || id.Value != int.Parse(lobby.Data[id.Key].Value))
+            if (!lobby.Data.ContainsKey(id.Key) || !id.Value.ToString().Equals(lobby.Data[id.Key].Value))
             {
                 changed = true;
                 options.Data[id.Key] = new DataObject(DataObject.VisibilityOptions.Member, id.Value.ToString());
