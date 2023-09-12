@@ -30,6 +30,11 @@ public class MainMenuManager : NetworkSingleton<MainMenuManager>
 
     public void StartGame()
     {
+        if (GameManager.SelectedMap.Value.IsEmpty)
+        {
+            loadingPanel.ShowLoad(LoadingType.Error, "Select a map");
+            return;
+        }
         NetworkManager.Singleton.SceneManager.LoadScene(levelScene, LoadSceneMode.Single);
     }
 

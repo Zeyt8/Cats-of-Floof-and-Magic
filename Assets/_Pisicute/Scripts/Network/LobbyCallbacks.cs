@@ -54,17 +54,17 @@ public class LobbyCallbacks
         }
     }
 
-    private static async void OnPlayerJoined(List<LobbyPlayerJoined> players)
+    private static void OnPlayerJoined(List<LobbyPlayerJoined> players)
     {
         OnPlayersJoined?.Invoke(players);
     }
 
-    private static async void OnPlayerLeft(List<int> players)
+    private static void OnPlayerLeft(List<int> players)
     {
         OnPlayersLeft?.Invoke(players);
     }
 
-    private static async void OnLobbyChanged(ILobbyChanges changes)
+    private static void OnLobbyChanged(ILobbyChanges changes)
     {
         if (changes.LobbyDeleted)
         {
@@ -75,7 +75,6 @@ public class LobbyCallbacks
         else
         {
             changes.ApplyToLobby(LobbyHandler.JoinedLobby);
-            LobbyHandler.JoinedLobby = await LobbyService.Instance.GetLobbyAsync(LobbyHandler.JoinedLobby.Id);
             OnLobbyRefresh?.Invoke();
         }
     }

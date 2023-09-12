@@ -31,12 +31,11 @@ public class LobbyHandler
         };
         try
         {
-            Lobby lobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, maxPlayers, options);
-            JoinedLobby = lobby;
+            JoinedLobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, maxPlayers, options);
             IsLobbyHost = true;
             await LobbyCallbacks.SubscribeToLobbyChanges();
             string relay = await RelayHandler.CreateRelay();
-            await Lobbies.Instance.UpdateLobbyAsync(JoinedLobby.Id, new UpdateLobbyOptions
+            JoinedLobby = await Lobbies.Instance.UpdateLobbyAsync(JoinedLobby.Id, new UpdateLobbyOptions
             {
                 Data = new Dictionary<string, DataObject>
                 {
@@ -55,14 +54,13 @@ public class LobbyHandler
     {
         try
         {
-            Lobby lobby;
             if (mode == JoinLobbyMode.Id)
             {
                 JoinLobbyByIdOptions options = new JoinLobbyByIdOptions
                 {
                     Player = NetworkHandler.GetPlayer()
                 };
-                lobby = await LobbyService.Instance.JoinLobbyByIdAsync(lobbyId, options);
+                JoinedLobby = await LobbyService.Instance.JoinLobbyByIdAsync(lobbyId, options);
             }
             else
             {
@@ -70,10 +68,9 @@ public class LobbyHandler
                 {
                     Player = NetworkHandler.GetPlayer()
                 };
-                lobby = await LobbyService.Instance.JoinLobbyByCodeAsync(lobbyId, options);
+                JoinedLobby = await LobbyService.Instance.JoinLobbyByCodeAsync(lobbyId, options);
             }
 
-            JoinedLobby = lobby;
             await LobbyCallbacks.SubscribeToLobbyChanges();
             await RelayHandler.JoinRelay(JoinedLobby.Data["KEY_RELAY"].Value);
         }
