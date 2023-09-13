@@ -1,8 +1,9 @@
 using System.Collections;
 using System.IO;
+using Unity.Netcode;
 using UnityEngine;
 
-public class LevelManager : Singleton<LevelManager>
+public class LevelManager : NetworkSingleton<LevelManager>
 {
     public int currentPlayer;
     public int maxPlayers = 2;
@@ -38,7 +39,15 @@ public class LevelManager : Singleton<LevelManager>
         }
     }
 
-    public void EndTurn()
+    [ServerRpc(RequireOwnership = false)]
+    public void EndTurnServerRpc()
+    {
+        if (currentPlayer != PlayerObject.Instance.playerNumber) return;
+        EndTurnClientRpc();
+    }
+
+    [ClientRpc]
+    private void EndTurnClientRpc()
     {
         GameEvents.OnTurnEnd?.Invoke(currentPlayer);
         currentPlayer = currentPlayer + 1;

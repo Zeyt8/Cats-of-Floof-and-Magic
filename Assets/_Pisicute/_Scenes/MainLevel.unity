@@ -774,8 +774,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1917792167}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: EndTurn
+        m_TargetAssemblyTypeName: LevelManager, Assembly-CSharp
+        m_MethodName: EndTurnServerRpc
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2907,6 +2907,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1110464976}
+  - component: {fileID: 1110464977}
   - component: {fileID: 1110464975}
   m_Layer: 0
   m_Name: Player
@@ -2948,6 +2949,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1110464977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1110464974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 3055349108
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1 &1134030434
 GameObject:
   m_ObjectHideFlags: 0
@@ -5267,6 +5288,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1917792166}
+  - component: {fileID: 1917792168}
   - component: {fileID: 1917792167}
   m_Layer: 0
   m_Name: Level Manager
@@ -5302,7 +5324,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc88901e578f2184591556a7a18871c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentPlayer: 0
+  currentPlayer: 1
   maxPlayers: 2
   mapHexGrid: {fileID: 8784611594592856403}
   cameraController: {fileID: 1510049881}
@@ -5311,6 +5333,26 @@ MonoBehaviour:
   unitDetails: {fileID: 931814564}
   canvas: {fileID: 1681747697}
   currentBattleMap: {fileID: 0}
+--- !u!114 &1917792168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1917792165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 3642279127
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1 &1920761338
 GameObject:
   m_ObjectHideFlags: 0

@@ -22,7 +22,6 @@ public class NetworkHandler : Singleton<NetworkHandler>
 
     private async void Update()
     {
-        print(AuthenticationService.Instance.PlayerId);
         if (LobbyHandler.IsLobbyHost)
         {
             heartbeatTimer += Time.deltaTime;

@@ -1,8 +1,10 @@
+using System;
 using System.IO;
+using Unity.Netcode;
 using UnityEngine;
 
 [System.Serializable]
-public struct HexCoordinates : ISaveableObject
+public struct HexCoordinates : ISaveableObject, INetworkSerializable, IEquatable<HexCoordinates>
 {
     public int X => x;
     public int Z => z;
@@ -85,5 +87,16 @@ public struct HexCoordinates : ISaveableObject
         c.x = reader.ReadInt32();
         c.z = reader.ReadInt32();
         return c;
+    }
+
+    public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
+    {
+        serializer.SerializeValue(ref x);
+        serializer.SerializeValue(ref z);
+    }
+
+    public bool Equals(HexCoordinates other)
+    {
+        return (x == other.x && z == other.z);
     }
 }

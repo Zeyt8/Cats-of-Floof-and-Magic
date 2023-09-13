@@ -5,7 +5,6 @@ using TMPro;
 using UnityEngine.UI;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 
 public enum HighlightType
 {

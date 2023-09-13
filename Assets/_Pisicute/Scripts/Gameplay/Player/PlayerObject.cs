@@ -1,10 +1,13 @@
 using System;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using System.Linq;
+using Unity.Collections;
 
-public class PlayerObject : Singleton<PlayerObject>
+public class PlayerObject : NetworkSingleton<PlayerObject>
 {
     public int team;
     public int playerNumber;
@@ -114,25 +117,6 @@ public class PlayerObject : Singleton<PlayerObject>
         return LevelManager.Instance.CurrentMap.GetCell(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()));
     }
 
-    private void SelectionWorldMap(HexCell cell)
-    {
-        // build selected building
-        if (buildingToBuild != BuildingTypes.None)
-        {
-            if (buildingCollection[buildingToBuild].resourceCost <= CurrentResources)
-            {
-                Building building = cell.AddBuilding(buildingToBuild);
-                if (building)
-                {
-                    CurrentResources -= buildingCollection[buildingToBuild].resourceCost;
-                    building.OnBuild(cell);
-                }
-            }
-            buildingToBuild = BuildingTypes.None;
-        }
-        SelectCell(cell);
-    }
-
     public void SelectCell(HexCell cell)
     {
         // if building on tile open building detail panel
@@ -158,6 +142,44 @@ public class PlayerObject : Singleton<PlayerObject>
         cell.EnableHighlight(HighlightType.Selection);
     }
 
+    private void SelectionWorldMap(HexCell cell)
+    {
+        // build selected building
+        if (buildingToBuild != BuildingTypes.None)
+        {
+            if (buildingCollection[buildingToBuild].resourceCost <= CurrentResources &&
+                cell.Building == null &&
+                cell.IsVisible
+            )
+            {
+                BuildBuildingServerRpc(cell.coordinates, buildingToBuild);
+                if (cell.Building.type != BuildingTypes.None)
+                {
+                    CurrentResources -= buildingCollection[buildingToBuild].resourceCost;
+                }
+            }
+            buildingToBuild = BuildingTypes.None;
+        }
+        SelectCell(cell);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void BuildBuildingServerRpc(HexCoordinates coordinates, BuildingTypes buildingToBuild)
+    {
+        BuildBuildingClientRpc(coordinates, buildingToBuild);
+    }
+
+    [ClientRpc]
+    private void BuildBuildingClientRpc(HexCoordinates coordinates, BuildingTypes buildingToBuild)
+    {
+        HexCell cell = LevelManager.Instance.mapHexGrid.GetCell(coordinates);
+        Building building = cell.AddBuilding(buildingToBuild);
+        if (building)
+        {
+            building.OnBuild(cell);
+        }
+    }
+
     private void SelectionBattleMap(HexCell cell)
     {
         if (LevelManager.Instance.currentBattleMap.SelectedCell(cell))
@@ -170,12 +192,17 @@ public class PlayerObject : Singleton<PlayerObject>
     private void DoAlternateAction()
     {
         if (playerNumber != LevelManager.Instance.currentPlayer) return;
-        if (selectedUnit)
+        if (selectedUnit && selectedUnit.owner == playerNumber)
         {
             HexCell cell = GetClickedCell();
             if (lockedPath == cell)
             {
-                DoMove();
+                if (LevelManager.Instance.mapHexGrid.HasPath)
+                {
+                    DoMoveServerRpc(LevelManager.Instance.CurrentMap.GetPath().Select(c => c.coordinates).ToArray());
+                    LevelManager.Instance.mapHexGrid.ClearPath();
+                    lockedPath = null;
+                }
             }
             else
             {
@@ -198,13 +225,20 @@ public class PlayerObject : Singleton<PlayerObject>
         }
     }
 
-    private void DoMove()
+    [ServerRpc(RequireOwnership = false)]
+    private void DoMoveServerRpc(HexCoordinates[] path)
     {
-        if (LevelManager.Instance.mapHexGrid.HasPath)
+        DoMoveClientRpc(path);
+    }
+
+    [ClientRpc]
+    private void DoMoveClientRpc(HexCoordinates[] path)
+    {
+        List<HexCell> cells = new List<HexCell>();
+        foreach (HexCoordinates cell in path)
         {
-            selectedUnit.Travel(LevelManager.Instance.mapHexGrid.GetPath());
-            LevelManager.Instance.mapHexGrid.ClearPath();
-            lockedPath = null;
+            cells.Add(LevelManager.Instance.CurrentMap.GetCell(cell));
         }
+        selectedUnit.Travel(cells);
     }
 }
