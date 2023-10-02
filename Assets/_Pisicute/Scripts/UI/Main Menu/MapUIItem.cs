@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MapUIItem : MonoBehaviour
 {
@@ -14,5 +15,11 @@ public class MapUIItem : MonoBehaviour
     public void SelectMap()
     {
         playerLobby.SetSelectedMap(Name);
+    }
+
+    public void SetGroup(SingleSelectGroup group)
+    {
+        group.images.Add(GetComponent<Image>());
+        GetComponent<Button>().onClick.AddListener(() => group.Select(gameObject));
     }
 }

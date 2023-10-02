@@ -3,6 +3,7 @@ using System.Collections.Generic;
 public class Cat : UnitObject
 {
     public CatData data;
+    public Resources sellCost;
     public override int Speed => data.speed;
     public List<CatAbility> abilities;
     public BattleMap battleMap;

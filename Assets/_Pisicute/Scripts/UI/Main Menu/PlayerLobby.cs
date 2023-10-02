@@ -14,6 +14,13 @@ public class PlayerLobby : MonoBehaviour
     [SerializeField] private Transform mapsListContent;
     [SerializeField] private TextMeshProUGUI lobbyCode;
 
+    private SingleSelectGroup singleSelectGroup;
+
+    private void Awake()
+    {
+        singleSelectGroup = GetComponent<SingleSelectGroup>();
+    }
+
     private void OnEnable()
     {
         SetPlayers(null);
@@ -38,6 +45,7 @@ public class PlayerLobby : MonoBehaviour
         {
             Destroy(mapsListContent.GetChild(i).gameObject);
         }
+        singleSelectGroup.images.Clear();
         string[] paths = Directory.GetFiles(Path.Combine(Application.streamingAssetsPath, "Maps"), "*.map");
         Array.Sort(paths);
         for (int i = 0; i < paths.Length; i++)
@@ -45,6 +53,7 @@ public class PlayerLobby : MonoBehaviour
             MapUIItem item = Instantiate(mapUIItemPrefab, mapsListContent, false);
             item.playerLobby = this;
             item.Name = Path.GetFileNameWithoutExtension(paths[i]);
+            item.SetGroup(singleSelectGroup);
         }
     }
 

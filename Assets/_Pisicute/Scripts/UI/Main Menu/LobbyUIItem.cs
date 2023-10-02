@@ -17,22 +17,20 @@ public class LobbyUIItem : MonoBehaviour
         image = GetComponent<Image>();
     }
 
-    public void SetInformation(Lobby lobby)
+    public void SetInformation(Lobby lobby, SingleSelectGroup singleSelectGroup = null)
     {
         this.lobby = lobby;
         sessionNameText.text = lobby.Name;
         sessionPlayersText.text = $"{lobby.Players.Count}/{lobby.MaxPlayers}";
-    }
-
-    public void Deselect()
-    {
-        image.color = new Color(image.color.r, image.color.g, image.color.b, 0.5f);
+        if (singleSelectGroup != null)
+        {
+            singleSelectGroup.images.Add(image);
+            GetComponent<Button>().onClick.AddListener(() => singleSelectGroup.Select(gameObject));
+        }
     }
 
     public void SelectSession()
     {
-        lobbyUIHandler.DeselectAll();
-        image.color = new Color(image.color.r, image.color.g, image.color.b, 1);
         MainMenuManager.Instance.SetCurrentSelectedLobby(lobby);
     }
 }

@@ -7,7 +7,13 @@ public class LobbyList : MonoBehaviour
     [SerializeField] private GameObject lobbyItemListPrefab;
     [SerializeField] private Transform lobbyListParent;
 
-    List<LobbyUIItem> lobbyUIItems = new List<LobbyUIItem>();
+    private List<LobbyUIItem> lobbyUIItems = new List<LobbyUIItem>();
+    private SingleSelectGroup singleSelectGroup;
+
+    private void Awake()
+    {
+        singleSelectGroup = GetComponent<SingleSelectGroup>();
+    }
 
     private void OnEnable()
     {
@@ -30,17 +36,10 @@ public class LobbyList : MonoBehaviour
 
     private void ClearList()
     {
+        singleSelectGroup.images.Clear();
         foreach (Transform child in lobbyListParent)
         {
             Destroy(child.gameObject);
-        }
-    }
-
-    public void DeselectAll()
-    {
-        foreach (LobbyUIItem l in lobbyUIItems)
-        {
-            l.Deselect();
         }
     }
 

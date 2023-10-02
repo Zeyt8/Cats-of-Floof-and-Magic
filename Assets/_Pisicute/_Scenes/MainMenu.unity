@@ -1074,6 +1074,7 @@ GameObject:
   - component: {fileID: 443183372}
   - component: {fileID: 443183371}
   - component: {fileID: 443183373}
+  - component: {fileID: 443183374}
   m_Layer: 5
   m_Name: Lobby
   m_TagString: Untagged
@@ -1159,6 +1160,19 @@ MonoBehaviour:
     type: 3}
   mapsListContent: {fileID: 720894514}
   lobbyCode: {fileID: 2005471623}
+--- !u!114 &443183374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 443183369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d26d991e3bfecc94bb621289df9957ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  images: []
 --- !u!1 &448367865
 GameObject:
   m_ObjectHideFlags: 0
@@ -7218,6 +7232,7 @@ GameObject:
   - component: {fileID: 2048372089}
   - component: {fileID: 2048372088}
   - component: {fileID: 2048372090}
+  - component: {fileID: 2048372091}
   m_Layer: 5
   m_Name: Lobbies
   m_TagString: Untagged
@@ -7298,6 +7313,19 @@ MonoBehaviour:
   lobbyItemListPrefab: {fileID: 9052856766267893422, guid: 253cb45ce43377645ab907ee1276ff5e,
     type: 3}
   lobbyListParent: {fileID: 1666230343}
+--- !u!114 &2048372091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2048372086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d26d991e3bfecc94bb621289df9957ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  images: []
 --- !u!1 &2074881824
 GameObject:
   m_ObjectHideFlags: 0

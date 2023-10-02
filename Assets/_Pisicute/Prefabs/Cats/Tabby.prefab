@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   owner: 1
-  icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  icon: {fileID: 21300000, guid: c6753baab4b7ef14a962bb55df2a1e3c, type: 3}
   movementPoints: 0
   IsMoving: 0
   visionRange: 3
@@ -163,6 +163,15 @@ MonoBehaviour:
     maxHealth: 5
     power: 5
     speed: 20
+  sellCost:
+    food: 0
+    wood: 5
+    stone: 5
+    steel: 0
+    sulfur: 0
+    gems: 0
+  abilities: []
+  battleMap: {fileID: 0}
 --- !u!1 &2902873987606075414
 GameObject:
   m_ObjectHideFlags: 0
