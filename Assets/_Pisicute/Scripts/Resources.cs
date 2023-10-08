@@ -57,6 +57,55 @@ public class Resources
         }
     }
 
+    public int this[Resource r]
+    {
+        get => this[(int)r];
+        set => this[(int)r] = value;
+    }
+
+    public int this[int i]
+    {
+        get
+        {
+            return i switch
+            {
+                0 => food,
+                1 => wood,
+                2 => stone,
+                3 => steel,
+                4 => sulfur,
+                5 => gems,
+                _ => 0,
+            };
+        }
+        set
+        {
+            switch (i)
+            {
+                case 0:
+                    food = value;
+                    break;
+                case 1:
+                    wood = value;
+                    break;
+                case 2:
+                    stone = value;
+                    break;
+                case 3:
+                    steel = value;
+                    break;
+                case 4:
+                    sulfur = value;
+                    break;
+                case 5:
+                    gems = value;
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
     public static Resources operator +(Resources a, Resources b)
     {
         a.food = b.food;

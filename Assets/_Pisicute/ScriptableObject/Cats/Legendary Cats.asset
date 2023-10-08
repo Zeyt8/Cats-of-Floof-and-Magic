@@ -10,10 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4be53de2a709c4e4699bf9cc7425a16b, type: 3}
-  m_Name: All Cats
+  m_Name: Legendary Cats
   m_EditorClassIdentifier: 
   cats:
-    keys: 0500000000000000
+    keys: 0d000000
     values:
-    - {fileID: 1383316174885638883, guid: 8ed6acde7cc105c46a00d5e3bc749ee7, type: 3}
-    - {fileID: -6720652429973485856, guid: 177a120cbe207944da34df5882aa6b05, type: 3}
+    - {fileID: 4418404620694623122, guid: f8126a0570defe346bc5421b546e7f00, type: 3}

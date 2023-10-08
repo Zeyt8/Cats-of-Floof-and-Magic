@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 public class Cat : UnitObject
 {
@@ -6,7 +7,7 @@ public class Cat : UnitObject
     public Resources sellCost;
     public override int Speed => data.speed;
     public List<CatAbility> abilities;
-    public BattleMap battleMap;
+    [HideInInspector] public BattleMap battleMap;
 
     public override bool IsValidDestination(HexCell cell)
     {

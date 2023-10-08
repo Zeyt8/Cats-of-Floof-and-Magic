@@ -159,12 +159,21 @@ MonoBehaviour:
   playerMarker: {fileID: 8834641787741074148}
   data:
     type: 0
+    factions: 1
     health: 10
     maxHealth: 10
     power: 5
     speed: 20
+  sellCost:
+    food: 0
+    wood: 0
+    stone: 0
+    steel: 0
+    sulfur: 0
+    gems: 0
   abilities:
   - {fileID: -5892320475343654142, guid: 74789eab3b78fb149b550e11f2bbf022, type: 3}
+  battleMap: {fileID: 0}
 --- !u!1 &2902873987606075414
 GameObject:
   m_ObjectHideFlags: 0

@@ -47,7 +47,7 @@ public class LobbyList : MonoBehaviour
     {
         LobbyUIItem sessionItem = Instantiate(lobbyItemListPrefab, lobbyListParent).GetComponent<LobbyUIItem>();
         sessionItem.lobbyUIHandler = this;
-        sessionItem.SetInformation(lobby);
+        sessionItem.SetInformation(lobby, singleSelectGroup);
         lobbyUIItems.Add(sessionItem);
     }
 }

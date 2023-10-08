@@ -114,9 +114,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2523363979332422640}
-  - component: {fileID: 1383316174885638883}
+  - component: {fileID: -430708179278572559}
   m_Layer: 0
-  m_Name: Tabby
+  m_Name: LevitatingBlobCat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -139,7 +139,7 @@ Transform:
   - {fileID: 5012528153847216546}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1383316174885638883
+--- !u!114 &-430708179278572559
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -148,25 +148,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 2139440890055595572}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7e489bb8c7cd0e4f868c2a866d789ad, type: 3}
+  m_Script: {fileID: 11500000, guid: 740829a5a00aa5f47889adfbadb02d4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  owner: 1
+  owner: 0
   icon: {fileID: 21300000, guid: c6753baab4b7ef14a962bb55df2a1e3c, type: 3}
   movementPoints: 0
   IsMoving: 0
   visionRange: 3
   playerMarker: {fileID: 8834641787741074148}
   data:
-    type: 5
+    type: 11
+    factions: 130
     health: 5
     maxHealth: 5
     power: 5
     speed: 20
   sellCost:
     food: 0
-    wood: 5
-    stone: 5
+    wood: 0
+    stone: 0
     steel: 0
     sulfur: 0
     gems: 0

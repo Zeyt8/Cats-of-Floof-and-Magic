@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4be53de2a709c4e4699bf9cc7425a16b, type: 3}
+  m_Name: Common Cats
+  m_EditorClassIdentifier: 
+  cats:
+    keys: 070000000500000006000000
+    values:
+    - {fileID: -4705552825865899750, guid: 6f3d8f02946e4c04b9a784de0bc043eb, type: 3}
+    - {fileID: 2904281975645589111, guid: 8ed6acde7cc105c46a00d5e3bc749ee7, type: 3}
+    - {fileID: 5758177785425411002, guid: c4174cec1fa692f4cbbf33fd9b923c58, type: 3}

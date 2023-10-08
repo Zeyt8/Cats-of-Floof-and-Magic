@@ -4,6 +4,7 @@ using System;
 public class CatData
 {
     public CatTypes type;
+    public Factions factions;
     public int health;
     public int maxHealth;
     public int power;

@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class ClickableCatIcon : MonoBehaviour
 {
-    [SerializeField] private Image icon;
+    public Image icon;
     private Cat cat;
     public Action<Cat> onClick;
 

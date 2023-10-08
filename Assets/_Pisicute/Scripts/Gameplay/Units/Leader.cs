@@ -7,7 +7,7 @@ public class Leader : UnitObject
     public int maxFloof;
     public int currentFloof;
     [SerializeField] private CatCollection sicCats;
-    [HideInInspector] public List<CatData> army = new List<CatData>();
+    public List<CatData> army = new List<CatData>();
 
     protected override void Start()
     {

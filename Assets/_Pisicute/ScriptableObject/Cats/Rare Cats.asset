@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4be53de2a709c4e4699bf9cc7425a16b, type: 3}
+  m_Name: Rare Cats
+  m_EditorClassIdentifier: 
+  cats:
+    keys: 080000000900000011000000000000000e0000000f0000001200000004000000
+    values:
+    - {fileID: 966566571578182958, guid: fe1c2093360531d42b7b0bb05a057d9b, type: 3}
+    - {fileID: -7180828083991429865, guid: 3a02e07cde9988842b9c51eb75029d89, type: 3}
+    - {fileID: 1238958426724020962, guid: 4fd975b3c2a608040979609a8dfa1d09, type: 3}
+    - {fileID: -6720652429973485856, guid: 177a120cbe207944da34df5882aa6b05, type: 3}
+    - {fileID: -7234301552288243930, guid: e171a5aedda006347b7ebdcebaeda2ce, type: 3}
+    - {fileID: -9101291364940373548, guid: fa2f1eb06ecf24746a39c37f0e3086e8, type: 3}
+    - {fileID: -3451680466377878035, guid: 73ef24e91e3c7534fbc8fe7f77b8d0a2, type: 3}
+    - {fileID: -262665827402489961, guid: 0e38a2927b323a646ad76ce155a086bf, type: 3}
