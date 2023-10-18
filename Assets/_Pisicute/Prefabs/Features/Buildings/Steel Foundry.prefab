@@ -54,7 +54,7 @@ MonoBehaviour:
     steel: 0
     sulfur: 0
     gems: 0
-  icon: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  icon: {fileID: 1199125370, guid: e4e37005ba4266243a8609f6167dbbf0, type: 3}
   description: Can combine the iron it produces, wood and stone to smelt into steel.
   visionRange: 3
   grid: {fileID: 0}
