@@ -54,7 +54,7 @@ MonoBehaviour:
     steel: 0
     sulfur: 0
     gems: 0
-  icon: {fileID: -1798524556, guid: e4e37005ba4266243a8609f6167dbbf0, type: 3}
+  icon: {fileID: 888047081, guid: e4e37005ba4266243a8609f6167dbbf0, type: 3}
   description: Gives you 1 spell once.
   visionRange: 3
   grid: {fileID: 0}

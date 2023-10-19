@@ -10,7 +10,7 @@ public class SingleSelectGroup : MonoBehaviour
     {
         foreach (Image image in images)
         {
-            image.color = new Color(image.color.r, image.color.g, image.color.b, 0.5f);
+            image.color = new Color(image.color.r, image.color.g, image.color.b, 0.6f);
         }
     }
 
@@ -24,7 +24,7 @@ public class SingleSelectGroup : MonoBehaviour
             }
             else
             {
-                image.color = new Color(image.color.r, image.color.g, image.color.b, 0.5f);
+                image.color = new Color(image.color.r, image.color.g, image.color.b, 0.6f);
             }
         }
     }

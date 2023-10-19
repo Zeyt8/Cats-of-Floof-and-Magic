@@ -1,9 +1,11 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BuildingDetails : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI text;
+    [SerializeField] private Image icon;
     [SerializeField] private GameObject button;
     [SerializeField] private PlayerInputHandler playerInputHandler;
     private Building currentBuilding;
@@ -23,7 +25,8 @@ public class BuildingDetails : MonoBehaviour
     {
         currentBuilding = building;
         gameObject.SetActive(true);
-        text.text = building.description;
+        text.text = $"<b>{building.type}</b>\n{building.description}";
+        icon.sprite = building.icon;
         button.SetActive(building.HasUIPanel);
         DeactivateBuildingUI();
     }
