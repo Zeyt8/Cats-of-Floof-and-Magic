@@ -73,14 +73,14 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
         {
             return;
         }
-        LevelManager.Instance.mapHexGrid.ClearPath();
+        LevelManager.Instance.CurrentMap.ClearPath();
         UpdateCurrentCell();
         if (currentCell == null) return;
         if (onClickAction != null)
         {
             onClickAction(currentCell);
             onClickAction = null;
-            foreach (HexCell cell in LevelManager.Instance.mapHexGrid.cells)
+            foreach (HexCell cell in LevelManager.Instance.CurrentMap.cells)
             {
                 cell.DisableHighlight();
             }
@@ -91,7 +91,7 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
         {
             SelectionWorldMap(currentCell);
         }
-        else if (playerNumber == LevelManager.Instance.currentPlayer)
+        else if (playerNumber == LevelManager.Instance.currentBattleMap.currentPlayer)
         {
             SelectionBattleMap(currentCell);
         }
@@ -191,16 +191,23 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
 
     private void DoAlternateAction()
     {
-        if (playerNumber != LevelManager.Instance.currentPlayer) return;
+        if (LevelManager.Instance.currentBattleMap == null)
+        {
+            if (playerNumber != LevelManager.Instance.currentPlayer) return;
+        }
+        else
+        {
+            if (LevelManager.Instance.currentBattleMap.currentPlayer != playerNumber) return;
+        }
         if (selectedUnit && selectedUnit.owner == playerNumber)
         {
             HexCell cell = GetClickedCell();
             if (lockedPath == cell)
             {
-                if (LevelManager.Instance.mapHexGrid.HasPath)
+                if (LevelManager.Instance.CurrentMap.HasPath)
                 {
                     DoMoveServerRpc(LevelManager.Instance.CurrentMap.GetPath().Select(c => c.coordinates).ToArray());
-                    LevelManager.Instance.mapHexGrid.ClearPath();
+                    LevelManager.Instance.CurrentMap.ClearPath();
                     lockedPath = null;
                 }
             }
@@ -216,12 +223,12 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
         if (selectedUnit.IsMoving) return;
         if (cell && selectedUnit.IsValidDestination(cell))
         {
-            LevelManager.Instance.mapHexGrid.FindPath(selectedUnit.Location, cell, selectedUnit);
+            LevelManager.Instance.CurrentMap.FindPath(selectedUnit.Location, cell, selectedUnit);
             lockedPath = cell;
         }
         else
         {
-            LevelManager.Instance.mapHexGrid.ClearPath();
+            LevelManager.Instance.CurrentMap.ClearPath();
         }
     }
 

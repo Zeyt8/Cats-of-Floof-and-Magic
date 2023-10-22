@@ -6,6 +6,7 @@ public class BattleMap : MonoBehaviour
 {
     public HexMapGenerator generator;
     public HexGrid hexGrid;
+    public int currentPlayer;
     [SerializeField] private CatCollection allCats;
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
     private List<Leader> battlingLeaders = new List<Leader>();
@@ -45,14 +46,13 @@ public class BattleMap : MonoBehaviour
 
     public bool SelectedCell(HexCell cell)
     {
+        if (currentPlayer != PlayerObject.Instance.playerNumber) return false;
         if (state == State.Deploy)
         {
-            if (catsToPlace.Peek().item1 != PlayerObject.Instance.playerNumber) return false;
             PlaceCat(cell);
         }
         else if (state == State.Fight)
         {
-            if (catTurnQueue[0].owner != PlayerObject.Instance.playerNumber) return false;
         }
         return true;
     }
@@ -101,6 +101,7 @@ public class BattleMap : MonoBehaviour
         {
             state = State.Deploy;
             HighlightPlaceableTiles(catToPlace);
+            currentPlayer = catToPlace.item1;
         }
         else
         {
@@ -138,8 +139,7 @@ public class BattleMap : MonoBehaviour
         state = State.Fight;
         UnhighlightAllTiles();
         catTurnQueue.Sort((cat1, cat2) => cat2.Speed - cat1.Speed);
-        catTurnQueue.Add(CurrentCatTurn);
-        catTurnQueue.RemoveAt(0);
+        currentPlayer = CurrentCatTurn.owner;
         BattleCanvas.Instance.ShowAbilities(CurrentCatTurn);
     }
 
