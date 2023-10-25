@@ -5,7 +5,7 @@ public class FactionEffect
     public int level { get; private set; }
     public Factions faction { get; private set; }
 
-    public virtual FactionEffect(Factions faction, int level)
+    public FactionEffect(Factions faction, int level)
     { 
         this.level = level;
         this.faction = faction;
