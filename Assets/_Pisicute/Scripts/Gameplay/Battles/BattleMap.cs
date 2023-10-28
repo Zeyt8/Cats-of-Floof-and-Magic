@@ -10,11 +10,13 @@ public class BattleMap : MonoBehaviour
     [SerializeField] private CatCollection allCats;
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
     private List<Leader> battlingLeaders = new List<Leader>();
-    // cat deployment
+    // deployment
     private Stack<Pair<int, CatData>> catsToPlace = new Stack<Pair<int, CatData>>();
-    // cat turn order
+    // battle
     private List<Cat> catTurnQueue = new List<Cat>();
     private Cat CurrentCatTurn => catTurnQueue[0];
+    private List<Cat>[] armies = new List<Cat>[2];
+    private List<FactionEffect> selfFactions = new List<FactionEffect>();
     // grid dimensions
     private int width;
     private int height;
@@ -36,6 +38,8 @@ public class BattleMap : MonoBehaviour
         this.width = width;
         this.height = height;
         battlingLeaders = leaders;
+        armies[0] = new List<Cat>();
+        armies[1] = new List<Cat>();
         generator.GenerateMap(width, height);
         foreach (HexGridChunk hgc in hexGrid.transform.GetComponentsInChildren<HexGridChunk>())
         {
@@ -91,6 +95,7 @@ public class BattleMap : MonoBehaviour
         cat.battleMap = this;
         location.AddUnit(cat, 0);
         catTurnQueue.Add(cat);
+        armies[cat.owner - 1].Add(cat);
         SetupNextCatPlacement();
     }
 
@@ -141,6 +146,8 @@ public class BattleMap : MonoBehaviour
         catTurnQueue.Sort((cat1, cat2) => cat2.Speed - cat1.Speed);
         currentPlayer = CurrentCatTurn.owner;
         BattleCanvas.Instance.ShowAbilities(CurrentCatTurn);
+        selfFactions = FactionEffect.CalculateFactionEffects(FactionEffect.CalculateFactions(armies[PlayerObject.Instance.playerNumber - 1]));
+        BattleCanvas.Instance.SetupFactionEffect(selfFactions);
     }
 
     public void EndTurn()

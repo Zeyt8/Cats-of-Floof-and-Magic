@@ -1,9 +1,12 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BattleCanvas : Singleton<BattleCanvas>
 {
     [SerializeField] private Transform abilityPanel;
     [SerializeField] private CatAbilityIcon abilityIconPrefab;
+    [SerializeField] private FactionIcon factionIconPrefab;
+    [SerializeField] private Transform factionsTransform;
 
     private BattleMap battleMap;
 
@@ -27,6 +30,14 @@ public class BattleCanvas : Singleton<BattleCanvas>
         foreach (CatAbility ability in cat.abilities)
         {
             Instantiate(abilityIconPrefab, abilityPanel).Initialize(cat, ability);
+        }
+    }
+
+    public void SetupFactionEffect(List<FactionEffect> effects)
+    {
+        foreach (FactionEffect faction in effects)
+        {
+            Instantiate(factionIconPrefab, factionsTransform).Initialize(faction.faction, faction.level, faction.nextThreshold);
         }
     }
 

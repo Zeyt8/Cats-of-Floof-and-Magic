@@ -1635,6 +1635,9 @@ MonoBehaviour:
   abilityPanel: {fileID: 1134030435}
   abilityIconPrefab: {fileID: -8785135056558438542, guid: 3fdf22c783cc5164ea7cfdd9a5eabe8a,
     type: 3}
+  factionIconPrefab: {fileID: 6886702400243599231, guid: a1a6d75ae9061b54dab0183edf4d7f21,
+    type: 3}
+  factionsTransform: {fileID: 1809086677}
 --- !u!1 &591052493
 GameObject:
   m_ObjectHideFlags: 0

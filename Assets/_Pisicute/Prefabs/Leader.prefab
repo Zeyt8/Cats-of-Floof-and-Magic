@@ -159,7 +159,7 @@ MonoBehaviour:
   playerMarker: {fileID: 1877966034339332328}
   maxFloof: 20
   currentFloof: 0
-  sicCats: {fileID: 11400000, guid: 7b6a8ae4fbb052141871aa40d83607fe, type: 2}
+  sicCats: {fileID: 11400000, guid: 43b6399bf83a61d468b367c25e553446, type: 2}
   army: []
 --- !u!1 &3320796275736999658
 GameObject:

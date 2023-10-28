@@ -1,8 +1,10 @@
 using System.Collections.Generic;
+using System.Linq;
 
 public class FactionEffect
 {
     public int level { get; private set; }
+    public int nextThreshold { get; private set; }
     public Factions faction { get; private set; }
 
     public FactionEffect(Factions faction, int level)
@@ -30,9 +32,10 @@ public class FactionEffect
         }
         int wildcards = currentFactions.GetValueOrDefault(Factions.Wildcard, 0);
         currentFactions.Remove(Factions.Wildcard);
-        foreach (Factions faction in currentFactions.Keys)
+        List<Factions> keys = currentFactions.Keys.ToList();
+        foreach (Factions f in keys)
         {
-            currentFactions[faction] += wildcards;
+            currentFactions[f] += wildcards;
         }
         return currentFactions;
     }

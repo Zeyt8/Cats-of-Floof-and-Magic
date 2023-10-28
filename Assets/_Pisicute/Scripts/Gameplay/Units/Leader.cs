@@ -19,6 +19,10 @@ public class Leader : UnitObject
         }
         GameEvents.OnLeaderRecruited.Invoke(owner);
         AddCatToArmy(sicCats.cats.Values.GetRandom().data);
+        AddCatToArmy(sicCats.cats.Values.GetRandom().data);
+        AddCatToArmy(sicCats.cats.Values.GetRandom().data);
+        AddCatToArmy(sicCats.cats.Values.GetRandom().data);
+
     }
 
     private void OnDestroy()
@@ -43,13 +47,14 @@ public class Leader : UnitObject
         {
             if (unit.owner != owner)
             {
-                List<Leader> leaders = new List<Leader>();
-                foreach (UnitObject u in destination.units)
+                List<Leader> leaders = new List<Leader>
                 {
-                    leaders.Add((Leader)u);
-                }
+                    (Leader)destination.units[0],
+                    (Leader)destination.units[1]
+                };
                 destination.battleMap = BattleManager.Instance.GenerateBattle(destination.TerrainTypeIndex, leaders);
                 LevelManager.Instance.GoToBattleMap(destination.battleMap);
+                break;
             }
         }
         PlayerObject.Instance.SelectCell(destination);
