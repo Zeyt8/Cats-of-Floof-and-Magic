@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using System.Linq;
-using Unity.Collections;
 
 public class PlayerObject : NetworkSingleton<PlayerObject>
 {

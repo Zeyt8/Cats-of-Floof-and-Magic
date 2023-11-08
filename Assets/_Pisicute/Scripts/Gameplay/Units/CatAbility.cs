@@ -6,6 +6,13 @@ public abstract class CatAbility : MonoBehaviour
     public Sprite icon;
     public int cooldown;
 
+    public enum ActivationType
+    {
+        Instant,
+        RequiresTarget
+    }
+    public ActivationType activationType;
+
     public abstract Func<HexCell, bool> GetAvailableTargets(Cat cat);
 
     public virtual PlayerObject.Action<HexCell> CastAbility(Cat caster)

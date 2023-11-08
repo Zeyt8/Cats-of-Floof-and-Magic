@@ -18,7 +18,10 @@ public class CatShelterUI : BuildingUI
     public override void Initialize(Building building)
     {
         base.Initialize(building);
-        SetCats(((Leader)building.Location.units[0]).army);
+        if (building.Location.units.Count > 0)
+        {
+            SetCats(((Leader)building.Location.units[0]).army);
+        }
     }
 
     public void SellCat()

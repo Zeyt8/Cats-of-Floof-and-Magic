@@ -27,7 +27,10 @@ public class TrainingGroundsUI : BuildingUI
     public override void Initialize(Building building)
     {
         base.Initialize(building);
-        SetCats();
+        if (building.Location.units.Count > 0)
+        {
+            SetCats();
+        }
     }
 
     public void Upgrade()

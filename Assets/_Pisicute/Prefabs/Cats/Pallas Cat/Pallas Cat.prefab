@@ -172,6 +172,7 @@ MonoBehaviour:
     sulfur: 0
     gems: 0
   abilities:
+  - {fileID: 578620850131082030, guid: 9d968fe528380d041a17c6c0412bd732, type: 3}
   - {fileID: -5892320475343654142, guid: 74789eab3b78fb149b550e11f2bbf022, type: 3}
   battleMap: {fileID: 0}
 --- !u!1 &2902873987606075414
