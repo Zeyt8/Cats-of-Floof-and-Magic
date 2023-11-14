@@ -9,6 +9,6 @@ public static class NetworkPlayerUtils
 
     public static int GetPlayerIndex(string playerId)
     {
-        return LobbyHandler.JoinedLobby.Data.ContainsKey(playerId) ? int.Parse(LobbyHandler.JoinedLobby.Data[playerId].Value) : 1;
+        return LobbyHandler.JoinedLobby.Data.ContainsKey(playerId) ? int.Parse(LobbyHandler.JoinedLobby.Data[playerId].Value) : 0;
     }
 }

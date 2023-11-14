@@ -7,18 +7,27 @@ public class LeaderIcon : MonoBehaviour
     [SerializeField] private Slider floofSlider;
     [SerializeField] private Slider movementPointsSlider;
 
-    public Leader leader;
+    public Leader Leader
+    {
+        get => leader;
+        set
+        {
+            leader = value;
+            icon.sprite = leader.icon;
+        }
+    }
+    private Leader leader;
 
     private void Update()
     {
-        floofSlider.maxValue = leader.maxFloof;
-        floofSlider.value = leader.currentFloof;
-        movementPointsSlider.maxValue = leader.Speed;
-        movementPointsSlider.value = leader.movementPoints;
+        floofSlider.maxValue = Leader.maxFloof;
+        floofSlider.value = Leader.currentFloof;
+        movementPointsSlider.maxValue = Leader.Speed;
+        movementPointsSlider.value = Leader.movementPoints;
     }
 
     public void GoToLeaderPosition()
     {
-        LevelManager.Instance.MoveCamera(new Vector2(leader.transform.position.x, leader.transform.position.z));
+        LevelManager.Instance.MoveCamera(new Vector2(Leader.transform.position.x, Leader.transform.position.z));
     }
 }

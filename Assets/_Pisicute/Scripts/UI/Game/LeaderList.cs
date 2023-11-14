@@ -26,7 +26,7 @@ public class LeaderList : MonoBehaviour
         foreach (Leader leader in PlayerObject.Instance.leaders)
         {
             LeaderIcon leaderIcon = Instantiate(leaderIconPrefab, transform);
-            leaderIcon.leader = leader;
+            leaderIcon.Leader = leader;
             leaderIcons.Add(leaderIcon);
         }
     }

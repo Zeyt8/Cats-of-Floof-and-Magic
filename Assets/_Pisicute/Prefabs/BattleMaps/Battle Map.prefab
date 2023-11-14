@@ -49,6 +49,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   generator: {fileID: 8116019497104981907}
+  hexGrid: {fileID: 0}
+  currentPlayer: 0
   allCats: {fileID: 11400000, guid: 43b6399bf83a61d468b367c25e553446, type: 2}
   virtualCamera: {fileID: 577365582546417050}
 --- !u!114 &3172390657513214595
@@ -63,9 +65,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0709fc225d318e41b1feea068adaf38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
-  unitPrefab: {fileID: 1080861093048124148, guid: 9e25c1c4f9117fc4da87c8e9b07d3273,
-    type: 3}
+  leaderPrefab: {fileID: 0}
   allBuildings: {fileID: 11400000, guid: 2f536239c3385a943a4c8de0d35ef92e, type: 2}
   cellCountX: 4
   cellCountZ: 3

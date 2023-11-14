@@ -5,6 +5,7 @@ using Unity.Services.Lobbies.Models;
 using UnityEngine;
 using TMPro;
 using Unity.Services.Lobbies;
+using System.Threading;
 
 public class PlayerLobby : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class PlayerLobby : MonoBehaviour
     [SerializeField] private TextMeshProUGUI lobbyCode;
 
     private SingleSelectGroup singleSelectGroup;
+    private SemaphoreSlim semaphore = new SemaphoreSlim(1);
 
     private void Awake()
     {
@@ -59,11 +61,7 @@ public class PlayerLobby : MonoBehaviour
 
     private async void SetPlayers(ILobbyChanges changes)
     {
-        foreach (Transform child in playerUIItemParent)
-        {
-            Destroy(child.gameObject);
-        }
-
+        await semaphore.WaitAsync();
         if (LobbyHandler.IsLobbyHost)
         {
             List<Player> players = LobbyHandler.JoinedLobby.Players;
@@ -75,11 +73,15 @@ public class PlayerLobby : MonoBehaviour
             }
             await LobbyHandler.JoinedLobby.UpdateData(playerIds);
         }
-
+        foreach (Transform child in playerUIItemParent)
+        {
+            Destroy(child.gameObject);
+        }
         foreach (Player t in LobbyHandler.JoinedLobby.Players)
         {
             PlayerUIItem item = Instantiate(playerUIItemPrefab, playerUIItemParent);
             item.Set(t.GetPlayerName(), PlayerColors.Get(NetworkPlayerUtils.GetPlayerIndex(t.Id)));
         }
+        semaphore.Release();
     }
 }

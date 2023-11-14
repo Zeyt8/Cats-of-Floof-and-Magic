@@ -86,13 +86,19 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
             SelectCell(currentCell);
             return;
         }
-        if (!LevelManager.IsBattleActive && playerNumber == LevelManager.Instance.currentPlayer)
+        if (!LevelManager.IsBattleActive)
         {
-            SelectionWorldMap(currentCell);
+            if (playerNumber == LevelManager.Instance.currentPlayer)
+            {
+                SelectionWorldMap(currentCell);
+            }
         }
-        else if (playerNumber == LevelManager.Instance.currentBattleMap.currentPlayer)
+        else
         {
-            SelectionBattleMap(currentCell);
+            if (playerNumber == LevelManager.Instance.currentBattleMap.currentPlayer)
+            {
+                SelectionBattleMapServerRpc(currentCell.coordinates, playerNumber);
+            }
         }
     }
 
@@ -179,9 +185,19 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
         }
     }
 
-    private void SelectionBattleMap(HexCell cell)
+    [ServerRpc(RequireOwnership = false)]
+    private void SelectionBattleMapServerRpc(HexCoordinates coords, int player)
     {
-        if (LevelManager.Instance.currentBattleMap.SelectedCell(cell))
+        SelectionBattleMapClientRpc(coords, player);
+    }
+
+    [ClientRpc]
+    private void SelectionBattleMapClientRpc(HexCoordinates coords, int player)
+    {
+        HexCell cell = LevelManager.Instance.CurrentMap.GetCell(coords);
+        bool selected = LevelManager.Instance.currentBattleMap.SelectedCell(cell);
+        if (player != playerNumber) return;
+        if (selected)
         {
             selectedUnit = cell.units.Count > 0 ? cell.units[0] : null;
             if (selectedUnit)
@@ -210,7 +226,7 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
             {
                 if (LevelManager.Instance.CurrentMap.HasPath)
                 {
-                    DoMoveServerRpc(LevelManager.Instance.CurrentMap.GetPath().Select(c => c.coordinates).ToArray());
+                    DoMoveServerRpc(LevelManager.Instance.CurrentMap.GetPath().Select(c => c.coordinates).ToArray(), selectedUnit.Location.coordinates);
                     LevelManager.Instance.CurrentMap.ClearPath();
                     lockedPath = null;
                 }
@@ -237,19 +253,19 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
     }
 
     [ServerRpc(RequireOwnership = false)]
-    private void DoMoveServerRpc(HexCoordinates[] path)
+    private void DoMoveServerRpc(HexCoordinates[] path, HexCoordinates unitLocation)
     {
-        DoMoveClientRpc(path);
+        DoMoveClientRpc(path, unitLocation);
     }
 
     [ClientRpc]
-    private void DoMoveClientRpc(HexCoordinates[] path)
+    private void DoMoveClientRpc(HexCoordinates[] path, HexCoordinates unitLocation)
     {
         List<HexCell> cells = new List<HexCell>();
         foreach (HexCoordinates cell in path)
         {
             cells.Add(LevelManager.Instance.CurrentMap.GetCell(cell));
         }
-        selectedUnit.Travel(cells);
+        LevelManager.Instance.CurrentMap.GetCell(unitLocation).units[0].Travel(cells);
     }
 }

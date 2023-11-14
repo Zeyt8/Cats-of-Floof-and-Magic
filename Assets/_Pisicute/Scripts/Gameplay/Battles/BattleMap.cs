@@ -1,5 +1,6 @@
 using Cinemachine;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 public class BattleMap : MonoBehaviour
@@ -50,7 +51,6 @@ public class BattleMap : MonoBehaviour
 
     public bool SelectedCell(HexCell cell)
     {
-        if (currentPlayer != PlayerObject.Instance.playerNumber) return false;
         if (state == State.Deploy)
         {
             PlaceCat(cell);

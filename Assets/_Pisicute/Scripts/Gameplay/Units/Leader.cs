@@ -52,7 +52,10 @@ public class Leader : UnitObject
                     (Leader)destination.units[0],
                     (Leader)destination.units[1]
                 };
-                destination.battleMap = BattleManager.Instance.GenerateBattle(destination.TerrainTypeIndex, leaders);
+                Random.State state = Random.state;
+                Random.InitState(destination.coordinates.X + destination.coordinates.Y + destination.coordinates.Z + destination.Elevation + destination.index);
+                destination.battleMap = BattleManager.Instance.GenerateBattle(destination.TerrainTypeIndex, leaders, Random.Range(0, int.MaxValue));
+                Random.state = state;
                 LevelManager.Instance.GoToBattleMap(destination.battleMap);
                 break;
             }

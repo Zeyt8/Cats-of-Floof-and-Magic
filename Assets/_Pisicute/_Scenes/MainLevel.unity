@@ -1610,6 +1610,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1809086677}
+  - {fileID: 1208545354}
   - {fileID: 1134030435}
   - {fileID: 1251102760}
   m_Father: {fileID: 0}
@@ -1637,6 +1638,7 @@ MonoBehaviour:
   factionIconPrefab: {fileID: 6886702400243599231, guid: a1a6d75ae9061b54dab0183edf4d7f21,
     type: 3}
   factionsTransform: {fileID: 1809086677}
+  catIcon: {fileID: 1208545355}
 --- !u!1 &591052493
 GameObject:
   m_ObjectHideFlags: 0
@@ -2869,8 +2871,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -267.0025, y: 0}
-  m_SizeDelta: {x: -534.005, y: 70}
+  m_AnchoredPosition: {x: -193.96, y: 0}
+  m_SizeDelta: {x: -680.09, y: 146.3}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1134030436
 MonoBehaviour:
@@ -2881,23 +2883,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 1134030434}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Script: {fileID: 11500000, guid: 6cee1f3bb43ca9c4c9e00b54a998d9ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 0
+    m_Left: 5
     m_Right: 0
     m_Top: 0
-    m_Bottom: 0
-  m_ChildAlignment: 6
-  m_Spacing: 0
-  m_ChildForceExpandWidth: 0
-  m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 0
-  m_ChildControlHeight: 1
-  m_ChildScaleWidth: 1
-  m_ChildScaleHeight: 1
-  m_ReverseArrangement: 0
+    m_Bottom: 5
+  m_ChildAlignment: 3
+  startCorner: 2
+  columnWidths:
+  - 96
+  - 96
+  - 96
+  - 96
+  - 96
+  minimumRowHeight: 96
+  flexibleRowHeight: 1
+  columnSpacing: 5
+  rowSpacing: 0
 --- !u!1 &1137778641
 GameObject:
   m_ObjectHideFlags: 0
@@ -2972,6 +2977,81 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1137778641}
+  m_CullTransparentMesh: 1
+--- !u!1 &1208545353
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1208545354}
+  - component: {fileID: 1208545356}
+  - component: {fileID: 1208545355}
+  m_Layer: 5
+  m_Name: Cat Icon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1208545354
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1208545353}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 533460268}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -0.2199707, y: 0}
+  m_SizeDelta: {x: 146.3, y: 146.3}
+  m_Pivot: {x: 0, y: 0}
+--- !u!114 &1208545355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1208545353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: -1335923519, guid: 754a392a1d99442409412030ad7070d3, type: 3}
+  m_Type: 1
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1208545356
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1208545353}
   m_CullTransparentMesh: 1
 --- !u!1 &1213890160
 GameObject:
@@ -4796,23 +4876,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1809086676}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+  m_Script: {fileID: 11500000, guid: 6cee1f3bb43ca9c4c9e00b54a998d9ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 0
+    m_Left: 6
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 0
-  m_Spacing: 0
-  m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 0
-  m_ChildControlHeight: 0
-  m_ChildScaleWidth: 0
-  m_ChildScaleHeight: 0
-  m_ReverseArrangement: 0
+  m_ChildAlignment: 1
+  startCorner: 0
+  columnWidths:
+  - 96
+  minimumRowHeight: 140
+  flexibleRowHeight: 1
+  columnSpacing: 0
+  rowSpacing: 6
 --- !u!1 &1857101338
 GameObject:
   m_ObjectHideFlags: 0
