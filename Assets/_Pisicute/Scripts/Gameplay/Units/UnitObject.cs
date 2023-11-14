@@ -118,7 +118,12 @@ public class UnitObject : MonoBehaviour, ISaveableObject
     public void ChangeOwner(int player)
     {
         owner = player;
-        playerMarker.color = PlayerColors.Get(player);
+        ChangePlayerMarkerColor(PlayerColors.Get(player));
+    }
+
+    protected void ChangePlayerMarkerColor(Color color)
+    {
+        playerMarker.color = color;
     }
 
     protected virtual void FinishTravel(HexCell destination)

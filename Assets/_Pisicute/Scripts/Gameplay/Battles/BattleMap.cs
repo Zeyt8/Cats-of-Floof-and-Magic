@@ -14,7 +14,7 @@ public class BattleMap : MonoBehaviour
     private Stack<Pair<int, CatData>> catsToPlace = new Stack<Pair<int, CatData>>();
     // battle
     private List<Cat> catTurnQueue = new List<Cat>();
-    private Cat CurrentCatTurn => catTurnQueue[0];
+    public Cat CurrentCatTurn => catTurnQueue[0];
     private List<Cat>[] armies = new List<Cat>[2];
     private List<FactionEffect> selfFactions = new List<FactionEffect>();
     // grid dimensions
@@ -87,9 +87,10 @@ public class BattleMap : MonoBehaviour
 
     private void PlaceCat(HexCell location)
     {
-        // TODO: Check location valid
         // place cat
-        Pair<int, CatData> catToPlace = catsToPlace.Pop();
+        Pair<int, CatData> catToPlace = catsToPlace.Peek();
+        if (!IsCellPlaceable(catToPlace, location)) return;
+        catToPlace = catsToPlace.Pop();
         Cat cat = Instantiate(allCats[catToPlace.item2.type]);
         cat.owner = catToPlace.item1;
         cat.battleMap = this;
@@ -118,9 +119,7 @@ public class BattleMap : MonoBehaviour
     {
         foreach (HexCell cell in hexGrid.cells)
         {
-            bool condition = allCats[catData.item2.type].IsValidDestination(cell) &&
-                ((catData.item1 == 1 && cell.coordinates.HexX < 2.5f) || (catData.item1 == 2 && cell.coordinates.HexX > width - 3));
-            if (condition)
+            if (IsCellPlaceable(catData, cell))
             {
                 cell.EnableHighlight(HighlightType.Selection);
             }
@@ -129,6 +128,12 @@ public class BattleMap : MonoBehaviour
                 cell.DisableHighlight();
             }
         }
+    }
+
+    private bool IsCellPlaceable(Pair<int, CatData> catData, HexCell cell)
+    {
+        return allCats[catData.item2.type].IsValidDestination(cell) &&
+                         ((catData.item1 == 1 && cell.coordinates.HexX < 2.5f) || (catData.item1 == 2 && cell.coordinates.HexX > width - 3));
     }
 
     private void UnhighlightAllTiles()
@@ -145,15 +150,16 @@ public class BattleMap : MonoBehaviour
         UnhighlightAllTiles();
         catTurnQueue.Sort((cat1, cat2) => cat2.Speed - cat1.Speed);
         currentPlayer = CurrentCatTurn.owner;
-        BattleCanvas.Instance.ShowAbilities(CurrentCatTurn);
+        CurrentCatTurn.SetTurnActive(true);
         selfFactions = FactionEffect.CalculateFactionEffects(FactionEffect.CalculateFactions(armies[PlayerObject.Instance.playerNumber - 1]));
         BattleCanvas.Instance.SetupFactionEffect(selfFactions);
     }
 
     public void EndTurn()
     {
+        CurrentCatTurn.SetTurnActive(false);
         catTurnQueue.Add(CurrentCatTurn);
         catTurnQueue.RemoveAt(0);
-        BattleCanvas.Instance.ShowAbilities(CurrentCatTurn);
+        CurrentCatTurn.SetTurnActive(true);
     }
 }

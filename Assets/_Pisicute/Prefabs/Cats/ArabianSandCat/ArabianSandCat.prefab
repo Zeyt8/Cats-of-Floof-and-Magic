@@ -159,7 +159,7 @@ MonoBehaviour:
   playerMarker: {fileID: 8834641787741074148}
   data:
     type: 16
-    factions: 0
+    factions: 65
     health: 5
     maxHealth: 5
     power: 5

@@ -16,6 +16,7 @@ public class LevelManager : NetworkSingleton<LevelManager>
     public Canvas canvas;
     public HexGrid CurrentMap => currentBattleMap == null ? mapHexGrid : currentBattleMap.hexGrid;
     [HideInInspector] public BattleMap currentBattleMap;
+    public static bool IsBattleActive => Instance.currentBattleMap != null;
 
     public override void Awake()
     {

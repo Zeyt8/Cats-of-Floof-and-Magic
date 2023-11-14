@@ -86,7 +86,7 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
             SelectCell(currentCell);
             return;
         }
-        if (LevelManager.Instance.currentBattleMap == null && playerNumber == LevelManager.Instance.currentPlayer)
+        if (!LevelManager.IsBattleActive && playerNumber == LevelManager.Instance.currentPlayer)
         {
             SelectionWorldMap(currentCell);
         }
@@ -184,13 +184,17 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
         if (LevelManager.Instance.currentBattleMap.SelectedCell(cell))
         {
             selectedUnit = cell.units.Count > 0 ? cell.units[0] : null;
+            if (selectedUnit)
+            {
+                BattleCanvas.Instance.ShowAbilities((Cat)selectedUnit);
+            }
         }
         cell.EnableHighlight(HighlightType.Selection);
     }
 
     private void DoAlternateAction()
     {
-        if (LevelManager.Instance.currentBattleMap == null)
+        if (!LevelManager.IsBattleActive)
         {
             if (playerNumber != LevelManager.Instance.currentPlayer) return;
         }
@@ -200,6 +204,7 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
         }
         if (selectedUnit && selectedUnit.owner == playerNumber)
         {
+            if (LevelManager.IsBattleActive && selectedUnit != LevelManager.Instance.currentBattleMap.CurrentCatTurn) return;
             HexCell cell = GetClickedCell();
             if (lockedPath == cell)
             {

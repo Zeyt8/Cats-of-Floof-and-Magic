@@ -6,6 +6,7 @@ public class SicFactoryUI : BuildingUI
 {
     [SerializeField] private Image catImage;
     [SerializeField] private TextMeshProUGUI catName;
+    [SerializeField] private Sprite emptySprite;
 
     public override void Initialize(Building building)
     {
@@ -18,7 +19,7 @@ public class SicFactoryUI : BuildingUI
         }
         else
         {
-            catImage.sprite = null;
+            catImage.sprite = emptySprite;
             catName.text = "";
         }
     }
