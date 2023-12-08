@@ -20,16 +20,16 @@ public class CatShelterUI : BuildingUI
         base.Initialize(building);
         if (building.Location.units.Count > 0)
         {
-            SetCats(((Leader)building.Location.units[0]).army);
+            SetCats(((Leader)building.Location.Unit).army);
         }
     }
 
     public void SellCat()
     {
-        if (((Leader)currentBuilding.Location.units[0]).army.Remove(currentCat.data))
+        if (((Leader)currentBuilding.Location.Unit).army.Remove(currentCat.data))
         {
             PlayerObject.Instance.CurrentResources += currentCat.sellCost;
-            SetCats(((Leader)currentBuilding.Location.units[0]).army);
+            SetCats(((Leader)currentBuilding.Location.Unit).army);
             currentCat = null;
         }
     }

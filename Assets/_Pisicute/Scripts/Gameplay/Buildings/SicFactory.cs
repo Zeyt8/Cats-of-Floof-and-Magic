@@ -15,9 +15,9 @@ public class SicFactory : Building
     {
         if (Location.battleMap == null && catInWaiting != null)
         {
-            if (Location.units[0].owner == owner)
+            if (Location.Unit.owner == owner)
             {
-                ((Leader)Location.units[0]).AddCatToArmy(catInWaiting.data);
+                ((Leader)Location.Unit).AddCatToArmy(catInWaiting.data);
                 catInWaiting = null;
             }
         }

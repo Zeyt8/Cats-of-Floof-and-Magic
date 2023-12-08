@@ -50,8 +50,8 @@ public class TrainingGroundsUI : BuildingUI
             rarity = 1;
         }
         // remove cats
-        ((Leader)currentBuilding.Location.units[0]).army.Remove(cat1.data);
-        ((Leader)currentBuilding.Location.units[0]).army.Remove(cat2.data);
+        ((Leader)currentBuilding.Location.Unit).army.Remove(cat1.data);
+        ((Leader)currentBuilding.Location.Unit).army.Remove(cat2.data);
         // add new cat
         CatData catToAdd = null;
         switch (rarity)
@@ -71,13 +71,13 @@ public class TrainingGroundsUI : BuildingUI
             default:
                 break;
         }
-        ((Leader)currentBuilding.Location.units[0]).AddCatToArmy(catToAdd);
+        ((Leader)currentBuilding.Location.Unit).AddCatToArmy(catToAdd);
         SetCats();
     }
 
     private void SetCats()
     {
-        foreach (var unit in ((Leader)currentBuilding.Location.units[0]).army)
+        foreach (var unit in ((Leader)currentBuilding.Location.Unit).army)
         {
             ClickableCatIcon catIcon = Instantiate(catIconPrefab, units1);
             catIcon.SetCat(allCats[unit.type]);

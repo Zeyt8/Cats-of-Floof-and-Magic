@@ -69,6 +69,10 @@ public class UnitObject : MonoBehaviour, ISaveableObject
         ChangeOwner(owner);
     }
 
+    public virtual void TakeDamage(int damage)
+    {
+    }
+
     public virtual void Die()
     {
     }
@@ -86,7 +90,7 @@ public class UnitObject : MonoBehaviour, ISaveableObject
     protected virtual bool IsValidCrossing(HexCell fromCell, HexCell toCell)
     {
         HexEdgeType edgeType = fromCell.GetEdgeType(toCell);
-        return edgeType != HexEdgeType.Cliff && !fromCell.HasWallThroughEdge(fromCell.GetNeighborDirection(toCell));
+        return edgeType != HexEdgeType.Cliff && !fromCell.HasWallThroughEdge(fromCell.GetNeighborDirection(toCell).Value);
     }
 
     public int GetMoveCost(HexCell fromCell, HexCell toCell, HexDirection direction)
@@ -136,7 +140,7 @@ public class UnitObject : MonoBehaviour, ISaveableObject
 
         float t = Time.deltaTime * TravelSpeed;
         int i = 0;
-        int nextMovementCost = GetMoveCost(pathToTravel[0], pathToTravel[1], pathToTravel[0].GetNeighborDirection(pathToTravel[1]));
+        int nextMovementCost = GetMoveCost(pathToTravel[0], pathToTravel[1], pathToTravel[0].GetNeighborDirection(pathToTravel[1]).Value);
         while (movementPoints - nextMovementCost > 0)
         {
             // move smoothly
@@ -164,7 +168,7 @@ public class UnitObject : MonoBehaviour, ISaveableObject
             {
                 break;
             }
-            nextMovementCost = GetMoveCost(pathToTravel[i], pathToTravel[i + 1], pathToTravel[i].GetNeighborDirection(pathToTravel[i + 1]));
+            nextMovementCost = GetMoveCost(pathToTravel[i], pathToTravel[i + 1], pathToTravel[i].GetNeighborDirection(pathToTravel[i + 1]).Value);
         }
 
         transform.localPosition = location.Position;

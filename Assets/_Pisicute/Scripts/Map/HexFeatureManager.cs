@@ -68,7 +68,7 @@ public class HexFeatureManager : MonoBehaviour
 
     public void AddWall(EdgeVertices near, HexCell nearCell, EdgeVertices far, HexCell farCell, bool hasRiver, bool hasRoad)
     {
-        if (!nearCell.HasWallThroughEdge(nearCell.GetNeighborDirection(farCell))) return;
+        if (!nearCell.HasWallThroughEdge(nearCell.GetNeighborDirection(farCell).Value)) return;
         AddWallSegment(near.v1, far.v1, near.v2, far.v2);
         if (hasRiver || hasRoad)
         {
@@ -86,36 +86,36 @@ public class HexFeatureManager : MonoBehaviour
     public void AddWall(Vector3 c1, HexCell cell1, Vector3 c2, HexCell cell2, Vector3 c3, HexCell cell3)
     {
         // All have walls
-        if (cell1.HasWallThroughEdge(cell1.GetNeighborDirection(cell2)) &&
-            cell2.HasWallThroughEdge(cell2.GetNeighborDirection(cell3)) &&
-            cell3.HasWallThroughEdge(cell3.GetNeighborDirection(cell1)))
+        if (cell1.HasWallThroughEdge(cell1.GetNeighborDirection(cell2).Value) &&
+            cell2.HasWallThroughEdge(cell2.GetNeighborDirection(cell3).Value) &&
+            cell3.HasWallThroughEdge(cell3.GetNeighborDirection(cell1).Value))
         {
             //TODO: Add wall
             print("all");
         }
-        else if (cell1.HasWallThroughEdge(cell1.GetNeighborDirection(cell2)) && cell1.HasWallThroughEdge(cell1.GetNeighborDirection(cell3)))
+        else if (cell1.HasWallThroughEdge(cell1.GetNeighborDirection(cell2).Value) && cell1.HasWallThroughEdge(cell1.GetNeighborDirection(cell3).Value))
         {
             AddWallSegment(c1, cell1, c2, cell2, c3, cell3);
         }
-        else if (cell2.HasWallThroughEdge(cell2.GetNeighborDirection(cell1)) && cell2.HasWallThroughEdge(cell2.GetNeighborDirection(cell3)))
+        else if (cell2.HasWallThroughEdge(cell2.GetNeighborDirection(cell1).Value) && cell2.HasWallThroughEdge(cell2.GetNeighborDirection(cell3).Value))
         {
             AddWallSegment(c2, cell2, c3, cell3, c1, cell1);
         }
-        else if (cell3.HasWallThroughEdge(cell3.GetNeighborDirection(cell1)) && cell3.HasWallThroughEdge(cell3.GetNeighborDirection(cell2)))
+        else if (cell3.HasWallThroughEdge(cell3.GetNeighborDirection(cell1).Value) && cell3.HasWallThroughEdge(cell3.GetNeighborDirection(cell2).Value))
         {
             AddWallSegment(c3, cell3, c1, cell1, c2, cell2);
         }
-        else if (cell1.HasWallThroughEdge(cell1.GetNeighborDirection(cell2)))
+        else if (cell1.HasWallThroughEdge(cell1.GetNeighborDirection(cell2).Value))
         {
             AddWallSegment(c1, cell1, c2, cell2, c3, cell3);
             AddWallSegment(c1, cell1, c3, cell3, c2, cell2);
         }
-        else if (cell2.HasWallThroughEdge(cell2.GetNeighborDirection(cell3)))
+        else if (cell2.HasWallThroughEdge(cell2.GetNeighborDirection(cell3).Value))
         {
             AddWallSegment(c2, cell2, c3, cell3, c1, cell1);
             AddWallSegment(c2, cell2, c1, cell1, c3, cell3);
         }
-        else if (cell3.HasWallThroughEdge(cell3.GetNeighborDirection(cell1)))
+        else if (cell3.HasWallThroughEdge(cell3.GetNeighborDirection(cell1).Value))
         {
             AddWallSegment(c3, cell3, c1, cell1, c2, cell2);
             AddWallSegment(c3, cell3, c2, cell2, c1, cell1);
@@ -181,8 +181,8 @@ public class HexFeatureManager : MonoBehaviour
     private void AddWallSegment(Vector3 pivot, HexCell pivotCell, Vector3 left, HexCell leftCell, Vector3 right, HexCell rightCell)
     {
         if (pivotCell.IsUnderwater) return;
-        bool hasLeftWall = pivotCell.HasWallThroughEdge(pivotCell.GetNeighborDirection(leftCell));
-        bool hasRightWall = pivotCell.HasWallThroughEdge(pivotCell.GetNeighborDirection(rightCell));
+        bool hasLeftWall = pivotCell.HasWallThroughEdge(pivotCell.GetNeighborDirection(leftCell).Value);
+        bool hasRightWall = pivotCell.HasWallThroughEdge(pivotCell.GetNeighborDirection(rightCell).Value);
         
         if (hasLeftWall)
         {

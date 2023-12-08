@@ -15,6 +15,23 @@ public class Cat : UnitObject
         SetTurnActive(false);
     }
 
+    public override void TakeDamage(int damage)
+    {
+        base.TakeDamage(damage);
+        data.health -= damage;
+        if (data.health <= 0)
+        {
+            Die();
+        }
+    }
+
+    public override void Die()
+    {
+        base.Die();
+        Location.units.Remove(this);
+        Destroy(gameObject);
+    }
+
     public override bool IsValidDestination(HexCell cell)
     {
         return !cell.IsUnderwater && cell.units.Count == 0;

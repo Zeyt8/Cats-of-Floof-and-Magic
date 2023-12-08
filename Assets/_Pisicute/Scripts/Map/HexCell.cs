@@ -28,6 +28,7 @@ public class HexCell : MonoBehaviour, ISaveableObject
     [NonSerialized] public HexCell nextWithSamePriority;
     [NonSerialized] public int searchPhase;
     [NonSerialized] public List<UnitObject> units = new List<UnitObject>();
+    public UnitObject Unit => units.Count > 0 ? units[0] : null;
     [NonSerialized] public bool isExplorable;
     [NonSerialized] public BattleMap battleMap;
 
@@ -258,7 +259,7 @@ public class HexCell : MonoBehaviour, ISaveableObject
     {
         return neighbors[(int)direction];
     }
-    public HexDirection GetNeighborDirection(HexCell cell)
+    public HexDirection? GetNeighborDirection(HexCell cell)
     {
         for (int i = 0; i < neighbors.Length; i++)
         {
@@ -268,7 +269,7 @@ public class HexCell : MonoBehaviour, ISaveableObject
             }
         }
 
-        return HexDirection.NE;
+        return null;
     }
 
     public bool HasWallThroughEdge(HexDirection direction)

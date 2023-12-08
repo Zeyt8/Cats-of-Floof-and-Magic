@@ -134,7 +134,7 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
             LevelManager.Instance.buildingDetails.Deactivate();
         }
         // update selected unit
-        selectedUnit = cell.units.Count > 0 ? cell.units[0] : null;
+        selectedUnit = cell.Unit;
         // if unit on tile open unit detail panel
         if (selectedUnit)
         {
@@ -199,7 +199,7 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
         if (player != playerNumber) return;
         if (selected)
         {
-            selectedUnit = cell.units.Count > 0 ? cell.units[0] : null;
+            selectedUnit = cell.Unit;
             if (selectedUnit)
             {
                 BattleCanvas.Instance.ShowAbilities((Cat)selectedUnit);
@@ -266,6 +266,6 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
         {
             cells.Add(LevelManager.Instance.CurrentMap.GetCell(cell));
         }
-        LevelManager.Instance.CurrentMap.GetCell(unitLocation).units[0].Travel(cells);
+        LevelManager.Instance.CurrentMap.GetCell(unitLocation).Unit.Travel(cells);
     }
 }
