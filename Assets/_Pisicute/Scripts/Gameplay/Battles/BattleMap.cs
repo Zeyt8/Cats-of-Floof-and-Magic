@@ -1,6 +1,7 @@
 using Cinemachine;
 using System.Collections.Generic;
 using Unity.Netcode;
+using Unity.Services.Lobbies.Models;
 using UnityEngine;
 
 public class BattleMap : MonoBehaviour
@@ -17,7 +18,6 @@ public class BattleMap : MonoBehaviour
     private List<Cat> catTurnQueue = new List<Cat>();
     public Cat CurrentCatTurn => catTurnQueue[0];
     private List<Cat>[] armies = new List<Cat>[2];
-    private List<FactionEffect> selfFactions = new List<FactionEffect>();
     // grid dimensions
     private int width;
     private int height;
@@ -151,8 +151,14 @@ public class BattleMap : MonoBehaviour
         catTurnQueue.Sort((cat1, cat2) => cat2.Speed - cat1.Speed);
         currentPlayer = CurrentCatTurn.owner;
         CurrentCatTurn.SetTurnActive(true);
-        selfFactions = FactionEffect.CalculateFactionEffects(FactionEffect.CalculateFactions(armies[PlayerObject.Instance.playerNumber - 1]));
-        BattleCanvas.Instance.SetupFactionEffect(selfFactions);
+        foreach (Leader leader in battlingLeaders)
+        {
+            if (leader.owner == PlayerObject.Instance.playerNumber)
+            {
+                BattleCanvas.Instance.SetupFactionEffect(battlingLeaders[leader.owner - 1].factionsEffects);
+                break;
+            }
+        }
     }
 
     public void EndTurn()

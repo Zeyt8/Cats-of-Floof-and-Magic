@@ -17,14 +17,14 @@ public class FactionEffect
 
     public virtual void Deactivate() { }
 
-    public static Dictionary<Factions, int> CalculateFactions(List<Cat> cats)
+    public static Dictionary<Factions, int> CalculateFactions(List<CatData> cats)
     {
         Dictionary<Factions, int> currentFactions = new Dictionary<Factions, int>();
-        foreach (Cat cat in cats)
+        foreach (CatData cat in cats)
         {
             foreach (Factions faction in Factions.GetValues(typeof(Factions)))
             {
-                if (cat.data.factions.HasFlag(faction))
+                if (cat.factions.HasFlag(faction))
                 {
                     currentFactions[faction] = currentFactions.GetValueOrDefault(faction, 0) + 1;
                 }
@@ -55,9 +55,6 @@ public class FactionEffect
                     break;
                 case Factions.HiveMind:
                     effects.Add(new HiveMindEffect(faction, ownedFactions[faction]));
-                    break;
-                case Factions.Swarm:
-                    effects.Add(new SwarmEffect(faction, ownedFactions[faction]));
                     break;
                 case Factions.SIC:
                     effects.Add(new SICEffect(faction, ownedFactions[faction]));

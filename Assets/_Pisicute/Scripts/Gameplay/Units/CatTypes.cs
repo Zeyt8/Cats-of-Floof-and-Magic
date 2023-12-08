@@ -16,7 +16,5 @@ public enum CatTypes
     Calico,
     Ragdoll,
     ScottishWild,
-    ArabianSand,
     Oriental,
-    ShortFoot
 }

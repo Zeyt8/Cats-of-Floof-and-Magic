@@ -8,6 +8,7 @@ public class Leader : UnitObject
     public int currentFloof;
     [SerializeField] private CatCollection sicCats;
     public List<CatData> army = new List<CatData>();
+    public List<FactionEffect> factionsEffects { get; private set; }
 
     protected override void Start()
     {
@@ -22,7 +23,7 @@ public class Leader : UnitObject
         AddCatToArmy(sicCats.cats.Values.GetRandom().data);
         AddCatToArmy(sicCats.cats.Values.GetRandom().data);
         AddCatToArmy(sicCats.cats.Values.GetRandom().data);
-
+        RecalculateFactionEffects();
     }
 
     private void OnDestroy()
@@ -76,5 +77,10 @@ public class Leader : UnitObject
             Location.units.Remove(this);
         }
         Destroy(gameObject);
+    }
+
+    public void RecalculateFactionEffects()
+    {
+        factionsEffects = FactionEffect.CalculateFactionEffects(FactionEffect.CalculateFactions(army));
     }
 }
