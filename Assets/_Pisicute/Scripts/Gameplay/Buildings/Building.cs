@@ -8,6 +8,8 @@ public class Building : MonoBehaviour, ISaveableObject
     public Resources resourceCost;
     public Sprite icon;
     [TextArea]
+    public string title;
+    [TextArea]
     public string description;
     public int visionRange = 3;
     [HideInInspector] public HexGrid grid;

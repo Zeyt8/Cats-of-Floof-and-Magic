@@ -2887,7 +2887,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 5
+    m_Left: 20
     m_Right: 0
     m_Top: 0
     m_Bottom: 5
@@ -2901,7 +2901,7 @@ MonoBehaviour:
   - 96
   minimumRowHeight: 96
   flexibleRowHeight: 1
-  columnSpacing: 5
+  columnSpacing: 15
   rowSpacing: 0
 --- !u!1 &1137778641
 GameObject:

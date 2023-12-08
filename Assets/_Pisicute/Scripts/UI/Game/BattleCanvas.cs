@@ -40,7 +40,7 @@ public class BattleCanvas : Singleton<BattleCanvas>
     {
         foreach (FactionEffect faction in effects)
         {
-            Instantiate(factionIconPrefab, factionsTransform).Initialize(faction.faction, faction.level, faction.nextThreshold);
+            Instantiate(factionIconPrefab, factionsTransform).Initialize(faction.faction, faction.count, faction.nextThreshold, faction.Title, faction.Description);
         }
     }
 

@@ -3,19 +3,23 @@ using System.Linq;
 
 public class FactionEffect
 {
-    public int level { get; private set; }
-    public int nextThreshold { get; private set; }
+    public int level { get; protected set; }
+    public int count { get; protected set; }
+    public int nextThreshold { get; protected set; }
     public Factions faction { get; private set; }
+    public virtual string Title { get; }
+    public virtual string Description { get; }
 
-    public FactionEffect(Factions faction, int level)
-    { 
-        this.level = level;
+    public FactionEffect(Factions faction, int count)
+    {
+        level = 0;
+        this.count = count;
         this.faction = faction;
     }
 
-    public virtual void Activate() { }
+    public virtual void Activate(UnitObject unit) { }
 
-    public virtual void Deactivate() { }
+    public virtual void Deactivate(UnitObject unit) { }
 
     public static Dictionary<Factions, int> CalculateFactions(List<CatData> cats)
     {
@@ -35,7 +39,7 @@ public class FactionEffect
         List<Factions> keys = currentFactions.Keys.ToList();
         foreach (Factions f in keys)
         {
-            currentFactions[f] += wildcards;
+            currentFactions[f] += wildcards > 0 ? 1 : 0;
         }
         return currentFactions;
     }

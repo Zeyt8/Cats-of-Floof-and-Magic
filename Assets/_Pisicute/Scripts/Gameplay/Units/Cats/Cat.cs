@@ -15,9 +15,15 @@ public class Cat : UnitObject
         SetTurnActive(false);
     }
 
-    public override void TakeDamage(int damage)
+    public override void DealDamage(UnitObject target, int damage)
     {
-        base.TakeDamage(damage);
+        base.DealDamage(target, damage);
+        target.TakeDamage(this, damage);
+    }
+
+    public override void TakeDamage(UnitObject attacker, int damage)
+    {
+        base.TakeDamage(attacker, damage);
         data.health -= damage;
         if (data.health <= 0)
         {
@@ -50,5 +56,13 @@ public class Cat : UnitObject
             color.a = 0.35f;
         }
         ChangePlayerMarkerColor(color);
+    }
+
+    public void OnEncounterStart()
+    {
+        foreach (StatusEffect statusEffect in statusEffects)
+        {
+            statusEffect.OnEncounterStart(this);
+        }
     }
 }

@@ -10,6 +10,11 @@ public class Leader : UnitObject
     public List<CatData> army = new List<CatData>();
     public List<FactionEffect> factionsEffects { get; private set; }
 
+    private void Awake()
+    {
+        factionsEffects = new List<FactionEffect>();
+    }
+
     protected override void Start()
     {
         base.Start();
@@ -39,6 +44,7 @@ public class Leader : UnitObject
         if (army.Count < 8)
         {
             army.Add(data);
+            RecalculateFactionEffects();
         }
     }
 
@@ -81,6 +87,14 @@ public class Leader : UnitObject
 
     public void RecalculateFactionEffects()
     {
+        foreach (FactionEffect factionEffect in factionsEffects)
+        {
+            factionEffect.Deactivate(this);
+        }
         factionsEffects = FactionEffect.CalculateFactionEffects(FactionEffect.CalculateFactions(army));
+        foreach (FactionEffect factionEffect in factionsEffects)
+        {
+            factionEffect.Activate(this);
+        }
     }
 }

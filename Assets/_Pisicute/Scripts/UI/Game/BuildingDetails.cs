@@ -25,7 +25,7 @@ public class BuildingDetails : MonoBehaviour
     {
         currentBuilding = building;
         gameObject.SetActive(true);
-        text.text = $"<b>{building.type}</b>\n{building.description}";
+        text.text = $"<b>{building.title}</b>\n{building.description}";
         icon.sprite = building.icon;
         button.SetActive(building.HasUIPanel && building.owner == PlayerObject.Instance.playerNumber);
         DeactivateBuildingUI();

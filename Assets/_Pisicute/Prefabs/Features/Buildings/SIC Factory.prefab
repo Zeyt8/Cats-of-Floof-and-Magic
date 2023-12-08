@@ -55,6 +55,7 @@ MonoBehaviour:
     sulfur: 0
     gems: 0
   icon: {fileID: 1849958194, guid: e4e37005ba4266243a8609f6167dbbf0, type: 3}
+  title: SIC Factory
   description: Produces a random SIC cat at the end of the round.
   visionRange: 3
   grid: {fileID: 0}

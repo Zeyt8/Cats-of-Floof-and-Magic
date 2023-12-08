@@ -20,7 +20,7 @@ public class ClawAbility : CatAbility
         {
             if (cell.Unit)
             {
-                cell.Unit.TakeDamage(caster.data.power);
+                caster.DealDamage(cell.Unit, caster.data.power);
                 caster.OnAbilityCasted(this);
             }
         };

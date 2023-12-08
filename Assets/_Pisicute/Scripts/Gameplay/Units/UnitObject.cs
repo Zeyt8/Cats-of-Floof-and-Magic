@@ -16,6 +16,7 @@ public class UnitObject : MonoBehaviour, ISaveableObject
     [SerializeField] private Image playerMarker;
     [NonSerialized] public HexGrid grid;
     private const float TravelSpeed = 4f;
+    protected List<StatusEffect> statusEffects = new List<StatusEffect>();
 
     private HexCell location;
     private float orientation;
@@ -55,12 +56,12 @@ public class UnitObject : MonoBehaviour, ISaveableObject
 
     private void OnEnable()
     {
-        GameEvents.OnTurnStart.AddListener(ResetMovementPoints);
+        GameEvents.OnTurnStart.AddListener(OnTurnStart);
     }
 
     private void OnDisable()
     {
-        GameEvents.OnTurnStart.RemoveListener(ResetMovementPoints);
+        GameEvents.OnTurnStart.RemoveListener(OnTurnStart);
     }
 
     protected virtual void Start()
@@ -69,8 +70,20 @@ public class UnitObject : MonoBehaviour, ISaveableObject
         ChangeOwner(owner);
     }
 
-    public virtual void TakeDamage(int damage)
+    public virtual void DealDamage(UnitObject target, int damage)
     {
+        foreach (StatusEffect statusEffect in statusEffects)
+        {
+            statusEffect.OnDealDamage(this, target, ref damage);
+        }
+    }
+
+    public virtual void TakeDamage(UnitObject attacker, int damage)
+    {
+        foreach (StatusEffect statusEffect in statusEffects)
+        {
+            statusEffect.OnTakeDamage(this, attacker, ref damage);
+        }
     }
 
     public virtual void Die()
@@ -109,6 +122,11 @@ public class UnitObject : MonoBehaviour, ISaveableObject
             moveCost = edgeType == HexEdgeType.Flat ? 4 : 6;
         }
 
+        foreach (StatusEffect statusEffect in statusEffects)
+        {
+            moveCost += statusEffect.OnMovementModifier(this, fromCell, toCell);
+        }
+
         return moveCost;
     }
 
@@ -123,6 +141,16 @@ public class UnitObject : MonoBehaviour, ISaveableObject
     {
         owner = player;
         ChangePlayerMarkerColor(PlayerColors.Get(player));
+    }
+
+    public void AddStatusEffect(StatusEffect effect)
+    {
+        statusEffects.Add(effect);
+    }
+
+    public void RemoveStatusEffect(Type type)
+    {
+        statusEffects.Remove(statusEffects.Find((status) => status.GetType() == type));
     }
 
     protected void ChangePlayerMarkerColor(Color color)
@@ -181,9 +209,13 @@ public class UnitObject : MonoBehaviour, ISaveableObject
         IsMoving = false;
     }
 
-    private void ResetMovementPoints(int player)
+    protected virtual void OnTurnStart(int player)
     {
         movementPoints = Speed;
+        foreach (StatusEffect statusEffect in statusEffects)
+        {
+            statusEffect.OnTurnBegin(this);
+        }
     }
 
     public void Save(BinaryWriter writer)

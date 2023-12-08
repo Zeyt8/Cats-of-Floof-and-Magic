@@ -55,6 +55,7 @@ MonoBehaviour:
     sulfur: 0
     gems: 0
   icon: {fileID: 299213321, guid: e4e37005ba4266243a8609f6167dbbf0, type: 3}
+  title: Windmill
   description: Produces food at the end of your turn.
   visionRange: 3
   grid: {fileID: 0}

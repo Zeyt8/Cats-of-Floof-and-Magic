@@ -55,6 +55,7 @@ MonoBehaviour:
     sulfur: 0
     gems: 0
   icon: {fileID: 126613312, guid: e4e37005ba4266243a8609f6167dbbf0, type: 3}
+  title: Cat Shelter
   description: Can sell cats here.
   visionRange: 3
   grid: {fileID: 0}
