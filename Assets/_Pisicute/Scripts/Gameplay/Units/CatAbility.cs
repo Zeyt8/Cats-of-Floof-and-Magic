@@ -5,6 +5,10 @@ public abstract class CatAbility : MonoBehaviour
 {
     public Sprite icon;
     public int cooldown;
+    [TextArea]
+    public string title;
+    [TextArea]
+    public string description;
 
     public enum ActivationType
     {

@@ -29,7 +29,7 @@ public class ArmouredEffect : FactionEffect
         base.Activate(unit);
         if (unit is Cat && ((Cat)unit).data.factions.HasFlag(Factions.Armoured))
         {
-            unit.AddStatusEffect(new ArmouredFactionStatusEffect());
+            unit.AddStatusEffect(new ArmouredFactionStatusEffect(-1));
         }
     }
 

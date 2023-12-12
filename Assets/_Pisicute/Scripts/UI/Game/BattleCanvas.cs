@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class BattleCanvas : Singleton<BattleCanvas>
 {
@@ -8,7 +7,7 @@ public class BattleCanvas : Singleton<BattleCanvas>
     [SerializeField] private CatAbilityIcon abilityIconPrefab;
     [SerializeField] private FactionIcon factionIconPrefab;
     [SerializeField] private Transform factionsTransform;
-    [SerializeField] private Image catIcon;
+    [SerializeField] private CatIcon catIcon;
 
     private BattleMap battleMap;
 
@@ -25,7 +24,7 @@ public class BattleCanvas : Singleton<BattleCanvas>
 
     public void ShowAbilities(Cat cat)
     {
-        catIcon.sprite = cat.icon;
+        catIcon.SetIcon(cat.icon, cat.data.type.GetPrettyName());
         foreach (Transform t in abilityPanel)
         {
             Destroy(t.gameObject);

@@ -468,12 +468,11 @@ MonoBehaviour:
   text: {fileID: 3395040571769295025}
   descriptionText: {fileID: 4345236806878654848}
   sprites:
-    keys: 010000000200000004000000080000001000000040000000800000000001000000020000
+    keys: 0100000002000000040000001000000040000000800000000001000000020000
     values:
     - {fileID: -749740166, guid: cb20854a194fddb4399104a68ae9cea5, type: 3}
     - {fileID: 988328951, guid: cb20854a194fddb4399104a68ae9cea5, type: 3}
     - {fileID: 582104485, guid: cb20854a194fddb4399104a68ae9cea5, type: 3}
-    - {fileID: 600409179, guid: cb20854a194fddb4399104a68ae9cea5, type: 3}
     - {fileID: -466888865, guid: cb20854a194fddb4399104a68ae9cea5, type: 3}
     - {fileID: -1263710070, guid: cb20854a194fddb4399104a68ae9cea5, type: 3}
     - {fileID: -1037538851, guid: cb20854a194fddb4399104a68ae9cea5, type: 3}
@@ -608,7 +607,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 10, y: 5, z: 10, w: 5}
+  m_margin: {x: 10, y: 10, z: 10, w: 10}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

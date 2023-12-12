@@ -1,11 +1,8 @@
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class SicFactoryUI : BuildingUI
 {
-    [SerializeField] private Image catImage;
-    [SerializeField] private TextMeshProUGUI catName;
+    [SerializeField] private CatIcon catImage;
     [SerializeField] private Sprite emptySprite;
 
     public override void Initialize(Building building)
@@ -14,13 +11,11 @@ public class SicFactoryUI : BuildingUI
         Cat cat = ((SicFactory)currentBuilding).catInWaiting;
         if (cat)
         {
-            catImage.sprite = cat.icon;
-            catName.text = cat.data.type.ToString();
+            catImage.SetIcon(cat.icon, cat.data.type.GetPrettyName());
         }
         else
         {
-            catImage.sprite = emptySprite;
-            catName.text = "";
+            catImage.SetIcon(emptySprite, "");
         }
     }
 

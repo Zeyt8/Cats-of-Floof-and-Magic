@@ -1,8 +1,12 @@
 public class SICFactionStatusEffect : StatusEffect
 {
-    public override void OnEncounterStart(UnitObject unit)
+    public SICFactionStatusEffect(int duration) : base(duration)
     {
-        base.OnEncounterStart(unit);
-        ((Cat)unit).data.power += 1;
+    }
+
+    public override void StatModifier(ref CatData data)
+    {
+        base.StatModifier(ref data);
+        data.power.value += 1;
     }
 }

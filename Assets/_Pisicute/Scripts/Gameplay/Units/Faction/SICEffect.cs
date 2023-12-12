@@ -29,7 +29,7 @@ public class SICEffect : FactionEffect
         base.Activate(unit);
         if (unit is Cat && ((Cat)unit).data.factions.HasFlag(Factions.SIC))
         {
-            unit.AddStatusEffect(new SICFactionStatusEffect());
+            unit.AddStatusEffect(new SICFactionStatusEffect(-1));
         }
     }
 

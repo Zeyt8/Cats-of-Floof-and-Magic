@@ -1,7 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class TeleportingBoxCat : Cat
 {
+    public override void OnEncounterStart()
+    {
+        base.OnEncounterStart();
+        AddStatusEffect(new TeleportingBoxPassive(-1));
+    }
 }

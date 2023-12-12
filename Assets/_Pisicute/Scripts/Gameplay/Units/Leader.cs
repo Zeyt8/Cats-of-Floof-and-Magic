@@ -31,6 +31,16 @@ public class Leader : UnitObject
         RecalculateFactionEffects();
     }
 
+    private void OnEnable()
+    {
+        GameEvents.OnTurnStart.AddListener(OnTurnStart);
+    }
+
+    private void OnDisable()
+    {
+        GameEvents.OnTurnStart.RemoveListener(OnTurnStart);
+    }
+
     private void OnDestroy()
     {
         if (owner == PlayerObject.Instance.playerNumber)
@@ -96,5 +106,16 @@ public class Leader : UnitObject
         {
             factionEffect.Activate(this);
         }
+    }
+
+    public void GainFloof(int gain)
+    {
+        currentFloof = Mathf.Max(currentFloof + gain, maxFloof);
+    }
+
+    public override void OnTurnStart(int player)
+    {
+        base.OnTurnStart(player);
+        GainFloof(2);
     }
 }

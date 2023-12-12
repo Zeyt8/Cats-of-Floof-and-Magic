@@ -42,7 +42,7 @@ public class MagicEffect : FactionEffect
         base.Activate(unit);
         if (unit is Leader)
         {
-            unit.AddStatusEffect(new MagicFactionStatusEffect(level));
+            unit.AddStatusEffect(new MagicFactionStatusEffect(level, -1));
         }
     }
 

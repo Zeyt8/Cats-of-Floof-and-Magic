@@ -2,7 +2,7 @@ public class MagicFactionStatusEffect : StatusEffect
 {
     private int level;
 
-    public MagicFactionStatusEffect(int level)
+    public MagicFactionStatusEffect(int level, int duration) : base(duration)
     {
         this.level = level;
     }

@@ -29,7 +29,7 @@ public class AssassinEffect : FactionEffect
         base.Activate(unit);
         if (unit is Cat && ((Cat)unit).data.factions.HasFlag(Factions.Assassin))
         {
-            unit.AddStatusEffect(new AssassinFactionStatusEffect());
+            unit.AddStatusEffect(new AssassinFactionStatusEffect(-1));
         }
     }
 

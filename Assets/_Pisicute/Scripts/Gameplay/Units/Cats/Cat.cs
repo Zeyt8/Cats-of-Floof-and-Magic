@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,14 +6,27 @@ public class Cat : UnitObject
 {
     public CatData data;
     public Resources sellCost;
-    public override int Speed => data.speed;
+    public override int Speed => data.speed.value;
     public List<CatAbility> abilities;
+    [HideInInspector] public Leader leader;
     [HideInInspector] public BattleMap battleMap;
 
     protected override void Start()
     {
         base.Start();
+        CalculateStats();
         SetTurnActive(false);
+    }
+
+    public void CalculateStats()
+    {
+        data.maxHealth.value = data.maxHealth.baseValue;
+        data.power.value = data.power.baseValue;
+        data.speed.value = data.speed.baseValue;
+        foreach (StatusEffect status in statusEffects)
+        {
+            status.StatModifier(ref data);
+        }
     }
 
     public override void DealDamage(UnitObject target, int damage)
@@ -24,11 +38,28 @@ public class Cat : UnitObject
     public override void TakeDamage(UnitObject attacker, int damage)
     {
         base.TakeDamage(attacker, damage);
+        if (data.armour >= damage)
+        {
+            data.armour -= damage;
+            return;
+        }
+        damage -= data.armour;
         data.health -= damage;
         if (data.health <= 0)
         {
             Die();
         }
+    }
+
+    public override void Heal(int heal)
+    {
+        base.Heal(heal);
+        data.health = Mathf.Max(data.health + heal, data.maxHealth.value);
+    }
+
+    public override void GainArmour(int amount)
+    {
+        base.GainArmour(amount);
     }
 
     public override void Die()
@@ -58,11 +89,23 @@ public class Cat : UnitObject
         ChangePlayerMarkerColor(color);
     }
 
-    public void OnEncounterStart()
+    public virtual void OnEncounterStart()
     {
         foreach (StatusEffect statusEffect in statusEffects)
         {
             statusEffect.OnEncounterStart(this);
         }
+    }
+
+    public override void AddStatusEffect(StatusEffect effect)
+    {
+        base.AddStatusEffect(effect);
+        CalculateStats();
+    }
+
+    public override void RemoveStatusEffect(Type type)
+    {
+        base.RemoveStatusEffect(type);
+        CalculateStats();
     }
 }

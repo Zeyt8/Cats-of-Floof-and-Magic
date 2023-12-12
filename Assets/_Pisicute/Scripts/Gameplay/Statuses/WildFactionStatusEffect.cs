@@ -1,7 +1,7 @@
 public class WildFactionStatusEffect : StatusEffect
 {
     private int level;
-    public WildFactionStatusEffect(int level)
+    public WildFactionStatusEffect(int level, int duration) : base(duration)
     {
         this.level = level;
     }

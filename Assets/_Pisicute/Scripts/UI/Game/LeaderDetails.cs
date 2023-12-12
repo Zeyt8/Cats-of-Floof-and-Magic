@@ -13,7 +13,7 @@ public class LeaderDetails : MonoBehaviour
     [SerializeField] private Slider floofSlider;
     [SerializeField] private Slider movementPointsSlider;
     [SerializeField] private Transform unitList;
-    [SerializeField] private GameObject catIconPrefab;
+    [SerializeField] private CatIcon catIconPrefab;
 
     private HexCell currentCell;
 
@@ -37,8 +37,8 @@ public class LeaderDetails : MonoBehaviour
             }
             foreach (CatData cd in unit.army)
             {
-                GameObject go = Instantiate(catIconPrefab, unitList);
-                go.GetComponent<Image>().sprite = allCats[cd.type].icon;
+                CatIcon go = Instantiate(catIconPrefab, unitList);
+                go.SetIcon(allCats[cd.type].icon, cd.type.GetPrettyName());
             }
         }
         else if (cell.units.Count > 1)

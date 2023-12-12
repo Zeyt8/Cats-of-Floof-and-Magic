@@ -16,13 +16,10 @@ public class ClawAbility : CatAbility
 
     public override PlayerObject.Action<HexCell> CastAbility(Cat caster)
     {
+        base.CastAbility(caster);
         return (cell) =>
         {
-            if (cell.Unit)
-            {
-                caster.DealDamage(cell.Unit, caster.data.power);
-                caster.OnAbilityCasted(this);
-            }
+            caster.DealDamage(cell.Unit, caster.data.power.value);
         };
     }
 }

@@ -54,16 +54,6 @@ public class UnitObject : MonoBehaviour, ISaveableObject
         }
     }
 
-    private void OnEnable()
-    {
-        GameEvents.OnTurnStart.AddListener(OnTurnStart);
-    }
-
-    private void OnDisable()
-    {
-        GameEvents.OnTurnStart.RemoveListener(OnTurnStart);
-    }
-
     protected virtual void Start()
     {
         movementPoints = Speed;
@@ -84,6 +74,14 @@ public class UnitObject : MonoBehaviour, ISaveableObject
         {
             statusEffect.OnTakeDamage(this, attacker, ref damage);
         }
+    }
+
+    public virtual void Heal(int heal)
+    {
+    }
+
+    public virtual void GainArmour(int amount)
+    {
     }
 
     public virtual void Die()
@@ -143,12 +141,12 @@ public class UnitObject : MonoBehaviour, ISaveableObject
         ChangePlayerMarkerColor(PlayerColors.Get(player));
     }
 
-    public void AddStatusEffect(StatusEffect effect)
+    public virtual void AddStatusEffect(StatusEffect effect)
     {
         statusEffects.Add(effect);
     }
 
-    public void RemoveStatusEffect(Type type)
+    public virtual void RemoveStatusEffect(Type type)
     {
         statusEffects.Remove(statusEffects.Find((status) => status.GetType() == type));
     }
@@ -209,12 +207,23 @@ public class UnitObject : MonoBehaviour, ISaveableObject
         IsMoving = false;
     }
 
-    protected virtual void OnTurnStart(int player)
+    public virtual void OnTurnStart(int player)
     {
         movementPoints = Speed;
         foreach (StatusEffect statusEffect in statusEffects)
         {
             statusEffect.OnTurnBegin(this);
+            if (!statusEffect.isInfinite)
+            {
+                statusEffect.duration--;
+            }
+        }
+        for (int i = statusEffects.Count - 1; i >= 0; i--)
+        {
+            if (statusEffects[i].duration <= 0)
+            {
+                statusEffects.RemoveAt(i);
+            }
         }
     }
 

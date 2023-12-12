@@ -93,6 +93,7 @@ public class BattleMap : MonoBehaviour
         catToPlace = catsToPlace.Pop();
         Cat cat = Instantiate(allCats[catToPlace.item2.type]);
         cat.owner = catToPlace.item1;
+        cat.leader = GetLeader(cat.owner);
         cat.battleMap = this;
         location.AddUnit(cat, 0);
         catTurnQueue.Add(cat);
@@ -151,14 +152,7 @@ public class BattleMap : MonoBehaviour
         catTurnQueue.Sort((cat1, cat2) => cat2.Speed - cat1.Speed);
         currentPlayer = CurrentCatTurn.owner;
         CurrentCatTurn.SetTurnActive(true);
-        foreach (Leader leader in battlingLeaders)
-        {
-            if (leader.owner == PlayerObject.Instance.playerNumber)
-            {
-                BattleCanvas.Instance.SetupFactionEffect(battlingLeaders[leader.owner - 1].factionsEffects);
-                break;
-            }
-        }
+        BattleCanvas.Instance.SetupFactionEffect(GetLeader(PlayerObject.Instance.playerNumber).factionsEffects);
     }
 
     public void EndTurn()
@@ -167,5 +161,18 @@ public class BattleMap : MonoBehaviour
         catTurnQueue.Add(CurrentCatTurn);
         catTurnQueue.RemoveAt(0);
         CurrentCatTurn.SetTurnActive(true);
+        CurrentCatTurn.OnTurnStart(CurrentCatTurn.owner);
+    }
+
+    private Leader GetLeader(int playerNumber)
+    {
+        foreach (Leader leader in battlingLeaders)
+        {
+            if (leader.owner == playerNumber)
+            {
+                return leader;
+            }
+        }
+        return null;
     }
 }

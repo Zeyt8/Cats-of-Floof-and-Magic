@@ -42,7 +42,7 @@ public class WildEffect : FactionEffect
         base.Activate(unit);
         if (unit is Cat && ((Cat)unit).data.factions.HasFlag(Factions.Wild))
         {
-            unit.AddStatusEffect(new WildFactionStatusEffect(level));
+            unit.AddStatusEffect(new WildFactionStatusEffect(level, -1));
         }
     }
 

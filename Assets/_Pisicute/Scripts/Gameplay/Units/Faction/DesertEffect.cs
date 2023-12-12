@@ -29,7 +29,7 @@ public class DesertEffect : FactionEffect
         base.Activate(unit);
         if (unit is Cat && ((Cat)unit).data.factions.HasFlag(Factions.Desert))
         {
-            unit.AddStatusEffect(new DesertFactionStatusEffect());
+            unit.AddStatusEffect(new DesertFactionStatusEffect(-1));
         }
     }
 

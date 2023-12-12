@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   owner: 0
-  icon: {fileID: 21300000, guid: c6753baab4b7ef14a962bb55df2a1e3c, type: 3}
+  icon: {fileID: 1472075208, guid: 754a392a1d99442409412030ad7070d3, type: 3}
   movementPoints: 0
   IsMoving: 0
   visionRange: 3
@@ -161,9 +161,16 @@ MonoBehaviour:
     type: 14
     factions: 128
     health: 5
-    maxHealth: 5
-    power: 5
-    speed: 20
+    armour: 0
+    maxHealth:
+      baseValue: 0
+      value: 0
+    power:
+      baseValue: 0
+      value: 0
+    speed:
+      baseValue: 0
+      value: 0
   sellCost:
     food: 0
     wood: 0

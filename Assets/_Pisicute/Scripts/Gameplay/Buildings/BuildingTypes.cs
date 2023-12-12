@@ -14,5 +14,6 @@ public enum BuildingTypes
     Marketplace,
     TrainingGrounds,
     MageGuild,
-    Portal
+    Portal,
+    FloofAcademy
 }

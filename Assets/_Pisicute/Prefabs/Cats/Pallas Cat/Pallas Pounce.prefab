@@ -44,5 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ca459c06aa795543a6d89f0d03efb22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  icon: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+  icon: {fileID: 1731434368, guid: c02286ce57447a048bf633d261974565, type: 3}
   cooldown: 1
+  title: Pounce
+  description: Jump on an enemy cat and deal damage.
+  activationType: 1
+  range: 3
+  damageModifier: 2
