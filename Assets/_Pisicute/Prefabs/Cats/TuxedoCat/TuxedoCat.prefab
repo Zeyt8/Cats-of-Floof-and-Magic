@@ -160,17 +160,17 @@ MonoBehaviour:
   data:
     type: 6
     factions: 16
-    health: 5
+    health: 20
     armour: 0
     maxHealth:
-      baseValue: 0
-      value: 0
+      baseValue: 20
+      value: 20
     power:
-      baseValue: 0
-      value: 0
+      baseValue: 4
+      value: 4
     speed:
-      baseValue: 0
-      value: 0
+      baseValue: 8
+      value: 8
   sellCost:
     food: 0
     wood: 0
@@ -181,6 +181,7 @@ MonoBehaviour:
   abilities:
   - {fileID: 578620850131082030, guid: 9d968fe528380d041a17c6c0412bd732, type: 3}
   - {fileID: 6206829249905387030, guid: 6e36b08c71db87340a97344c557cf368, type: 3}
+  leader: {fileID: 0}
   battleMap: {fileID: 0}
 --- !u!1 &2902873987606075414
 GameObject:

@@ -8,6 +8,7 @@ public class BattleCanvas : Singleton<BattleCanvas>
     [SerializeField] private FactionIcon factionIconPrefab;
     [SerializeField] private Transform factionsTransform;
     [SerializeField] private CatIcon catIcon;
+    [SerializeField] private StatsPanel statsPanel;
 
     private BattleMap battleMap;
 
@@ -33,6 +34,7 @@ public class BattleCanvas : Singleton<BattleCanvas>
         {
             Instantiate(abilityIconPrefab, abilityPanel).Initialize(cat, ability);
         }
+        statsPanel.SetStats(cat.data);
     }
 
     public void SetupFactionEffect(List<FactionEffect> effects)

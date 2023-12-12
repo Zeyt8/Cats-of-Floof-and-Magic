@@ -160,17 +160,17 @@ MonoBehaviour:
   data:
     type: 3
     factions: 2
-    health: 5
+    health: 15
     armour: 0
     maxHealth:
-      baseValue: 0
-      value: 0
+      baseValue: 15
+      value: 15
     power:
-      baseValue: 0
-      value: 0
+      baseValue: 3
+      value: 3
     speed:
-      baseValue: 0
-      value: 0
+      baseValue: 8
+      value: 8
   sellCost:
     food: 0
     wood: 0

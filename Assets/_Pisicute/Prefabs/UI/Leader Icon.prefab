@@ -101,7 +101,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 667700543, guid: 1d09da7d32c32db4d9787af96d6ad01a, type: 3}
+  m_Sprite: {fileID: -1028161559, guid: aedf23aa79324be4ca8231fa4411e705, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -176,7 +176,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 667700543, guid: 1d09da7d32c32db4d9787af96d6ad01a, type: 3}
+  m_Sprite: {fileID: -1028161559, guid: aedf23aa79324be4ca8231fa4411e705, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -561,7 +561,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 667700543, guid: 1d09da7d32c32db4d9787af96d6ad01a, type: 3}
+  m_Sprite: {fileID: -1028161559, guid: aedf23aa79324be4ca8231fa4411e705, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -701,7 +701,6 @@ MonoBehaviour:
   icon: {fileID: 8673413356326674883}
   floofSlider: {fileID: 4044132388494764744}
   movementPointsSlider: {fileID: 2528421661866047740}
-  leader: {fileID: 0}
 --- !u!1 &8742059793064421123
 GameObject:
   m_ObjectHideFlags: 0
@@ -767,7 +766,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 667700543, guid: 1d09da7d32c32db4d9787af96d6ad01a, type: 3}
+  m_Sprite: {fileID: -1028161559, guid: aedf23aa79324be4ca8231fa4411e705, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
