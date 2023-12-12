@@ -151,6 +151,10 @@ public class BattleMap : MonoBehaviour
         currentPlayer = CurrentCatTurn.owner;
         CurrentCatTurn.SetTurnActive(true);
         BattleCanvas.Instance.SetupFactionEffect(GetLeader(PlayerObject.Instance.playerNumber).factionsEffects);
+        foreach (Cat cat in catTurnQueue)
+        {
+            cat.OnEncounterStart();
+        }
     }
 
     public void EndTurn()

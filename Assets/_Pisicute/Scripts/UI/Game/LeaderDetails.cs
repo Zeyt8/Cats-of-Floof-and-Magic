@@ -14,6 +14,7 @@ public class LeaderDetails : MonoBehaviour
     [SerializeField] private Slider movementPointsSlider;
     [SerializeField] private Transform unitList;
     [SerializeField] private CatIcon catIconPrefab;
+    [SerializeField] private UnitStatusEffectsPanel unitStatusEffectsPanel;
 
     private HexCell currentCell;
 
@@ -26,7 +27,7 @@ public class LeaderDetails : MonoBehaviour
             unitDetails.SetActive(true);
             battleDetails.SetActive(false);
             unitIcon.sprite = unit.icon;
-            description.text = $"Player {unit.owner}";
+            description.text = $"{NetworkHandler.PlayerName}";
             floofSlider.maxValue = unit.maxFloof;
             floofSlider.value = unit.currentFloof;
             movementPointsSlider.maxValue = unit.Speed;
@@ -40,6 +41,7 @@ public class LeaderDetails : MonoBehaviour
                 CatIcon go = Instantiate(catIconPrefab, unitList);
                 go.SetIcon(allCats[cd.type].icon, cd.type.GetPrettyName());
             }
+            unitStatusEffectsPanel.SetStatusEffects(unit);
         }
         else if (cell.units.Count > 1)
         {

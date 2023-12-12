@@ -1,5 +1,8 @@
 public class HasteStatusEffect : StatusEffect
 {
+    public override string Name => "Haste";
+    public override string Description => $"+{amount} Speed";
+
     private int amount;
 
     public HasteStatusEffect(int amount, int duration) : base(duration)

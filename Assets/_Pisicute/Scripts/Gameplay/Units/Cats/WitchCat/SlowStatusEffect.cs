@@ -1,5 +1,8 @@
 public class SlowStatusEffect : StatusEffect
 {
+    public override string Name => "Bewitched";
+    public override string Description => $"-{amount} Speed";
+
     private int amount;
 
     public SlowStatusEffect(int amount, int duration) : base(duration)

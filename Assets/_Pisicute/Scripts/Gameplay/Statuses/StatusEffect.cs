@@ -2,6 +2,8 @@ public class StatusEffect
 {
     public int duration;
     public bool isInfinite;
+    public virtual string Name => "";
+    public virtual string Description => "";
 
     public StatusEffect(int duration)
     {

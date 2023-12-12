@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4be53de2a709c4e4699bf9cc7425a16b, type: 3}
+  m_Name: Magic Cats
+  m_EditorClassIdentifier: 
+  cats:
+    keys: 0b0000000a0000000300000002000000
+    values:
+    - {fileID: -430708179278572559, guid: 88571d4b2f45b6c46a478200bb221f52, type: 3}
+    - {fileID: 257400360216250982, guid: 483ec46cb41258048a04cd6a8572d010, type: 3}
+    - {fileID: -1767238897559976042, guid: 8b9ce6fa80c44d64bb215cc6e825ea74, type: 3}
+    - {fileID: -3830641273810655150, guid: 7f1688949931d5b4a8b3bc53e41ad30d, type: 3}

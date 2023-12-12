@@ -1,5 +1,8 @@
 public class AssassinFactionStatusEffect : StatusEffect
 {
+    public override string Name => "Assassin Faction";
+    public override string Description => "Deal 50% more damage to enemies under 50% health.";
+
     public AssassinFactionStatusEffect(int duration) : base(duration)
     {
     }

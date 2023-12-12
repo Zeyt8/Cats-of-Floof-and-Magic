@@ -1,5 +1,8 @@
 public class DesertFactionStatusEffect : StatusEffect
 {
+    public override string Name => "Desert Faction";
+    public override string Description => "Move faster on sand.";
+
     public DesertFactionStatusEffect(int duration) : base(duration)
     {
     }

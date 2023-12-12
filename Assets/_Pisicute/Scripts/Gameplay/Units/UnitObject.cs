@@ -16,7 +16,7 @@ public class UnitObject : MonoBehaviour, ISaveableObject
     [SerializeField] private Image playerMarker;
     [NonSerialized] public HexGrid grid;
     private const float TravelSpeed = 4f;
-    protected List<StatusEffect> statusEffects = new List<StatusEffect>();
+    public List<StatusEffect> statusEffects { get; private set; } = new List<StatusEffect>();
 
     private HexCell location;
     private float orientation;
@@ -209,6 +209,7 @@ public class UnitObject : MonoBehaviour, ISaveableObject
 
     public virtual void OnTurnStart(int player)
     {
+        if (player != owner) return;
         movementPoints = Speed;
         foreach (StatusEffect statusEffect in statusEffects)
         {

@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   owner: -1
-  icon: {fileID: 469019068, guid: e4e37005ba4266243a8609f6167dbbf0, type: 3}
+  icon: {fileID: -553014663, guid: b06d7264ba1eddb469533bf8d960cec6, type: 3}
   movementPoints: 0
   IsMoving: 0
   visionRange: 3
@@ -160,6 +160,17 @@ MonoBehaviour:
   maxFloof: 20
   currentFloof: 0
   sicCats: {fileID: 11400000, guid: 43b6399bf83a61d468b367c25e553446, type: 2}
+  possibleIcons:
+  - {fileID: -553014663, guid: b06d7264ba1eddb469533bf8d960cec6, type: 3}
+  - {fileID: -22210354, guid: b06d7264ba1eddb469533bf8d960cec6, type: 3}
+  - {fileID: 621102082, guid: b06d7264ba1eddb469533bf8d960cec6, type: 3}
+  - {fileID: 73496720, guid: b06d7264ba1eddb469533bf8d960cec6, type: 3}
+  - {fileID: 647824316, guid: b06d7264ba1eddb469533bf8d960cec6, type: 3}
+  - {fileID: 262426032, guid: b06d7264ba1eddb469533bf8d960cec6, type: 3}
+  - {fileID: 2970082, guid: b06d7264ba1eddb469533bf8d960cec6, type: 3}
+  - {fileID: 1731809446, guid: b06d7264ba1eddb469533bf8d960cec6, type: 3}
+  - {fileID: -293847008, guid: b06d7264ba1eddb469533bf8d960cec6, type: 3}
+  - {fileID: 1034585781, guid: b06d7264ba1eddb469533bf8d960cec6, type: 3}
   army: []
 --- !u!1 &3320796275736999658
 GameObject:

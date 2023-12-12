@@ -38,12 +38,12 @@ public class Cat : UnitObject
     public override void TakeDamage(UnitObject attacker, int damage)
     {
         base.TakeDamage(attacker, damage);
-        if (data.armour >= damage)
+        if (data.shield >= damage)
         {
-            data.armour -= damage;
+            data.shield -= damage;
             return;
         }
-        damage -= data.armour;
+        damage -= data.shield;
         data.health -= damage;
         if (data.health <= 0)
         {

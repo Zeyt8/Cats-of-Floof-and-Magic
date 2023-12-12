@@ -7,12 +7,14 @@ public class Leader : UnitObject
     public int maxFloof;
     public int currentFloof;
     [SerializeField] private CatCollection sicCats;
+    [SerializeField] private List<Sprite> possibleIcons = new List<Sprite>();
     public List<CatData> army = new List<CatData>();
     public List<FactionEffect> factionsEffects { get; private set; }
 
     private void Awake()
     {
         factionsEffects = new List<FactionEffect>();
+        icon = possibleIcons.GetRandom();
     }
 
     protected override void Start()
@@ -110,12 +112,15 @@ public class Leader : UnitObject
 
     public void GainFloof(int gain)
     {
-        currentFloof = Mathf.Max(currentFloof + gain, maxFloof);
+        currentFloof = Mathf.Min(currentFloof + gain, maxFloof);
     }
 
     public override void OnTurnStart(int player)
     {
         base.OnTurnStart(player);
-        GainFloof(2);
+        if (player == owner)
+        {
+            GainFloof(2);
+        }
     }
 }

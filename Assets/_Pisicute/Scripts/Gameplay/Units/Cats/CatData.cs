@@ -27,7 +27,7 @@ public class CatData
     public CatTypes type;
     public Factions factions;
     public int health;
-    public int armour;
+    public int shield;
     public Stat<int> maxHealth;
     public Stat<int> power;
     public Stat<int> speed;
@@ -35,7 +35,7 @@ public class CatData
     public CatData(CatData data)
     {
         health = data.health;
-        armour = data.armour;
+        shield = data.shield;
         maxHealth = data.maxHealth;
         power = data.power;
         speed = data.speed;
@@ -44,11 +44,11 @@ public class CatData
     public override bool Equals(object obj)
     {
         CatData other = obj as CatData;
-        return (type == other.type) && (health == other.health) && (armour == other.armour) && (maxHealth == other.maxHealth) && (power == other.power) && (speed == other.speed);
+        return (type == other.type) && (health == other.health) && (shield == other.shield) && (maxHealth == other.maxHealth) && (power == other.power) && (speed == other.speed);
     }
 
     public override int GetHashCode()
     {
-        return HashCode.Combine(type, health, armour, maxHealth, power, speed);
+        return HashCode.Combine(type, health, shield, maxHealth, power, speed);
     }
 }
