@@ -145,11 +145,19 @@ public class BattleMap : MonoBehaviour
 
     private void SetupFight()
     {
+        foreach (Leader l in battlingLeaders)
+        {
+            l.currentArmy = armies[l.owner - 1];
+        }
         state = State.Fight;
         UnhighlightAllTiles();
         catTurnQueue.Sort((cat1, cat2) => cat2.Speed - cat1.Speed);
         currentPlayer = CurrentCatTurn.owner;
         CurrentCatTurn.SetTurnActive(true);
+        foreach (Leader l in battlingLeaders)
+        {
+            l.RecalculateFactionEffects();
+        }
         BattleCanvas.Instance.SetupFactionEffect(GetLeader(PlayerObject.Instance.playerNumber).factionsEffects);
         foreach (Cat cat in catTurnQueue)
         {

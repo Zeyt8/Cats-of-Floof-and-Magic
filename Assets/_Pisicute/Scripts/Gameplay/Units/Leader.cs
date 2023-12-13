@@ -9,6 +9,7 @@ public class Leader : UnitObject
     [SerializeField] private CatCollection sicCats;
     [SerializeField] private List<Sprite> possibleIcons = new List<Sprite>();
     public List<CatData> army = new List<CatData>();
+    public List<Cat> currentArmy = new List<Cat>();
     public List<FactionEffect> factionsEffects { get; private set; }
 
     private void Awake()

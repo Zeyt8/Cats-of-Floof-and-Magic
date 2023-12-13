@@ -172,6 +172,7 @@ MonoBehaviour:
   - {fileID: -293847008, guid: b06d7264ba1eddb469533bf8d960cec6, type: 3}
   - {fileID: 1034585781, guid: b06d7264ba1eddb469533bf8d960cec6, type: 3}
   army: []
+  currentArmy: []
 --- !u!1 &3320796275736999658
 GameObject:
   m_ObjectHideFlags: 0

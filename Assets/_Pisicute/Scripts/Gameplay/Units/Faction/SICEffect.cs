@@ -23,23 +23,29 @@ public class SICEffect : FactionEffect
         nextThreshold = 4;
     }
 
-    public override void Activate(UnitObject unit)
+    public override void Activate(Leader leader)
     {
         if (level == 0) return;
-        base.Activate(unit);
-        if (unit is Cat && ((Cat)unit).data.factions.HasFlag(Factions.SIC))
+        base.Activate(leader);
+        foreach (Cat cat in leader.currentArmy)
         {
-            unit.AddStatusEffect(new SICFactionStatusEffect(-1));
+            if (cat.data.factions.HasFlag(faction))
+            {
+                cat.AddStatusEffect(new SICFactionStatusEffect(-1));
+            }
         }
     }
 
-    public override void Deactivate(UnitObject unit)
+    public override void Deactivate(Leader leader)
     {
         if (level == 0) return;
-        base.Deactivate(unit);
-        if (unit is Cat && ((Cat)unit).data.factions.HasFlag(Factions.SIC))
+        base.Deactivate(leader);
+        foreach (Cat cat in leader.currentArmy)
         {
-            unit.RemoveStatusEffect(typeof(SICFactionStatusEffect));
+            if (cat.data.factions.HasFlag(faction))
+            {
+                cat.RemoveStatusEffect(typeof(SICFactionStatusEffect));
+            }
         }
     }
 }

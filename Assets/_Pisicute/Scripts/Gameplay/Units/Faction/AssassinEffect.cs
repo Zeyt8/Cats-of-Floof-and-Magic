@@ -23,23 +23,29 @@ public class AssassinEffect : FactionEffect
         nextThreshold = 1;
     }
 
-    public override void Activate(UnitObject unit)
+    public override void Activate(Leader leader)
     {
         if (level == 0) return;
-        base.Activate(unit);
-        if (unit is Cat && ((Cat)unit).data.factions.HasFlag(Factions.Assassin))
+        base.Activate(leader);
+        foreach (Cat cat in leader.currentArmy)
         {
-            unit.AddStatusEffect(new AssassinFactionStatusEffect(-1));
+            if (cat.data.factions.HasFlag(faction))
+            {
+                cat.AddStatusEffect(new AssassinFactionStatusEffect(-1));
+            }
         }
     }
 
-    public override void Deactivate(UnitObject unit)
+    public override void Deactivate(Leader leader)
     {
         if (level == 0) return;
-        base.Deactivate(unit);
-        if (unit is Cat && ((Cat)unit).data.factions.HasFlag(Factions.Assassin))
+        base.Deactivate(leader);
+        foreach (Cat cat in leader.currentArmy)
         {
-            unit.RemoveStatusEffect(typeof(AssassinFactionStatusEffect));
+            if (cat.data.factions.HasFlag(faction))
+            {
+                cat.RemoveStatusEffect(typeof(AssassinFactionStatusEffect));
+            }
         }
     }
 }

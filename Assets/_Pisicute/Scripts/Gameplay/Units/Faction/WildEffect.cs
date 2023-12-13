@@ -36,23 +36,29 @@ public class WildEffect : FactionEffect
         }
     }
 
-    public override void Activate(UnitObject unit)
+    public override void Activate(Leader leader)
     {
         if (level == 0) return;
-        base.Activate(unit);
-        if (unit is Cat && ((Cat)unit).data.factions.HasFlag(Factions.Wild))
+        base.Activate(leader);
+        foreach (Cat cat in leader.currentArmy)
         {
-            unit.AddStatusEffect(new WildFactionStatusEffect(level, -1));
+            if (cat.data.factions.HasFlag(faction))
+            {
+                cat.AddStatusEffect(new WildFactionStatusEffect(level, -1));
+            }
         }
     }
 
-    public override void Deactivate(UnitObject unit)
+    public override void Deactivate(Leader leader)
     {
         if (level == 0) return;
-        base.Deactivate(unit);
-        if (unit is Cat && ((Cat)unit).data.factions.HasFlag(Factions.Wild))
+        base.Deactivate(leader);
+        foreach (Cat cat in leader.currentArmy)
         {
-            unit.RemoveStatusEffect(typeof(WildFactionStatusEffect));
+            if (cat.data.factions.HasFlag(faction))
+            {
+                cat.RemoveStatusEffect(typeof(WildFactionStatusEffect));
+            }
         }
     }
 }

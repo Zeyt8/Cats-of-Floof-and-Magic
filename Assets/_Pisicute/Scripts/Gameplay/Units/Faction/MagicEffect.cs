@@ -36,23 +36,17 @@ public class MagicEffect : FactionEffect
         }
     }
 
-    public override void Activate(UnitObject unit)
+    public override void Activate(Leader leader)
     {
         if (level == 0) return;
-        base.Activate(unit);
-        if (unit is Leader)
-        {
-            unit.AddStatusEffect(new MagicFactionStatusEffect(level, -1));
-        }
+        base.Activate(leader);
+        leader.AddStatusEffect(new MagicFactionStatusEffect(level, -1));
     }
 
-    public override void Deactivate(UnitObject unit)
+    public override void Deactivate(Leader leader)
     {
         if (level == 0) return;
-        base.Deactivate(unit);
-        if (unit is Leader)
-        {
-            unit.RemoveStatusEffect(typeof(MagicFactionStatusEffect));
-        }
+        base.Deactivate(leader);
+        leader.RemoveStatusEffect(typeof(MagicFactionStatusEffect));
     }
 }

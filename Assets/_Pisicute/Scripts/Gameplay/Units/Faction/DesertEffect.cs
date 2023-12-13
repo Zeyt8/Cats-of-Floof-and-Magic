@@ -23,23 +23,29 @@ public class DesertEffect : FactionEffect
         nextThreshold = 2;
     }
 
-    public override void Activate(UnitObject unit)
+    public override void Activate(Leader leader)
     {
         if (level == 0) return;
-        base.Activate(unit);
-        if (unit is Cat && ((Cat)unit).data.factions.HasFlag(Factions.Desert))
+        base.Activate(leader);
+        foreach (Cat cat in leader.currentArmy)
         {
-            unit.AddStatusEffect(new DesertFactionStatusEffect(-1));
+            if (cat.data.factions.HasFlag(faction))
+            {
+                cat.AddStatusEffect(new DesertFactionStatusEffect(-1));
+            }
         }
     }
 
-    public override void Deactivate(UnitObject unit)
+    public override void Deactivate(Leader leader)
     {
         if (level == 0) return;
-        base.Deactivate(unit);
-        if (unit is Cat && ((Cat)unit).data.factions.HasFlag(Factions.Desert))
+        base.Deactivate(leader);
+        foreach (Cat cat in leader.currentArmy)
         {
-            unit.RemoveStatusEffect(typeof(DesertFactionStatusEffect));
+            if (cat.data.factions.HasFlag(faction))
+            {
+                cat.RemoveStatusEffect(typeof(DesertFactionStatusEffect));
+            }
         }
     }
 }

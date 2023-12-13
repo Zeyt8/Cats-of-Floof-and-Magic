@@ -17,9 +17,9 @@ public class FactionEffect
         this.faction = faction;
     }
 
-    public virtual void Activate(UnitObject unit) { }
+    public virtual void Activate(Leader leader) { }
 
-    public virtual void Deactivate(UnitObject unit) { }
+    public virtual void Deactivate(Leader leader) { }
 
     public static Dictionary<Factions, int> CalculateFactions(List<CatData> cats)
     {
