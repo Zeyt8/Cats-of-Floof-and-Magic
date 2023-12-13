@@ -16,7 +16,7 @@ public class WildFactionStatusEffect : StatusEffect
         {
             if (fromCell.TerrainTypeIndex == 1)
             {
-                return -1;
+                return -2;
             }
             else
             {

@@ -161,7 +161,7 @@ MonoBehaviour:
     type: 12
     factions: 65
     health: 13
-    armour: 0
+    shield: 0
     maxHealth:
       baseValue: 13
       value: 13
@@ -169,8 +169,8 @@ MonoBehaviour:
       baseValue: 6
       value: 6
     speed:
-      baseValue: 10
-      value: 10
+      baseValue: 30
+      value: 30
   sellCost:
     food: 0
     wood: 0

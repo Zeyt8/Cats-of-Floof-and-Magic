@@ -47,7 +47,7 @@ MonoBehaviour:
   icon: {fileID: -920259600, guid: c02286ce57447a048bf633d261974565, type: 3}
   cooldown: 1
   title: Haste
-  description: Gain 3 speed for 2 turns.
+  description: Gain 5 speed for 2 turns.
   activationType: 0
-  speedIncrease: 3
+  speedIncrease: 5
   duration: 2

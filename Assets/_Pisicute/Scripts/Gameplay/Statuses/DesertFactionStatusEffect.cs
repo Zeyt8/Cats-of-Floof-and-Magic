@@ -12,7 +12,7 @@ public class DesertFactionStatusEffect : StatusEffect
         base.OnMovementModifier(unit, fromCell, toCell);
         if (fromCell.TerrainTypeIndex == 0)
         {
-            return -1;
+            return -2;
         }
         else
         {

@@ -62,6 +62,7 @@ public class Cat : UnitObject
         base.GainArmour(amount);
     }
 
+    [ContextMenu("Die")]
     public override void Die()
     {
         base.Die();

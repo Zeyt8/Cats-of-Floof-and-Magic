@@ -38,6 +38,21 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
         playerNumber = NetworkPlayerUtils.GetPlayerIndex(NetworkHandler.PlayerId);
     }
 
+    private void Update()
+    {
+        for (int i = leaders.Count - 1; i >= 0; i--)
+        {
+            if (leaders[i] == null)
+            {
+                leaders.RemoveAt(i);
+            }
+        }
+        if (leaders.Count == 0)
+        {
+            Lose();
+        }
+    }
+
     private void OnEnable()
     {
         inputHandler.OnSelectCell.AddListener(DoSelection);
@@ -83,7 +98,10 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
             {
                 cell.DisableHighlight();
             }
-            SelectCell(currentCell);
+            if (!LevelManager.IsBattleActive)
+            {
+                SelectCell(currentCell);
+            }
             return;
         }
         if (!LevelManager.IsBattleActive)
@@ -267,5 +285,10 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
             cells.Add(LevelManager.Instance.CurrentMap.GetCell(cell));
         }
         LevelManager.Instance.CurrentMap.GetCell(unitLocation).Unit.Travel(cells);
+    }
+
+    private void Lose()
+    {
+
     }
 }

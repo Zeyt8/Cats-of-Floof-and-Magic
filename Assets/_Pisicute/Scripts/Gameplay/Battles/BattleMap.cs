@@ -32,6 +32,26 @@ public class BattleMap : MonoBehaviour
         hexGrid = GetComponent<HexGrid>();
     }
 
+    private void Update()
+    {
+        if (state != State.Fight) return;
+        for (int i = 0; i < armies.Length; i++)
+        {
+            if (armies[i].Count == 0)
+            {
+                FinishBattle(armies.Length - i, i + 1);
+                break;
+            }
+        }
+        for (int i = catTurnQueue.Count - 1; i >= 0; i--)
+        {
+            if (catTurnQueue[i] == null)
+            {
+                catTurnQueue.RemoveAt(i);
+            }
+        }
+    }
+
     public void GenerateBattleMap(int width, int height, List<Leader> leaders)
     {
         this.width = width;
@@ -172,6 +192,7 @@ public class BattleMap : MonoBehaviour
         catTurnQueue.RemoveAt(0);
         CurrentCatTurn.SetTurnActive(true);
         CurrentCatTurn.OnTurnStart(CurrentCatTurn.owner);
+        currentPlayer = CurrentCatTurn.owner;
     }
 
     private Leader GetLeader(int playerNumber)
@@ -184,5 +205,10 @@ public class BattleMap : MonoBehaviour
             }
         }
         return null;
+    }
+
+    private void FinishBattle(int winningPlayer, int losingPlayer)
+    {
+        GetLeader(losingPlayer).Die();
     }
 }
