@@ -1,7 +1,8 @@
 using System;
+using Unity.Netcode;
 
 [Serializable]
-public class CatData
+public struct CatData : INetworkSerializeByMemcpy, IEquatable<CatData>
 {
     [Serializable]
     public struct Stat<T>
@@ -34,6 +35,8 @@ public class CatData
 
     public CatData(CatData data)
     {
+        type = data.type;
+        factions = data.factions;
         health = data.health;
         shield = data.shield;
         maxHealth = data.maxHealth;
@@ -41,14 +44,13 @@ public class CatData
         speed = data.speed;
     }
 
-    public override bool Equals(object obj)
-    {
-        CatData other = obj as CatData;
-        return (type == other.type) && (health == other.health) && (shield == other.shield) && (maxHealth == other.maxHealth) && (power == other.power) && (speed == other.speed);
-    }
-
     public override int GetHashCode()
     {
         return HashCode.Combine(type, health, shield, maxHealth, power, speed);
+    }
+
+    public bool Equals(CatData other)
+    {
+        return (type == other.type) && (health == other.health) && (shield == other.shield) && (maxHealth == other.maxHealth) && (power == other.power) && (speed == other.speed);
     }
 }

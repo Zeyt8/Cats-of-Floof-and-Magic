@@ -53,7 +53,7 @@ public class TrainingGroundsUI : BuildingUI
         ((Leader)currentBuilding.Location.Unit).army.Remove(cat1.data);
         ((Leader)currentBuilding.Location.Unit).army.Remove(cat2.data);
         // add new cat
-        CatData catToAdd = null;
+        CatData catToAdd = new CatData();
         switch (rarity)
         {
             case 0:
