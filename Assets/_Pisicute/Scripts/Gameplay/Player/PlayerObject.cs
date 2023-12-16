@@ -63,14 +63,11 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
 
     private void OnLoadEventCompleted(string sceneName, UnityEngine.SceneManagement.LoadSceneMode loadSceneMode, List<ulong> clientsCompleted, List<ulong> clientsTimedOut)
     {
-        while (leaders.Count == 0)
+        foreach (Leader leader in leaders)
         {
-            foreach (Leader leader in leaders)
+            for (int i = 0; i < 4; i++)
             {
-                for (int i = 0; i < 4; i++)
-                {
-                    AddCatDataToLeaderServerRpc(leader.sicCats.cats.Values.GetRandom().data, leader.Location.coordinates, leader.owner);
-                }
+                AddCatDataToLeaderServerRpc(leader.sicCats.cats.Values.GetRandom().data, leader.Location.coordinates, leader.owner);
             }
         }
     }
