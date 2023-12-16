@@ -1,13 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
-using Unity.Services.Lobbies.Models;
 using UnityEngine;
 
 public class Leader : UnitObject
 {
     public int maxFloof;
     public int currentFloof;
-    [SerializeField] private CatCollection sicCats;
+    [SerializeField] public CatCollection sicCats;
     [SerializeField] private List<Sprite> possibleIcons = new List<Sprite>();
     public List<CatData> army = new List<CatData>();
     public List<Cat> currentArmy = new List<Cat>();
@@ -26,13 +25,8 @@ public class Leader : UnitObject
         if (owner == PlayerObject.Instance.playerNumber)
         {
             PlayerObject.Instance.leaders.Add(this);
-            for (int i = 0; i < 4; i++)
-            {
-                PlayerObject.Instance.AddCatDataToLeaderServerRpc(sicCats.cats.Values.GetRandom().data, Location.coordinates, owner);
-            }
         }
         GameEvents.OnLeaderRecruited.Invoke(owner);
-        RecalculateFactionEffects();
     }
 
     private void OnEnable()

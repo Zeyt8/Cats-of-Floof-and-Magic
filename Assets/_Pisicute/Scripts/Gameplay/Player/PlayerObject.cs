@@ -5,9 +5,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using System.Linq;
-using UnityEngine.Rendering;
-using ATL;
 using Unity.Collections;
+using static UnityEditor.FilePathAttribute;
 
 public class PlayerObject : NetworkSingleton<PlayerObject>
 {
@@ -53,6 +52,23 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
         if (leaders.Count == 0)
         {
             Lose();
+        }
+    }
+
+    public override void OnNetworkSpawn()
+    {
+        base.OnNetworkSpawn();
+        NetworkManager.SceneManager.OnLoadEventCompleted += OnLoadEventCompleted;
+    }
+
+    private void OnLoadEventCompleted(string sceneName, UnityEngine.SceneManagement.LoadSceneMode loadSceneMode, List<ulong> clientsCompleted, List<ulong> clientsTimedOut)
+    {
+        foreach (Leader leader in leaders)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                AddCatDataToLeaderServerRpc(leader.sicCats.cats.Values.GetRandom().data, leader.Location.coordinates, leader.owner);
+            }
         }
     }
 
