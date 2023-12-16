@@ -40,13 +40,13 @@ public class MagicEffect : FactionEffect
     {
         if (level == 0) return;
         base.Activate(leader);
-        leader.AddStatusEffect(new MagicFactionStatusEffect(level, -1));
+        PlayerObject.Instance.AddStatusEffectToUnitServerRpc(new MagicFactionStatusEffect(level, -1), -1, leader.Location.coordinates, leader.owner);
     }
 
     public override void Deactivate(Leader leader)
     {
         if (level == 0) return;
         base.Deactivate(leader);
-        leader.RemoveStatusEffect(typeof(MagicFactionStatusEffect));
+        PlayerObject.Instance.RemoveStatusEffectFromUnitServerRpc(typeof(MagicFactionStatusEffect).ToString(), -1, leader.Location.coordinates, leader.owner);
     }
 }

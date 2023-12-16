@@ -2,7 +2,7 @@ public class BoxArmorCat : Cat
 {
     public override void OnEncounterStart()
     {
-        AddStatusEffect(new BoxArmourPassive(-1));
+        PlayerObject.Instance.AddStatusEffectToUnitServerRpc(new BoxArmourPassive(-1), BattleManager.GetBattleMapIndex(battleMap), Location.coordinates, owner);
         base.OnEncounterStart();
     }
 }

@@ -5,6 +5,9 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using System.Linq;
+using UnityEngine.Rendering;
+using ATL;
+using Unity.Collections;
 
 public class PlayerObject : NetworkSingleton<PlayerObject>
 {
@@ -290,5 +293,81 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
     private void Lose()
     {
 
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void AddCatDataToLeaderServerRpc(CatData catData, HexCoordinates coords, int owner)
+    {
+        AddCatDataToLeaderClientRpc(catData, coords, owner);
+    }
+
+    [ClientRpc]
+    private void AddCatDataToLeaderClientRpc(CatData catData, HexCoordinates coords, int owner)
+    {
+        foreach (UnitObject unit in LevelManager.Instance.mapHexGrid.GetCell(coords).units)
+        {
+            if (unit.owner == owner)
+            {
+                Leader leader = unit as Leader;
+                leader.AddCatToArmy(catData);
+                break;
+            }
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void AddStatusEffectToUnitServerRpc(StatusEffect statusEffect, int map, HexCoordinates coords, int owner)
+    {
+        AddStatusEffectToUnitClientRpc(statusEffect, map, coords, owner);
+    }
+
+    [ClientRpc]
+    private void AddStatusEffectToUnitClientRpc(StatusEffect statusEffect, int map, HexCoordinates coords, int owner)
+    {
+        HexGrid grid;
+        if (map == -1)
+        {
+            grid = LevelManager.Instance.mapHexGrid;
+        }
+        else
+        {
+            grid = BattleManager.GetBattleMap(map).hexGrid;
+        }
+        foreach (UnitObject unit in grid.GetCell(coords).units)
+        {
+            if (unit.owner == owner)
+            {
+                unit.AddStatusEffect(statusEffect);
+                break;
+            }
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void RemoveStatusEffectFromUnitServerRpc(FixedString32Bytes type, int map, HexCoordinates coords, int owner)
+    {
+        RemoveStatusEffectFromUnitClientRpc(type, map, coords, owner);
+    }
+
+    [ClientRpc]
+    private void RemoveStatusEffectFromUnitClientRpc(FixedString32Bytes type, int map, HexCoordinates coords, int owner)
+    {
+        HexGrid grid;
+        if (map == -1)
+        {
+            grid = LevelManager.Instance.mapHexGrid;
+        }
+        else
+        {
+            grid = BattleManager.GetBattleMap(map).hexGrid;
+        }
+        foreach (UnitObject unit in grid.GetCell(coords).units)
+        {
+            if (unit.owner == owner)
+            {
+                unit.RemoveStatusEffect(type);
+                break;
+            }
+        }
     }
 }

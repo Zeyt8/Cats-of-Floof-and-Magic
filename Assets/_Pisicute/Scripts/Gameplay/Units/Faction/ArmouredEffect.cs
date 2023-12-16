@@ -31,7 +31,7 @@ public class ArmouredEffect : FactionEffect
         {
             if (cat.data.factions.HasFlag(faction))
             {
-                cat.AddStatusEffect(new ArmouredFactionStatusEffect(-1));
+                PlayerObject.Instance.AddStatusEffectToUnitServerRpc(new ArmouredFactionStatusEffect(-1), BattleManager.GetBattleMapIndex(cat.battleMap), cat.Location.coordinates, cat.owner);
             }
         }
     }
@@ -44,7 +44,7 @@ public class ArmouredEffect : FactionEffect
         {
             if (cat.data.factions.HasFlag(faction))
             {
-                cat.RemoveStatusEffect(typeof(ArmouredFactionStatusEffect));
+                PlayerObject.Instance.RemoveStatusEffectFromUnitServerRpc(typeof(ArmouredFactionStatusEffect).ToString(), BattleManager.GetBattleMapIndex(cat.battleMap), cat.Location.coordinates, cat.owner);
             }
         }
     }

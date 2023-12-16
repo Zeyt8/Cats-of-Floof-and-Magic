@@ -71,7 +71,7 @@ public class TrainingGroundsUI : BuildingUI
             default:
                 break;
         }
-        ((Leader)currentBuilding.Location.Unit).AddCatToArmy(catToAdd);
+        PlayerObject.Instance.AddCatDataToLeaderServerRpc(catToAdd, currentBuilding.Location.coordinates, currentBuilding.owner);
         SetCats();
     }
 

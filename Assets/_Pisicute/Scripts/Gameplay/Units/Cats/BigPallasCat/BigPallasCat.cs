@@ -2,7 +2,7 @@ public class BigPallasCat : Cat
 {
     public override void OnEncounterStart()
     {
-        AddStatusEffect(new BigPallasPassive(-1));
+        PlayerObject.Instance.AddStatusEffectToUnitServerRpc(new BigPallasPassive(-1), BattleManager.GetBattleMapIndex(battleMap), Location.coordinates, owner);
         base.OnEncounterStart();
     }
 }

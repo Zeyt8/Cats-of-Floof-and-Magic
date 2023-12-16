@@ -14,7 +14,7 @@ public class HasteAbility : CatAbility
     public override PlayerObject.Action<HexCell> CastAbility(Cat caster)
     {
         base.CastAbility(caster);
-        caster.AddStatusEffect(new HasteStatusEffect(speedIncrease, duration));
+        PlayerObject.Instance.AddStatusEffectToUnitServerRpc(new HasteStatusEffect(speedIncrease, duration), BattleManager.GetBattleMapIndex(caster.battleMap), caster.Location.coordinates, caster.owner);
         return (cell) => { };
     }
 }

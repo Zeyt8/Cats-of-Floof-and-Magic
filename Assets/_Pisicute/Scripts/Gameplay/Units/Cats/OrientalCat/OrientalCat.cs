@@ -2,7 +2,7 @@ public class OrientalCat : Cat
 {
     public override void OnEncounterStart()
     {
-        AddStatusEffect(new OrientalPassive(-1));
+        PlayerObject.Instance.AddStatusEffectToUnitServerRpc(new OrientalPassive(-1), BattleManager.GetBattleMapIndex(battleMap), Location.coordinates, owner);
         base.OnEncounterStart();
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Services.Lobbies.Models;
 using UnityEngine;
 
 public class Leader : UnitObject
@@ -25,12 +26,12 @@ public class Leader : UnitObject
         if (owner == PlayerObject.Instance.playerNumber)
         {
             PlayerObject.Instance.leaders.Add(this);
+            for (int i = 0; i < 4; i++)
+            {
+                PlayerObject.Instance.AddCatDataToLeaderServerRpc(sicCats.cats.Values.GetRandom().data, Location.coordinates, owner);
+            }
         }
         GameEvents.OnLeaderRecruited.Invoke(owner);
-        AddCatToArmy(sicCats.cats.Values.GetRandom().data);
-        AddCatToArmy(sicCats.cats.Values.GetRandom().data);
-        AddCatToArmy(sicCats.cats.Values.GetRandom().data);
-        AddCatToArmy(sicCats.cats.Values.GetRandom().data);
         RecalculateFactionEffects();
     }
 
@@ -54,7 +55,7 @@ public class Leader : UnitObject
 
     public void AddCatToArmy(CatData data)
     {
-        if (army.Count < 8)
+        if (army.Count < 6)
         {
             army.Add(data);
             RecalculateFactionEffects();

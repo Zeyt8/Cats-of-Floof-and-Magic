@@ -9,6 +9,10 @@ public class StatusEffect : INetworkSerializable
     public virtual string Name => "";
     public virtual string Description => "";
 
+    public StatusEffect()
+    {
+    }
+
     public StatusEffect(int duration, int level = 0, int amount = 0)
     {
         this.duration = duration;
