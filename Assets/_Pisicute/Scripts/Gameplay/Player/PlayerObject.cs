@@ -6,7 +6,6 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using System.Linq;
 using Unity.Collections;
-using static UnityEditor.FilePathAttribute;
 
 public class PlayerObject : NetworkSingleton<PlayerObject>
 {
@@ -63,11 +62,14 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
 
     private void OnLoadEventCompleted(string sceneName, UnityEngine.SceneManagement.LoadSceneMode loadSceneMode, List<ulong> clientsCompleted, List<ulong> clientsTimedOut)
     {
-        foreach (Leader leader in leaders)
+        foreach (Leader leader in FindObjectsOfType<Leader>())
         {
-            for (int i = 0; i < 4; i++)
+            if (leader.owner == playerNumber)
             {
-                AddCatDataToLeaderServerRpc(leader.sicCats.cats.Values.GetRandom().data, leader.Location.coordinates, leader.owner);
+                for (int i = 0; i < 4; i++)
+                {
+                    AddCatDataToLeaderServerRpc(leader.sicCats.cats.Values.GetRandom().data, leader.Location.coordinates, leader.owner);
+                }
             }
         }
     }
