@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using System.Linq;
+using Unity.Collections;
+using static UnityEditor.FilePathAttribute;
 
 public class PlayerObject : NetworkSingleton<PlayerObject>
 {
@@ -50,6 +52,23 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
         if (leaders.Count == 0)
         {
             Lose();
+        }
+    }
+
+    public override void OnNetworkSpawn()
+    {
+        base.OnNetworkSpawn();
+        NetworkManager.SceneManager.OnLoadEventCompleted += OnLoadEventCompleted;
+    }
+
+    private void OnLoadEventCompleted(string sceneName, UnityEngine.SceneManagement.LoadSceneMode loadSceneMode, List<ulong> clientsCompleted, List<ulong> clientsTimedOut)
+    {
+        foreach (Leader leader in leaders)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                AddCatDataToLeaderServerRpc(leader.sicCats.cats.Values.GetRandom().data, leader.Location.coordinates, leader.owner);
+            }
         }
     }
 
@@ -290,5 +309,81 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
     private void Lose()
     {
 
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void AddCatDataToLeaderServerRpc(CatData catData, HexCoordinates coords, int owner)
+    {
+        AddCatDataToLeaderClientRpc(catData, coords, owner);
+    }
+
+    [ClientRpc]
+    private void AddCatDataToLeaderClientRpc(CatData catData, HexCoordinates coords, int owner)
+    {
+        foreach (UnitObject unit in LevelManager.Instance.mapHexGrid.GetCell(coords).units)
+        {
+            if (unit.owner == owner)
+            {
+                Leader leader = unit as Leader;
+                leader.AddCatToArmy(catData);
+                break;
+            }
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void AddStatusEffectToUnitServerRpc(StatusEffect statusEffect, int map, HexCoordinates coords, int owner)
+    {
+        AddStatusEffectToUnitClientRpc(statusEffect, map, coords, owner);
+    }
+
+    [ClientRpc]
+    private void AddStatusEffectToUnitClientRpc(StatusEffect statusEffect, int map, HexCoordinates coords, int owner)
+    {
+        HexGrid grid;
+        if (map == -1)
+        {
+            grid = LevelManager.Instance.mapHexGrid;
+        }
+        else
+        {
+            grid = BattleManager.GetBattleMap(map).hexGrid;
+        }
+        foreach (UnitObject unit in grid.GetCell(coords).units)
+        {
+            if (unit.owner == owner)
+            {
+                unit.AddStatusEffect(statusEffect);
+                break;
+            }
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void RemoveStatusEffectFromUnitServerRpc(FixedString32Bytes type, int map, HexCoordinates coords, int owner)
+    {
+        RemoveStatusEffectFromUnitClientRpc(type, map, coords, owner);
+    }
+
+    [ClientRpc]
+    private void RemoveStatusEffectFromUnitClientRpc(FixedString32Bytes type, int map, HexCoordinates coords, int owner)
+    {
+        HexGrid grid;
+        if (map == -1)
+        {
+            grid = LevelManager.Instance.mapHexGrid;
+        }
+        else
+        {
+            grid = BattleManager.GetBattleMap(map).hexGrid;
+        }
+        foreach (UnitObject unit in grid.GetCell(coords).units)
+        {
+            if (unit.owner == owner)
+            {
+                unit.RemoveStatusEffect(type);
+                break;
+            }
+        }
     }
 }

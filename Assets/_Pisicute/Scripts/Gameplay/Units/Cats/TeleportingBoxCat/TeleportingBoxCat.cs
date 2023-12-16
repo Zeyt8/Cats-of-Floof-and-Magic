@@ -2,7 +2,7 @@ public class TeleportingBoxCat : Cat
 {
     public override void OnEncounterStart()
     {
-        AddStatusEffect(new TeleportingBoxPassive(-1));
+        PlayerObject.Instance.AddStatusEffectToUnitServerRpc(new TeleportingBoxPassive(-1), BattleManager.GetBattleMapIndex(battleMap), Location.coordinates, owner);
         base.OnEncounterStart();
     }
 }

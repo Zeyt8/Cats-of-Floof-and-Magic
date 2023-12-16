@@ -6,7 +6,7 @@ public class Leader : UnitObject
 {
     public int maxFloof;
     public int currentFloof;
-    [SerializeField] private CatCollection sicCats;
+    [SerializeField] public CatCollection sicCats;
     [SerializeField] private List<Sprite> possibleIcons = new List<Sprite>();
     public List<CatData> army = new List<CatData>();
     public List<Cat> currentArmy = new List<Cat>();
@@ -27,11 +27,6 @@ public class Leader : UnitObject
             PlayerObject.Instance.leaders.Add(this);
         }
         GameEvents.OnLeaderRecruited.Invoke(owner);
-        AddCatToArmy(sicCats.cats.Values.GetRandom().data);
-        AddCatToArmy(sicCats.cats.Values.GetRandom().data);
-        AddCatToArmy(sicCats.cats.Values.GetRandom().data);
-        AddCatToArmy(sicCats.cats.Values.GetRandom().data);
-        RecalculateFactionEffects();
     }
 
     private void OnEnable()
@@ -54,7 +49,7 @@ public class Leader : UnitObject
 
     public void AddCatToArmy(CatData data)
     {
-        if (army.Count < 8)
+        if (army.Count < 6)
         {
             army.Add(data);
             RecalculateFactionEffects();

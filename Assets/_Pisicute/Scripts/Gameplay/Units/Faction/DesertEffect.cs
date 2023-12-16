@@ -31,7 +31,7 @@ public class DesertEffect : FactionEffect
         {
             if (cat.data.factions.HasFlag(faction))
             {
-                cat.AddStatusEffect(new DesertFactionStatusEffect(-1));
+                PlayerObject.Instance.AddStatusEffectToUnitServerRpc(new DesertFactionStatusEffect(-1), BattleManager.GetBattleMapIndex(cat.battleMap), cat.Location.coordinates, cat.owner);
             }
         }
     }
@@ -44,7 +44,7 @@ public class DesertEffect : FactionEffect
         {
             if (cat.data.factions.HasFlag(faction))
             {
-                cat.RemoveStatusEffect(typeof(DesertFactionStatusEffect));
+                PlayerObject.Instance.RemoveStatusEffectFromUnitServerRpc(typeof(DesertFactionStatusEffect).ToString(), BattleManager.GetBattleMapIndex(cat.battleMap), cat.Location.coordinates, cat.owner);
             }
         }
     }

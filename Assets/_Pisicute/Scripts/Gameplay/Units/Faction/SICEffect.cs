@@ -31,7 +31,7 @@ public class SICEffect : FactionEffect
         {
             if (cat.data.factions.HasFlag(faction))
             {
-                cat.AddStatusEffect(new SICFactionStatusEffect(-1));
+                PlayerObject.Instance.AddStatusEffectToUnitServerRpc(new SICFactionStatusEffect(-1), BattleManager.GetBattleMapIndex(cat.battleMap), cat.Location.coordinates, cat.owner);
             }
         }
     }
@@ -44,7 +44,7 @@ public class SICEffect : FactionEffect
         {
             if (cat.data.factions.HasFlag(faction))
             {
-                cat.RemoveStatusEffect(typeof(SICFactionStatusEffect));
+                PlayerObject.Instance.RemoveStatusEffectFromUnitServerRpc(typeof(SICFactionStatusEffect).ToString(), BattleManager.GetBattleMapIndex(cat.battleMap), cat.Location.coordinates, cat.owner);
             }
         }
     }

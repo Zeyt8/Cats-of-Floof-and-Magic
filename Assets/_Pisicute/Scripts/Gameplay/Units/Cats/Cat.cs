@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.Collections;
 using UnityEngine;
 
 public class Cat : UnitObject
@@ -106,7 +107,7 @@ public class Cat : UnitObject
         CalculateStats();
     }
 
-    public override void RemoveStatusEffect(Type type)
+    public override void RemoveStatusEffect(FixedString32Bytes type)
     {
         base.RemoveStatusEffect(type);
         CalculateStats();

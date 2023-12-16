@@ -20,7 +20,7 @@ public class BewitchAbility : CatAbility
         base.CastAbility(caster);
         return (cell) =>
         {
-            cell.Unit.AddStatusEffect(new SlowStatusEffect(slowAmount, duration));
+            PlayerObject.Instance.AddStatusEffectToUnitServerRpc(new SlowStatusEffect(slowAmount, duration), BattleManager.GetBattleMapIndex(((Cat)cell.Unit).battleMap), cell.coordinates, cell.Unit.owner);
         };
     }
 }

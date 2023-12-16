@@ -17,7 +17,7 @@ public class SicFactory : Building
         {
             if (Location.Unit.owner == owner)
             {
-                ((Leader)Location.Unit).AddCatToArmy(catInWaiting.data);
+                PlayerObject.Instance.AddCatDataToLeaderServerRpc(catInWaiting.data, Location.coordinates, owner);
                 catInWaiting = null;
             }
         }

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Unity.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -146,9 +147,9 @@ public class UnitObject : MonoBehaviour, ISaveableObject
         statusEffects.Add(effect);
     }
 
-    public virtual void RemoveStatusEffect(Type type)
+    public virtual void RemoveStatusEffect(FixedString32Bytes type)
     {
-        statusEffects.Remove(statusEffects.Find((status) => status.GetType() == type));
+        statusEffects.Remove(statusEffects.Find((status) => status.GetType().ToString() == type));
     }
 
     protected void ChangePlayerMarkerColor(Color color)
