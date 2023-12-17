@@ -21,7 +21,7 @@ public abstract class CatAbility : MonoBehaviour
 
     public virtual PlayerObject.Action<HexCell> CastAbility(Cat caster)
     {
-        caster.OnAbilityCasted(this);
+        PlayerObject.Instance.EndTurnOnBattleMapServerRpc(BattleManager.GetBattleMapIndex(caster.battleMap));
         return (cell) => { };
     }
 }

@@ -388,4 +388,36 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
             }
         }
     }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void DealDamageToCatServerRpc(int damage, int map, HexCoordinates coords, int owner)
+    {
+        DealDamageToCatClientRpc(damage, map, coords, owner);
+    }
+
+    [ClientRpc]
+    private void DealDamageToCatClientRpc(int damage, int map, HexCoordinates coords, int owner)
+    {
+        HexGrid grid = BattleManager.GetBattleMap(map).hexGrid;
+        foreach (UnitObject unit in grid.GetCell(coords).units)
+        {
+            if (unit.owner == owner)
+            {
+                unit.TakeDamage(damage);
+                break;
+            }
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void EndTurnOnBattleMapServerRpc(int map)
+    {
+        EndTurnBattleMapClientRpc(map);
+    }
+
+    [ClientRpc]
+    private void EndTurnBattleMapClientRpc(int map)
+    {
+        BattleManager.GetBattleMap(map).EndTurn();
+    }
 }
