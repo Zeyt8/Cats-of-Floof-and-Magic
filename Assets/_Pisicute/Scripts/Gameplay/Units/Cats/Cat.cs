@@ -33,7 +33,7 @@ public class Cat : UnitObject
     public override void DealDamage(UnitObject target, int damage)
     {
         base.DealDamage(target, damage);
-        PlayerObject.Instance.DealDamageToCatServerRpc(damage, BattleManager.GetBattleMapIndex(battleMap), Location.coordinates, owner);
+        PlayerObject.Instance.DealDamageToCatServerRpc(damage, BattleManager.GetBattleMapIndex(battleMap), target.Location.coordinates, target.owner);
     }
 
     public override void TakeDamage(int damage)
