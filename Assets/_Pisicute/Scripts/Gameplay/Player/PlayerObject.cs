@@ -388,4 +388,22 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
             }
         }
     }
+
+    public void DealDamageToCat(int damage, int map, HexCoordinates coords, int owner)
+    {
+        HexGrid grid = BattleManager.GetBattleMap(map).hexGrid;
+        foreach (UnitObject unit in grid.GetCell(coords).units)
+        {
+            if (unit.owner == owner)
+            {
+                unit.TakeDamage(damage);
+                break;
+            }
+        }
+    }
+
+    public void EndTurnOnBattleMap(int map)
+    {
+        BattleManager.GetBattleMap(map).EndTurn();
+    }
 }

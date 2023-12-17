@@ -33,12 +33,12 @@ public class Cat : UnitObject
     public override void DealDamage(UnitObject target, int damage)
     {
         base.DealDamage(target, damage);
-        target.TakeDamage(this, damage);
+        PlayerObject.Instance.DealDamageToCat(damage, BattleManager.GetBattleMapIndex(battleMap), Location.coordinates, owner);
     }
 
-    public override void TakeDamage(UnitObject attacker, int damage)
+    public override void TakeDamage(int damage)
     {
-        base.TakeDamage(attacker, damage);
+        base.TakeDamage(damage);
         if (data.shield >= damage)
         {
             data.shield -= damage;
@@ -76,11 +76,6 @@ public class Cat : UnitObject
     public override bool IsValidDestination(HexCell cell)
     {
         return !cell.IsUnderwater && cell.units.Count == 0;
-    }
-
-    public virtual void OnAbilityCasted(CatAbility abiltiy)
-    {
-        battleMap.EndTurn();
     }
 
     public void SetTurnActive(bool active)

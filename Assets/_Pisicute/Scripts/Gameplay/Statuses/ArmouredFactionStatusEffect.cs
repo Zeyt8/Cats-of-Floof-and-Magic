@@ -7,9 +7,9 @@ public class ArmouredFactionStatusEffect : StatusEffect
     {
     }
 
-    public override void OnTakeDamage(UnitObject self, UnitObject attacker, ref int damage)
+    public override void OnTakeDamage(UnitObject self, ref int damage)
     {
-        base.OnTakeDamage(self, attacker, ref damage);
+        base.OnTakeDamage(self, ref damage);
         damage -= 1;
     }
 }

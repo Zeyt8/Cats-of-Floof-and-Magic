@@ -69,11 +69,11 @@ public class UnitObject : MonoBehaviour, ISaveableObject
         }
     }
 
-    public virtual void TakeDamage(UnitObject attacker, int damage)
+    public virtual void TakeDamage(int damage)
     {
         foreach (StatusEffect statusEffect in statusEffects)
         {
-            statusEffect.OnTakeDamage(this, attacker, ref damage);
+            statusEffect.OnTakeDamage(this, ref damage);
         }
     }
 
