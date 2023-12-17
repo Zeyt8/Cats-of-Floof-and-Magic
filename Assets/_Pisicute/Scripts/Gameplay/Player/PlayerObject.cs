@@ -33,6 +33,8 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
     public delegate void Action<HexCell>(HexCell cell);
     Action<HexCell> onClickAction;
 
+    private bool canGiveLeadersStartingCats;
+
     public void Start()
     {
         CurrentResources = new Resources(10, 10, 10, 0, 0, 0);
@@ -52,6 +54,20 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
         {
             Lose();
         }
+        if (canGiveLeadersStartingCats)
+        {
+            foreach (Leader leader in FindObjectsOfType<Leader>())
+            {
+                if (leader.owner == playerNumber)
+                {
+                    for (int i = 0; i < 4; i++)
+                    {
+                        AddCatDataToLeaderServerRpc(leader.sicCats.cats.Values.GetRandom().data, leader.Location.coordinates, leader.owner);
+                    }
+                }
+            }
+            canGiveLeadersStartingCats = false;
+        }
     }
 
     public override void OnNetworkSpawn()
@@ -62,16 +78,7 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
 
     private void OnLoadEventCompleted(string sceneName, UnityEngine.SceneManagement.LoadSceneMode loadSceneMode, List<ulong> clientsCompleted, List<ulong> clientsTimedOut)
     {
-        foreach (Leader leader in FindObjectsOfType<Leader>())
-        {
-            if (leader.owner == playerNumber)
-            {
-                for (int i = 0; i < 4; i++)
-                {
-                    AddCatDataToLeaderServerRpc(leader.sicCats.cats.Values.GetRandom().data, leader.Location.coordinates, leader.owner);
-                }
-            }
-        }
+        canGiveLeadersStartingCats = true;
     }
 
     private void OnEnable()
