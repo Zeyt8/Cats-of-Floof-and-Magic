@@ -15,6 +15,7 @@ public class LeaderDetails : MonoBehaviour
     [SerializeField] private Transform unitList;
     [SerializeField] private CatIcon catIconPrefab;
     [SerializeField] private UnitStatusEffectsPanel unitStatusEffectsPanel;
+    [SerializeField] private SpellBookButton spellBookButton;
 
     private HexCell currentCell;
 
@@ -42,6 +43,7 @@ public class LeaderDetails : MonoBehaviour
                 go.SetIcon(allCats[cd.type].icon, cd.type.GetPrettyName());
             }
             unitStatusEffectsPanel.SetStatusEffects(unit);
+            spellBookButton.leader = unit;
         }
         else if (cell.units.Count > 1)
         {

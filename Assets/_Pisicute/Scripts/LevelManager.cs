@@ -14,6 +14,7 @@ public class LevelManager : NetworkSingleton<LevelManager>
     public BuildingDetails buildingDetails;
     public LeaderDetails unitDetails;
     public Canvas canvas;
+    public SpellBook spellBook;
     public HexGrid CurrentMap => currentBattleMap == null ? mapHexGrid : currentBattleMap.hexGrid;
     [HideInInspector] public BattleMap currentBattleMap;
     public static bool IsBattleActive => Instance.currentBattleMap != null;
