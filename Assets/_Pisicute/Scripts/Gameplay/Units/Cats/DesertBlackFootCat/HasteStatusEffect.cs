@@ -3,7 +3,7 @@ public class HasteStatusEffect : StatusEffect
     public override string Name => "Haste";
     public override string Description => $"+{amount} Speed";
 
-    public HasteStatusEffect(int amount, int duration) : base(duration, 0, amount)
+    public HasteStatusEffect(int duration, int level = 0, int amount = 0) : base(duration, level, amount)
     {
     }
 

@@ -3,7 +3,7 @@ public class MagicFactionStatusEffect : StatusEffect
     public override string Name => "Magic Faction";
     public override string Description => "Regenerate an additional 1 floof per turn." + (level >= 2 ? "\nSpells have their cooldown reduced by 1 turn." : "");
 
-    public MagicFactionStatusEffect(int duration, int level) : base(duration, level)
+    public MagicFactionStatusEffect(int duration, int level, int amount = 0) : base(duration, level, amount)
     {
     }
 

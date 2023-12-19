@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using System.Linq;
 using Unity.Collections;
+using System.Collections;
 
 public class PlayerObject : NetworkSingleton<PlayerObject>
 {
@@ -56,17 +57,23 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
         }
         if (canGiveLeadersStartingCats)
         {
-            foreach (Leader leader in FindObjectsOfType<Leader>())
+            StartCoroutine(GiveArmy());
+            canGiveLeadersStartingCats = false;
+        }
+    }
+
+    private IEnumerator GiveArmy()
+    {
+        yield return new WaitForEndOfFrame();
+        foreach (Leader leader in FindObjectsOfType<Leader>())
+        {
+            if (leader.owner == playerNumber)
             {
-                if (leader.owner == playerNumber)
+                for (int i = 0; i < 4; i++)
                 {
-                    for (int i = 0; i < 4; i++)
-                    {
-                        AddCatDataToLeaderServerRpc(leader.sicCats.cats.Values.GetRandom().data, leader.Location.coordinates, leader.owner);
-                    }
+                    AddCatDataToLeaderServerRpc(leader.sicCats.cats.Values.GetRandom().data, leader.Location.coordinates, leader.owner);
                 }
             }
-            canGiveLeadersStartingCats = false;
         }
     }
 
@@ -362,7 +369,9 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
         {
             if (unit.owner == owner)
             {
-                unit.AddStatusEffect(statusEffect);
+                Type t = Type.GetType(statusEffect.type.ToString());
+                StatusEffect s = (StatusEffect)Activator.CreateInstance(t, statusEffect.duration, statusEffect.level, statusEffect.amount);
+                unit.AddStatusEffect(s);
                 break;
             }
         }

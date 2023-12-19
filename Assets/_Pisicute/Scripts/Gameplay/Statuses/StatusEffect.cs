@@ -1,11 +1,13 @@
+using Unity.Collections;
 using Unity.Netcode;
 
 public class StatusEffect : INetworkSerializable
 {
+    public FixedString32Bytes type;
     public int duration;
     public bool isInfinite;
-    protected int level;
-    protected int amount;
+    public int level;
+    public int amount;
     public virtual string Name => "";
     public virtual string Description => "";
 
@@ -15,6 +17,7 @@ public class StatusEffect : INetworkSerializable
 
     public StatusEffect(int duration, int level = 0, int amount = 0)
     {
+        type = GetType().ToString();
         this.duration = duration;
         isInfinite = (duration == -1);
         this.level = level;
@@ -31,6 +34,7 @@ public class StatusEffect : INetworkSerializable
 
     public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
     {
+        serializer.SerializeValue(ref type);
         serializer.SerializeValue(ref duration);
         serializer.SerializeValue(ref isInfinite);
         serializer.SerializeValue(ref level);

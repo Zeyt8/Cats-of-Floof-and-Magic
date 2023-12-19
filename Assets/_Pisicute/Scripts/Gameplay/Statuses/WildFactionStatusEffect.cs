@@ -3,7 +3,7 @@ public class WildFactionStatusEffect : StatusEffect
     public override string Name => "Wild Faction";
     public override string Description => "Gain access to the Camouflage ability." + (level >= 2 ? "\nMove faster in grasslands." : "");
 
-    public WildFactionStatusEffect(int duration, int level) : base(duration, level)
+    public WildFactionStatusEffect(int duration, int level, int amount = 0) : base(duration, level, amount)
     {
     }
 
