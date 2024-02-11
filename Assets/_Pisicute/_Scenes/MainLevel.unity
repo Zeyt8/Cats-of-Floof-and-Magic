@@ -1035,7 +1035,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1917792167}
         m_TargetAssemblyTypeName: LevelManager, Assembly-CSharp
-        m_MethodName: EndTurnServerRpc
+        m_MethodName: EndTurn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

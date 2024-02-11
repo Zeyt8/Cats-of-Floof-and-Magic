@@ -41,10 +41,15 @@ public class LevelManager : NetworkSingleton<LevelManager>
         }
     }
 
-    [ServerRpc(RequireOwnership = false)]
-    public void EndTurnServerRpc()
+    public void EndTurn()
     {
         if (currentPlayer != PlayerObject.Instance.playerNumber) return;
+        EndTurnServerRpc();
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void EndTurnServerRpc()
+    {
         EndTurnClientRpc();
     }
 

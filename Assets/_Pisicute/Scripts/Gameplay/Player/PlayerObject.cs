@@ -34,7 +34,7 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
     public delegate void Action<HexCell>(HexCell cell);
     Action<HexCell> onClickAction;
 
-    private bool canGiveLeadersStartingCats;
+    private bool canGiveLeadersStartingCats = false;
 
     public void Start()
     {
