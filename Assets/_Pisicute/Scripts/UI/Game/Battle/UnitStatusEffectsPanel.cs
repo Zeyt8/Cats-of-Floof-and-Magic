@@ -7,7 +7,11 @@ public class UnitStatusEffectsPanel : MonoBehaviour
 
     public void SetStatusEffects(UnitObject unit)
     {
-        if (unit.statusEffects.Count == 0)
+        if (unit == null)
+        {
+            text.text = "";
+        }
+        else if (unit.statusEffects.Count == 0)
         {
             text.text = "<B>No Status Effects</b>";
         }

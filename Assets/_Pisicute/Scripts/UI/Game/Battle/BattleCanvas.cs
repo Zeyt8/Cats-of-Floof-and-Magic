@@ -26,17 +26,26 @@ public class BattleCanvas : Singleton<BattleCanvas>
 
     public void ShowAbilities(Cat cat)
     {
-        catIcon.SetIcon(cat.icon, cat.data.type.GetPrettyName());
         foreach (Transform t in abilityPanel)
         {
             Destroy(t.gameObject);
         }
-        foreach (CatAbility ability in cat.abilities)
+        if (cat == null)
         {
-            Instantiate(abilityIconPrefab, abilityPanel).Initialize(cat, ability);
+            catIcon.SetIcon(null, "");
+            statsPanel.Empty();
+            unitStatusEffectsPanel.SetStatusEffects(null);
         }
-        statsPanel.SetStats(cat.data);
-        unitStatusEffectsPanel.SetStatusEffects(cat);
+        else
+        {
+            catIcon.SetIcon(cat.icon, cat.data.type.GetPrettyName());
+            foreach (CatAbility ability in cat.abilities)
+            {
+                Instantiate(abilityIconPrefab, abilityPanel).Initialize(cat, ability);
+            }
+            statsPanel.SetStats(cat.data);
+            unitStatusEffectsPanel.SetStatusEffects(cat);
+        }
     }
 
     public void SetupFactionEffect(List<FactionEffect> effects)

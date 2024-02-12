@@ -17,10 +17,10 @@ public class BewitchAbility : CatAbility
 
     public override PlayerObject.Action<HexCell> CastAbility(Cat caster)
     {
-        base.CastAbility(caster);
         return (cell) =>
         {
             PlayerObject.Instance.AddStatusEffectToUnitServerRpc(new SlowStatusEffect(slowAmount, duration), BattleManager.GetBattleMapIndex(((Cat)cell.Unit).battleMap), cell.coordinates, cell.Unit.owner);
+            EndTurn(caster);
         };
     }
 }

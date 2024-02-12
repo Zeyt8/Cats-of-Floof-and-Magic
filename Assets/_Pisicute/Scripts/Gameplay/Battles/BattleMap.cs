@@ -1,5 +1,6 @@
 using Cinemachine;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BattleMap : MonoBehaviour
@@ -190,6 +191,14 @@ public class BattleMap : MonoBehaviour
         CurrentCatTurn.SetTurnActive(false);
         catTurnQueue.Add(CurrentCatTurn);
         catTurnQueue.RemoveAt(0);
+        if (CurrentCatTurn.owner == catTurnQueue[^1].owner)
+        {
+            BattleCanvas.Instance.ShowAbilities(CurrentCatTurn);
+        }
+        else
+        {
+            BattleCanvas.Instance.ShowAbilities(null);
+        }
         CurrentCatTurn.SetTurnActive(true);
         CurrentCatTurn.OnTurnStart(CurrentCatTurn.owner);
         currentPlayer = CurrentCatTurn.owner;
@@ -210,5 +219,7 @@ public class BattleMap : MonoBehaviour
     private void FinishBattle(int winningPlayer, int losingPlayer)
     {
         GetLeader(losingPlayer).Die();
+        LevelManager.Instance.GoToWorldMap();
+        BattleManager.RemoveBattle(this);
     }
 }

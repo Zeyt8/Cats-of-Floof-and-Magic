@@ -12,8 +12,8 @@ public class VoidAbility : CatAbility
 
     public override PlayerObject.Action<HexCell> CastAbility(Cat caster)
     {
-        base.CastAbility(caster);
         caster.leader.GainFloof(floofRestored);
+        EndTurn(caster);
         return (cell) => { };
     }
 }

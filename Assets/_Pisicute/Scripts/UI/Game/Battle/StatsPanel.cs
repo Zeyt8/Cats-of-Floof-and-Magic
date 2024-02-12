@@ -13,4 +13,11 @@ public class StatsPanel : MonoBehaviour
         healthSlider.value = data.health;
         statsText.text = $"Health: {data.health} / Power: {data.power.value} / Speed: {data.speed.value}";
     }
+
+    public void Empty()
+    {
+        healthSlider.maxValue = 0;
+        healthSlider.value = 0;
+        statsText.text = "";
+    }
 }

@@ -16,10 +16,10 @@ public class SunrayAbility : CatAbility
 
     public override PlayerObject.Action<HexCell> CastAbility(Cat caster)
     {
-        base.CastAbility(caster);
         return (cell) =>
         {
             caster.DealDamage(cell.Unit, (int)(caster.data.power.value * damageModifier));
+            EndTurn(caster);
         };
     }
 }

@@ -6,7 +6,6 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using System.Linq;
 using Unity.Collections;
-using System.Collections;
 
 public class PlayerObject : NetworkSingleton<PlayerObject>
 {
@@ -34,8 +33,6 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
     public delegate void Action<HexCell>(HexCell cell);
     Action<HexCell> onClickAction;
 
-    private bool canGiveLeadersStartingCats = false;
-
     public void Start()
     {
         CurrentResources = new Resources(10, 10, 10, 0, 0, 0);
@@ -55,37 +52,6 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
         {
             Lose();
         }
-        if (canGiveLeadersStartingCats)
-        {
-            StartCoroutine(GiveArmy());
-            canGiveLeadersStartingCats = false;
-        }
-    }
-
-    private IEnumerator GiveArmy()
-    {
-        yield return new WaitForEndOfFrame();
-        foreach (Leader leader in FindObjectsOfType<Leader>())
-        {
-            if (leader.owner == playerNumber)
-            {
-                for (int i = 0; i < 4; i++)
-                {
-                    AddCatDataToLeaderServerRpc(leader.sicCats.cats.Values.GetRandom().data, leader.Location.coordinates, leader.owner);
-                }
-            }
-        }
-    }
-
-    public override void OnNetworkSpawn()
-    {
-        base.OnNetworkSpawn();
-        NetworkManager.SceneManager.OnLoadEventCompleted += OnLoadEventCompleted;
-    }
-
-    private void OnLoadEventCompleted(string sceneName, UnityEngine.SceneManagement.LoadSceneMode loadSceneMode, List<ulong> clientsCompleted, List<ulong> clientsTimedOut)
-    {
-        canGiveLeadersStartingCats = true;
     }
 
     private void OnEnable()

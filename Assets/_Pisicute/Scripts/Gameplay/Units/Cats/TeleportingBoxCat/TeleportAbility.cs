@@ -14,10 +14,10 @@ public class TeleportAbility : CatAbility
     }
     public override PlayerObject.Action<HexCell> CastAbility(Cat caster)
     {
-        base.CastAbility(caster);
         return (cell) =>
         {
             caster.Location = cell;
+            EndTurn(caster);
         };
     }
 }

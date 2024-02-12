@@ -42,4 +42,10 @@ public class BattleManager : Singleton<BattleManager>
         bm.transform.position = new Vector3(0, 0, z);
         return bm;
     }
+
+    public static void RemoveBattle(BattleMap battleMap)
+    {
+        battleMaps.Remove(battleMap);
+        Destroy(battleMap.gameObject);
+    }
 }
