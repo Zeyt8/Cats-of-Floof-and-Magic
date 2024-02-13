@@ -85,6 +85,7 @@ public class Leader : UnitObject
         return cell.IsExplored && !cell.IsUnderwater && cell.units.All(unit => unit.owner != owner);
     }
 
+    [ContextMenu("Die")]
     public override void Die()
     {
         if (Location)

@@ -32,6 +32,7 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
 
     public delegate void Action<HexCell>(HexCell cell);
     Action<HexCell> onClickAction;
+    private int delay;
 
     public void Start()
     {
@@ -39,7 +40,7 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
         playerNumber = NetworkPlayerUtils.GetPlayerIndex(NetworkHandler.PlayerId);
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         for (int i = leaders.Count - 1; i >= 0; i--)
         {
@@ -48,9 +49,13 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
                 leaders.RemoveAt(i);
             }
         }
-        if (leaders.Count == 0)
+        if (leaders.Count == 0 && delay > 1)
         {
-            Lose();
+            LoseServerRpc();
+        }
+        else
+        {
+            delay++;
         }
     }
 
@@ -288,9 +293,10 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
         LevelManager.Instance.CurrentMap.GetCell(unitLocation).Unit.Travel(cells);
     }
 
-    private void Lose()
+    [ServerRpc(RequireOwnership = false)]
+    private void LoseServerRpc()
     {
-
+        GameManager.EndGame(2 - playerNumber);
     }
 
     [ServerRpc(RequireOwnership = false)]

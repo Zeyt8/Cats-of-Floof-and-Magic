@@ -60,6 +60,10 @@ public class NetworkHandler : Singleton<NetworkHandler>
 
     public static async Task ConnectToServer()
     {
+        if (UnityServices.State == ServicesInitializationState.Initialized)
+        {
+            return;
+        }
         try
         {
             await UnityServices.InitializeAsync();

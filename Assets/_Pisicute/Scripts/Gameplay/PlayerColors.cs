@@ -14,4 +14,17 @@ public static class PlayerColors
             _ => Color.gray,
         };
     }
+
+    public static string GetName(int player)
+    {
+        return player switch
+        {
+            0 => "Gray",
+            1 => "Blue",
+            2 => "Red",
+            3 => "Green",
+            4 => "Yellow",
+            _ => "Gray",
+        };
+    }
 }
