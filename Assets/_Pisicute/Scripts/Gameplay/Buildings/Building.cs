@@ -60,19 +60,19 @@ public class Building : MonoBehaviour, ISaveableObject
         return buildingUI;
     }
 
-    public void ChangeOwner(int player)
+    public void ChangeOwner(int player, bool force = false)
     {
-        if (owner == player) return;
-        owner = player;
+        if (owner == player && !force) return;
         playerMarker.color = PlayerColors.Get(player);
-        if (PlayerObject.Instance && owner == PlayerObject.Instance.playerNumber)
+        if (player == PlayerObject.Instance.playerNumber)
         {
             grid.IncreaseVisibility(Location, visionRange);
         }
-        else
+        else if (owner != -1)
         {
             grid.DecreaseVisibility(Location, visionRange);
         }
+        owner = player;
     }
 
     public void Save(BinaryWriter writer)
@@ -84,11 +84,11 @@ public class Building : MonoBehaviour, ISaveableObject
 
     public void Load(BinaryReader reader, int header, HexGrid grid = null)
     {
-        owner = reader.ReadInt32();
+        int o = reader.ReadInt32();
         HexCoordinates coordinates = HexCoordinates.Load(reader);
         HexCell cell = grid.GetCell(coordinates);
         grid.AddBuilding(this, cell);
         cell.chunk.RegisterBuilding(this);
-        //ChangeOwner(reader.ReadInt32());
+        ChangeOwner(o, true);
     }
 }

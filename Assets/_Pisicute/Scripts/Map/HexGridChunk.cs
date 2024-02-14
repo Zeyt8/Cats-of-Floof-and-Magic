@@ -108,7 +108,10 @@ public class HexGridChunk : MonoBehaviour
         yield return new WaitForEndOfFrame();
         foreach (MeshRenderer featureMesh in features.GetComponentsInChildren<MeshRenderer>())
         {
-            featureMesh.material.SetTexture("_HexCellData", cellTexture);
+            foreach (Material material in featureMesh.materials)
+            {
+                material.SetTexture("_HexCellData", cellTexture);
+            }
         }
     }
 
@@ -150,23 +153,32 @@ public class HexGridChunk : MonoBehaviour
             wallsMR.material.DisableKeyword("_HEX_MAP_EDIT_MODE");
         }
         StartCoroutine(SetFeaturesVisible(visible));
+        StartCoroutine(SetBuildingsVisible(visible));
     }
 
     private IEnumerator SetFeaturesVisible(bool visible)
     {
         yield return new WaitForEndOfFrame();
-        if (visible)
+        foreach (MeshRenderer featureMesh in features.GetComponentsInChildren<MeshRenderer>())
         {
-            foreach (MeshRenderer featureMesh in features.GetComponentsInChildren<MeshRenderer>())
+            foreach (Material material in featureMesh.materials)
             {
-                featureMesh.material.EnableKeyword("_HEX_MAP_EDIT_MODE");
+                material.SetKeyword(new UnityEngine.Rendering.LocalKeyword(material.shader, "_HEX_MAP_EDIT_MODE"), visible);
             }
         }
-        else
+    }
+
+    private IEnumerator SetBuildingsVisible(bool visible)
+    {
+        yield return new WaitForEndOfFrame();
+        foreach (Building building in buildings)
         {
-            foreach (MeshRenderer featureMesh in features.GetComponentsInChildren<MeshRenderer>())
+            foreach (MeshRenderer featureMesh in building.GetComponentsInChildren<MeshRenderer>())
             {
-                featureMesh.material.DisableKeyword("_HEX_MAP_EDIT_MODE");
+                foreach (Material material in featureMesh.materials)
+                {
+                    material.SetKeyword(new UnityEngine.Rendering.LocalKeyword(material.shader, "_HEX_MAP_EDIT_MODE"), visible);
+                }
             }
         }
     }
