@@ -181,7 +181,7 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
                 cell.IsVisible
             )
             {
-                BuildBuildingServerRpc(cell.coordinates, buildingToBuild);
+                BuildBuildingServerRpc(cell.coordinates, buildingToBuild, playerNumber);
                 if (cell.Building.type != BuildingTypes.None)
                 {
                     CurrentResources -= buildingCollection[buildingToBuild].resourceCost;
@@ -193,19 +193,20 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
     }
 
     [ServerRpc(RequireOwnership = false)]
-    private void BuildBuildingServerRpc(HexCoordinates coordinates, BuildingTypes buildingToBuild)
+    private void BuildBuildingServerRpc(HexCoordinates coordinates, BuildingTypes buildingToBuild, int owner)
     {
-        BuildBuildingClientRpc(coordinates, buildingToBuild);
+        BuildBuildingClientRpc(coordinates, buildingToBuild, owner);
     }
 
     [ClientRpc]
-    private void BuildBuildingClientRpc(HexCoordinates coordinates, BuildingTypes buildingToBuild)
+    private void BuildBuildingClientRpc(HexCoordinates coordinates, BuildingTypes buildingToBuild, int owner)
     {
         HexCell cell = LevelManager.Instance.mapHexGrid.GetCell(coordinates);
         Building building = cell.AddBuilding(buildingToBuild);
         if (building)
         {
             building.OnBuild(cell);
+            building.ChangeOwner(owner);
         }
     }
 

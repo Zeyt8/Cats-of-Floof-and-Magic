@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class HexGridChunk : MonoBehaviour
@@ -27,6 +28,7 @@ public class HexGridChunk : MonoBehaviour
     private MeshRenderer waterShoreMR;
     private MeshRenderer estuariesMR;
     private MeshRenderer wallsMR;
+    private List<Building> buildings = new List<Building>();
 
     void Awake()
     {
@@ -98,6 +100,7 @@ public class HexGridChunk : MonoBehaviour
         estuariesMR.material.SetTexture("_HexCellData", cellTexture);
         wallsMR.material.SetTexture("_HexCellData", cellTexture);
         StartCoroutine(SetFeaturesTextures(cellTexture));
+        StartCoroutine(SetBuildingsTextures(cellTexture));
     }
 
     private IEnumerator SetFeaturesTextures(Texture2D cellTexture)
@@ -106,6 +109,21 @@ public class HexGridChunk : MonoBehaviour
         foreach (MeshRenderer featureMesh in features.GetComponentsInChildren<MeshRenderer>())
         {
             featureMesh.material.SetTexture("_HexCellData", cellTexture);
+        }
+    }
+
+    private IEnumerator SetBuildingsTextures(Texture2D cellTexture)
+    {
+        yield return new WaitForEndOfFrame();
+        foreach (Building building in buildings)
+        {
+            foreach (MeshRenderer featureMesh in building.GetComponentsInChildren<MeshRenderer>())
+            {
+                foreach (Material material in featureMesh.materials)
+                {
+                    material.SetTexture("_HexCellData", cellTexture);
+                }
+            }
         }
     }
 
@@ -151,6 +169,18 @@ public class HexGridChunk : MonoBehaviour
                 featureMesh.material.DisableKeyword("_HEX_MAP_EDIT_MODE");
             }
         }
+    }
+
+    public Building AddBuilding(BuildingTypes buildingType, HexCell cell)
+    {
+        Building building = grid.AddBuilding(buildingType, cell);
+        buildings.Add(building);
+        return building;
+    }
+
+    public void RegisterBuilding(Building building)
+    {
+        buildings.Add(building);
     }
 
     private void Triangulate(HexCell cell)

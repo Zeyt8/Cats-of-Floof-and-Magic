@@ -12,7 +12,7 @@ public class Building : MonoBehaviour, ISaveableObject
     [TextArea]
     public string description;
     public int visionRange = 3;
-    [HideInInspector] public HexGrid grid;
+    public HexGrid grid;
     public int owner = -1;
     public bool HasUIPanel => uiPanel != null;
     [SerializeField] private BuildingUI uiPanel;
@@ -32,6 +32,11 @@ public class Building : MonoBehaviour, ISaveableObject
         }
     }
     private HexCell location;
+
+    private void Update()
+    {
+        playerMarker.gameObject.SetActive(Location.IsExplored);
+    }
 
     public virtual void OnBuild(HexCell cell)
     {
@@ -57,8 +62,17 @@ public class Building : MonoBehaviour, ISaveableObject
 
     public void ChangeOwner(int player)
     {
+        if (owner == player) return;
         owner = player;
         playerMarker.color = PlayerColors.Get(player);
+        if (PlayerObject.Instance && owner == PlayerObject.Instance.playerNumber)
+        {
+            grid.IncreaseVisibility(Location, visionRange);
+        }
+        else
+        {
+            grid.DecreaseVisibility(Location, visionRange);
+        }
     }
 
     public void Save(BinaryWriter writer)
@@ -72,6 +86,9 @@ public class Building : MonoBehaviour, ISaveableObject
     {
         owner = reader.ReadInt32();
         HexCoordinates coordinates = HexCoordinates.Load(reader);
-        grid.AddBuilding(this, grid.GetCell(coordinates));
+        HexCell cell = grid.GetCell(coordinates);
+        grid.AddBuilding(this, cell);
+        cell.chunk.RegisterBuilding(this);
+        //ChangeOwner(reader.ReadInt32());
     }
 }

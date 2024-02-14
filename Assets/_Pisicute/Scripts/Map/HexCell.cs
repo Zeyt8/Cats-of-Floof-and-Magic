@@ -325,7 +325,7 @@ public class HexCell : MonoBehaviour, ISaveableObject
 
     public Building AddBuilding(BuildingTypes buildingType)
     {
-        return chunk.grid.AddBuilding(buildingType, this);
+        return chunk.AddBuilding(buildingType, this);
     }
 
     private void SetWall(int index, bool state)

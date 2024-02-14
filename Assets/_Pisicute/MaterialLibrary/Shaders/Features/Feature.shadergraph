@@ -477,6 +477,7 @@
     "m_OutputNode": {
         "m_Id": ""
     },
+    "m_SubDatas": [],
     "m_ActiveTargets": [
         {
             "m_Id": "f12903fb008745b19f8cfeca549ab42f"
@@ -1706,9 +1707,9 @@
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
     "m_Value": {
-        "r": 0.40784314274787905,
-        "g": 0.3803921639919281,
-        "b": 0.35686275362968447,
+        "r": 0.23529411852359773,
+        "g": 0.0,
+        "b": 0.3019607961177826,
         "a": 1.0
     },
     "isMainColor": false,
