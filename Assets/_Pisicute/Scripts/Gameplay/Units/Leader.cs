@@ -30,7 +30,7 @@ public class Leader : UnitObject
         AddCatToArmy(sicCats[CatTypes.Tabby].data);
         AddCatToArmy(sicCats[CatTypes.Tuxedo].data);
         GameEvents.OnLeaderRecruited.Invoke(owner);
-        AddSpell(new TeleportSpell());
+        AddSpell(new ConjureFoodSpell());
     }
 
     private void OnEnable()

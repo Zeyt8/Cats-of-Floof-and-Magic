@@ -73,6 +73,11 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
 
     public void InitiateSelectCellForEffect(Func<HexCell, bool> selectionCondition, Action<HexCell> onClickAction)
     {
+        if (selectionCondition == null)
+        {
+            onClickAction(null);
+            return;
+        }
         this.onClickAction = onClickAction;
         foreach (HexCell cell in LevelManager.Instance.CurrentMap.cells)
         {

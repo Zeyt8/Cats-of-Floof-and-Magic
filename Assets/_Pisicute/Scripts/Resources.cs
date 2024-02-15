@@ -108,7 +108,7 @@ public class Resources
 
     public static Resources operator +(Resources a, Resources b)
     {
-        a.food = b.food;
+        a.food += b.food;
         a.wood += b.wood;
         a.stone += b.stone;
         a.steel += b.steel;
@@ -119,10 +119,10 @@ public class Resources
 
     public static Resources operator -(Resources a, Resources b)
     {
-        a.food = -b.food;
-        a.wood = -b.wood;
-        a.stone = -b.stone;
-        a.steel = -b.steel;
+        a.food -= b.food;
+        a.wood -= b.wood;
+        a.stone -= b.stone;
+        a.steel -= b.steel;
         a.sulfur -= b.sulfur;
         a.gems -= b.gems;
         return a;
