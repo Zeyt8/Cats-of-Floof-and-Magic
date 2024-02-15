@@ -29,6 +29,7 @@ public class HexGridChunk : MonoBehaviour
     private MeshRenderer estuariesMR;
     private MeshRenderer wallsMR;
     private List<Building> buildings = new List<Building>();
+    private List<UnitObject> units = new List<UnitObject>();
 
     void Awake()
     {
@@ -101,6 +102,7 @@ public class HexGridChunk : MonoBehaviour
         wallsMR.material.SetTexture("_HexCellData", cellTexture);
         StartCoroutine(SetFeaturesTextures(cellTexture));
         StartCoroutine(SetBuildingsTextures(cellTexture));
+        StartCoroutine(SetUnitsTextures(cellTexture));
     }
 
     private IEnumerator SetFeaturesTextures(Texture2D cellTexture)
@@ -121,6 +123,21 @@ public class HexGridChunk : MonoBehaviour
         foreach (Building building in buildings)
         {
             foreach (MeshRenderer featureMesh in building.GetComponentsInChildren<MeshRenderer>())
+            {
+                foreach (Material material in featureMesh.materials)
+                {
+                    material.SetTexture("_HexCellData", cellTexture);
+                }
+            }
+        }
+    }
+
+    private IEnumerator SetUnitsTextures(Texture2D cellTexture)
+    {
+        yield return new WaitForEndOfFrame();
+        foreach (UnitObject unit in units)
+        {
+            foreach (MeshRenderer featureMesh in unit.GetComponentsInChildren<MeshRenderer>())
             {
                 foreach (Material material in featureMesh.materials)
                 {
@@ -154,6 +171,7 @@ public class HexGridChunk : MonoBehaviour
         }
         StartCoroutine(SetFeaturesVisible(visible));
         StartCoroutine(SetBuildingsVisible(visible));
+        StartCoroutine(SetUnitsVisible(visible));
     }
 
     private IEnumerator SetFeaturesVisible(bool visible)
@@ -190,9 +208,34 @@ public class HexGridChunk : MonoBehaviour
         return building;
     }
 
+    private IEnumerator SetUnitsVisible(bool visible)
+    {
+        yield return new WaitForEndOfFrame();
+        foreach (UnitObject unit in units)
+        {
+            foreach (MeshRenderer featureMesh in unit.GetComponentsInChildren<MeshRenderer>())
+            {
+                foreach (Material material in featureMesh.materials)
+                {
+                    material.SetKeyword(new UnityEngine.Rendering.LocalKeyword(material.shader, "_HEX_MAP_EDIT_MODE"), visible);
+                }
+            }
+        }
+    }
+
     public void RegisterBuilding(Building building)
     {
         buildings.Add(building);
+    }
+
+    public void RegisterUnit(UnitObject unit)
+    {
+        units.Add(unit);
+    }
+
+    public void UnregisterUnit(UnitObject unit)
+    {
+        units.Remove(unit);
     }
 
     private void Triangulate(HexCell cell)

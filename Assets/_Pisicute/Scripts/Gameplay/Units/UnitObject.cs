@@ -61,6 +61,11 @@ public class UnitObject : MonoBehaviour, ISaveableObject
         ChangeOwner(owner);
     }
 
+    private void Update()
+    {
+        playerMarker.gameObject.SetActive(Location.IsExplored);
+    }
+
     public virtual void DealDamage(UnitObject target, int damage)
     {
         foreach (StatusEffect statusEffect in statusEffects)
@@ -87,6 +92,7 @@ public class UnitObject : MonoBehaviour, ISaveableObject
 
     public virtual void Die()
     {
+        Location.chunk.UnregisterUnit(this);
     }
 
     public void ValidateLocation()
@@ -114,7 +120,7 @@ public class UnitObject : MonoBehaviour, ISaveableObject
         int moveCost;
         if (fromCell.HasRoadThroughEdge(direction))
         {
-            moveCost = 1;
+            moveCost = 2;
         }
         else
         {
@@ -242,5 +248,6 @@ public class UnitObject : MonoBehaviour, ISaveableObject
         HexCoordinates coordinates = HexCoordinates.Load(reader);
         float orientation = reader.ReadSingle();
         grid.AddUnit(this, grid.GetCell(coordinates), orientation);
+        Location.chunk.RegisterUnit(this);
     }
 }

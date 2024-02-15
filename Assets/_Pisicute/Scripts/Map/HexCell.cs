@@ -321,6 +321,7 @@ public class HexCell : MonoBehaviour, ISaveableObject
     public void AddUnit(UnitObject unit, float orientation)
     {
         chunk.grid.AddUnit(unit, this, orientation);
+        chunk.RegisterUnit(unit);
     }
 
     public Building AddBuilding(BuildingTypes buildingType)
