@@ -11,6 +11,7 @@ public class Leader : UnitObject
     public List<CatData> army = new List<CatData>();
     public List<Cat> currentArmy = new List<Cat>();
     public List<FactionEffect> factionsEffects { get; private set; }
+    public List<Spell> spells = new List<Spell>();
 
     private void Awake()
     {
@@ -29,16 +30,19 @@ public class Leader : UnitObject
         AddCatToArmy(sicCats[CatTypes.Tabby].data);
         AddCatToArmy(sicCats[CatTypes.Tuxedo].data);
         GameEvents.OnLeaderRecruited.Invoke(owner);
+        AddSpell(new TeleportSpell());
     }
 
     private void OnEnable()
     {
         GameEvents.OnTurnStart.AddListener(OnTurnStart);
+        GameEvents.OnRoundEnd.AddListener(OnRoundEnd);
     }
 
     private void OnDisable()
     {
         GameEvents.OnTurnStart.RemoveListener(OnTurnStart);
+        GameEvents.OnRoundEnd.RemoveListener(OnRoundEnd);
     }
 
     private void OnDestroy()
@@ -121,5 +125,21 @@ public class Leader : UnitObject
         {
             GainFloof(2);
         }
+    }
+
+    private void OnRoundEnd()
+    {
+        foreach (Spell spell in spells)
+        {
+            if (spell.cooldown > 0)
+            {
+                spell.cooldown--;
+            }
+        }
+    }
+
+    public void AddSpell(Spell spell)
+    {
+        spells.Add(spell);
     }
 }
