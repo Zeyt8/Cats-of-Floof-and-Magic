@@ -60,8 +60,10 @@ MonoBehaviour:
   visionRange: 3
   grid: {fileID: 0}
   owner: -1
-  uiPanel: {fileID: 0}
+  uiPanel: {fileID: 598283003545265935, guid: e0060cf3bbc1fe24e858a7b045d2ac94, type: 3}
   playerMarker: {fileID: 5660777708189385647}
+  magicalCats: {fileID: 11400000, guid: 0c25c107ce069b1468bbb35282d961a5, type: 2}
+  catInWaiting: {fileID: 0}
 --- !u!1 &5688856426290039316
 GameObject:
   m_ObjectHideFlags: 0

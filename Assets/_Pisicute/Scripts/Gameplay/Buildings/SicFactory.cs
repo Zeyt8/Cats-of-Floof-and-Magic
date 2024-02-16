@@ -23,6 +23,7 @@ public class SicFactory : Building
         }
     }
 
+    [ContextMenu("Create Cat")]
     private void CreateCat()
     {
         if (catInWaiting == null && owner == PlayerObject.Instance.playerNumber)
