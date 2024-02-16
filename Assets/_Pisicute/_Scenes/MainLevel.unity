@@ -7098,6 +7098,7 @@ MonoBehaviour:
   text: {fileID: 1667964476}
   icon: {fileID: 1273263068}
   button: {fileID: 1857101338}
+  buttonText: {fileID: 1650651364}
   playerInputHandler: {fileID: 11400000, guid: 6e5279e34a1ec934f9b814a09399b761, type: 2}
 --- !u!1 &2056974034
 GameObject:

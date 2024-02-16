@@ -7,6 +7,7 @@ public class BuildingDetails : MonoBehaviour
     [SerializeField] private TextMeshProUGUI text;
     [SerializeField] private Image icon;
     [SerializeField] private GameObject button;
+    [SerializeField] private TextMeshProUGUI buttonText;
     [SerializeField] private PlayerInputHandler playerInputHandler;
     private Building currentBuilding;
     private BuildingUI currentOpenUIPanel;
@@ -27,7 +28,20 @@ public class BuildingDetails : MonoBehaviour
         gameObject.SetActive(true);
         text.text = $"<b>{building.title}</b>\n{building.description}";
         icon.sprite = building.icon;
-        button.SetActive(building.HasUIPanel && building.owner == PlayerObject.Instance.playerNumber);
+        if (building.HasUIPanel && building.owner == PlayerObject.Instance.playerNumber)
+        {
+            button.SetActive(true);
+            buttonText.text = "Building Menu";
+        }
+        else if (building.HasAction && building.owner == PlayerObject.Instance.playerNumber)
+        {
+            button.SetActive(true);
+            buttonText.text = "Use";
+        }
+        else
+        {
+            button.SetActive(false);
+        }
         DeactivateBuildingUI();
     }
 
@@ -40,7 +54,14 @@ public class BuildingDetails : MonoBehaviour
     public void ActivateBuildingUI()
     {
         DeactivateBuildingUI();
-        currentOpenUIPanel = currentBuilding.OpenUIPanel();
+        if (currentBuilding.HasUIPanel)
+        {
+            currentOpenUIPanel = currentBuilding.OpenUIPanel();
+        }
+        else
+        {
+            currentBuilding.action?.Invoke();
+        }
     }
 
     private void DeactivateBuildingUI()

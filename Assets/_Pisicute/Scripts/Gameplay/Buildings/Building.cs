@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,6 +16,8 @@ public class Building : MonoBehaviour, ISaveableObject
     public HexGrid grid;
     public int owner = -1;
     public bool HasUIPanel => uiPanel != null;
+    public bool HasAction => action != null;
+    public Action action;
     [SerializeField] private BuildingUI uiPanel;
     [SerializeField] private Image playerMarker;
 
