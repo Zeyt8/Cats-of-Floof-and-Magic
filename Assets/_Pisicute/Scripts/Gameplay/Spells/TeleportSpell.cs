@@ -12,7 +12,7 @@ public class TeleportSpell : Spell
         {
             caster.GainFloof(-floofCost);
             cooldown = baseCooldown;
-            caster.Location = cell;
+            PlayerObject.Instance.TeleportUnitServerRpc(caster.Location.coordinates, cell.coordinates);
         };
     }
 

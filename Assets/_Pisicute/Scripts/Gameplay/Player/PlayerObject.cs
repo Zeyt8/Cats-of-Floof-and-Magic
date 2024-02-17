@@ -414,4 +414,20 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
     {
         BattleManager.GetBattleMap(map).EndTurn();
     }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void TeleportUnitServerRpc(HexCoordinates cell, HexCoordinates target)
+    {
+        TeleportUnitClientRpc(cell, target);
+    }
+
+    [ClientRpc]
+    private void TeleportUnitClientRpc(HexCoordinates cell, HexCoordinates target)
+    {
+        UnitObject unit = LevelManager.Instance.mapHexGrid.GetCell(cell).Unit;
+        if (unit)
+        {
+            unit.Location = LevelManager.Instance.mapHexGrid.GetCell(target);
+        }
+    }
 }

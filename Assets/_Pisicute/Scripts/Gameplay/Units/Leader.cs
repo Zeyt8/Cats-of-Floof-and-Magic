@@ -23,7 +23,7 @@ public class Leader : UnitObject
     {
         base.Start();
         currentFloof = maxFloof / 2;
-        if (owner == PlayerObject.Instance.playerNumber)
+        if (PlayerObject.Instance && owner == PlayerObject.Instance.playerNumber)
         {
             PlayerObject.Instance.leaders.Add(this);
         }
@@ -47,7 +47,7 @@ public class Leader : UnitObject
 
     private void OnDestroy()
     {
-        if (owner == PlayerObject.Instance.playerNumber)
+        if (PlayerObject.Instance && owner == PlayerObject.Instance.playerNumber)
         {
             PlayerObject.Instance.leaders.Remove(this);
         }

@@ -67,7 +67,7 @@ public class Building : MonoBehaviour, ISaveableObject
     {
         if (owner == player && !force) return;
         playerMarker.color = PlayerColors.Get(player);
-        if (player == PlayerObject.Instance.playerNumber)
+        if (PlayerObject.Instance && player == PlayerObject.Instance.playerNumber)
         {
             grid.IncreaseVisibility(Location, visionRange);
         }
@@ -78,14 +78,14 @@ public class Building : MonoBehaviour, ISaveableObject
         owner = player;
     }
 
-    public void Save(BinaryWriter writer)
+    public virtual void Save(BinaryWriter writer)
     {
         writer.Write((int)type); // this must be first
         writer.Write(owner);
         Location.coordinates.Save(writer);
     }
 
-    public void Load(BinaryReader reader, int header, HexGrid grid = null)
+    public virtual void Load(BinaryReader reader, int header, HexGrid grid = null)
     {
         int o = reader.ReadInt32();
         HexCoordinates coordinates = HexCoordinates.Load(reader);
