@@ -56,7 +56,7 @@ public class CameraController : MonoBehaviour
         {
             polar += inputHandler.orbit.x * orbitSpeed * Time.deltaTime;
             elevation += inputHandler.orbit.y * orbitSpeed * Time.deltaTime;
-            elevation = Mathf.Clamp(elevation, 0.1f, Mathf.PI / 2 - 0.01f);
+            elevation = Mathf.Clamp(elevation, 0.2f, Mathf.PI / 2 - 0.01f);
         }
 
         transposer.m_FollowOffset = ToCartesian(polar, elevation, currentZoom);

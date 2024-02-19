@@ -48,6 +48,7 @@ public class Building : MonoBehaviour, ISaveableObject
     public virtual void OnSpawn(HexCell cell)
     {
         ChangeOwner(owner);
+        transform.rotation = Quaternion.Euler(0, HexMetrics.SampleNoise(Location.Position).x * 360, 0);
     }
 
     public virtual void OnUnitEnter(UnitObject unit)
