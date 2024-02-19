@@ -174,7 +174,7 @@ public class UnitObject : MonoBehaviour, ISaveableObject
         float t = Time.deltaTime * TravelSpeed;
         int i = 0;
         int nextMovementCost = GetMoveCost(pathToTravel[0], pathToTravel[1], pathToTravel[0].GetNeighborDirection(pathToTravel[1]).Value);
-        while (movementPoints - nextMovementCost > 0)
+        while (movementPoints - nextMovementCost >= 0)
         {
             // move smoothly
             a = c;
