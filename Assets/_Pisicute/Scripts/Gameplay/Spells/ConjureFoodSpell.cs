@@ -13,6 +13,7 @@ public class ConjureFoodSpell : Spell
             caster.GainFloof(-floofCost);
             cooldown = baseCooldown;
             PlayerObject.Instance.CurrentResources += new Resources(2, 0, 0, 0, 0, 0);
+            OnSpellCast(caster);
         };
     }
 

@@ -159,7 +159,7 @@ MonoBehaviour:
   playerMarker: {fileID: 1877966034339332328}
   maxFloof: 20
   currentFloof: 0
-  sicCats: {fileID: 11400000, guid: 43b6399bf83a61d468b367c25e553446, type: 2}
+  allCats: {fileID: 11400000, guid: 43b6399bf83a61d468b367c25e553446, type: 2}
   possibleIcons:
   - {fileID: -553014663, guid: b06d7264ba1eddb469533bf8d960cec6, type: 3}
   - {fileID: -22210354, guid: b06d7264ba1eddb469533bf8d960cec6, type: 3}

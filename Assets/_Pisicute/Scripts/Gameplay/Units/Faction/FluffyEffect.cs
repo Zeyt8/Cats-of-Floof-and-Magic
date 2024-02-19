@@ -8,7 +8,7 @@ public class FluffyEffect : FactionEffect
             string d = "";
             if (level >= 1)
             {
-                d += "Spells cost 1 floof less.";
+                d += "Casting a spell regenerates 1 floof.";
             }
             return d;
         }
@@ -21,5 +21,19 @@ public class FluffyEffect : FactionEffect
             level = 1;
         }
         nextThreshold = 2;
+    }
+
+    public override void Activate(Leader leader)
+    {
+        if (level == 0) return;
+        base.Activate(leader);
+        PlayerObject.Instance.AddStatusEffectToUnitServerRpc(new FluffyFactionStatusEffect(-1, level), -1, leader.Location.coordinates, leader.owner);
+    }
+
+    public override void Deactivate(Leader leader)
+    {
+        if (level == 0) return;
+        base.Deactivate(leader);
+        PlayerObject.Instance.RemoveStatusEffectFromUnitServerRpc(typeof(FluffyFactionStatusEffect).ToString(), -1, leader.Location.coordinates, leader.owner);
     }
 }

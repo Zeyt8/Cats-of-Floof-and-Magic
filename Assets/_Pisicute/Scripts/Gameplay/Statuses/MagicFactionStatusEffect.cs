@@ -13,12 +13,16 @@ public class MagicFactionStatusEffect : StatusEffect
         ((Leader)unit).currentFloof += 1;
     }
 
-    public override void OnSpellCast()
+    public override void OnSpellCast(Leader caster, Spell spell)
     {
-        base.OnSpellCast();
+        base.OnSpellCast(caster, spell);
         if (level >= 2)
         {
-            // spell thing
+            spell.cooldown -= 1;
+            if (spell.cooldown < 0)
+            {
+                spell.cooldown = 0;
+            }
         }
     }
 }

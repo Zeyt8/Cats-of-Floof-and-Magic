@@ -6,7 +6,7 @@ public class Leader : UnitObject
 {
     public int maxFloof;
     public int currentFloof;
-    [SerializeField] private CatCollection sicCats;
+    [SerializeField] private CatCollection allCats;
     [SerializeField] private List<Sprite> possibleIcons = new List<Sprite>();
     public List<CatData> army = new List<CatData>();
     public List<Cat> currentArmy = new List<Cat>();
@@ -27,8 +27,8 @@ public class Leader : UnitObject
         {
             PlayerObject.Instance.leaders.Add(this);
         }
-        AddCatToArmy(sicCats[CatTypes.Tabby].data);
-        AddCatToArmy(sicCats[CatTypes.Tuxedo].data);
+        AddCatToArmy(allCats[CatTypes.Ragdoll].data);
+        AddCatToArmy(allCats[CatTypes.Ragdoll].data);
         GameEvents.OnLeaderRecruited.Invoke(owner);
         AddSpell(new ConjureFoodSpell());
     }

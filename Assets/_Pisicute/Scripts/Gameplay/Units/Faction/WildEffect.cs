@@ -44,7 +44,7 @@ public class WildEffect : FactionEffect
         {
             if (cat.data.factions.HasFlag(faction))
             {
-                PlayerObject.Instance.AddStatusEffectToUnitServerRpc(new WildFactionStatusEffect(level, -1), BattleManager.GetBattleMapIndex(cat.battleMap), cat.Location.coordinates, cat.owner);
+                PlayerObject.Instance.AddStatusEffectToUnitServerRpc(new WildFactionStatusEffect(-1, level), BattleManager.GetBattleMapIndex(cat.battleMap), cat.Location.coordinates, cat.owner);
             }
         }
     }

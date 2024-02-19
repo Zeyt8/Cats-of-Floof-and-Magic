@@ -10,4 +10,12 @@ public abstract class Spell
     public abstract Func<HexCell, bool> GetAvailableTargets(Leader caster);
 
     public abstract PlayerObject.Action<HexCell> CastAbility(Leader caster);
+
+    public void OnSpellCast(Leader caster)
+    {
+        foreach (StatusEffect statusEffect in caster.statusEffects)
+        {
+            statusEffect.OnSpellCast(caster, this);
+        }
+    }
 }

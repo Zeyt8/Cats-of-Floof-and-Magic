@@ -40,7 +40,7 @@ public class MagicEffect : FactionEffect
     {
         if (level == 0) return;
         base.Activate(leader);
-        PlayerObject.Instance.AddStatusEffectToUnitServerRpc(new MagicFactionStatusEffect(level, -1), -1, leader.Location.coordinates, leader.owner);
+        PlayerObject.Instance.AddStatusEffectToUnitServerRpc(new MagicFactionStatusEffect(-1, level), -1, leader.Location.coordinates, leader.owner);
     }
 
     public override void Deactivate(Leader leader)
