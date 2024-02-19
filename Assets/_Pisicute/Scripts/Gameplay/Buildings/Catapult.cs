@@ -1,18 +1,35 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class Catapult : Building
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void OnSpawn(HexCell cell)
     {
-        
+        base.OnSpawn(cell);
+        OnRoundEnd();
+        GameEvents.OnRoundEnd.AddListener(OnRoundEnd);
     }
 
-    // Update is called once per frame
-    void Update()
+    private bool ValidTargets(HexCell cell)
     {
-        
+        for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++)
+        {
+            if (cell.HasWallThroughEdge(d))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void Shoot(HexCell cell)
+    {
+        cell.RemoveWall();
+    }
+
+    private void OnRoundEnd()
+    {
+        action = () =>
+        {
+            PlayerObject.Instance.InitiateSelectCellForEffect(ValidTargets, Shoot);
+            action = null;
+        };
     }
 }
