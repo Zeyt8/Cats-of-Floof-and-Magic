@@ -204,6 +204,10 @@ public class HexGridChunk : MonoBehaviour
     public Building AddBuilding(BuildingTypes buildingType, HexCell cell)
     {
         Building building = grid.AddBuilding(buildingType, cell);
+        if (building == null)
+        {
+            return null;
+        }
         building.chunk = this;
         buildings.Add(building);
         return building;
