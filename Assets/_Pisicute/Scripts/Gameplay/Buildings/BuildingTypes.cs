@@ -15,5 +15,11 @@ public enum BuildingTypes
     TrainingGrounds,
     MageGuild,
     Portal,
-    FloofAcademy
+    FloofAcademy,
+    FoodPickup,
+    WoodPickup,
+    StonePickup,
+    SteelPickup,
+    SulfurPickup,
+    GemPickup,
 }

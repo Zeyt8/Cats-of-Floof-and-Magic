@@ -27,8 +27,8 @@ public class Leader : UnitObject
         {
             PlayerObject.Instance.leaders.Add(this);
         }
-        AddCatToArmy(allCats[CatTypes.Ragdoll].data);
-        AddCatToArmy(allCats[CatTypes.Ragdoll].data);
+        AddCatToArmy(allCats[CatTypes.Tabby].data);
+        AddCatToArmy(allCats[CatTypes.Tuxedo].data);
         GameEvents.OnLeaderRecruited.Invoke(owner);
         AddSpell(new ConjureFoodSpell());
     }

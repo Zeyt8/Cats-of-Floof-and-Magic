@@ -13,7 +13,7 @@ public class Building : MonoBehaviour, ISaveableObject
     [TextArea]
     public string description;
     public int visionRange = 3;
-    public HexGrid grid;
+    [HideInInspector] public HexGridChunk chunk;
     public int owner = -1;
     public bool HasUIPanel => uiPanel != null;
     public bool HasAction => action != null;
@@ -29,7 +29,7 @@ public class Building : MonoBehaviour, ISaveableObject
             location = value;
             if (PlayerObject.Instance && owner == PlayerObject.Instance.playerNumber)
             {
-                grid.IncreaseVisibility(location, visionRange);
+                chunk.grid.IncreaseVisibility(location, visionRange);
             }
             transform.position = location.Position;
         }
@@ -38,7 +38,10 @@ public class Building : MonoBehaviour, ISaveableObject
 
     private void Update()
     {
-        playerMarker.gameObject.SetActive(Location.IsExplored);
+        if (playerMarker != null)
+        {
+            playerMarker.gameObject.SetActive(Location.IsExplored);
+        }
     }
 
     public virtual void OnBuild(HexCell cell)
@@ -66,14 +69,15 @@ public class Building : MonoBehaviour, ISaveableObject
     public void ChangeOwner(int player, bool force = false)
     {
         if (owner == player && !force) return;
+        if (!playerMarker) return;
         playerMarker.color = PlayerColors.Get(player);
         if (PlayerObject.Instance && player == PlayerObject.Instance.playerNumber)
         {
-            grid.IncreaseVisibility(Location, visionRange);
+            chunk.grid.IncreaseVisibility(Location, visionRange);
         }
         else if (owner != -1)
         {
-            grid.DecreaseVisibility(Location, visionRange);
+            chunk.grid.DecreaseVisibility(Location, visionRange);
         }
         owner = player;
     }
@@ -90,8 +94,8 @@ public class Building : MonoBehaviour, ISaveableObject
         int o = reader.ReadInt32();
         HexCoordinates coordinates = HexCoordinates.Load(reader);
         HexCell cell = grid.GetCell(coordinates);
-        grid.AddBuilding(this, cell);
-        cell.chunk.RegisterBuilding(this);
+        chunk = cell.chunk;
+        chunk.AddBuilding(this, cell);
         ChangeOwner(o, true);
     }
 }

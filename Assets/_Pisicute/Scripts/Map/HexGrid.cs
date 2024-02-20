@@ -381,7 +381,6 @@ public class HexGrid : MonoBehaviour, ISaveableObject
     {
         if (location.Building != null) return null;
         buildings.Add(building);
-        building.grid = this;
         building.transform.SetParent(transform, false);
         building.Location = location;
         location.Building = building;
@@ -399,6 +398,8 @@ public class HexGrid : MonoBehaviour, ISaveableObject
     public void RemoveBuilding(Building building)
     {
         buildings.Remove(building);
+        building.Location.Building = null;
+        Destroy(building.gameObject);
     }
 
     public void AddUnit(UnitObject unit, HexCell location, float orientation)
