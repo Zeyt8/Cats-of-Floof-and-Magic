@@ -1,9 +1,29 @@
 fileFormatVersion: 2
-guid: a2d3b107a831dc7479384ba4b37b6a2b
+guid: fd36810d35b136e4f8c4471acd35416e
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DarkMetal
+    second: {fileID: 2100000, guid: f71f8e6c574dd6e468fbb8d0ccc78119, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Orange
+    second: {fileID: 2100000, guid: 6c626275635e37442b5355c1fc19508e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Soup
+    second: {fileID: 2100000, guid: 71462e2b2358d9b44a2adb4766131555, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Stone
+    second: {fileID: 2100000, guid: b1054cdb771f47f47b20f091457f9a92, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

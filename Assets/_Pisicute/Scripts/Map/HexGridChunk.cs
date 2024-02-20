@@ -204,8 +204,27 @@ public class HexGridChunk : MonoBehaviour
     public Building AddBuilding(BuildingTypes buildingType, HexCell cell)
     {
         Building building = grid.AddBuilding(buildingType, cell);
+        if (building == null)
+        {
+            return null;
+        }
+        building.chunk = this;
         buildings.Add(building);
         return building;
+    }
+
+    public Building AddBuilding(Building building, HexCell cell)
+    {
+        grid.AddBuilding(building, cell);
+        building.chunk = this;
+        buildings.Add(building);
+        return building;
+    }
+
+    public void RemoveBuilding(Building building)
+    {
+        buildings.Remove(building);
+        grid.RemoveBuilding(building);
     }
 
     private IEnumerator SetUnitsVisible(bool visible)
@@ -226,6 +245,11 @@ public class HexGridChunk : MonoBehaviour
     public void RegisterBuilding(Building building)
     {
         buildings.Add(building);
+    }
+
+    public void UnregisterBuilding(Building building)
+    {
+        buildings.Remove(building);
     }
 
     public void RegisterUnit(UnitObject unit)
