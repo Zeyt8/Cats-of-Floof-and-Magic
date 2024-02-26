@@ -48,4 +48,12 @@ public class BattleManager : Singleton<BattleManager>
         battleMaps.Remove(battleMap);
         Destroy(battleMap.gameObject);
     }
+
+    public static void EndWorldTurn()
+    {
+        for (int i = 0; i < battleMaps.Count; i++)
+        {
+            battleMaps[i].OnWorldTurnEnd();
+        }
+    }
 }

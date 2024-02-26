@@ -64,6 +64,7 @@ public class LevelManager : NetworkSingleton<LevelManager>
             GameEvents.OnRoundEnd?.Invoke();
         }
         GameEvents.OnTurnStart?.Invoke(currentPlayer);
+        BattleManager.EndWorldTurn();
     }
 
     public void MoveCamera(Vector2 position)

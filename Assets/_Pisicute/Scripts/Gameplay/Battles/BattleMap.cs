@@ -15,6 +15,7 @@ public class BattleMap : MonoBehaviour
     private Stack<Pair<int, CatData>> catsToPlace = new Stack<Pair<int, CatData>>();
     // battle
     private List<Cat> catTurnQueue = new List<Cat>();
+    private List<Cat> nextCatTurnQueue = new List<Cat>();
     public Cat CurrentCatTurn => catTurnQueue[0];
     private List<Cat>[] armies = new List<Cat>[2];
     // grid dimensions
@@ -51,6 +52,15 @@ public class BattleMap : MonoBehaviour
                 catTurnQueue.RemoveAt(i);
             }
         }
+    }
+
+    public void OnWorldTurnEnd()
+    {
+        catTurnQueue = nextCatTurnQueue;
+        nextCatTurnQueue = new List<Cat>();
+        CurrentCatTurn.SetTurnActive(true);
+        CurrentCatTurn.OnTurnStart(CurrentCatTurn.owner);
+        currentPlayer = CurrentCatTurn.owner;
     }
 
     public void GenerateBattleMap(int width, int height, List<Leader> leaders)
@@ -189,9 +199,14 @@ public class BattleMap : MonoBehaviour
     public void EndTurn()
     {
         CurrentCatTurn.SetTurnActive(false);
-        catTurnQueue.Add(CurrentCatTurn);
+        nextCatTurnQueue.Add(CurrentCatTurn);
         catTurnQueue.RemoveAt(0);
-        if (CurrentCatTurn.owner == catTurnQueue[^1].owner)
+        if (catTurnQueue.Count == 0)
+        {
+            BattleCanvas.Instance.ShowAbilities(null);
+            return;
+        }
+        if (CurrentCatTurn.owner == nextCatTurnQueue[^1].owner)
         {
             BattleCanvas.Instance.ShowAbilities(CurrentCatTurn);
         }
