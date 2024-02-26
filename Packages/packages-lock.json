@@ -367,6 +367,15 @@
       "dependencies": {},
       "hash": "90fd22498fb4b81195a13d270a666c736e24f2dd"
     },
+    "com.unity.visualeffectgraph": {
+      "version": "14.0.9",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.shadergraph": "14.0.9",
+        "com.unity.render-pipelines.core": "14.0.9"
+      }
+    },
     "com.unity.visualscripting": {
       "version": "1.9.1",
       "depth": 0,
