@@ -22,7 +22,7 @@ public class SulfurMounds : Building
             {
                 PlayerObject.Instance.ResourceGain += new Resources(0, 0, 0, 0, 1, 0);
             }
-            else
+            else if (owner == PlayerObject.Instance.playerNumber)
             {
                 PlayerObject.Instance.ResourceGain -= new Resources(0, 0, 0, 0, 1, 0);
             }

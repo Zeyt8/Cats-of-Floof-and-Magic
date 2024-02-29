@@ -30,7 +30,7 @@ public class Windmill : Building
             {
                 PlayerObject.Instance.ResourceGain += new Resources(5, 0, 0, 0, 0, 0);
             }
-            else
+            else if (owner == PlayerObject.Instance.playerNumber)
             {
                 PlayerObject.Instance.ResourceGain -= new Resources(5, 0, 0, 0, 0, 0);
             }

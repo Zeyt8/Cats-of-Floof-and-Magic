@@ -22,7 +22,7 @@ public class StoneQuarry : Building
             {
                 PlayerObject.Instance.ResourceGain += new Resources(0, 0, 5, 0, 0, 0);
             }
-            else
+            else if (owner == PlayerObject.Instance.playerNumber)
             {
                 PlayerObject.Instance.ResourceGain -= new Resources(0, 0, 5, 0, 0, 0);
             }

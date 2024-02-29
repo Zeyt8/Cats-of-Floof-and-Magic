@@ -127,10 +127,7 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
         }
         if (!LevelManager.IsBattleActive)
         {
-            if (playerNumber == LevelManager.Instance.currentPlayer)
-            {
-                SelectionWorldMap(currentCell);
-            }
+            SelectionWorldMap(currentCell);
         }
         else
         {
@@ -189,7 +186,7 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
     private void SelectionWorldMap(HexCell cell)
     {
         // build selected building
-        if (buildingToBuild != BuildingTypes.None)
+        if (buildingToBuild != BuildingTypes.None && playerNumber == LevelManager.Instance.currentPlayer)
         {
             if (buildingCollection[buildingToBuild].resourceCost <= CurrentResources &&
                 cell.Building == null &&

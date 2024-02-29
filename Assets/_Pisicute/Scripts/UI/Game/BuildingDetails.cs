@@ -53,6 +53,7 @@ public class BuildingDetails : MonoBehaviour
 
     public void ActivateBuildingUI()
     {
+        if (LevelManager.Instance.currentPlayer != PlayerObject.Instance.playerNumber) return;
         DeactivateBuildingUI();
         if (currentBuilding.HasUIPanel)
         {
