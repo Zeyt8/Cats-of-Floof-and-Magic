@@ -963,6 +963,7 @@ GameObject:
   - component: {fileID: 241548811}
   - component: {fileID: 241548810}
   - component: {fileID: 241548809}
+  - component: {fileID: 241548812}
   m_Layer: 5
   m_Name: End Turn
   m_TagString: Untagged
@@ -1033,8 +1034,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1917792167}
-        m_TargetAssemblyTypeName: LevelManager, Assembly-CSharp
+      - m_Target: {fileID: 241548812}
+        m_TargetAssemblyTypeName: EndTurnButton, Assembly-CSharp
         m_MethodName: EndTurn
         m_Mode: 1
         m_Arguments:
@@ -1083,6 +1084,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 241548807}
   m_CullTransparentMesh: 1
+--- !u!114 &241548812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 241548807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bfcdc196c6fa574dbb1f1ce13322f0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inactive: {fileID: -17584650, guid: cb20854a194fddb4399104a68ae9cea5, type: 3}
+  active: {fileID: 248529072, guid: cb20854a194fddb4399104a68ae9cea5, type: 3}
 --- !u!1 &256954438
 GameObject:
   m_ObjectHideFlags: 0
@@ -1782,7 +1797,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 660, y: 59.4}
+  m_SizeDelta: {x: 1012.6664, y: 57.6731}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &414534478
 MonoBehaviour:
@@ -2820,7 +2835,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 10
+  m_text: 10 (+0)
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6512,6 +6527,7 @@ MonoBehaviour:
   unitDetails: {fileID: 931814564}
   canvas: {fileID: 1681747697}
   spellBook: {fileID: 1212122451}
+  endTurnButton: {fileID: 241548812}
   currentBattleMap: {fileID: 0}
 --- !u!114 &1917792168
 MonoBehaviour:

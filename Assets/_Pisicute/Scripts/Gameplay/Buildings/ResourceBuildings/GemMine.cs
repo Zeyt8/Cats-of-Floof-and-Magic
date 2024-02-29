@@ -13,4 +13,20 @@ public class GemMine : Building
             PlayerObject.Instance.CurrentResources += new Resources(0, 0, 0, 0, 0, 1);
         }
     }
+
+    public override void OnUnitEnter(UnitObject unit)
+    {
+        if (owner != unit.owner)
+        {
+            if (unit.owner == PlayerObject.Instance.playerNumber)
+            {
+                PlayerObject.Instance.ResourceGain += new Resources(0, 0, 0, 0, 0, 1);
+            }
+            else
+            {
+                PlayerObject.Instance.ResourceGain -= new Resources(0, 0, 0, 0, 0, 1);
+            }
+        }
+        base.OnUnitEnter(unit);
+    }
 }

@@ -21,4 +21,20 @@ public class Windmill : Building
             PlayerObject.Instance.CurrentResources += new Resources(5, 0, 0, 0, 0, 0);
         }
     }
+
+    public override void OnUnitEnter(UnitObject unit)
+    {
+        if (owner != unit.owner)
+        {
+            if (unit.owner == PlayerObject.Instance.playerNumber)
+            {
+                PlayerObject.Instance.ResourceGain += new Resources(5, 0, 0, 0, 0, 0);
+            }
+            else
+            {
+                PlayerObject.Instance.ResourceGain -= new Resources(5, 0, 0, 0, 0, 0);
+            }
+        }
+        base.OnUnitEnter(unit);
+    }
 }

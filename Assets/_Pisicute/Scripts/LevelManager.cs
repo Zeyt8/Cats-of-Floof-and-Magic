@@ -15,6 +15,7 @@ public class LevelManager : NetworkSingleton<LevelManager>
     public LeaderDetails unitDetails;
     public Canvas canvas;
     public SpellBook spellBook;
+    [SerializeField] private EndTurnButton endTurnButton;
     public HexGrid CurrentMap => currentBattleMap == null ? mapHexGrid : currentBattleMap.hexGrid;
     [HideInInspector] public BattleMap currentBattleMap;
     public static bool IsBattleActive => Instance.currentBattleMap != null;
@@ -65,6 +66,14 @@ public class LevelManager : NetworkSingleton<LevelManager>
         }
         GameEvents.OnTurnStart?.Invoke(currentPlayer);
         BattleManager.EndWorldTurn();
+        if (currentPlayer == PlayerObject.Instance.playerNumber)
+        {
+            endTurnButton.SwitchSprites(true);
+        }
+        else
+        {
+            endTurnButton.SwitchSprites(false);
+        }
     }
 
     public void MoveCamera(Vector2 position)

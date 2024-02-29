@@ -10,13 +10,13 @@ public class ResourcesPanel : MonoBehaviour
     [SerializeField] private TextMeshProUGUI sulfur;
     [SerializeField] private TextMeshProUGUI gems;
 
-    public void SetResourcesUI(Resources playerResources)
+    public void SetResourcesUI(Resources playerResources, Resources resourceGain)
     {
-        food.text = playerResources.food.ToString();
-        wood.text = playerResources.wood.ToString();
-        stone.text = playerResources.stone.ToString();
-        steel.text = playerResources.steel.ToString();
-        sulfur.text = playerResources.sulfur.ToString();
-        gems.text = playerResources.gems.ToString();
+        food.text = $"{playerResources.food} (+{resourceGain.food})";
+        wood.text = $"{playerResources.wood} (+{resourceGain.wood})";
+        stone.text = $"{playerResources.stone} (+{resourceGain.stone})";
+        steel.text = $"{playerResources.steel} (+{resourceGain.steel})";
+        sulfur.text = $"{playerResources.sulfur} (+{resourceGain.sulfur})";
+        gems.text = $"{playerResources.gems} (+{resourceGain.gems})";
     }
 }

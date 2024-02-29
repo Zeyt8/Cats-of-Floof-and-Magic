@@ -20,10 +20,20 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
         set
         {
             currentResources = value;
-            LevelManager.Instance.resourcesPanel.SetResourcesUI(currentResources);
+            LevelManager.Instance.resourcesPanel.SetResourcesUI(currentResources, resourceGain);
         }
     }
     private Resources currentResources;
+    public Resources ResourceGain
+    {
+        get => resourceGain;
+        set
+        {
+            resourceGain = value;
+            LevelManager.Instance.resourcesPanel.SetResourcesUI(currentResources, resourceGain);
+        }
+    }
+    private Resources resourceGain = new Resources(0, 0, 0, 0, 0, 0);
     [HideInInspector] public BuildingTypes buildingToBuild;
 
     private HexCell currentCell;
