@@ -108,7 +108,7 @@ public class UnitObject : MonoBehaviour, ISaveableObject
     protected virtual bool IsValidCrossing(HexCell fromCell, HexCell toCell)
     {
         HexEdgeType edgeType = fromCell.GetEdgeType(toCell);
-        return edgeType != HexEdgeType.Cliff && !fromCell.HasWallThroughEdge(fromCell.GetNeighborDirection(toCell).Value);
+        return edgeType != HexEdgeType.Cliff && !(fromCell.HasWallThroughEdge(fromCell.GetNeighborDirection(toCell).Value) && !fromCell.HasRoadThroughEdge(fromCell.GetNeighborDirection(toCell).Value));
     }
 
     public int GetMoveCost(HexCell fromCell, HexCell toCell, HexDirection direction)

@@ -22,13 +22,17 @@ public class CameraController : MonoBehaviour
     private CinemachineTransposer transposer;
     private CinemachineHardLookAt hardLookAt;
 
-    private IEnumerator Start()
+    private void Awake()
     {
         transposer = virtualCamera.GetCinemachineComponent<CinemachineTransposer>();
         hardLookAt = virtualCamera.GetCinemachineComponent<CinemachineHardLookAt>();
-        currentZoom = targetZoom = zoomUpperClamp;
-        elevation = Mathf.PI / 3;
+        currentZoom = targetZoom = zoomUpperClamp / 2;
+        elevation = Mathf.PI / 4;
         polar = -Mathf.PI / 2;
+    }
+
+    private IEnumerator Start()
+    {
         yield return new WaitForEndOfFrame();
         yield return new WaitForFixedUpdate();
         hardLookAt.enabled = false;
