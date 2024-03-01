@@ -184,6 +184,8 @@ MonoBehaviour:
   - {fileID: -5892320475343654142, guid: 74789eab3b78fb149b550e11f2bbf022, type: 3}
   leader: {fileID: 0}
   battleMap: {fileID: 0}
+  wildAbility: {fileID: 1402363271790634308, guid: 1be6efceccc59f64f8545f7774d47f16,
+    type: 3}
 --- !u!1 &2902873987606075414
 GameObject:
   m_ObjectHideFlags: 0
