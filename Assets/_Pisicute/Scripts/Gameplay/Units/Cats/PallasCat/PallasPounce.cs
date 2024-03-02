@@ -11,7 +11,8 @@ public class PallasPounce : CatAbility
         return (cell) =>
         {
             caster.Location = cell;
-            caster.DealDamage(cell.Unit, (int)(caster.data.power.value * damageModifier));
+            int damage = (int)(caster.data.power.value * damageModifier);
+            caster.DealDamage(cell.Unit, ref damage);
             EndTurn(caster);
         };
     }

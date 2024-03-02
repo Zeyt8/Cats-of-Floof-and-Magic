@@ -18,7 +18,8 @@ public class SunrayAbility : CatAbility
     {
         return (cell) =>
         {
-            caster.DealDamage(cell.Unit, (int)(caster.data.power.value * damageModifier));
+            int damage = (int)(caster.data.power.value * damageModifier);
+            caster.DealDamage(cell.Unit, ref damage);
             EndTurn(caster);
         };
     }

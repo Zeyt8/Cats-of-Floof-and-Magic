@@ -404,7 +404,7 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
         {
             if (unit.owner == owner)
             {
-                unit.TakeDamage(damage);
+                unit.TakeDamage(ref damage);
                 break;
             }
         }

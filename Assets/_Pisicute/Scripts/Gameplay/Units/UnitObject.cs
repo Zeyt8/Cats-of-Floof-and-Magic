@@ -66,19 +66,19 @@ public class UnitObject : MonoBehaviour, ISaveableObject
         playerMarker.gameObject.SetActive(Location.IsExplored);
     }
 
-    public virtual void DealDamage(UnitObject target, int damage)
+    public virtual void DealDamage(UnitObject target, ref int damage)
     {
-        foreach (StatusEffect statusEffect in statusEffects)
+        for (int i = statusEffects.Count - 1; i >= 0; i--)
         {
-            statusEffect.OnDealDamage(this, target, ref damage);
+            statusEffects[i].OnDealDamage(this, target, ref damage);
         }
     }
 
-    public virtual void TakeDamage(int damage)
+    public virtual void TakeDamage(ref int damage)
     {
-        foreach (StatusEffect statusEffect in statusEffects)
+        for (int i = statusEffects.Count - 1; i >= 0; i--)
         {
-            statusEffect.OnTakeDamage(this, ref damage);
+            statusEffects[i].OnTakeDamage(this, ref damage);
         }
     }
 
@@ -151,11 +151,15 @@ public class UnitObject : MonoBehaviour, ISaveableObject
     public virtual void AddStatusEffect(StatusEffect effect)
     {
         statusEffects.Add(effect);
+        effect.OnAdd(this);
     }
 
     public virtual void RemoveStatusEffect(FixedString32Bytes type)
     {
-        statusEffects.Remove(statusEffects.Find((status) => status.GetType().ToString() == type));
+        StatusEffect effect = statusEffects.Find((status) => status.type == type);
+        if (effect == null) return;
+        statusEffects.Remove(effect);
+        effect.OnRemove(this);
     }
 
     protected void ChangePlayerMarkerColor(Color color)
@@ -228,7 +232,7 @@ public class UnitObject : MonoBehaviour, ISaveableObject
         }
         for (int i = statusEffects.Count - 1; i >= 0; i--)
         {
-            if (statusEffects[i].duration <= 0)
+            if (statusEffects[i].duration <= 0 && !statusEffects[i].isInfinite)
             {
                 statusEffects.RemoveAt(i);
             }

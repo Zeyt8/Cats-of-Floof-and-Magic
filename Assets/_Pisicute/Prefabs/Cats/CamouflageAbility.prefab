@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2735242120245247036}
   - component: {fileID: 1402363271790634308}
   m_Layer: 0
-  m_Name: WildAbility
+  m_Name: CamouflageAbility
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,6 +47,7 @@ MonoBehaviour:
   icon: {fileID: -460819793, guid: c02286ce57447a048bf633d261974565, type: 3}
   cooldown: 2
   title: Camouflage
-  description: "Become untargetable by attacks out of a certain range until the end
-    of the next turn. \r\nThe first attack while camouflaged deals extra damage."
+  description: "Become immune to attacks that deal 1 or less damage until the next
+    turn or until you attack. \r\nThe first attack while camouflaged deals extra
+    damage."
   activationType: 0
