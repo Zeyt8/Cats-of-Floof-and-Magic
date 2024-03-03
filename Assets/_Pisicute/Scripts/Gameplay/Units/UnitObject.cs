@@ -18,6 +18,7 @@ public class UnitObject : MonoBehaviour, ISaveableObject
     [NonSerialized] public HexGrid grid;
     private const float TravelSpeed = 4f;
     public List<StatusEffect> statusEffects { get; private set; } = new List<StatusEffect>();
+    public MeshRenderer Mesh { get; private set; }
 
     private HexCell location;
     private float orientation;
@@ -53,6 +54,11 @@ public class UnitObject : MonoBehaviour, ISaveableObject
             orientation = value;
             transform.localRotation = Quaternion.Euler(0f, value, 0f);
         }
+    }
+
+    private void Awake()
+    {
+        Mesh = GetComponentInChildren<MeshRenderer>();
     }
 
     protected virtual void Start()
@@ -131,7 +137,7 @@ public class UnitObject : MonoBehaviour, ISaveableObject
         {
             moveCost += statusEffect.OnMovementModifier(this, fromCell, toCell);
         }
-
+        moveCost = moveCost < 1 ? 1 : moveCost;
         return moveCost;
     }
 
@@ -158,8 +164,8 @@ public class UnitObject : MonoBehaviour, ISaveableObject
     {
         StatusEffect effect = statusEffects.Find((status) => status.type == type);
         if (effect == null) return;
-        statusEffects.Remove(effect);
         effect.OnRemove(this);
+        statusEffects.Remove(effect);
     }
 
     protected void ChangePlayerMarkerColor(Color color)
@@ -234,6 +240,7 @@ public class UnitObject : MonoBehaviour, ISaveableObject
         {
             if (statusEffects[i].duration <= 0 && !statusEffects[i].isInfinite)
             {
+                statusEffects[i].OnRemove(this);
                 statusEffects.RemoveAt(i);
             }
         }
