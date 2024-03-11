@@ -10,7 +10,21 @@ public class PallasPounce : CatAbility
     {
         return (cell) =>
         {
-            caster.Location = cell;
+            HexCell pounceLocation = null;
+            for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++)
+            {
+                HexCell neighbor = cell.GetNeighbor(d);
+                if (caster.IsValidDestination(neighbor) && neighbor.GetEdgeType(d) != HexEdgeType.Cliff)
+                {
+                    pounceLocation = neighbor;
+                    break;
+                }
+            }
+            if (pounceLocation == null)
+            {
+                return;
+            }
+            caster.Location = pounceLocation;
             int damage = (int)(caster.data.power.value * damageModifier);
             caster.DealDamage(cell.Unit, ref damage);
             EndTurn(caster);

@@ -42,6 +42,7 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
 
     public delegate void Action<HexCell>(HexCell cell);
     Action<HexCell> onClickAction;
+    Func<HexCell, bool> selectionCondition;
     private int delay;
 
     public void Start()
@@ -88,6 +89,7 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
             onClickAction(null);
             return;
         }
+        this.selectionCondition = selectionCondition;
         this.onClickAction = onClickAction;
         foreach (HexCell cell in LevelManager.Instance.CurrentMap.cells)
         {
@@ -113,8 +115,15 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
         if (currentCell == null) return;
         if (onClickAction != null)
         {
+            if (selectionCondition != null && !selectionCondition(currentCell))
+            {
+                onClickAction = null;
+                selectionCondition = null;
+                return;
+            }
             onClickAction(currentCell);
             onClickAction = null;
+            selectionCondition = null;
             foreach (HexCell cell in LevelManager.Instance.CurrentMap.cells)
             {
                 cell.DisableHighlight();

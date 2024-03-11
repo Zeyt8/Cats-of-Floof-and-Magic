@@ -254,13 +254,16 @@ public class HexGrid : MonoBehaviour, ISaveableObject
         cellShaderData.immediateMode = originalImmediateMode;
     }
 
-    public void FindPath(HexCell fromCell, HexCell toCell, UnitObject unit)
+    public void FindPath(HexCell fromCell, HexCell toCell, UnitObject unit, bool showPath = true)
     {
         ClearPath();
         currentPathFrom = fromCell;
         currentPathTo = toCell;
         currentPathExists = Search(fromCell, toCell, unit);
-        ShowPath(unit.Speed, unit.movementPoints);
+        if (currentPathExists && showPath)
+        {
+            ShowPath(unit.Speed, unit.movementPoints);
+        }
     }
 
     private bool Search(HexCell fromCell, HexCell toCell, UnitObject unit)
