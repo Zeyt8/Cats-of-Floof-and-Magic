@@ -29,15 +29,15 @@ public class Cat : UnitObject
         }
     }
 
-    public override void DealDamage(UnitObject target, int damage)
+    public override void DealDamage(UnitObject target, ref int damage)
     {
-        base.DealDamage(target, damage);
+        base.DealDamage(target, ref damage);
         PlayerObject.Instance.DealDamageToCatServerRpc(damage, BattleManager.GetBattleMapIndex(battleMap), target.Location.coordinates, target.owner);
     }
 
-    public override void TakeDamage(int damage)
+    public override void TakeDamage(ref int damage)
     {
-        base.TakeDamage(damage);
+        base.TakeDamage(ref damage);
         if (data.shield >= damage)
         {
             data.shield -= damage;

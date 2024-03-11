@@ -18,7 +18,8 @@ public class ClawAbility : CatAbility
     {
         return (cell) =>
         {
-            caster.DealDamage(cell.Unit, caster.data.power.value);
+            int damage = caster.data.power.value;
+            caster.DealDamage(cell.Unit, ref damage);
             EndTurn(caster);
         };
     }

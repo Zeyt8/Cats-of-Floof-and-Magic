@@ -24,6 +24,8 @@ public class StatusEffect : INetworkSerializable
         this.amount = amount;
     }
 
+    public virtual void OnAdd(UnitObject unit) { }
+    public virtual void OnRemove(UnitObject unit) { }
     public virtual void OnTurnBegin(UnitObject unit) { }
     public virtual void OnEncounterStart(UnitObject unit) { }
     public virtual int OnMovementModifier(UnitObject unit, HexCell fromCell, HexCell toCell) { return 0; }

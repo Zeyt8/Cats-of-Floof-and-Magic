@@ -18,6 +18,7 @@ public class UnitObject : MonoBehaviour, ISaveableObject
     [NonSerialized] public HexGrid grid;
     private const float TravelSpeed = 4f;
     public List<StatusEffect> statusEffects { get; private set; } = new List<StatusEffect>();
+    public MeshRenderer Mesh { get; private set; }
 
     private HexCell location;
     private float orientation;
@@ -55,6 +56,11 @@ public class UnitObject : MonoBehaviour, ISaveableObject
         }
     }
 
+    private void Awake()
+    {
+        Mesh = GetComponentInChildren<MeshRenderer>();
+    }
+
     protected virtual void Start()
     {
         movementPoints = Speed;
@@ -66,19 +72,19 @@ public class UnitObject : MonoBehaviour, ISaveableObject
         playerMarker.gameObject.SetActive(Location.IsExplored);
     }
 
-    public virtual void DealDamage(UnitObject target, int damage)
+    public virtual void DealDamage(UnitObject target, ref int damage)
     {
-        foreach (StatusEffect statusEffect in statusEffects)
+        for (int i = statusEffects.Count - 1; i >= 0; i--)
         {
-            statusEffect.OnDealDamage(this, target, ref damage);
+            statusEffects[i].OnDealDamage(this, target, ref damage);
         }
     }
 
-    public virtual void TakeDamage(int damage)
+    public virtual void TakeDamage(ref int damage)
     {
-        foreach (StatusEffect statusEffect in statusEffects)
+        for (int i = statusEffects.Count - 1; i >= 0; i--)
         {
-            statusEffect.OnTakeDamage(this, ref damage);
+            statusEffects[i].OnTakeDamage(this, ref damage);
         }
     }
 
@@ -131,7 +137,7 @@ public class UnitObject : MonoBehaviour, ISaveableObject
         {
             moveCost += statusEffect.OnMovementModifier(this, fromCell, toCell);
         }
-
+        moveCost = moveCost < 1 ? 1 : moveCost;
         return moveCost;
     }
 
@@ -151,11 +157,15 @@ public class UnitObject : MonoBehaviour, ISaveableObject
     public virtual void AddStatusEffect(StatusEffect effect)
     {
         statusEffects.Add(effect);
+        effect.OnAdd(this);
     }
 
     public virtual void RemoveStatusEffect(FixedString32Bytes type)
     {
-        statusEffects.Remove(statusEffects.Find((status) => status.GetType().ToString() == type));
+        StatusEffect effect = statusEffects.Find((status) => status.type == type);
+        if (effect == null) return;
+        effect.OnRemove(this);
+        statusEffects.Remove(effect);
     }
 
     protected void ChangePlayerMarkerColor(Color color)
@@ -228,8 +238,9 @@ public class UnitObject : MonoBehaviour, ISaveableObject
         }
         for (int i = statusEffects.Count - 1; i >= 0; i--)
         {
-            if (statusEffects[i].duration <= 0)
+            if (statusEffects[i].duration <= 0 && !statusEffects[i].isInfinite)
             {
+                statusEffects[i].OnRemove(this);
                 statusEffects.RemoveAt(i);
             }
         }
