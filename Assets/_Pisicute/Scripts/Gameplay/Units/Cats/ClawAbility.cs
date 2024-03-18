@@ -1,7 +1,10 @@
 using System;
+using UnityEngine;
 
 public class ClawAbility : CatAbility
 {
+    [SerializeField] private GameObject clawGraphics;
+
     public override Func<HexCell, bool> GetAvailableTargets(Cat cat)
     {
         return (cell) =>
@@ -21,6 +24,7 @@ public class ClawAbility : CatAbility
             int damage = caster.data.power.value;
             caster.DealDamage(cell.Unit, ref damage);
             EndTurn(caster);
+            Instantiate(clawGraphics, caster.transform.position, Quaternion.LookRotation((cell.transform.position - caster.transform.position), Vector3.up));
         };
     }
 }
