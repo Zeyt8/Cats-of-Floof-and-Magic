@@ -190,7 +190,10 @@ public class UnitObject : MonoBehaviour, ISaveableObject
             a = c;
             b = pathToTravel[i].Position;
             c = (b + pathToTravel[i + 1].Position) * 0.5f;
-            grid.IncreaseVisibility(pathToTravel[i + 1], visionRange);
+            if (PlayerObject.Instance && owner == PlayerObject.Instance.playerNumber)
+            {
+                grid.IncreaseVisibility(pathToTravel[i + 1], visionRange);
+            }
             for (; t < 1f; t += Time.deltaTime * TravelSpeed)
             {
                 transform.localPosition = Bezier.GetPoint(a, b, c, t);
@@ -199,7 +202,10 @@ public class UnitObject : MonoBehaviour, ISaveableObject
                 transform.localRotation = Quaternion.LookRotation(d);
                 yield return null;
             }
-            grid.DecreaseVisibility(pathToTravel[i], visionRange);
+            if (PlayerObject.Instance && owner == PlayerObject.Instance.playerNumber)
+            {
+                grid.DecreaseVisibility(pathToTravel[i], visionRange);
+            }
             t -= 1f;
             // update cell data
             pathToTravel[i].units.Remove(this);

@@ -82,7 +82,10 @@ public class Leader : UnitObject
                 break;
             }
         }
-        PlayerObject.Instance.SelectCell(destination);
+        if (PlayerObject.Instance && owner == PlayerObject.Instance.playerNumber)
+        {
+            PlayerObject.Instance.SelectCell(destination);
+        }
     }
 
     public override bool IsValidDestination(HexCell cell)
