@@ -53,6 +53,8 @@ MonoBehaviour:
   currentPlayer: 0
   allCats: {fileID: 11400000, guid: 43b6399bf83a61d468b367c25e553446, type: 2}
   virtualCamera: {fileID: 577365582546417050}
+  catHealthBarPrefab: {fileID: 2218050525136691077, guid: 2bba864b39103064eb816e0845f74793,
+    type: 3}
 --- !u!114 &3172390657513214595
 MonoBehaviour:
   m_ObjectHideFlags: 0
