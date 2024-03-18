@@ -26,7 +26,7 @@ public class CamouflageEffect : StatusEffect
     public override void OnAdd(UnitObject unit)
     {
         base.OnAdd(unit);
-        unit.Mesh.material.SetFloat("_Transparency", 0.5f);
+        unit.Mesh.material.SetFloat("_Transparency", 0.6f);
     }
 
     public override void OnRemove(UnitObject unit)
