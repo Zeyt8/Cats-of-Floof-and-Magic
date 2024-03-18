@@ -40,6 +40,14 @@ public class LevelManager : NetworkSingleton<LevelManager>
         {
             Debug.LogWarning("Unknown map format " + header);
         }
+        if (currentPlayer == PlayerObject.Instance.playerNumber)
+        {
+            endTurnButton.SwitchSprites(true);
+        }
+        else
+        {
+            endTurnButton.SwitchSprites(false);
+        }
     }
 
     public void EndTurn()
