@@ -5,6 +5,7 @@ public class SunrayAbility : CatAbility
 {
     [SerializeField] private int range;
     [SerializeField] private float damageModifier;
+    [SerializeField] private GameObject sunrayGraphics;
 
     public override Func<HexCell, bool> GetAvailableTargets(Cat cat)
     {
@@ -21,6 +22,7 @@ public class SunrayAbility : CatAbility
             int damage = (int)(caster.data.power.value * damageModifier);
             caster.DealDamage(cell.Unit, ref damage);
             EndTurn(caster);
+            Instantiate(sunrayGraphics, caster.transform.position + Vector3.up * 5, AbilityRotation(caster, cell.Unit));
         };
     }
 }

@@ -29,4 +29,9 @@ public abstract class CatAbility : MonoBehaviour
     {
         PlayerObject.Instance.EndTurnOnBattleMapServerRpc(BattleManager.GetBattleMapIndex(caster.battleMap));
     }
+
+    public static Quaternion AbilityRotation(UnitObject caster, UnitObject target)
+    {
+        return Quaternion.LookRotation(target.transform.position - caster.transform.position, Vector3.up);
+    }
 }

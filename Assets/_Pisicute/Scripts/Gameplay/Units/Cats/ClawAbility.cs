@@ -24,7 +24,7 @@ public class ClawAbility : CatAbility
             int damage = caster.data.power.value;
             caster.DealDamage(cell.Unit, ref damage);
             EndTurn(caster);
-            Instantiate(clawGraphics, caster.transform.position, Quaternion.LookRotation((cell.transform.position - caster.transform.position), Vector3.up));
+            Instantiate(clawGraphics, caster.transform.position + Vector3.up, AbilityRotation(caster, cell.Unit));
         };
     }
 }
