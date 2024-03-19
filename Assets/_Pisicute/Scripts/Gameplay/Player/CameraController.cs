@@ -26,7 +26,7 @@ public class CameraController : MonoBehaviour
     {
         transposer = virtualCamera.GetCinemachineComponent<CinemachineTransposer>();
         hardLookAt = virtualCamera.GetCinemachineComponent<CinemachineHardLookAt>();
-        currentZoom = targetZoom = zoomUpperClamp / 2;
+        currentZoom = targetZoom = zoomUpperClamp / 1.5f;
         elevation = Mathf.PI / 4;
         polar = -Mathf.PI / 2;
     }
