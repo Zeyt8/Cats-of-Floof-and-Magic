@@ -50,3 +50,5 @@ MonoBehaviour:
   description: Teleport to another tile.
   activationType: 1
   range: 7
+  teleportGraphics: {fileID: 6182702293315061341, guid: 72ae37df98b11a94bbc2a9da67b308da,
+    type: 3}
