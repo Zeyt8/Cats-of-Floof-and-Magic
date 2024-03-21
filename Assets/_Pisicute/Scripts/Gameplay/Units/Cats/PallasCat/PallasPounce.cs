@@ -5,6 +5,7 @@ public class PallasPounce : CatAbility
 {
     [SerializeField] private int range;
     [SerializeField] private float damageModifier;
+    [SerializeField] private GameObject pounceGraphics;
 
     public override PlayerObject.Action<HexCell> CastAbility(Cat caster)
     {
@@ -24,6 +25,7 @@ public class PallasPounce : CatAbility
             {
                 return;
             }
+            Instantiate(pounceGraphics, caster.transform.position, Quaternion.identity);
             caster.Location = pounceLocation;
             int damage = (int)(caster.data.power.value * damageModifier);
             caster.DealDamage(cell.Unit, ref damage);
