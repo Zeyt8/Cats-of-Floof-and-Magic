@@ -58,7 +58,7 @@ MonoBehaviour:
   title: Training Grounds
   description: Can combine 2 cats for a better rarity one.
   visionRange: 2
-  grid: {fileID: 0}
+  chunk: {fileID: 0}
   owner: -1
   uiPanel: {fileID: 1069171524266307731, guid: 2baf74f9732ef3543879d621464835db, type: 3}
   playerMarker: {fileID: 5660777708189385647}
@@ -98,7 +98,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0.1}
+  m_AnchoredPosition: {x: 0, y: 0.2}
   m_SizeDelta: {x: 15, y: 15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &3964189884750314156

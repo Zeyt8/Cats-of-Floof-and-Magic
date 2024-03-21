@@ -59,7 +59,7 @@ MonoBehaviour:
   title: Steel Foundry
   description: Can combine the iron it produces, wood and stone to smelt into steel.
   visionRange: 3
-  grid: {fileID: 0}
+  chunk: {fileID: 0}
   owner: -1
   uiPanel: {fileID: 7569950775255858784, guid: e8ee035b97bbd8444900b7106f2330bf, type: 3}
   playerMarker: {fileID: 6293356709992459830}
@@ -174,7 +174,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0.1}
+  m_AnchoredPosition: {x: 0, y: 0.2}
   m_SizeDelta: {x: 15, y: 15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &7347228043718518488
