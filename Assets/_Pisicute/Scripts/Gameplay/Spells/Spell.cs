@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 public abstract class Spell
 {
@@ -9,7 +10,7 @@ public abstract class Spell
 
     public abstract Func<HexCell, bool> GetAvailableTargets(Leader caster);
 
-    public abstract PlayerObject.Action<HexCell> CastAbility(Leader caster);
+    public abstract PlayerObject.Action<HexCell> CastAbility(Leader caster, GameObject graphics);
 
     public void OnSpellCast(Leader caster)
     {

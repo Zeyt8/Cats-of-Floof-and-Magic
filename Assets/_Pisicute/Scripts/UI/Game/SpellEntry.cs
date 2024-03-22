@@ -9,13 +9,14 @@ public class SpellEntry : MonoBehaviour
     private SpellBook spellBook;
     private Leader caster;
     private Image image;
+    private GameObject graphics;
 
     private void Awake()
     {
         image = GetComponent<Image>();
     }
 
-    public void SetSpell(Spell spell, SpellBook spellBook, Leader caster)
+    public void SetSpell(Spell spell, SpellBook spellBook, Leader caster, GameObject graphics)
     {
         text.text = $"{spell.description}: <color=#BE21BA>{spell.floofCost} floof</color>\nCooldown: {spell.baseCooldown} turn(s); {spell.cooldown} remaining";
         this.spell = spell;
@@ -29,12 +30,13 @@ public class SpellEntry : MonoBehaviour
         {
             image.color = Color.white;
         }
+        this.graphics = graphics;
     }
 
     public void OnClick()
     {
         if (spell.cooldown > 0 || caster.currentFloof < spell.floofCost) return;
         spellBook.Close();
-        PlayerObject.Instance.InitiateSelectCellForEffect(spell.GetAvailableTargets(caster), spell.CastAbility(caster));
+        PlayerObject.Instance.InitiateSelectCellForEffect(spell.GetAvailableTargets(caster), spell.CastAbility(caster, graphics));
     }
 }

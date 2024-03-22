@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 885105613119566562}
   - component: {fileID: 3282695836773849605}
   m_Layer: 0
-  m_Name: BoxTeleport
+  m_Name: SpellTeleport
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1375,9 +1375,9 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0.8666667, g: 0.52156866, b: 0.21568628, a: 1}
-        key1: {r: 0.96862745, g: 1, b: 0.4745098, a: 0}
-        key2: {r: 0.96862745, g: 1, b: 0.4745098, a: 0}
+        key0: {r: 0.14509805, g: 0.85490197, b: 1, a: 1}
+        key1: {r: 0.96609277, g: 0.2980392, b: 1, a: 0}
+        key2: {r: 0.8862745, g: 0.29803923, b: 1, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
         key5: {r: 0, g: 0, b: 0, a: 0}

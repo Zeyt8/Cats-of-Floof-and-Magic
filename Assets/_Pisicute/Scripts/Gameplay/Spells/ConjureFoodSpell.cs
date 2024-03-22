@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 public class ConjureFoodSpell : Spell
 {
@@ -6,7 +7,7 @@ public class ConjureFoodSpell : Spell
     public override int baseCooldown => 1;
     public override string description => "Conjure Food";
 
-    public override PlayerObject.Action<HexCell> CastAbility(Leader caster)
+    public override PlayerObject.Action<HexCell> CastAbility(Leader caster, GameObject graphics)
     {
         return (cell) =>
         {
