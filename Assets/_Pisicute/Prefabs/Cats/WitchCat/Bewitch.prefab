@@ -52,3 +52,5 @@ MonoBehaviour:
   range: 5
   slowAmount: 1
   duration: 2
+  bewitchGraphics: {fileID: 2826797633690434187, guid: c928f03e103ba7a4f96f2f5e7ce72eb8,
+    type: 3}
