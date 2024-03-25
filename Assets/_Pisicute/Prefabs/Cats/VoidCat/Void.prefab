@@ -50,3 +50,5 @@ MonoBehaviour:
   description: Restore 1 floof to your leader.
   activationType: 0
   floofRestored: 1
+  voidGraphics: {fileID: 2959204136790916025, guid: 29ef2fb3a52fb56428256de608d48e07,
+    type: 3}

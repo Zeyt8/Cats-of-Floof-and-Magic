@@ -59,7 +59,7 @@ MonoBehaviour:
   title: Cat Shelter
   description: Can sell cats here.
   visionRange: 3
-  grid: {fileID: 0}
+  chunk: {fileID: 0}
   owner: -1
   uiPanel: {fileID: 9144550157157228558, guid: 3b36406ccc183084d96125aa25e78991, type: 3}
   playerMarker: {fileID: 5660777708189385647}
@@ -99,7 +99,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0.1}
+  m_AnchoredPosition: {x: 0, y: 0.2}
   m_SizeDelta: {x: 15, y: 15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &3964189884750314156

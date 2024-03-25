@@ -51,3 +51,5 @@ MonoBehaviour:
   activationType: 1
   range: 6
   damageModifier: 2
+  sunrayGraphics: {fileID: 7493924870989602245, guid: b878ff64812dead48bc86764122c8c15,
+    type: 3}

@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 public class TeleportSpell : Spell
 {
@@ -6,14 +7,16 @@ public class TeleportSpell : Spell
     public override int baseCooldown => 2;
     public override string description => "Teleport";
 
-    public override PlayerObject.Action<HexCell> CastAbility(Leader caster)
+    public override PlayerObject.Action<HexCell> CastAbility(Leader caster, GameObject graphics)
     {
         return (cell) =>
         {
+            GameObject.Instantiate(graphics, caster.transform.position, Quaternion.identity);
             caster.GainFloof(-floofCost);
             cooldown = baseCooldown;
             PlayerObject.Instance.TeleportUnitServerRpc(caster.Location.coordinates, cell.coordinates);
             OnSpellCast(caster);
+            GameObject.Instantiate(graphics, cell.transform.position, Quaternion.identity);
         };
     }
 

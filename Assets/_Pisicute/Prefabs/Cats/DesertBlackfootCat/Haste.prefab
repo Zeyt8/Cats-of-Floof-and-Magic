@@ -51,3 +51,5 @@ MonoBehaviour:
   activationType: 0
   speedIncrease: 5
   duration: 2
+  hasteGraphics: {fileID: 1577386324485666489, guid: b1c4718fb175bdc418985c9d2e0c6692,
+    type: 3}

@@ -49,3 +49,5 @@ MonoBehaviour:
   title: Claw
   description: Damage an adjacent enemy cat.
   activationType: 1
+  clawGraphics: {fileID: 3713131284146636594, guid: c118370ca971d1949943db995acaeb3a,
+    type: 3}

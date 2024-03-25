@@ -58,7 +58,7 @@ MonoBehaviour:
   title: Marketplace
   description: Can trade resources.
   visionRange: 3
-  grid: {fileID: 0}
+  chunk: {fileID: 0}
   owner: -1
   uiPanel: {fileID: 4491662283447993088, guid: 1252be5f83d752b438fe2af806bae923, type: 3}
   playerMarker: {fileID: 5660777708189385647}
@@ -98,7 +98,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0.1}
+  m_AnchoredPosition: {x: 0, y: 0.2}
   m_SizeDelta: {x: 15, y: 15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &3964189884750314156

@@ -5,6 +5,7 @@ public class HasteAbility : CatAbility
 {
     [SerializeField] private int speedIncrease;
     [SerializeField] private int duration;
+    [SerializeField] private GameObject hasteGraphics;
 
     public override Func<HexCell, bool> GetAvailableTargets(Cat cat)
     {
@@ -15,6 +16,7 @@ public class HasteAbility : CatAbility
     {
         PlayerObject.Instance.AddStatusEffectToUnitServerRpc(new HasteStatusEffect(duration, 0, speedIncrease), BattleManager.GetBattleMapIndex(caster.battleMap), caster.Location.coordinates, caster.owner);
         EndTurn(caster);
+        Instantiate(hasteGraphics, caster.transform.position, Quaternion.identity);
         return (cell) => { };
     }
 }

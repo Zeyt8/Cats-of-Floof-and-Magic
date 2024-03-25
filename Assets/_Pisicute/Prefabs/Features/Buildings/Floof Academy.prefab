@@ -58,7 +58,7 @@ MonoBehaviour:
   title: Floof Academy
   description: Sells random magical cats.
   visionRange: 3
-  grid: {fileID: 0}
+  chunk: {fileID: 0}
   owner: -1
   uiPanel: {fileID: 598283003545265935, guid: e0060cf3bbc1fe24e858a7b045d2ac94, type: 3}
   playerMarker: {fileID: 5660777708189385647}
@@ -100,7 +100,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0.1}
+  m_AnchoredPosition: {x: 0, y: 0.2}
   m_SizeDelta: {x: 15, y: 15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &3964189884750314156

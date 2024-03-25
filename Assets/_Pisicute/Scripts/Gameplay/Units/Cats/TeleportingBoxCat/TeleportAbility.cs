@@ -4,6 +4,7 @@ using UnityEngine;
 public class TeleportAbility : CatAbility
 {
     [SerializeField] private int range;
+    [SerializeField] private GameObject teleportGraphics;
 
     public override Func<HexCell, bool> GetAvailableTargets(Cat cat)
     {
@@ -16,8 +17,10 @@ public class TeleportAbility : CatAbility
     {
         return (cell) =>
         {
+            Instantiate(teleportGraphics, caster.transform.position, Quaternion.identity);
             caster.Location = cell;
             EndTurn(caster);
+            Instantiate(teleportGraphics, cell.transform.position, Quaternion.identity);
         };
     }
 }

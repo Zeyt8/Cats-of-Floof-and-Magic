@@ -51,3 +51,5 @@ MonoBehaviour:
   activationType: 1
   range: 3
   damageModifier: 2
+  pounceGraphics: {fileID: 3501155724551548711, guid: 8d3c47b952d2af5498caf5f3a32bf4c5,
+    type: 3}

@@ -1660,7 +1660,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
+  m_Intensity: 1.2
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -3805,6 +3805,8 @@ MonoBehaviour:
   inputHandler: {fileID: 11400000, guid: 6e5279e34a1ec934f9b814a09399b761, type: 2}
   spellEntryPrefab: {fileID: 7837534022911908452, guid: 80a6c18bb79f11f47805a617dd1c913a,
     type: 3}
+  spellGraphicsContainer: {fileID: 11400000, guid: a4255ab916b85694098a30edbdaf27ea,
+    type: 2}
 --- !u!114 &1212122452
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -4,6 +4,7 @@ public class SpellBook : MonoBehaviour
 {
     [SerializeField] private PlayerInputHandler inputHandler;
     [SerializeField] private SpellEntry spellEntryPrefab;
+    [SerializeField] private SpellGraphicsContainer spellGraphicsContainer;
 
     private void OnEnable()
     {
@@ -25,7 +26,7 @@ public class SpellBook : MonoBehaviour
         foreach (Spell spell in leader.spells)
         {
             SpellEntry entry = Instantiate(spellEntryPrefab, transform);
-            entry.SetSpell(spell, this, leader);
+            entry.SetSpell(spell, this, leader, spellGraphicsContainer[spell.description]);
         }
     }
 

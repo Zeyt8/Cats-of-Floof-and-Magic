@@ -1,6 +1,5 @@
 using Cinemachine;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class BattleMap : MonoBehaviour
@@ -10,6 +9,7 @@ public class BattleMap : MonoBehaviour
     public int currentPlayer;
     [SerializeField] private CatCollection allCats;
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
+    [SerializeField] private CatHealthBar catHealthBarPrefab;
     private List<Leader> battlingLeaders = new List<Leader>();
     // deployment
     private Stack<Pair<int, CatData>> catsToPlace = new Stack<Pair<int, CatData>>();
@@ -126,6 +126,7 @@ public class BattleMap : MonoBehaviour
         cat.battleMap = this;
         location.AddUnit(cat, 0);
         catTurnQueue.Add(cat);
+        Instantiate(catHealthBarPrefab, BattleCanvas.Instance.transform).Initialize(cat);
         armies[cat.owner - 1].Add(cat);
         SetupNextCatPlacement();
     }
