@@ -52,6 +52,13 @@ public class BattleMap : MonoBehaviour
                 catTurnQueue.RemoveAt(i);
             }
         }
+        for (int i = nextCatTurnQueue.Count - 1; i >= 0; i--)
+        {
+            if (nextCatTurnQueue[i] == null)
+            {
+                nextCatTurnQueue.RemoveAt(i);
+            }
+        }
     }
 
     public void OnWorldTurnEnd()
@@ -120,15 +127,21 @@ public class BattleMap : MonoBehaviour
         Pair<int, CatData> catToPlace = catsToPlace.Peek();
         if (!IsCellPlaceable(catToPlace, location)) return;
         catToPlace = catsToPlace.Pop();
-        Cat cat = Instantiate(allCats[catToPlace.item2.type]);
-        cat.owner = catToPlace.item1;
+        Cat cat = InstantiateCat(allCats[catToPlace.item2.type], catToPlace.item1, location);
         cat.leader = GetLeader(cat.owner);
-        cat.battleMap = this;
-        location.AddUnit(cat, 0);
-        catTurnQueue.Add(cat);
-        Instantiate(catHealthBarPrefab, BattleCanvas.Instance.transform).Initialize(cat);
-        armies[cat.owner - 1].Add(cat);
         SetupNextCatPlacement();
+    }
+
+    public Cat InstantiateCat(Cat cat, int owner, HexCell location)
+    {
+        Cat newCat = Instantiate(cat);
+        newCat.owner = owner;
+        newCat.battleMap = this;
+        location.AddUnit(newCat, 0);
+        catTurnQueue.Add(newCat);
+        Instantiate(catHealthBarPrefab, BattleCanvas.Instance.transform).Initialize(newCat);
+        armies[newCat.owner - 1].Add(newCat);
+        return newCat;
     }
 
     private void SetupNextCatPlacement()

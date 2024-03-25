@@ -43,6 +43,7 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
     public delegate void Action<HexCell>(HexCell cell);
     Action<HexCell> onClickAction;
     Func<HexCell, bool> selectionCondition;
+    Action<HexCell> afterCasting;
     private int delay;
 
     public void Start()
@@ -82,7 +83,7 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
         inputHandler.OnAltAction.RemoveListener(DoAlternateAction);
     }
 
-    public void InitiateSelectCellForEffect(Func<HexCell, bool> selectionCondition, Action<HexCell> onClickAction)
+    public void InitiateSelectCellForEffect(Func<HexCell, bool> selectionCondition, Action<HexCell> onClickAction, Action<HexCell> afterCasting = null)
     {
         if (selectionCondition == null)
         {
@@ -91,6 +92,7 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
         }
         this.selectionCondition = selectionCondition;
         this.onClickAction = onClickAction;
+        this.afterCasting = afterCasting;
         foreach (HexCell cell in LevelManager.Instance.CurrentMap.cells)
         {
             if (selectionCondition(cell))
@@ -128,6 +130,7 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
             {
                 cell.DisableHighlight();
             }
+            afterCasting?.Invoke(currentCell);
             if (!LevelManager.IsBattleActive)
             {
                 SelectCell(currentCell);

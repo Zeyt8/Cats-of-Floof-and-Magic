@@ -131,7 +131,7 @@ Transform:
   m_GameObject: {fileID: 2139440890055595572}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 34.641014, y: 3.188971, z: 30}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -181,6 +181,7 @@ MonoBehaviour:
   abilities:
   - {fileID: 578620850131082030, guid: 9d968fe528380d041a17c6c0412bd732, type: 3}
   - {fileID: 6206829249905387030, guid: 6e36b08c71db87340a97344c557cf368, type: 3}
+  - {fileID: 1787832412767887948, guid: 9851c2bbeaf9d7345a725391937812f2, type: 3}
   leader: {fileID: 0}
   battleMap: {fileID: 0}
 --- !u!1 &2902873987606075414

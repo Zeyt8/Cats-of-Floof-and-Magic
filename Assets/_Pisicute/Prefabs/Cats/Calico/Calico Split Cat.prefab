@@ -114,9 +114,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2523363979332422640}
-  - component: {fileID: 2904281975645589111}
+  - component: {fileID: 2969886015592921064}
   m_Layer: 0
-  m_Name: Tabby
+  m_Name: Calico Split Cat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -131,7 +131,7 @@ Transform:
   m_GameObject: {fileID: 2139440890055595572}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 34.641014, y: 6.01862, z: 60}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -139,7 +139,7 @@ Transform:
   - {fileID: 5012528153847216546}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2904281975645589111
+--- !u!114 &2969886015592921064
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -148,26 +148,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 2139440890055595572}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1db3bdb221b01124eba0226253158f36, type: 3}
+  m_Script: {fileID: 11500000, guid: de0fbbde3926b28459f502b80f8fe29b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   owner: 0
-  icon: {fileID: 677474719, guid: 754a392a1d99442409412030ad7070d3, type: 3}
+  icon: {fileID: 800934131, guid: c02286ce57447a048bf633d261974565, type: 3}
   movementPoints: 0
   IsMoving: 0
   visionRange: 3
   playerMarker: {fileID: 8834641787741074148}
   data:
-    type: 5
-    factions: 16
-    health: 20
+    type: 17
+    factions: 0
+    health: 6
     shield: 0
     maxHealth:
-      baseValue: 20
-      value: 20
+      baseValue: 6
+      value: 6
     power:
-      baseValue: 4
-      value: 4
+      baseValue: 2
+      value: 2
     speed:
       baseValue: 24
       value: 24

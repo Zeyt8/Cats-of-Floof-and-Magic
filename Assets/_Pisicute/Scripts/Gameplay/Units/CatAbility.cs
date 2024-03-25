@@ -24,6 +24,10 @@ public abstract class CatAbility : MonoBehaviour
         EndTurn(caster);
         return (cell) => { };
     }
+    public virtual PlayerObject.Action<HexCell> AfterCasting(Cat caster)
+    {
+        return null;
+    }
 
     protected void EndTurn(Cat caster)
     {

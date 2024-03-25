@@ -36,6 +36,8 @@ public enum CatTypes
     ScottishWild,
     [Description("Oriental Cat")]
     Oriental,
+    [Description("Mono Coloured")]
+    MonoColoured,
 }
 
 public static class CatTypesExtensions

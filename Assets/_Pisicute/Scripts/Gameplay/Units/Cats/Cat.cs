@@ -67,8 +67,11 @@ public class Cat : UnitObject
     {
         base.Die();
         Location.units.Remove(this);
-        leader.army.Remove(data);
-        leader.currentArmy.Remove(this);
+        if (leader)
+        {
+            leader.army.Remove(data);
+            leader.currentArmy.Remove(this);
+        }
         Destroy(gameObject);
     }
 
