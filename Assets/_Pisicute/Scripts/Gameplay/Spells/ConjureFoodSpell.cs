@@ -15,6 +15,7 @@ public class ConjureFoodSpell : Spell
             cooldown = baseCooldown;
             PlayerObject.Instance.CurrentResources += new Resources(2, 0, 0, 0, 0, 0);
             OnSpellCast(caster);
+            GameObject.Instantiate(graphics, caster.transform.position, Quaternion.identity);
         };
     }
 
