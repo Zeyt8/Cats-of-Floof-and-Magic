@@ -14,6 +14,11 @@ public class CloudSpawner : MonoBehaviour
     private List<GameObject> clouds = new List<GameObject>();
     private float spawnTimer;
 
+    private void Start()
+    {
+        Prewarm();
+    }
+
     private void Update()
     {
         spawnTimer += Time.deltaTime;
@@ -40,11 +45,21 @@ public class CloudSpawner : MonoBehaviour
         Gizmos.DrawLine(transform.position, transform.position + transform.forward * pathLength);
     }
 
-    private void SpawnCloud()
+    private GameObject SpawnCloud()
     {
         GameObject cloud = Instantiate(cloudPrefab, transform);
         cloud.transform.position = transform.position + transform.right * Random.Range(-spawnWidth, spawnWidth) + transform.up * Random.Range(spawnHeight - 1, spawnHeight + 1);
         cloud.transform.localScale = new Vector3(Random.Range(cloudScale.x, cloudScale.y), Random.Range(cloudScale.x, cloudScale.y), Random.Range(cloudScale.x, cloudScale.y));
         clouds.Add(cloud);
+        return cloud;
+    }
+
+    private void Prewarm()
+    {
+        for (int i = 0; i < (pathLength / cloudSpeed) / spawnRate; i++)
+        {
+            GameObject cloud = SpawnCloud();
+            cloud.transform.position += transform.forward * (i * cloudSpeed * spawnRate);
+        }
     }
 }
