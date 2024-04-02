@@ -68,6 +68,7 @@ public class BattleMap : MonoBehaviour
         CurrentCatTurn.SetTurnActive(true);
         CurrentCatTurn.OnTurnStart(CurrentCatTurn.owner);
         currentPlayer = CurrentCatTurn.owner;
+        BattleCanvas.Instance.SetTurnOrder(catTurnQueue);
     }
 
     public void GenerateBattleMap(int width, int height, List<Leader> leaders)
@@ -197,6 +198,24 @@ public class BattleMap : MonoBehaviour
         state = State.Fight;
         UnhighlightAllTiles();
         catTurnQueue.Sort((cat1, cat2) => cat2.Speed - cat1.Speed);
+        for (int i = 0; i < catTurnQueue.Count; i++)
+        {
+            if (catTurnQueue[i].data.factions.HasFlag(Factions.HiveMind))
+            {
+                int j = i + 1;
+                while (j < catTurnQueue.Count && catTurnQueue[j].owner == catTurnQueue[i].owner)
+                {
+                    if (catTurnQueue[j].data.factions.HasFlag(Factions.HiveMind))
+                    {
+                        Cat temp = catTurnQueue[j];
+                        catTurnQueue.RemoveAt(j);
+                        catTurnQueue.Insert(i + 1, temp);
+                        break;
+                    }
+                    j++;
+                }
+            }
+        }
         currentPlayer = CurrentCatTurn.owner;
         CurrentCatTurn.SetTurnActive(true);
         foreach (Leader l in battlingLeaders)
@@ -208,6 +227,7 @@ public class BattleMap : MonoBehaviour
         {
             cat.OnEncounterStart();
         }
+        BattleCanvas.Instance.SetTurnOrder(catTurnQueue);
     }
 
     public void EndTurn()
@@ -218,6 +238,7 @@ public class BattleMap : MonoBehaviour
         if (catTurnQueue.Count == 0)
         {
             BattleCanvas.Instance.ShowAbilities(null);
+            BattleCanvas.Instance.SetTurnOrder(catTurnQueue);
             return;
         }
         if (CurrentCatTurn.owner == nextCatTurnQueue[^1].owner)
@@ -231,6 +252,7 @@ public class BattleMap : MonoBehaviour
         CurrentCatTurn.SetTurnActive(true);
         CurrentCatTurn.OnTurnStart(CurrentCatTurn.owner);
         currentPlayer = CurrentCatTurn.owner;
+        BattleCanvas.Instance.SetTurnOrder(catTurnQueue);
     }
 
     private Leader GetLeader(int playerNumber)

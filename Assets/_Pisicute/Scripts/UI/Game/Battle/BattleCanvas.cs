@@ -10,6 +10,8 @@ public class BattleCanvas : Singleton<BattleCanvas>
     [SerializeField] private CatIcon catIcon;
     [SerializeField] private StatsPanel statsPanel;
     [SerializeField] private UnitStatusEffectsPanel unitStatusEffectsPanel;
+    [SerializeField] private CatIcon catTurnOrderIcon;
+    [SerializeField] private GameObject turnOrderPanel;
 
     private BattleMap battleMap;
 
@@ -59,5 +61,17 @@ public class BattleCanvas : Singleton<BattleCanvas>
     public void EndTurn()
     {
         battleMap.EndTurn();
+    }
+
+    public void SetTurnOrder(List<Cat> cats)
+    {
+        foreach (Transform t in turnOrderPanel.transform)
+        {
+            Destroy(t.gameObject);
+        }
+        foreach (Cat cat in cats)
+        {
+            Instantiate(catTurnOrderIcon, turnOrderPanel.transform).SetIcon(cat.icon, cat.data.type.GetPrettyName());
+        }
     }
 }
