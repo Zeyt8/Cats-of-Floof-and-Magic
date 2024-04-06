@@ -1,6 +1,7 @@
 using Cinemachine;
 using System.Collections.Generic;
 using UnityEngine;
+using JSAM;
 
 public class BattleMap : MonoBehaviour
 {
@@ -142,6 +143,7 @@ public class BattleMap : MonoBehaviour
         catTurnQueue.Add(newCat);
         Instantiate(catHealthBarPrefab, BattleCanvas.Instance.transform).Initialize(newCat);
         armies[newCat.owner - 1].Add(newCat);
+        AudioManager.PlaySound(AudioLibrarySounds.SpawnCat);
         return newCat;
     }
 
@@ -272,5 +274,13 @@ public class BattleMap : MonoBehaviour
         GetLeader(losingPlayer).Die();
         LevelManager.Instance.GoToWorldMap();
         BattleManager.RemoveBattle(this);
+        if (winningPlayer == PlayerObject.Instance.playerNumber)
+        {
+            AudioManager.PlaySound(AudioLibrarySounds.WinBattle);
+        }
+        else
+        {
+            //AudioManager.PlaySound(AudioLibrarySounds.LoseBattle);
+        }
     }
 }

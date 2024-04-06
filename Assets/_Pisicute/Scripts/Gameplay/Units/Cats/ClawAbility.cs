@@ -1,3 +1,4 @@
+using JSAM;
 using System;
 using UnityEngine;
 
@@ -21,10 +22,12 @@ public class ClawAbility : CatAbility
     {
         return (cell) =>
         {
+            Instantiate(clawGraphics, caster.transform.position + Vector3.up, AbilityRotation(caster, cell.Unit));
             int damage = caster.data.power.value;
             caster.DealDamage(cell.Unit, ref damage);
             EndTurn(caster);
-            Instantiate(clawGraphics, caster.transform.position + Vector3.up, AbilityRotation(caster, cell.Unit));
+            AudioManager.PlaySound(AudioLibrarySounds.Slash);
+            AudioManager.PlaySound(AudioLibrarySounds.Attack);
         };
     }
 }

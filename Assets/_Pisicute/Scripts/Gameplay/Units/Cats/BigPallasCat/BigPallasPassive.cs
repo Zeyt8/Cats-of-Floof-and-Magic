@@ -1,3 +1,5 @@
+using JSAM;
+
 public class BigPallasPassive : StatusEffect
 {
     public override string Name => "Big Pallas Cat Passive";
@@ -11,5 +13,6 @@ public class BigPallasPassive : StatusEffect
     {
         base.OnTurnBegin(unit);
         unit.Heal(1);
+        AudioManager.PlaySound(AudioLibrarySounds.Heal);
     }
 }

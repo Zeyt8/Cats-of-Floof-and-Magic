@@ -1,3 +1,4 @@
+using JSAM;
 using System;
 using UnityEngine;
 
@@ -23,6 +24,7 @@ public class BewitchAbility : CatAbility
             PlayerObject.Instance.AddStatusEffectToUnitServerRpc(new SlowStatusEffect(duration, amount: slowAmount), BattleManager.GetBattleMapIndex(((Cat)cell.Unit).battleMap), cell.coordinates, cell.Unit.owner);
             EndTurn(caster);
             Instantiate(bewitchGraphics, cell.transform.position, Quaternion.identity);
+            AudioManager.PlaySound(AudioLibrarySounds.Bewitch);
         };
     }
 }

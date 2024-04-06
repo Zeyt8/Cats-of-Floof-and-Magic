@@ -1,3 +1,5 @@
+using JSAM;
+
 public class BoxArmourPassive : StatusEffect
 {
     public override string Name => "Box Armour Cat Passive";
@@ -11,5 +13,6 @@ public class BoxArmourPassive : StatusEffect
     {
         base.OnEncounterStart(unit);
         unit.GainArmour(5);
+        AudioManager.PlaySound(AudioLibrarySounds.Box);
     }
 }

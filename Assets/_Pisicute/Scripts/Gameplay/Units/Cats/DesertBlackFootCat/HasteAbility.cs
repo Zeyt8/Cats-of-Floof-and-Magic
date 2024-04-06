@@ -1,3 +1,4 @@
+using JSAM;
 using System;
 using UnityEngine;
 
@@ -14,9 +15,10 @@ public class HasteAbility : CatAbility
 
     public override PlayerObject.Action<HexCell> CastAbility(Cat caster)
     {
+        Instantiate(hasteGraphics, caster.transform.position, Quaternion.identity);
+        AudioManager.PlaySound(AudioLibrarySounds.Haste);
         PlayerObject.Instance.AddStatusEffectToUnitServerRpc(new HasteStatusEffect(duration, 0, speedIncrease), BattleManager.GetBattleMapIndex(caster.battleMap), caster.Location.coordinates, caster.owner);
         EndTurn(caster);
-        Instantiate(hasteGraphics, caster.transform.position, Quaternion.identity);
         return (cell) => { };
     }
 }

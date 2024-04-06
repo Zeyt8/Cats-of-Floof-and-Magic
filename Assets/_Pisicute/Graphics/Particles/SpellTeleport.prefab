@@ -1046,14 +1046,14 @@ ParticleSystem:
         - serializedVersion: 3
           time: 0
           value: 0
-          inSlope: 2.019859
-          outSlope: 2.019859
+          inSlope: 2.5
+          outSlope: 2.5
           tangentMode: 34
           weightedMode: 0
           inWeight: 0
           outWeight: 0.33333334
         - serializedVersion: 3
-          time: 0.49508402
+          time: 0.4
           value: 1
           inSlope: 0.019665718
           outSlope: 0.019665718
@@ -1064,8 +1064,8 @@ ParticleSystem:
         - serializedVersion: 3
           time: 1
           value: 0
-          inSlope: -1.9805276
-          outSlope: -1.9805276
+          inSlope: -1.6666666
+          outSlope: -1.6666666
           tangentMode: 34
           weightedMode: 0
           inWeight: 0.33333334

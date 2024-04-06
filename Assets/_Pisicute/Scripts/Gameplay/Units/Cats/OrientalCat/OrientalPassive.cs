@@ -1,3 +1,5 @@
+using JSAM;
+
 public class OrientalPassive : StatusEffect
 {
     public override string Name => "Oriental Cat Passive";
@@ -13,6 +15,7 @@ public class OrientalPassive : StatusEffect
         if (target.Location.TerrainTypeIndex == 0)
         {
             damage += (int)(damage * 0.3f);
+            AudioManager.PlaySound(AudioLibrarySounds.Sand);
         }
     }
 }

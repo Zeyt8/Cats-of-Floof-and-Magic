@@ -1,3 +1,5 @@
+using JSAM;
+
 public class TeleportingBoxPassive : StatusEffect
 {
     public override string Name => "Teleporting Box Cat Passive";
@@ -11,5 +13,6 @@ public class TeleportingBoxPassive : StatusEffect
     {
         base.OnEncounterStart(unit);
         unit.GainArmour(2);
+        AudioManager.PlaySound(AudioLibrarySounds.Shield);
     }
 }

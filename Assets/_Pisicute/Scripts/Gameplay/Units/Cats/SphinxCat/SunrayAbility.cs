@@ -1,3 +1,4 @@
+using JSAM;
 using System;
 using UnityEngine;
 
@@ -19,10 +20,11 @@ public class SunrayAbility : CatAbility
     {
         return (cell) =>
         {
+            Instantiate(sunrayGraphics, caster.transform.position + Vector3.up * 5, AbilityRotation(caster, cell.Unit));
             int damage = (int)(caster.data.power.value * damageModifier);
             caster.DealDamage(cell.Unit, ref damage);
             EndTurn(caster);
-            Instantiate(sunrayGraphics, caster.transform.position + Vector3.up * 5, AbilityRotation(caster, cell.Unit));
+            AudioManager.PlaySound(AudioLibrarySounds.Laser);
         };
     }
 }

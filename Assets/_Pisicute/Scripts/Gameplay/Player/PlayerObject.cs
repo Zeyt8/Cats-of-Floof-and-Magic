@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using System.Linq;
 using Unity.Collections;
+using JSAM;
 
 public class PlayerObject : NetworkSingleton<PlayerObject>
 {
@@ -135,17 +136,20 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
             {
                 SelectCell(currentCell);
             }
+            AudioManager.PlaySound(AudioLibrarySounds.Select);
             return;
         }
         if (!LevelManager.IsBattleActive)
         {
             SelectionWorldMap(currentCell);
+            AudioManager.PlaySound(AudioLibrarySounds.Select);
         }
         else
         {
             if (playerNumber == LevelManager.Instance.currentBattleMap.currentPlayer)
             {
                 SelectionBattleMapServerRpc(currentCell.coordinates, playerNumber);
+                AudioManager.PlaySound(AudioLibrarySounds.Select);
             }
         }
     }

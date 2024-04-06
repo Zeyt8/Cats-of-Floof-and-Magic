@@ -1,3 +1,4 @@
+using JSAM;
 using System;
 
 public class CamouflageAbility : CatAbility
@@ -11,6 +12,7 @@ public class CamouflageAbility : CatAbility
     {
         PlayerObject.Instance.AddStatusEffectToUnitServerRpc(new CamouflageEffect(2), BattleManager.GetBattleMapIndex(caster.battleMap), caster.Location.coordinates, caster.owner);
         EndTurn(caster);
+        AudioManager.PlaySound(AudioLibrarySounds.Camouflage);
         return (cell) => { };
     }
 }

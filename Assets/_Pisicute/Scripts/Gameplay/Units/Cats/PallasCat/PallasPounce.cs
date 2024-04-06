@@ -1,3 +1,4 @@
+using JSAM;
 using System;
 using UnityEngine;
 
@@ -30,6 +31,7 @@ public class PallasPounce : CatAbility
             int damage = (int)(caster.data.power.value * damageModifier);
             caster.DealDamage(cell.Unit, ref damage);
             EndTurn(caster);
+            AudioManager.PlaySound(AudioLibrarySounds.Pounce);
         };
     }
 

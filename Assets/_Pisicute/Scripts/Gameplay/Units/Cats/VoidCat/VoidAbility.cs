@@ -1,3 +1,4 @@
+using JSAM;
 using System;
 using UnityEngine;
 
@@ -13,9 +14,10 @@ public class VoidAbility : CatAbility
 
     public override PlayerObject.Action<HexCell> CastAbility(Cat caster)
     {
+        Instantiate(voidGraphics, caster.transform.position, Quaternion.identity);
         caster.leader.GainFloof(floofRestored);
         EndTurn(caster);
-        Instantiate(voidGraphics, caster.transform.position, Quaternion.identity);
+        AudioManager.PlaySound(AudioLibrarySounds.Void);
         return (cell) => { };
     }
 }

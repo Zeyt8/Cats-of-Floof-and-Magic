@@ -1,3 +1,4 @@
+using JSAM;
 using System;
 using UnityEngine;
 
@@ -21,6 +22,7 @@ public class TeleportAbility : CatAbility
             caster.Location = cell;
             EndTurn(caster);
             Instantiate(teleportGraphics, cell.transform.position, Quaternion.identity);
+            AudioManager.PlaySound(AudioLibrarySounds.Teleport);
         };
     }
 }
