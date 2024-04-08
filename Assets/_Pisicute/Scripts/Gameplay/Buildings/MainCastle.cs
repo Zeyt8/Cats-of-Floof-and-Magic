@@ -1,3 +1,4 @@
+using JSAM;
 using System.Collections;
 using UnityEngine;
 
@@ -22,5 +23,11 @@ public class MainCastle : Building
         Leader leader = Instantiate(leaderPrefab);
         leader.ChangeOwner(owner);
         cell.AddUnit(leader, 0);
+    }
+
+    public override void OnSelect()
+    {
+        base.OnSelect();
+        AudioManager.PlaySound(AudioLibrarySounds.Castle);
     }
 }

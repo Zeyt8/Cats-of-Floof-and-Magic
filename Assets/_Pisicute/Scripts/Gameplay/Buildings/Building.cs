@@ -59,6 +59,10 @@ public class Building : MonoBehaviour, ISaveableObject
         ChangeOwner(unit.owner);
     }
 
+    public virtual void OnSelect()
+    {
+    }
+
     public virtual BuildingUI OpenUIPanel()
     {
         if (uiPanel == null) return null;

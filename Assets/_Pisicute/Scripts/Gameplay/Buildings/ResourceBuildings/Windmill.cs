@@ -1,3 +1,5 @@
+using JSAM;
+
 public class Windmill : Building
 {
     public override void OnSpawn(HexCell cell)
@@ -36,5 +38,11 @@ public class Windmill : Building
             }
         }
         base.OnUnitEnter(unit);
+    }
+
+    public override void OnSelect()
+    {
+        base.OnSelect();
+        AudioManager.PlaySound(AudioLibrarySounds.Windmill);
     }
 }

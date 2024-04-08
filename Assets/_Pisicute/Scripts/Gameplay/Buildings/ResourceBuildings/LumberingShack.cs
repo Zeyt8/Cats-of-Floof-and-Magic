@@ -1,3 +1,5 @@
+using JSAM;
+
 public class LumberingShack : Building
 {
     public override void OnSpawn(HexCell cell)
@@ -28,5 +30,11 @@ public class LumberingShack : Building
             }
         }
         base.OnUnitEnter(unit);
+    }
+
+    public override void OnSelect()
+    {
+        base.OnSelect();
+        AudioManager.PlaySound(AudioLibrarySounds.Sawmill);
     }
 }

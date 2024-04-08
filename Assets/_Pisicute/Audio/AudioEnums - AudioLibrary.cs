@@ -15,7 +15,14 @@
         Slash,
         Attack,
         Pass,
-        Camouflage
+        Camouflage,
+        Castle,
+        Sawmill,
+        StoneMine,
+        Steel,
+        Gems,
+        Sulfur,
+        Windmill
     }
     public enum AudioLibraryMusic {
     }

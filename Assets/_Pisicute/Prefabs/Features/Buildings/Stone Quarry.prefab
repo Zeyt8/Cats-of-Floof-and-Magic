@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c112e484dd4c68742be44e49ca4ad5ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 3
+  type: 4
   resourceCost:
     food: 0
     wood: 0

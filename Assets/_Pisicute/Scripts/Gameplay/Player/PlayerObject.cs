@@ -180,6 +180,7 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
         if (cell.Building != null)
         {
             LevelManager.Instance.buildingDetails.Activate(cell.Building);
+            cell.Building.OnSelect();
         }
         else
         {

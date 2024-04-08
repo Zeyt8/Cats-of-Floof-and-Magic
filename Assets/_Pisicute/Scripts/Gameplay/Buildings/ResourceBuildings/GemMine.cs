@@ -1,3 +1,5 @@
+using JSAM;
+
 public class GemMine : Building
 {
     public override void OnSpawn(HexCell cell)
@@ -28,5 +30,11 @@ public class GemMine : Building
             }
         }
         base.OnUnitEnter(unit);
+    }
+
+    public override void OnSelect()
+    {
+        base.OnSelect();
+        AudioManager.PlaySound(AudioLibrarySounds.Gems);
     }
 }
