@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0d15ae218647a2d4f85e14306846c10c, type: 3}
-  m_Name: WinBattle
+  m_Name: Move
   m_EditorClassIdentifier: 
   safeName: 
   presetDescription: 
   files:
-  - {fileID: 8300000, guid: 8c0d96699efde6e4f9fab2134fb70e9f, type: 3}
+  - {fileID: 8300000, guid: 1ff0f2e7bb9d670498696bf318ec0ca5, type: 3}
   loopStart: 0
   loopEnd: 0
   bpm: 120
@@ -31,9 +31,9 @@ MonoBehaviour:
   maxPlayingInstances: 1
   channelOverride: 0
   mixerGroupOverride: {fileID: 0}
-  fadeInOut: 0
+  fadeInOut: 1
   fadeInDuration: 0
-  fadeOutDuration: 0
+  fadeOutDuration: 0.6
   bypassEffects: 0
   bypassListenerEffects: 0
   bypassReverbZones: 0

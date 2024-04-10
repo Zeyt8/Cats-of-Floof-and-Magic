@@ -22,7 +22,8 @@
         Steel,
         Gems,
         Sulfur,
-        Windmill
+        Windmill,
+        Move
     }
     public enum AudioLibraryMusic {
     }

@@ -141,7 +141,7 @@ public class UnitObject : MonoBehaviour, ISaveableObject
         return moveCost;
     }
 
-    public void Travel(List<HexCell> path)
+    public virtual void Travel(List<HexCell> path)
     {
         IsMoving = true;
         pathToTravel = path;

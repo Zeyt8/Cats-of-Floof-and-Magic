@@ -1,3 +1,4 @@
+using JSAM;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -61,6 +62,12 @@ public class Leader : UnitObject
             army.Add(data);
             RecalculateFactionEffects();
         }
+    }
+
+    public override void Travel(List<HexCell> path)
+    {
+        base.Travel(path);
+        AudioManager.PlaySound(AudioLibrarySounds.Move);
     }
 
     protected override void FinishTravel(HexCell destination)
