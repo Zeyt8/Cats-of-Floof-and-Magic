@@ -8,6 +8,15 @@ public class LumberingShack : Building
         GameEvents.OnRoundEnd.AddListener(GenerateWood);
     }
 
+    public override void OnBuild(HexCell cell)
+    {
+        base.OnBuild(cell);
+        if (owner == PlayerObject.Instance.playerNumber)
+        {
+            PlayerObject.Instance.ResourceGain += new Resources(0, 5, 0, 0, 0, 0);
+        }
+    }
+
     private void GenerateWood()
     {
         if (owner == PlayerObject.Instance.playerNumber)

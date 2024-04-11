@@ -234,8 +234,8 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
         Building building = cell.AddBuilding(buildingToBuild);
         if (building)
         {
-            building.OnBuild(cell);
             building.ChangeOwner(owner);
+            building.OnBuild(cell);
         }
     }
 

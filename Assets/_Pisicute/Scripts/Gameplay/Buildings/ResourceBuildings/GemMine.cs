@@ -8,6 +8,15 @@ public class GemMine : Building
         GameEvents.OnRoundEnd.AddListener(GenerateGems);
     }
 
+    public override void OnBuild(HexCell cell)
+    {
+        base.OnBuild(cell);
+        if (owner == PlayerObject.Instance.playerNumber)
+        {
+            PlayerObject.Instance.ResourceGain += new Resources(0, 0, 0, 0, 0, 1);
+        }
+    }
+
     private void GenerateGems()
     {
         if (owner == PlayerObject.Instance.playerNumber)

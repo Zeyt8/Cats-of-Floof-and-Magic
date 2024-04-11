@@ -88,12 +88,12 @@ public class TrainingGroundsUI : BuildingUI
                 cat1 = cat;
             });
 
-            catIcon = Instantiate(catIconPrefab, units2);
-            catIcon.SetCat(allCats[unit.type]);
-            singleSelectGroup2.images.Add(catIcon.icon);
-            catIcon.onClick += ((cat) =>
+            ClickableCatIcon catIcon2 = Instantiate(catIconPrefab, units2);
+            catIcon2.SetCat(allCats[unit.type]);
+            singleSelectGroup2.images.Add(catIcon2.icon);
+            catIcon2.onClick += ((cat) =>
             {
-                singleSelectGroup2.Select(catIcon.gameObject);
+                singleSelectGroup2.Select(catIcon2.gameObject);
                 cat2 = cat;
             });
         }

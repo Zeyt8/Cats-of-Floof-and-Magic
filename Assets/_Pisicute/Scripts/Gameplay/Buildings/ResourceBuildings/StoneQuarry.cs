@@ -8,6 +8,15 @@ public class StoneQuarry : Building
         GameEvents.OnRoundEnd.AddListener(GenerateStone);
     }
 
+    public override void OnBuild(HexCell cell)
+    {
+        base.OnBuild(cell);
+        if (owner == PlayerObject.Instance.playerNumber)
+        {
+            PlayerObject.Instance.ResourceGain += new Resources(0, 0, 5, 0, 0, 0);
+        }
+    }
+
     private void GenerateStone()
     {
         if (owner == PlayerObject.Instance.playerNumber)

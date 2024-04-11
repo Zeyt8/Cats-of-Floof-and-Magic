@@ -27,7 +27,7 @@ public class FloofAcademy : Building
     [ContextMenu("Create Cat")]
     private void CreateCat()
     {
-        if (catInWaiting == null && owner == PlayerObject.Instance.playerNumber)
+        if (catInWaiting == null)
         {
             catInWaiting = magicalCats.cats.Values.GetRandom();
         }

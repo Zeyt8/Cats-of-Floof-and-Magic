@@ -14,6 +14,10 @@ public class Windmill : Building
         {
             cell.GetNeighbor(i).FarmLevel++;
         }
+        if (owner == PlayerObject.Instance.playerNumber)
+        {
+            PlayerObject.Instance.ResourceGain += new Resources(5, 0, 0, 0, 0, 0);
+        }
     }
 
     private void GenerateFood()
