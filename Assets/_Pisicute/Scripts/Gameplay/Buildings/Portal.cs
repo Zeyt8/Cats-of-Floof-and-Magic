@@ -1,3 +1,4 @@
+using JSAM;
 using System.IO;
 using UnityEngine;
 
@@ -27,5 +28,11 @@ public class Portal : Building
     {
         base.Load(reader, header, grid);
         destination = HexCoordinates.Load(reader);
+    }
+
+    public override void OnSelect()
+    {
+        base.OnSelect();
+        AudioManager.PlaySound(AudioLibrarySounds.Portal);
     }
 }

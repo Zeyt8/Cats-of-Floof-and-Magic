@@ -1,3 +1,5 @@
+using JSAM;
+
 public class Marketplace : Building
 {
     public static Pair<int, int>[,] ExchangeRate =
@@ -10,4 +12,10 @@ public class Marketplace : Building
         { new Pair<int, int>(1, 15), new Pair<int, int>(1, 10), new Pair<int, int>(1, 10), new Pair<int, int>(2, 1) , null                     , new Pair<int, int>(2, 1)  }, //Sf
         { new Pair<int, int>(1, 15), new Pair<int, int>(1, 10), new Pair<int, int>(1, 10), new Pair<int, int>(2, 1) , new Pair<int, int>(2, 1) , null                      }  //G
     };
+
+    public override void OnSelect()
+    {
+        base.OnSelect();
+        AudioManager.PlaySound(AudioLibrarySounds.Marketplace);
+    }
 }

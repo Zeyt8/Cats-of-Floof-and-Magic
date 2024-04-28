@@ -1,3 +1,4 @@
+using JSAM;
 using UnityEngine;
 
 public class MageGuild : Building
@@ -20,5 +21,11 @@ public class MageGuild : Building
             ((Leader)Location.Unit).AddSpell(spell);
             action = null;
         };
+    }
+
+    public override void OnSelect()
+    {
+        base.OnSelect();
+        AudioManager.PlaySound(AudioLibrarySounds.MageGuild);
     }
 }

@@ -1,3 +1,4 @@
+using JSAM;
 using UnityEngine;
 
 public class FloofAcademy : Building
@@ -31,5 +32,11 @@ public class FloofAcademy : Building
         {
             catInWaiting = magicalCats.cats.Values.GetRandom();
         }
+    }
+
+    public override void OnSelect()
+    {
+        base.OnSelect();
+        AudioManager.PlaySound(AudioLibrarySounds.FloofAcademy);
     }
 }

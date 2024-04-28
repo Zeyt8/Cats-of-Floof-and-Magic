@@ -1,3 +1,5 @@
+using JSAM;
+
 public class Catapult : Building
 {
     public override void OnSpawn(HexCell cell)
@@ -31,5 +33,11 @@ public class Catapult : Building
             PlayerObject.Instance.InitiateSelectCellForEffect(ValidTargets, Shoot);
             action = null;
         };
+    }
+
+    public override void OnSelect()
+    {
+        base.OnSelect();
+        AudioManager.PlaySound(AudioLibrarySounds.Catapult);
     }
 }

@@ -1,7 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using JSAM;
 
 public class TrainingGrounds : Building
 {
+    public override void OnSelect()
+    {
+        base.OnSelect();
+        AudioManager.PlaySound(AudioLibrarySounds.TrainingGrounds);
+    }
 }

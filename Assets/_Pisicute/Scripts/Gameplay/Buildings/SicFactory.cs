@@ -1,3 +1,4 @@
+using JSAM;
 using UnityEngine;
 
 public class SicFactory : Building
@@ -30,5 +31,11 @@ public class SicFactory : Building
         {
             catInWaiting = sicCats.cats.Values.GetRandom();
         }
+    }
+
+    public override void OnSelect()
+    {
+        base.OnSelect();
+        AudioManager.PlaySound(AudioLibrarySounds.SICFactory);
     }
 }

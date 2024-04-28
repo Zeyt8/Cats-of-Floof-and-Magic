@@ -23,7 +23,15 @@
         Gems,
         Sulfur,
         Windmill,
-        Move
+        Move,
+        Catapult,
+        TrainingGrounds,
+        SICFactory,
+        Portal,
+        Marketplace,
+        MageGuild,
+        CatShelter,
+        FloofAcademy
     }
     public enum AudioLibraryMusic {
     }
