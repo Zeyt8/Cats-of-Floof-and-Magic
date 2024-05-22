@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8050598046716478747}
   - component: {fileID: 6581088675204453285}
   m_Layer: 0
-  m_Name: teleporting vox
+  m_Name: teleporting box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
