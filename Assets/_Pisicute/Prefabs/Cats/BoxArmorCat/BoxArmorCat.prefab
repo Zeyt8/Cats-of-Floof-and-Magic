@@ -270,26 +270,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: box armor
       objectReference: {fileID: 0}
-    - target: {fileID: 2010815934018586815, guid: a1dfb8d81d13d8445bf4486a93c71e8f,
-        type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 4300000, guid: 6e01b98bad4f6254d93cab9897b74681, type: 2}
-    - target: {fileID: 2714314991508864382, guid: a1dfb8d81d13d8445bf4486a93c71e8f,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2714314991508864382, guid: a1dfb8d81d13d8445bf4486a93c71e8f,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2714314991508864382, guid: a1dfb8d81d13d8445bf4486a93c71e8f,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 2714314991508864382, guid: a1dfb8d81d13d8445bf4486a93c71e8f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -339,11 +319,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2714314991508864382, guid: a1dfb8d81d13d8445bf4486a93c71e8f,
-        type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
