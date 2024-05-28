@@ -49,7 +49,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Eyelid_Texture:
-        m_Texture: {fileID: 2800000, guid: 3fb67be727fd0ab4a9397eaef8b6d2ad, type: 3}
+        m_Texture: {fileID: 2800000, guid: ee83ca9b41c9b55498fd9e9aaae62063, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -107,6 +107,7 @@ Material:
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _Iris_Size: 0.15
+    - _Light_Factor: 1
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005

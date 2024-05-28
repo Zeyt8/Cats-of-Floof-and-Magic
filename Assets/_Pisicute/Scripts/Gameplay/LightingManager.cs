@@ -34,6 +34,8 @@ public class LightingManager : MonoBehaviour
             directionalLight.color = preset.directionalColor.Evaluate(timePercent);
             directionalLight.transform.localRotation = Quaternion.Euler(new Vector3((timePercent * 360f) - 90f, 170f, 0));
         }
+
+        Shader.SetGlobalFloat("_Light_Factor", Mathf.Lerp(1.2f, 0.7f, Mathf.Abs(timeOfDay - 12) / 12));
     }
 
     private void OnValidate()
