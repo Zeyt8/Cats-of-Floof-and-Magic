@@ -144,6 +144,7 @@ public class BattleMap : MonoBehaviour
         Instantiate(catHealthBarPrefab, BattleCanvas.Instance.transform).Initialize(newCat);
         armies[newCat.owner - 1].Add(newCat);
         AudioManager.PlaySound(AudioLibrarySounds.SpawnCat);
+        newCat.Orientation = 180;
         return newCat;
     }
 

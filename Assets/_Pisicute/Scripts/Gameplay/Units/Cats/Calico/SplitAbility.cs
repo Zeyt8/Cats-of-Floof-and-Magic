@@ -27,8 +27,9 @@ public class SplitAbility : CatAbility
 
     private void SpawnSplitCat(Cat caster, HexCell cell, int index)
     {
-        caster.battleMap.InstantiateCat(newCat, caster.owner, cell);
+        CalicoSplitCat cat = caster.battleMap.InstantiateCat(newCat, caster.owner, cell) as CalicoSplitCat;
         index -= 1;
+        cat.SetColor(index);
         if (index > 0)
         {
             PlayerObject.Instance.InitiateSelectCellForEffect(
