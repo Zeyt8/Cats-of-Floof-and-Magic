@@ -141,6 +141,15 @@ public partial class @InputControlSchemes: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Create AI Unit"",
+                    ""type"": ""Button"",
+                    ""id"": ""6b76cdf8-a373-422b-ab48-07e4b17cd45c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -196,6 +205,39 @@ public partial class @InputControlSchemes: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""K&M"",
                     ""action"": ""Destroy Unit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""One Modifier"",
+                    ""id"": ""c81489ea-45b0-4d0e-92e1-c13b7915cd71"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Create AI Unit"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""1fff3716-849a-4572-8e73-d5ef61f560c8"",
+                    ""path"": ""<Keyboard>/alt"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""K&M"",
+                    ""action"": ""Create AI Unit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""ed0d517d-04b9-4ed3-b445-4b291282127a"",
+                    ""path"": ""<Keyboard>/u"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""K&M"",
+                    ""action"": ""Create AI Unit"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 }
@@ -419,6 +461,7 @@ public partial class @InputControlSchemes: IInputActionCollection2, IDisposable
         m_MapEditor_SelectCell = m_MapEditor.FindAction("Select Cell", throwIfNotFound: true);
         m_MapEditor_CreateUnit = m_MapEditor.FindAction("Create Unit", throwIfNotFound: true);
         m_MapEditor_DestroyUnit = m_MapEditor.FindAction("Destroy Unit", throwIfNotFound: true);
+        m_MapEditor_CreateAIUnit = m_MapEditor.FindAction("Create AI Unit", throwIfNotFound: true);
         // Camera
         m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
         m_Camera_CameraPan = m_Camera.FindAction("Camera Pan", throwIfNotFound: true);
@@ -559,6 +602,7 @@ public partial class @InputControlSchemes: IInputActionCollection2, IDisposable
     private readonly InputAction m_MapEditor_SelectCell;
     private readonly InputAction m_MapEditor_CreateUnit;
     private readonly InputAction m_MapEditor_DestroyUnit;
+    private readonly InputAction m_MapEditor_CreateAIUnit;
     public struct MapEditorActions
     {
         private @InputControlSchemes m_Wrapper;
@@ -566,6 +610,7 @@ public partial class @InputControlSchemes: IInputActionCollection2, IDisposable
         public InputAction @SelectCell => m_Wrapper.m_MapEditor_SelectCell;
         public InputAction @CreateUnit => m_Wrapper.m_MapEditor_CreateUnit;
         public InputAction @DestroyUnit => m_Wrapper.m_MapEditor_DestroyUnit;
+        public InputAction @CreateAIUnit => m_Wrapper.m_MapEditor_CreateAIUnit;
         public InputActionMap Get() { return m_Wrapper.m_MapEditor; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -584,6 +629,9 @@ public partial class @InputControlSchemes: IInputActionCollection2, IDisposable
             @DestroyUnit.started += instance.OnDestroyUnit;
             @DestroyUnit.performed += instance.OnDestroyUnit;
             @DestroyUnit.canceled += instance.OnDestroyUnit;
+            @CreateAIUnit.started += instance.OnCreateAIUnit;
+            @CreateAIUnit.performed += instance.OnCreateAIUnit;
+            @CreateAIUnit.canceled += instance.OnCreateAIUnit;
         }
 
         private void UnregisterCallbacks(IMapEditorActions instance)
@@ -597,6 +645,9 @@ public partial class @InputControlSchemes: IInputActionCollection2, IDisposable
             @DestroyUnit.started -= instance.OnDestroyUnit;
             @DestroyUnit.performed -= instance.OnDestroyUnit;
             @DestroyUnit.canceled -= instance.OnDestroyUnit;
+            @CreateAIUnit.started -= instance.OnCreateAIUnit;
+            @CreateAIUnit.performed -= instance.OnCreateAIUnit;
+            @CreateAIUnit.canceled -= instance.OnCreateAIUnit;
         }
 
         public void RemoveCallbacks(IMapEditorActions instance)
@@ -705,6 +756,7 @@ public partial class @InputControlSchemes: IInputActionCollection2, IDisposable
         void OnSelectCell(InputAction.CallbackContext context);
         void OnCreateUnit(InputAction.CallbackContext context);
         void OnDestroyUnit(InputAction.CallbackContext context);
+        void OnCreateAIUnit(InputAction.CallbackContext context);
     }
     public interface ICameraActions
     {

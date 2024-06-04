@@ -92,6 +92,12 @@ public class HexMapGenerator : MonoBehaviour
         }
     }
 
+    [ContextMenu("Generate Map")]
+    public void TestGeneration()
+    {
+        GenerateMap(20, 15);
+    }
+
     private void CreateLand()
     {
         int landBudget = Mathf.RoundToInt(cellCount * settings.landPercentage * 0.01f);

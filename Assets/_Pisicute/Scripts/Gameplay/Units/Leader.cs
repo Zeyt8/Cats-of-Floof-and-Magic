@@ -8,7 +8,7 @@ public class Leader : UnitObject
 {
     public int maxFloof;
     public int currentFloof;
-    [SerializeField] private CatCollection allCats;
+    [SerializeField] protected CatCollection allCats;
     [SerializeField] private List<Sprite> possibleIcons = new List<Sprite>();
     public List<CatData> army = new List<CatData>();
     public List<Cat> currentArmy = new List<Cat>();

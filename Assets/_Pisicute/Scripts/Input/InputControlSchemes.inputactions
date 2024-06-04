@@ -119,6 +119,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Create AI Unit",
+                    "type": "Button",
+                    "id": "6b76cdf8-a373-422b-ab48-07e4b17cd45c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -174,6 +183,39 @@
                     "processors": "",
                     "groups": "K&M",
                     "action": "Destroy Unit",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "One Modifier",
+                    "id": "c81489ea-45b0-4d0e-92e1-c13b7915cd71",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Create AI Unit",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "1fff3716-849a-4572-8e73-d5ef61f560c8",
+                    "path": "<Keyboard>/alt",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "K&M",
+                    "action": "Create AI Unit",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "ed0d517d-04b9-4ed3-b445-4b291282127a",
+                    "path": "<Keyboard>/u",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "K&M",
+                    "action": "Create AI Unit",
                     "isComposite": false,
                     "isPartOfComposite": true
                 }

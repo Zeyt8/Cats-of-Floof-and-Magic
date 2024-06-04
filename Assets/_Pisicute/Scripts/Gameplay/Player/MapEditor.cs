@@ -10,6 +10,7 @@ public class MapEditor : MonoBehaviour
     [SerializeField] private HexGrid hexGrid;
     [SerializeField] private Material terrainMaterial;
     [SerializeField] Leader leaderPrefab;
+    [SerializeField] private AILeader aiLeaderPrefab;
     private int activeTerrainTypeIndex = -1;
     private int activeElevation;
     private int activeWaterLevel;
@@ -39,12 +40,14 @@ public class MapEditor : MonoBehaviour
     private void OnEnable()
     {
         inputHandler.OnCreateUnit.AddListener(CreateUnit);
+        inputHandler.OnCreateAIUnit.AddListener(CreateAIUnit);
         inputHandler.OnDestroyUnit.AddListener(DestroyUnit);
     }
 
     private void OnDisable()
     {
         inputHandler.OnCreateUnit.RemoveListener(CreateUnit);
+        inputHandler.OnCreateAIUnit.RemoveListener(CreateAIUnit);
         inputHandler.OnDestroyUnit.RemoveListener(DestroyUnit);
     }
 
@@ -199,6 +202,15 @@ public class MapEditor : MonoBehaviour
         if (cell && cell.units.Count == 0)
         {
             cell.AddUnit(Instantiate(leaderPrefab), Random.Range(0, 360f));
+        }
+    }
+
+    private void CreateAIUnit()
+    {
+        HexCell cell = GetCellUnderCursor();
+        if (cell && cell.units.Count == 0)
+        {
+            cell.AddUnit(Instantiate(aiLeaderPrefab), Random.Range(0, 360f));
         }
     }
 
