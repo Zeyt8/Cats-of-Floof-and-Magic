@@ -11,11 +11,21 @@ public class Cat : UnitObject
     [HideInInspector] public Leader leader;
     [HideInInspector] public BattleMap battleMap;
 
+    private bool isActive;
+
     protected override void Start()
     {
         base.Start();
         CalculateStats();
         SetTurnActive(false);
+    }
+
+    private void Update()
+    {
+        if (isActive && owner == 0)
+        {
+            abilities[0].CastAbility(this);
+        }
     }
 
     public void CalculateStats()
@@ -88,6 +98,7 @@ public class Cat : UnitObject
             color.a = 0.35f;
         }
         ChangePlayerMarkerColor(color);
+        isActive = active;
     }
 
     public virtual void OnEncounterStart()
