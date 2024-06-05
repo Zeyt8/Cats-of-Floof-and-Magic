@@ -3,13 +3,14 @@ using UnityEngine;
 
 public class AILeader : Leader
 {
-    [SerializeField] List<CatTypes> possibleCats = new List<CatTypes>();
+    [SerializeField] private int numberOfCats;
+    [SerializeField] private List<CatTypes> possibleCats = new List<CatTypes>();
 
     protected override void Start()
     {
-        foreach (CatTypes catType in possibleCats)
+        for (int i = 0; i < numberOfCats; i++)
         {
-            AddCatToArmy(allCats[catType].data);
+            AddCatToArmy(allCats[possibleCats.GetRandom()].data);
         }
     }
 }

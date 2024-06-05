@@ -59,6 +59,8 @@ MonoBehaviour:
   possibleIcons: []
   army: []
   currentArmy: []
+  numberOfCats: 2
+  possibleCats: 0500000006000000
 --- !u!1 &3320796275736999658
 GameObject:
   m_ObjectHideFlags: 0

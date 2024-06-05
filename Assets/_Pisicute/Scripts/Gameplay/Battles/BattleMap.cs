@@ -142,7 +142,14 @@ public class BattleMap : MonoBehaviour
         location.AddUnit(newCat, 0);
         catTurnQueue.Add(newCat);
         Instantiate(catHealthBarPrefab, BattleCanvas.Instance.transform).Initialize(newCat);
-        armies[newCat.owner - 1].Add(newCat);
+        if (newCat.owner == 0)
+        {
+            armies[2 - battlingLeaders[1].owner].Add(newCat);
+        }
+        else
+        {
+            armies[newCat.owner - 1].Add(newCat);
+        }
         AudioManager.PlaySound(AudioLibrarySounds.SpawnCat);
         newCat.Orientation = 180;
         return newCat;
@@ -156,6 +163,19 @@ public class BattleMap : MonoBehaviour
             state = State.Deploy;
             HighlightPlaceableTiles(catToPlace);
             currentPlayer = catToPlace.item1;
+            if (currentPlayer == 0)
+            {
+                List<HexCell> placeableCells = new List<HexCell>();
+                foreach (HexCell cell in hexGrid.cells)
+                {
+                    if (IsCellPlaceable(catToPlace, cell))
+                    {
+                        placeableCells.Add(cell);
+                    }
+                }
+                HexCell randomCell = placeableCells[Random.Range(0, placeableCells.Count)];
+                PlaceCat(randomCell);
+            }
         }
         else
         {
@@ -181,7 +201,9 @@ public class BattleMap : MonoBehaviour
     private bool IsCellPlaceable(Pair<int, CatData> catData, HexCell cell)
     {
         return allCats[catData.item2.type].IsValidDestination(cell) &&
-                         ((catData.item1 == 1 && cell.coordinates.HexX < 2.5f) || (catData.item1 == 2 && cell.coordinates.HexX > width - 3));
+                         ((catData.item1 == 1 && cell.coordinates.HexX < 2.5f) ||
+                         (catData.item1 == 2 && cell.coordinates.HexX > width - 3) ||
+                         (catData.item1 == 0 && cell.coordinates.HexX > width - 3));
     }
 
     private void UnhighlightAllTiles()
@@ -196,7 +218,14 @@ public class BattleMap : MonoBehaviour
     {
         foreach (Leader l in battlingLeaders)
         {
-            l.currentArmy = armies[l.owner - 1];
+            if (l.owner == 0)
+            {
+                l.currentArmy = armies[2 - battlingLeaders[1].owner];
+            }
+            else
+            {
+                l.currentArmy = armies[l.owner - 1];
+            }
         }
         state = State.Fight;
         UnhighlightAllTiles();
