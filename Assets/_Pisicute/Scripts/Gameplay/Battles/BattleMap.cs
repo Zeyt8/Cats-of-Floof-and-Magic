@@ -6,7 +6,7 @@ using JSAM;
 public class BattleMap : MonoBehaviour
 {
     public HexMapGenerator generator;
-    public HexGrid hexGrid;
+    [HideInInspector] public HexGrid hexGrid;
     public int currentPlayer;
     [SerializeField] private CatCollection allCats;
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
@@ -108,6 +108,18 @@ public class BattleMap : MonoBehaviour
         else
         {
             virtualCamera.gameObject.SetActive(false);
+        }
+    }
+
+    public List<Cat> GetOpponentArmy(int self)
+    {
+        if (self == 0)
+        {
+            return armies[battlingLeaders[1].owner - 1];
+        }
+        else
+        {
+            return armies[2 - self];
         }
     }
 

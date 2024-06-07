@@ -24,6 +24,37 @@ public class Cat : UnitObject
     {
         if (isActive && owner == 0)
         {
+            List<Cat> enemyArmy = battleMap.GetOpponentArmy(owner);
+            HexCell closestEnemy = null;
+            int minDistance = int.MaxValue;
+            foreach (Cat enemy in enemyArmy)
+            {
+                int distance = Location.coordinates.DistanceTo(enemy.Location.coordinates);
+                if (closestEnemy == null || distance < minDistance)
+                {
+                    closestEnemy = enemy.Location;
+                    minDistance = distance;
+                }
+            }
+            minDistance = int.MaxValue;
+            HexCell targetCell = closestEnemy;
+            for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++)
+            {
+                HexCell neighbour = closestEnemy.GetNeighbor(d);
+                if (neighbour == null) continue;
+                int distance = neighbour.coordinates.DistanceTo(Location.coordinates);
+                if (IsValidDestination(neighbour) && distance < minDistance)
+                {
+                    targetCell = neighbour;
+                    minDistance = distance;
+                }
+            }
+            battleMap.hexGrid.FindPath(Location, targetCell, this);
+            List<HexCell> path = battleMap.hexGrid.GetPath();
+            if (path != null)
+            {
+                Travel(path);
+            }
             abilities[0].CastAbility(this);
         }
     }
