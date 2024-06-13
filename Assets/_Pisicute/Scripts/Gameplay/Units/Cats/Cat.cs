@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Collections;
 using UnityEngine;
 
@@ -8,16 +9,18 @@ public class Cat : UnitObject
     public Resources sellCost;
     public override int Speed => data.speed.value;
     public List<CatAbility> abilities;
+    [HideInInspector] public List<int> abilityCooldownRemaining;
     [HideInInspector] public Leader leader;
     [HideInInspector] public BattleMap battleMap;
 
-    private bool isActive;
+    public bool isActive { get; private set; }
 
     protected override void Start()
     {
         base.Start();
         CalculateStats();
         SetTurnActive(false);
+        abilityCooldownRemaining = Enumerable.Repeat(0, abilities.Count).ToList();
     }
 
     private void Update()
@@ -49,7 +52,7 @@ public class Cat : UnitObject
                     minDistance = distance;
                 }
             }
-            battleMap.hexGrid.FindPath(Location, targetCell, this);
+            battleMap.hexGrid.FindPath(Location, targetCell, this, false);
             List<HexCell> path = battleMap.hexGrid.GetPath();
             if (path != null)
             {
@@ -130,6 +133,13 @@ public class Cat : UnitObject
         }
         ChangePlayerMarkerColor(color);
         isActive = active;
+        if (active)
+        {
+            for (int i = 0; i < abilityCooldownRemaining.Count; i++)
+            {
+                abilityCooldownRemaining[i]--;
+            }
+        }
     }
 
     public virtual void OnEncounterStart()
@@ -137,6 +147,11 @@ public class Cat : UnitObject
         foreach (StatusEffect statusEffect in statusEffects)
         {
             statusEffect.OnEncounterStart(this);
+        }
+        abilityCooldownRemaining = Enumerable.Repeat(0, abilities.Count).ToList();
+        for (int i = 0; i < abilityCooldownRemaining.Count; i++)
+        {
+            abilityCooldownRemaining[i] = 0;
         }
     }
 

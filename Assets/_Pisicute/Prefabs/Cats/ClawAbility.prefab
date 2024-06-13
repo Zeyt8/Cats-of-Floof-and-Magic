@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 1963915264, guid: c02286ce57447a048bf633d261974565, type: 3}
-  cooldown: 0
+  cooldown: 1
   title: Claw
   description: Damage an adjacent enemy cat.
   activationType: 1

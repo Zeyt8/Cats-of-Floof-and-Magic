@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 1731434368, guid: c02286ce57447a048bf633d261974565, type: 3}
-  cooldown: 1
+  cooldown: 2
   title: Pounce
   description: Jump on an enemy cat and deal damage.
   activationType: 1

@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 using System.Linq;
 using Unity.Collections;
 using JSAM;
+using UnityEditor.Playables;
 
 public class PlayerObject : NetworkSingleton<PlayerObject>
 {
