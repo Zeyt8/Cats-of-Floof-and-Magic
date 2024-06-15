@@ -58,7 +58,7 @@ MonoBehaviour:
     gems: 0
   icon: {fileID: 126613312, guid: e4e37005ba4266243a8609f6167dbbf0, type: 3}
   title: Cat Shelter
-  description: Can sell cats here.
+  description: Can sell cats here. Requires leader.
   visionRange: 3
   chunk: {fileID: 0}
   owner: -1
