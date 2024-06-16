@@ -7,7 +7,6 @@ using UnityEngine.InputSystem;
 using System.Linq;
 using Unity.Collections;
 using JSAM;
-using UnityEditor.Playables;
 
 public class PlayerObject : NetworkSingleton<PlayerObject>
 {
@@ -310,6 +309,7 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
     [ServerRpc(RequireOwnership = false)]
     private void DoMoveServerRpc(HexCoordinates[] path, HexCoordinates unitLocation)
     {
+        print("here");
         DoMoveClientRpc(path, unitLocation);
     }
 
