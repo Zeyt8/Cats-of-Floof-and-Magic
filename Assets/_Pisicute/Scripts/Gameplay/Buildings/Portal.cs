@@ -35,4 +35,13 @@ public class Portal : Building
         base.OnSelect();
         AudioManager.PlaySound(AudioLibrarySounds.Portal);
     }
+
+    public override BuildingUI OpenUIPanel()
+    {
+        if (Location.Unit == null || Location.Unit.owner != owner)
+        {
+            return null;
+        }
+        return base.OpenUIPanel();
+    }
 }

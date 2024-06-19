@@ -309,6 +309,7 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
     [ServerRpc(RequireOwnership = false)]
     private void DoMoveServerRpc(HexCoordinates[] path, HexCoordinates unitLocation)
     {
+        print("here");
         DoMoveClientRpc(path, unitLocation);
     }
 

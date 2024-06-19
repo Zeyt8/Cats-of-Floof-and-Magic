@@ -27,7 +27,7 @@ public class PlayerLobby : MonoBehaviour
     {
         SetPlayers(null);
         FillList();
-        lobbyCode.text = LobbyHandler.JoinedLobby.LobbyCode;
+        lobbyCode.text = $"Code: {LobbyHandler.JoinedLobby.LobbyCode}";
         LobbyCallbacks.LobbyEvents.Callbacks.LobbyChanged += SetPlayers;
     }
 

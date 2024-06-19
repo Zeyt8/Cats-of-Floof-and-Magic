@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 1149841168, guid: c02286ce57447a048bf633d261974565, type: 3}
-  cooldown: 2
+  cooldown: 3
   title: Sunray
   description: Shoot a sunray at an enemy cat.
   activationType: 1

@@ -57,7 +57,8 @@ MonoBehaviour:
     gems: 0
   icon: {fileID: 1482023783, guid: e4e37005ba4266243a8609f6167dbbf0, type: 3}
   title: SIC Factory
-  description: Produces a random SIC cat at the end of the round.
+  description: Produces a random SIC cat at the end of the round. Requires leader
+    to take.
   visionRange: 3
   chunk: {fileID: 0}
   owner: -1

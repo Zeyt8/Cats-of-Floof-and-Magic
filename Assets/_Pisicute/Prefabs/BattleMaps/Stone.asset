@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 922eefecf39e8034696fd05fde37c323, type: 3}
   m_Name: Stone
   m_EditorClassIdentifier: 
-  seed: 233202977
+  seed: 1113580271
   useFixedSeed: 1
   jitterProbability: 0.25
   chunkSizeMin: 30

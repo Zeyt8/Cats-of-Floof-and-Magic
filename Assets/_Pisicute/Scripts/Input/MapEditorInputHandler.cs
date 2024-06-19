@@ -7,6 +7,7 @@ public class MapEditorInputHandler : InputHandler, InputControlSchemes.IMapEdito
 {
     public bool isEditing;
     public UnityEvent OnCreateUnit = new UnityEvent();
+    public UnityEvent OnCreateAIUnit = new UnityEvent();
     public UnityEvent OnDestroyUnit = new UnityEvent();
     
     protected override void OnEnable()
@@ -35,5 +36,10 @@ public class MapEditorInputHandler : InputHandler, InputControlSchemes.IMapEdito
     void InputControlSchemes.IMapEditorActions.OnDestroyUnit(InputAction.CallbackContext context)
     {
         OnDestroyUnit?.Invoke();
+    }
+
+    void InputControlSchemes.IMapEditorActions.OnCreateAIUnit(InputAction.CallbackContext context)
+    {
+        OnCreateAIUnit?.Invoke();
     }
 }

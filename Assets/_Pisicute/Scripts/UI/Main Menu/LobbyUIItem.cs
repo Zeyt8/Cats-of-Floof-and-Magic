@@ -31,6 +31,6 @@ public class LobbyUIItem : MonoBehaviour
 
     public void SelectSession()
     {
-        MainMenuManager.Instance.SetCurrentSelectedLobby(lobby);
+        PlayPanel.Instance.SetCurrentSelectedLobby(lobby);
     }
 }

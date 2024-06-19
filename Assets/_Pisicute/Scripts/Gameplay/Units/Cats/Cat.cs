@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Collections;
 using UnityEngine;
 
@@ -8,14 +9,57 @@ public class Cat : UnitObject
     public Resources sellCost;
     public override int Speed => data.speed.value;
     public List<CatAbility> abilities;
+    [HideInInspector] public List<int> abilityCooldownRemaining;
     [HideInInspector] public Leader leader;
     [HideInInspector] public BattleMap battleMap;
+
+    public bool isActive { get; private set; }
 
     protected override void Start()
     {
         base.Start();
         CalculateStats();
         SetTurnActive(false);
+        abilityCooldownRemaining = Enumerable.Repeat(0, abilities.Count).ToList();
+    }
+
+    private void Update()
+    {
+        if (isActive && owner == 0)
+        {
+            List<Cat> enemyArmy = battleMap.GetOpponentArmy(owner);
+            HexCell closestEnemy = null;
+            int minDistance = int.MaxValue;
+            foreach (Cat enemy in enemyArmy)
+            {
+                int distance = Location.coordinates.DistanceTo(enemy.Location.coordinates);
+                if (closestEnemy == null || distance < minDistance)
+                {
+                    closestEnemy = enemy.Location;
+                    minDistance = distance;
+                }
+            }
+            minDistance = int.MaxValue;
+            HexCell targetCell = closestEnemy;
+            for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++)
+            {
+                HexCell neighbour = closestEnemy.GetNeighbor(d);
+                if (neighbour == null) continue;
+                int distance = neighbour.coordinates.DistanceTo(Location.coordinates);
+                if (IsValidDestination(neighbour) && distance < minDistance)
+                {
+                    targetCell = neighbour;
+                    minDistance = distance;
+                }
+            }
+            battleMap.hexGrid.FindPath(Location, targetCell, this, false);
+            List<HexCell> path = battleMap.hexGrid.GetPath();
+            if (path != null)
+            {
+                Travel(path);
+            }
+            abilities[0].CastAbility(this);
+        }
     }
 
     public void CalculateStats()
@@ -88,6 +132,14 @@ public class Cat : UnitObject
             color.a = 0.35f;
         }
         ChangePlayerMarkerColor(color);
+        isActive = active;
+        if (active)
+        {
+            for (int i = 0; i < abilityCooldownRemaining.Count; i++)
+            {
+                abilityCooldownRemaining[i]--;
+            }
+        }
     }
 
     public virtual void OnEncounterStart()
@@ -95,6 +147,11 @@ public class Cat : UnitObject
         foreach (StatusEffect statusEffect in statusEffects)
         {
             statusEffect.OnEncounterStart(this);
+        }
+        abilityCooldownRemaining = Enumerable.Repeat(0, abilities.Count).ToList();
+        for (int i = 0; i < abilityCooldownRemaining.Count; i++)
+        {
+            abilityCooldownRemaining[i] = 0;
         }
     }
 

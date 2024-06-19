@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 922eefecf39e8034696fd05fde37c323, type: 3}
   m_Name: Sand
   m_EditorClassIdentifier: 
-  seed: 526807418
+  seed: 297107974
   useFixedSeed: 1
   jitterProbability: 0.25
   chunkSizeMin: 30

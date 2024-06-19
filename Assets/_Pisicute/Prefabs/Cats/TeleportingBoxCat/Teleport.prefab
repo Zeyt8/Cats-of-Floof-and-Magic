@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: -1782588237, guid: c02286ce57447a048bf633d261974565, type: 3}
-  cooldown: 1
+  cooldown: 2
   title: Teleport
   description: Teleport to another tile.
   activationType: 1

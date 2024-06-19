@@ -8,7 +8,7 @@ public class Leader : UnitObject
 {
     public int maxFloof;
     public int currentFloof;
-    [SerializeField] private CatCollection allCats;
+    [SerializeField] protected CatCollection allCats;
     [SerializeField] private List<Sprite> possibleIcons = new List<Sprite>();
     public List<CatData> army = new List<CatData>();
     public List<Cat> currentArmy = new List<Cat>();
@@ -29,7 +29,7 @@ public class Leader : UnitObject
         {
             PlayerObject.Instance.leaders.Add(this);
         }
-        AddCatToArmy(allCats[CatTypes.Tabby].data);
+        AddCatToArmy(allCats[CatTypes.TeleportingBox].data);
         AddCatToArmy(allCats[CatTypes.Tuxedo].data);
         GameEvents.OnLeaderRecruited.Invoke(owner);
         AddSpell(new ConjureFoodSpell());
@@ -67,7 +67,10 @@ public class Leader : UnitObject
     public override void Travel(List<HexCell> path)
     {
         base.Travel(path);
-        AudioManager.PlaySound(AudioLibrarySounds.Move);
+        if (owner == PlayerObject.Instance.playerNumber)
+        {
+            AudioManager.PlaySound(AudioLibrarySounds.Move);
+        }
     }
 
     protected override void FinishTravel(HexCell destination)

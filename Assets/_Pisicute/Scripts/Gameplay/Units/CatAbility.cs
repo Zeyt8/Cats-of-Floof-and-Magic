@@ -26,6 +26,14 @@ public abstract class CatAbility : MonoBehaviour
     }
     public virtual PlayerObject.Action<HexCell> AfterCasting(Cat caster)
     {
+        for (int i = 0; i < caster.abilities.Count; i++)
+        {
+            if (caster.abilities[i] == this)
+            {
+                caster.abilityCooldownRemaining[i] = cooldown;
+                break;
+            }
+        }
         return null;
     }
 

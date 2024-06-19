@@ -232,8 +232,8 @@ public class UnitObject : MonoBehaviour, ISaveableObject
 
     public virtual void OnTurnStart(int player)
     {
-        if (player != owner) return;
         movementPoints = Speed;
+        if (player != owner) return;
         foreach (StatusEffect statusEffect in statusEffects)
         {
             statusEffect.OnTurnBegin(this);

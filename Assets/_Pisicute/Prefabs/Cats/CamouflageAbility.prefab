@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: -460819793, guid: c02286ce57447a048bf633d261974565, type: 3}
-  cooldown: 2
+  cooldown: 3
   title: Camouflage
   description: "Become immune to attacks that deal 1 or less damage until the next
     turn or until you attack. \r\nThe first attack while camouflaged deals extra

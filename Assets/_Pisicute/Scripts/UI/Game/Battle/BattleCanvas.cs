@@ -41,9 +41,9 @@ public class BattleCanvas : Singleton<BattleCanvas>
         else
         {
             catIcon.SetIcon(cat.icon, cat.data.type.GetPrettyName());
-            foreach (CatAbility ability in cat.abilities)
+            for (int i = 0; i < cat.abilities.Count; i++)
             {
-                Instantiate(abilityIconPrefab, abilityPanel).Initialize(cat, ability);
+                Instantiate(abilityIconPrefab, abilityPanel).Initialize(cat, cat.abilities[i], i);
             }
             statsPanel.SetStats(cat.data);
             unitStatusEffectsPanel.SetStatusEffects(cat);

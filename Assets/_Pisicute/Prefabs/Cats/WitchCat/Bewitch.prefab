@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: -1227356537, guid: c02286ce57447a048bf633d261974565, type: 3}
-  cooldown: 1
+  cooldown: 2
   title: Bewitch
   description: Slow an enemy cat for 2 turns.
   activationType: 1

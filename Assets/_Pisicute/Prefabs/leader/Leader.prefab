@@ -51,7 +51,7 @@ MonoBehaviour:
   icon: {fileID: -553014663, guid: b06d7264ba1eddb469533bf8d960cec6, type: 3}
   movementPoints: 0
   IsMoving: 0
-  visionRange: 3
+  visionRange: 4
   playerMarker: {fileID: 1877966034339332328}
   maxFloof: 20
   currentFloof: 0

@@ -57,7 +57,7 @@ MonoBehaviour:
     gems: 0
   icon: {fileID: -1798524556, guid: e4e37005ba4266243a8609f6167dbbf0, type: 3}
   title: Floof Academy
-  description: Sells random magical cats.
+  description: Sells random magical cats. Requires leader.
   visionRange: 3
   chunk: {fileID: 0}
   owner: -1
