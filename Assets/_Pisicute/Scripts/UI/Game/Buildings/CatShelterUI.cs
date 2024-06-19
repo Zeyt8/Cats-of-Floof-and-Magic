@@ -7,6 +7,7 @@ public class CatShelterUI : BuildingUI
     [SerializeField] private ClickableCatIcon catIconPrefab;
     [SerializeField] private CatCollection allCats;
     [SerializeField] private Transform catsTransform;
+    [SerializeField] private TextMeshProUGUI food;
     [SerializeField] private TextMeshProUGUI wood;
     [SerializeField] private TextMeshProUGUI stone;
     [SerializeField] private TextMeshProUGUI steel;
@@ -36,6 +37,7 @@ public class CatShelterUI : BuildingUI
 
     private void SetResources(Resources sellCost)
     {
+        food.text = sellCost.food.ToString();
         wood.text = sellCost.wood.ToString();
         stone.text = sellCost.stone.ToString();
         steel.text = sellCost.steel.ToString();

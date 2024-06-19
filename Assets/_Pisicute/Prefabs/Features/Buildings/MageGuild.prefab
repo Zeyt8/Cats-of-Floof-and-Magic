@@ -50,11 +50,11 @@ MonoBehaviour:
   type: 13
   resourceCost:
     food: 0
-    wood: 0
-    stone: 0
-    steel: 0
+    wood: 15
+    stone: 20
+    steel: 5
     sulfur: 0
-    gems: 0
+    gems: 5
   icon: {fileID: 888047081, guid: e4e37005ba4266243a8609f6167dbbf0, type: 3}
   title: Mage Guild
   description: Gives you 1 spell once. Requires leader.

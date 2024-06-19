@@ -68,7 +68,7 @@ MonoBehaviour:
       baseValue: 24
       value: 24
   sellCost:
-    food: 0
+    food: 7
     wood: 0
     stone: 0
     steel: 0
@@ -78,6 +78,7 @@ MonoBehaviour:
   - {fileID: 578620850131082030, guid: 9d968fe528380d041a17c6c0412bd732, type: 3}
   - {fileID: 6206829249905387030, guid: 6e36b08c71db87340a97344c557cf368, type: 3}
   - {fileID: -5892320475343654142, guid: 74789eab3b78fb149b550e11f2bbf022, type: 3}
+  abilityCooldownRemaining: 
   leader: {fileID: 0}
   battleMap: {fileID: 0}
   wildAbility: {fileID: 1402363271790634308, guid: 1be6efceccc59f64f8545f7774d47f16,

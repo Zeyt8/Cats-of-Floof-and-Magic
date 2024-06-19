@@ -51,7 +51,7 @@ MonoBehaviour:
   resourceCost:
     food: 0
     wood: 5
-    stone: 0
+    stone: 1
     steel: 0
     sulfur: 0
     gems: 0

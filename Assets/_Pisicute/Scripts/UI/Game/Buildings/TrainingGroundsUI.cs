@@ -77,6 +77,14 @@ public class TrainingGroundsUI : BuildingUI
 
     private void SetCats()
     {
+        foreach (Transform go in units1.transform)
+        {
+            Destroy(go.gameObject);
+        }
+        foreach (Transform go in units2.transform)
+        {
+            Destroy(go.gameObject);
+        }
         foreach (var unit in ((Leader)currentBuilding.Location.Unit).army)
         {
             ClickableCatIcon catIcon = Instantiate(catIconPrefab, units1);

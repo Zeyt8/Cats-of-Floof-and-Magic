@@ -50,8 +50,8 @@ MonoBehaviour:
   type: 2
   resourceCost:
     food: 0
-    wood: 0
-    stone: 0
+    wood: 10
+    stone: 10
     steel: 0
     sulfur: 0
     gems: 0

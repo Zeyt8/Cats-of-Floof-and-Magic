@@ -69,8 +69,8 @@ MonoBehaviour:
       baseValue: 18
       value: 18
   sellCost:
-    food: 0
-    wood: 0
+    food: 5
+    wood: 2
     stone: 0
     steel: 0
     sulfur: 0
@@ -78,6 +78,7 @@ MonoBehaviour:
   abilities:
   - {fileID: 578620850131082030, guid: 9d968fe528380d041a17c6c0412bd732, type: 3}
   - {fileID: 6206829249905387030, guid: 6e36b08c71db87340a97344c557cf368, type: 3}
+  abilityCooldownRemaining: 
   leader: {fileID: 0}
   battleMap: {fileID: 0}
 --- !u!1 &2902873987606075414
