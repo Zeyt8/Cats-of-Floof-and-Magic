@@ -20,9 +20,13 @@ public class MainCastle : Building
 
     public void CreateLeader(HexCell cell)
     {
-        Leader leader = Instantiate(leaderPrefab);
-        leader.ChangeOwner(owner);
-        cell.AddUnit(leader, 0);
+        if (PlayerObject.Instance.CurrentResources >= new Resources(10, 0, 0, 0, 0, 0))
+        {
+            PlayerObject.Instance.CurrentResources -= new Resources(10, 0, 0, 0, 0, 0);
+            Leader leader = Instantiate(leaderPrefab);
+            leader.ChangeOwner(owner);
+            cell.AddUnit(leader, 0);
+        }
     }
 
     public override void OnSelect()

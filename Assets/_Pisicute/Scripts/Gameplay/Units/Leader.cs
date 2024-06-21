@@ -64,9 +64,9 @@ public class Leader : UnitObject
         }
     }
 
-    public override void Travel(List<HexCell> path)
+    public override void Travel(List<HexCell> path, bool network = false)
     {
-        base.Travel(path);
+        base.Travel(path, network);
         if (owner == PlayerObject.Instance.playerNumber)
         {
             AudioManager.PlaySound(AudioLibrarySounds.Move);
