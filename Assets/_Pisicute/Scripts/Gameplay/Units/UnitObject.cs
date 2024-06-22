@@ -30,7 +30,10 @@ public class UnitObject : MonoBehaviour, ISaveableObject
         {
             if (location)
             {
-                grid.DecreaseVisibility(location, visionRange);
+                if (PlayerObject.Instance && owner == PlayerObject.Instance.playerNumber)
+                {
+                    grid.DecreaseVisibility(location, visionRange);
+                }
                 location.units.Remove(this);
             }
             location = value;

@@ -64,6 +64,10 @@ public class BattleMap : MonoBehaviour
 
     public void OnWorldTurnEnd()
     {
+        foreach (Cat cat in catTurnQueue)
+        {
+            nextCatTurnQueue.Add(cat);
+        }
         catTurnQueue = nextCatTurnQueue;
         nextCatTurnQueue = new List<Cat>();
         CurrentCatTurn.SetTurnActive(true);
