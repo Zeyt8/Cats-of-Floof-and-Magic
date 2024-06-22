@@ -141,11 +141,11 @@ public class UnitObject : MonoBehaviour, ISaveableObject
         return moveCost;
     }
 
-    public virtual void Travel(List<HexCell> path, bool network = false)
+    public virtual void Travel(List<HexCell> path)
     {
         IsMoving = true;
         pathToTravel = path;
-        StartCoroutine(TravelPath(network));
+        StartCoroutine(TravelPath());
     }
 
     public void ChangeOwner(int player)
@@ -177,14 +177,14 @@ public class UnitObject : MonoBehaviour, ISaveableObject
     {
     }
 
-    private IEnumerator TravelPath(bool network)
+    private IEnumerator TravelPath()
     {
         Vector3 a, b, c = pathToTravel[0].Position;
 
         float t = Time.deltaTime * TravelSpeed;
         int i = 0;
         int nextMovementCost = GetMoveCost(pathToTravel[0], pathToTravel[1], pathToTravel[0].GetNeighborDirection(pathToTravel[1]).Value);
-        while (movementPoints - nextMovementCost >= 0 || network)
+        while (movementPoints - nextMovementCost >= 0)
         {
             // move smoothly
             a = c;

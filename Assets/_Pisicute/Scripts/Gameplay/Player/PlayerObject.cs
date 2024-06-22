@@ -320,7 +320,7 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
         {
             cells.Add(LevelManager.Instance.CurrentMap.GetCell(cell));
         }
-        LevelManager.Instance.CurrentMap.GetCell(unitLocation).Unit.Travel(cells, true);
+        LevelManager.Instance.CurrentMap.GetCell(unitLocation).Unit.Travel(cells);
     }
 
     [ServerRpc(RequireOwnership = false)]
