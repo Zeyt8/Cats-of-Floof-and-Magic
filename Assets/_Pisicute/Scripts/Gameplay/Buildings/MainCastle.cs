@@ -20,7 +20,7 @@ public class MainCastle : Building
 
     public void CreateLeader(HexCell cell)
     {
-        if (PlayerObject.Instance.CurrentResources >= new Resources(10, 0, 0, 0, 0, 0))
+        if (PlayerObject.Instance.CurrentResources >= new Resources(10, 0, 0, 0, 0, 0) && !cell.Unit)
         {
             PlayerObject.Instance.CurrentResources -= new Resources(10, 0, 0, 0, 0, 0);
             Leader leader = Instantiate(leaderPrefab);

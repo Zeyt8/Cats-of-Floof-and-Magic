@@ -211,10 +211,7 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
             )
             {
                 BuildBuildingServerRpc(cell.coordinates, buildingToBuild, playerNumber);
-                if (cell.Building.type != BuildingTypes.None)
-                {
-                    CurrentResources -= buildingCollection[buildingToBuild].resourceCost;
-                }
+                CurrentResources -= buildingCollection[buildingToBuild].resourceCost;
             }
             buildingToBuild = BuildingTypes.None;
         }
@@ -278,7 +275,7 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
             HexCell cell = GetClickedCell();
             if (lockedPath == cell)
             {
-                if (LevelManager.Instance.CurrentMap.HasPath)
+                if (LevelManager.Instance.CurrentMap.HasPath && !selectedUnit.IsMoving)
                 {
                     DoMoveServerRpc(LevelManager.Instance.CurrentMap.GetPath().Select(c => c.coordinates).ToArray(), selectedUnit.Location.coordinates);
                     LevelManager.Instance.CurrentMap.ClearPath();
