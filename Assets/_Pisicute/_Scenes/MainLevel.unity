@@ -8501,6 +8501,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   playerNumber: 1
+  leaderPrefab: {fileID: 1080861093048124148, guid: 9e25c1c4f9117fc4da87c8e9b07d3273,
+    type: 3}
   leaders: []
   inputHandler: {fileID: 11400000, guid: 6e5279e34a1ec934f9b814a09399b761, type: 2}
   buildingCollection: {fileID: 11400000, guid: 9774d672a6066994d80e49a5006ab58b, type: 2}

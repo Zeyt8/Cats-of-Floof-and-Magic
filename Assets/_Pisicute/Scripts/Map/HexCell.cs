@@ -214,7 +214,7 @@ public class HexCell : MonoBehaviour, ISaveableObject
         get => urbanLevel;
         set
         {
-            if (urbanLevel == value) return;
+            if (urbanLevel == value || value > 3) return;
             urbanLevel = value;
             RefreshSelfOnly();
         }
@@ -224,7 +224,7 @@ public class HexCell : MonoBehaviour, ISaveableObject
         get => farmLevel;
         set
         {
-            if (farmLevel == value) return;
+            if (farmLevel == value || value > 3) return;
             farmLevel = value;
             RefreshSelfOnly();
         }
@@ -234,7 +234,7 @@ public class HexCell : MonoBehaviour, ISaveableObject
         get => plantLevel;
         set
         {
-            if (plantLevel == value) return;
+            if (plantLevel == value || value > 3) return;
             plantLevel = value;
             RefreshSelfOnly();
         }

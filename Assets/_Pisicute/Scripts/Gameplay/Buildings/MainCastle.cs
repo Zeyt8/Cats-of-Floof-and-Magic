@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class MainCastle : Building
 {
-    [SerializeField] Leader leaderPrefab;
-
     private IEnumerator Start()
     {
         yield return new WaitForEndOfFrame();
@@ -23,9 +21,7 @@ public class MainCastle : Building
         if (PlayerObject.Instance.CurrentResources >= new Resources(10, 0, 0, 0, 0, 0) && !cell.Unit)
         {
             PlayerObject.Instance.CurrentResources -= new Resources(10, 0, 0, 0, 0, 0);
-            Leader leader = Instantiate(leaderPrefab);
-            leader.ChangeOwner(owner);
-            cell.AddUnit(leader, 0);
+            PlayerObject.Instance.SpawnLeaderServerRpc(cell.coordinates, owner);
         }
     }
 

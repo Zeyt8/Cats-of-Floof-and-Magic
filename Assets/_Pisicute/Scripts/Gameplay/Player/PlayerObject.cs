@@ -12,6 +12,7 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
 {
     public int team;
     public int playerNumber;
+    [SerializeField] Leader leaderPrefab;
     public List<Leader> leaders = new List<Leader>();
     [SerializeField] private PlayerInputHandler inputHandler;
     [SerializeField] private BuildingCollection buildingCollection;
@@ -450,5 +451,19 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
         {
             unit.Location = LevelManager.Instance.mapHexGrid.GetCell(target);
         }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void SpawnLeaderServerRpc(HexCoordinates cell, int owner)
+    {
+        SpawnLeaderClientRpc(cell, owner);
+    }
+
+    [ClientRpc]
+    private void SpawnLeaderClientRpc(HexCoordinates cell, int owner)
+    {
+        Leader leader = Instantiate(leaderPrefab);
+        leader.ChangeOwner(owner);
+        LevelManager.Instance.mapHexGrid.GetCell(cell).AddUnit(leader, 0);
     }
 }
