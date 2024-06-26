@@ -197,6 +197,6 @@ public class Resources
 
     public override string ToString()
     {
-        return "(" + food + wood + " " + stone + " " + steel + " " + sulfur + gems + ")";
+        return $"{food}f {wood}w {stone}st {steel}sl {sulfur}sf {gems}g";
     }
 }

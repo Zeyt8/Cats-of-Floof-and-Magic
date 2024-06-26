@@ -20,7 +20,7 @@ public class BuildingsPanel : MonoBehaviour
             BuildingIcon buildingIcon = Instantiate(buildingIconPrefab, buildingIconsParent);
             buildingIcon.image.sprite = building.Value.icon;
             buildingIcon.GetComponent<Button>().onClick.AddListener(() => SelectBuilding(buildingIcon, building.Key));
-            buildingIcon.SetText(building.Value.title, building.Value.description);
+            buildingIcon.SetText(building.Value.title, building.Value.description, building.Value.resourceCost);
         }
     }
 

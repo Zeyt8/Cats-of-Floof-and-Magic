@@ -7,9 +7,9 @@ public class BuildingIcon : MonoBehaviour
     public Image image;
     [SerializeField] private TextMeshProUGUI text;
 
-    public void SetText(string title, string description)
+    public void SetText(string title, string description, Resources cost)
     {
-        text.text = $"<b>{title}</b>\n{description}";
+        text.text = $"<b>{title}</b>\n<i>{cost}</i>\n{description}";
     }
 
     public void Select()
