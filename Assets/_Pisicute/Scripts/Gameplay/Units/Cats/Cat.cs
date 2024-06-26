@@ -14,6 +14,7 @@ public class Cat : UnitObject
     [HideInInspector] public BattleMap battleMap;
 
     public bool isActive { get; private set; }
+    private int aiState;
 
     protected override void Start()
     {
@@ -27,38 +28,63 @@ public class Cat : UnitObject
     {
         if (isActive && owner == 0)
         {
-            List<Cat> enemyArmy = battleMap.GetOpponentArmy(owner);
-            HexCell closestEnemy = null;
-            int minDistance = int.MaxValue;
-            foreach (Cat enemy in enemyArmy)
+            if (aiState == 0)
             {
-                int distance = Location.coordinates.DistanceTo(enemy.Location.coordinates);
-                if (closestEnemy == null || distance < minDistance)
+                List<Cat> enemyArmy = battleMap.GetOpponentArmy(owner);
+                HexCell closestEnemy = null;
+                int minDistance = int.MaxValue;
+                foreach (Cat enemy in enemyArmy)
                 {
-                    closestEnemy = enemy.Location;
-                    minDistance = distance;
+                    int distance = Location.coordinates.DistanceTo(enemy.Location.coordinates);
+                    if (closestEnemy == null || distance < minDistance)
+                    {
+                        closestEnemy = enemy.Location;
+                        minDistance = distance;
+                    }
+                }
+                minDistance = int.MaxValue;
+                HexCell targetCell = closestEnemy;
+                for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++)
+                {
+                    HexCell neighbour = closestEnemy.GetNeighbor(d);
+                    if (neighbour == null) continue;
+                    int distance = neighbour.coordinates.DistanceTo(Location.coordinates);
+                    if (IsValidDestination(neighbour) && distance < minDistance)
+                    {
+                        targetCell = neighbour;
+                        minDistance = distance;
+                    }
+                }
+                battleMap.hexGrid.FindPath(Location, targetCell, this, false);
+                List<HexCell> path = battleMap.hexGrid.GetPath();
+                if (path != null)
+                {
+                    Travel(path);
+                }
+                aiState = 1;
+            }
+            else if (aiState == 1)
+            {
+                if (!IsMoving)
+                {
+                    for (int i = abilities.Count - 1; i >= 0; i--)
+                    {
+                        if (abilityCooldownRemaining[i] <= 0)
+                        {
+                            var available = abilities[i].GetAvailableTargets(this);
+                            foreach (HexCell cell in battleMap.hexGrid.cells)
+                            {
+                                if (available(cell))
+                                {
+                                    abilities[i].CastAbility(this)(cell);
+                                    abilities[i].AfterCasting(this)(cell);
+                                }
+                            }
+                        }
+                    }
+                    aiState = 0;
                 }
             }
-            minDistance = int.MaxValue;
-            HexCell targetCell = closestEnemy;
-            for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++)
-            {
-                HexCell neighbour = closestEnemy.GetNeighbor(d);
-                if (neighbour == null) continue;
-                int distance = neighbour.coordinates.DistanceTo(Location.coordinates);
-                if (IsValidDestination(neighbour) && distance < minDistance)
-                {
-                    targetCell = neighbour;
-                    minDistance = distance;
-                }
-            }
-            battleMap.hexGrid.FindPath(Location, targetCell, this, false);
-            List<HexCell> path = battleMap.hexGrid.GetPath();
-            if (path != null)
-            {
-                Travel(path);
-            }
-            abilities[0].CastAbility(this);
         }
     }
 

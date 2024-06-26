@@ -34,7 +34,7 @@ public abstract class CatAbility : MonoBehaviour
                 break;
             }
         }
-        return null;
+        return (cell) => { };
     }
 
     protected void EndTurn(Cat caster)

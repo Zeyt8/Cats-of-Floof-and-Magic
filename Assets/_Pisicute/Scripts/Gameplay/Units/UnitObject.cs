@@ -264,7 +264,6 @@ public class UnitObject : MonoBehaviour, ISaveableObject
     
     public void Load(BinaryReader reader, int header, HexGrid grid = null)
     {
-        owner = reader.ReadInt32();
         HexCoordinates coordinates = HexCoordinates.Load(reader);
         float orientation = reader.ReadSingle();
         grid.AddUnit(this, grid.GetCell(coordinates), orientation);

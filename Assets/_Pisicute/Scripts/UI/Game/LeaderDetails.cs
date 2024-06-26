@@ -28,7 +28,7 @@ public class LeaderDetails : MonoBehaviour
             unitDetails.SetActive(true);
             battleDetails.SetActive(false);
             unitIcon.sprite = unit.icon;
-            description.text = $"{NetworkHandler.PlayerName}";
+            description.text = (unit.owner == 0 ? "Neutral Leader" : NetworkHandler.PlayerName);
             floofSlider.maxValue = unit.maxFloof;
             floofSlider.value = unit.currentFloof;
             movementPointsSlider.maxValue = unit.Speed;

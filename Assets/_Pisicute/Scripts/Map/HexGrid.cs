@@ -7,6 +7,7 @@ using UnityEngine;
 public class HexGrid : MonoBehaviour, ISaveableObject
 {
     [SerializeField] private Leader leaderPrefab;
+    [SerializeField] private AILeader aiLeaderPrefab;
     public BuildingCollection allBuildings;
     public bool HasPath => currentPathExists;
 
@@ -241,7 +242,17 @@ public class HexGrid : MonoBehaviour, ISaveableObject
         int unitCount = reader.ReadInt32();
         for (int i = 0; i < unitCount; i++)
         {
-            UnitObject unitObject = Instantiate(leaderPrefab);
+            int owner = reader.ReadInt32();
+            UnitObject unitObject;
+            if (owner == 0)
+            {
+                unitObject = Instantiate(aiLeaderPrefab);
+            }
+            else
+            {
+                unitObject = Instantiate(leaderPrefab);
+            }
+            unitObject.owner = owner;
             unitObject.Load(reader, header, grid);
         }
         int buildingCount = reader.ReadInt32();

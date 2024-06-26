@@ -12648,6 +12648,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leaderPrefab: {fileID: 1080861093048124148, guid: 9e25c1c4f9117fc4da87c8e9b07d3273,
     type: 3}
+  aiLeaderPrefab: {fileID: 5573195943160122118, guid: 97064aa5680a4ae47a8e02ea6888dad6,
+    type: 3}
   allBuildings: {fileID: 11400000, guid: 2f536239c3385a943a4c8de0d35ef92e, type: 2}
   cellCountX: 4
   cellCountZ: 3
