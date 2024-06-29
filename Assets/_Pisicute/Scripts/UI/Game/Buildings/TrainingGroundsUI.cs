@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TrainingGroundsUI : BuildingUI
@@ -50,8 +48,8 @@ public class TrainingGroundsUI : BuildingUI
             rarity = 1;
         }
         // remove cats
-        ((Leader)currentBuilding.Location.Unit).army.Remove(cat1.data);
-        ((Leader)currentBuilding.Location.Unit).army.Remove(cat2.data);
+        PlayerObject.Instance.RemoveCatDataToLeaderServerRpc(cat1.data, currentBuilding.Location.coordinates, currentBuilding.owner);
+        PlayerObject.Instance.RemoveCatDataToLeaderServerRpc(cat2.data, currentBuilding.Location.coordinates, currentBuilding.owner);
         // add new cat
         CatData catToAdd = new CatData();
         switch (rarity)

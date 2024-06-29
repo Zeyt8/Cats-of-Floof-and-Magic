@@ -348,6 +348,26 @@ public class PlayerObject : NetworkSingleton<PlayerObject>
     }
 
     [ServerRpc(RequireOwnership = false)]
+    public void RemoveCatDataToLeaderServerRpc(CatData catData, HexCoordinates coords, int owner)
+    {
+        RemoveCatDataToLeaderClientRpc(catData, coords, owner);
+    }
+
+    [ClientRpc]
+    private void RemoveCatDataToLeaderClientRpc(CatData catData, HexCoordinates coords, int owner)
+    {
+        foreach (UnitObject unit in LevelManager.Instance.mapHexGrid.GetCell(coords).units)
+        {
+            if (unit.owner == owner)
+            {
+                Leader leader = unit as Leader;
+                leader.army.Remove(catData);
+                break;
+            }
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
     public void AddStatusEffectToUnitServerRpc(StatusEffect statusEffect, int map, HexCoordinates coords, int owner)
     {
         AddStatusEffectToUnitClientRpc(statusEffect, map, coords, owner);
